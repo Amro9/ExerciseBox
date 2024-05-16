@@ -7,10 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\School\Commands\" />
-    <Folder Include="UseCases\School\CommandHandlers\" />
-    <Folder Include="UseCases\School\QueryHandlers\" />
-    <Folder Include="UseCases\School\Queries\" />
+    <Folder Include="UseCases\Schools\QueryHandlers\" />
+    <Folder Include="UseCases\Schools\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

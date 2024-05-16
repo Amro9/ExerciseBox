@@ -2,9 +2,9 @@
 
 public interface IRepository<T, A>
 {
-    List<T> Read();
-    T ReadById(A id);
-    T Create(T entity);
-    T Update(T entity);
-    T Delete(T entity);
+    Task<List<T>> Read();
+    Task<T> ReadById(A id);
+    Task<T> Create(T entity);
+    Task<T> Update(T entity);
+    Task<T> Delete(T entity);
 }
