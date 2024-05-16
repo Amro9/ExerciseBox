@@ -1,0 +1,55 @@
+*.idea
+# Visual Studio / Rider
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+_ReSharper*/
+*.csproj.user
+*.resharper
+*.resharper.user
+*.suo
+*.cache
+*.swp
+*.suo
+*.user
+*.cache
+*.pdb
+*.log
+*.vspscc
+*.vssscc
+[Tt]humbs.db
+*.dbmdl
+*.dbproj.schemaview
+Generated_Code #added for RIA/Silverlight projects
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio 2019
+.vs2019/
+_UpgradeReport_Files/
+Backup*/
+_UpgradeReport_Files/
+[Bb]uild[Ll]og.*
+*.sqlite3
+*.sqlite3-journal
+
+# Rider
+.idea/
+*.sln.iml
+*.ide
+*.sln.iml
