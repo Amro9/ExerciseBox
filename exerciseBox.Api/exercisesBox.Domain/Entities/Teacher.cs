@@ -1,8 +1,10 @@
 ﻿namespace exerciseBox.Domain.Entities;
 
-public class School
+public class Teacher
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public SchoolType Type { get; set; }
+    public string Email { get; set; }
+    public School School { get; set; }
+
 }

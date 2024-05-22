@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace exercisesBox.Application.Infrastruktur;
+namespace exerciseBox.Application.Infrastruktur;
 
 public static class DependencyInjection
 {

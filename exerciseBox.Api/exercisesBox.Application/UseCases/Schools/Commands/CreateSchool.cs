@@ -1,9 +1,9 @@
-﻿using MediatR;
-using exercisesBox.Domain.Entities;
+﻿using exerciseBox.Application.Infrastructur.Models;
+using MediatR;
 
-namespace exercisesBox.Application.UseCases.Schools.Commands;
+namespace exerciseBox.Application.UseCases.Schools.Commands;
 
-public class CreateSchool : IRequest<School>
+public class CreateSchool : IRequest<SchoolDto>
 {
-    public School School { get; set; }
+    public SchoolDto School { get; set; }
 }

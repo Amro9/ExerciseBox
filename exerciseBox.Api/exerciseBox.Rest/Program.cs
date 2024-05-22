@@ -1,4 +1,4 @@
-using exercisesBox.Application.Infrastruktur;
+using exerciseBox.Application.Infrastruktur;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Schools\QueryHandlers\" />
-    <Folder Include="UseCases\Schools\Queries\" />
+    <Folder Include="UseCases\Teacher\QueryHandlers\" />
+    <Folder Include="UseCases\Teacher\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\exercisesBox.Domain\exercisesBox.Domain.csproj" />
+    <ProjectReference Include="..\exercisesBox.Domain\exerciseBox.Domain.csproj" />
   </ItemGroup>
 
 </Project>

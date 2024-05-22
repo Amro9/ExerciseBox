@@ -1,11 +1,11 @@
-﻿using exercisesBox.Application.Infrastruktur.Repositories;
-using exercisesBox.Application.UseCases.Schools.Commands;
-using exercisesBox.Domain.Entities;
+﻿using exerciseBox.Application.Infrastructur.Models;
+using exerciseBox.Application.Infrastruktur.Repositories;
+using exerciseBox.Application.UseCases.Schools.Commands;
 using MediatR;
 
-namespace exercisesBox.Application.UseCases.Schools.CommandHandlers;
+namespace exerciseBox.Application.UseCases.Schools.CommandHandlers;
 
-public class CreateSchoolHandler : IRequestHandler<CreateSchool, School>
+public class CreateSchoolHandler : IRequestHandler<CreateSchool, SchoolDto>
 {
     private readonly ISchoolRepository _schoolRepository;
 
@@ -14,7 +14,7 @@ public class CreateSchoolHandler : IRequestHandler<CreateSchool, School>
         _schoolRepository = schoolTypesRepository;
     }
 
-    public async Task<School> Handle(CreateSchool request, CancellationToken cancellationToken)
+    public async Task<SchoolDto> Handle(CreateSchool request, CancellationToken cancellationToken)
     {
         var school = await _schoolRepository.Create(request.School);
         return school;

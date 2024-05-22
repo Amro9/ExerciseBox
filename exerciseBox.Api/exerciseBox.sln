@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exerciseBox.Rest", "exerciseBox.Rest\exerciseBox.Rest.csproj", "{C5D19766-9EAD-4F07-9CA4-759EA1C827CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exercisesBox.Application", "exercisesBox.Application\exercisesBox.Application.csproj", "{12130508-866D-4317-A261-61B8E00C0458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exerciseBox.Application", "exercisesBox.Application\exerciseBox.Application.csproj", "{12130508-866D-4317-A261-61B8E00C0458}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{DAB3AB16-E6AF-4EA2-BBDC-FAB6D453F343}"
 EndProject
@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{BBB221ED-9054-46EF-AD5A-68BA95935E9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exercisesBox.Domain", "exercisesBox.Domain\exercisesBox.Domain.csproj", "{A7C7FB37-B27C-4213-A780-F24C2A0398BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exerciseBox.Domain", "exercisesBox.Domain\exerciseBox.Domain.csproj", "{A7C7FB37-B27C-4213-A780-F24C2A0398BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exerciseBox.Infrastructur", "exerciseBox.Infrastructur\exerciseBox.Infrastructur.csproj", "{F3C79E1A-2B7E-46AD-B448-70254056075D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A7C7FB37-B27C-4213-A780-F24C2A0398BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7C7FB37-B27C-4213-A780-F24C2A0398BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7C7FB37-B27C-4213-A780-F24C2A0398BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3C79E1A-2B7E-46AD-B448-70254056075D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3C79E1A-2B7E-46AD-B448-70254056075D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3C79E1A-2B7E-46AD-B448-70254056075D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3C79E1A-2B7E-46AD-B448-70254056075D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{C5D19766-9EAD-4F07-9CA4-759EA1C827CF} = {DAB3AB16-E6AF-4EA2-BBDC-FAB6D453F343}
 		{12130508-866D-4317-A261-61B8E00C0458} = {7D3D423F-97AD-4A8C-8CBC-613335FB7DE4}
 		{A7C7FB37-B27C-4213-A780-F24C2A0398BA} = {7D3D423F-97AD-4A8C-8CBC-613335FB7DE4}
+		{F3C79E1A-2B7E-46AD-B448-70254056075D} = {BBB221ED-9054-46EF-AD5A-68BA95935E9D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {331F186D-1704-4DD9-BF91-FA8D7227C138}

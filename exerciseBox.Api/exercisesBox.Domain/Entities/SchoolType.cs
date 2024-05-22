@@ -1,4 +1,4 @@
-﻿namespace exercisesBox.Domain.Entities;
+﻿namespace exerciseBox.Domain.Entities;
 
 public sealed class SchoolType
 {
