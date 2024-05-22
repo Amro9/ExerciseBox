@@ -7,15 +7,17 @@ namespace exerciseBox.Infrastructur.Models;
 
 public partial class Schools
 {
-    public string Id { get; set; }
+    public string id { get; set; }
 
-    public string Name { get; set; }
+    public string name { get; set; }
 
-    public string SchoolType { get; set; }
+    public string schoolType { get; set; }
 
-    public virtual ICollection<SchoolsBranchesJunction> SchoolsBranchesJunctions { get; set; } = new List<SchoolsBranchesJunction>();
+    public virtual ICollection<SchoolsBranchesJunctions> SchoolsBranchesJunctions { get; set; } = new List<SchoolsBranchesJunctions>();
 
-    public virtual ICollection<SchoolsSubjectsJunction> SchoolsSubjectsJunctions { get; set; } = new List<SchoolsSubjectsJunction>();
+    public virtual ICollection<SchoolsLevelsJunctions> SchoolsLevelsJunctions { get; set; } = new List<SchoolsLevelsJunctions>();
 
-    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+    public virtual ICollection<SchoolsSubjectsJunctions> SchoolsSubjectsJunctions { get; set; } = new List<SchoolsSubjectsJunctions>();
+
+    public virtual ICollection<Teachers> Teachers { get; set; } = new List<Teachers>();
 }

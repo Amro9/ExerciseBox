@@ -15,7 +15,6 @@ public class Teacher
             Id = teacher.Id,
             Name = teacher.Name,
             Email = teacher.Email,
-            PhoneNumber = teacher.PhoneNumber,
             School = teacher.School
         };
     }
@@ -27,7 +26,6 @@ public class Teacher
             Id = teacher.Id,
             Name = teacher.Name,
             Email = teacher.Email,
-            PhoneNumber = teacher.PhoneNumber,
             School = teacher.School
         };
     }

@@ -5,11 +5,9 @@ using System.Collections.Generic;
 
 namespace exerciseBox.Infrastructur.Models;
 
-public partial class QuestionDifficultyLevel
+public partial class SchoolTypes
 {
-    public string Id { get; set; }
+    public string id { get; set; }
 
-    public string Description { get; set; }
-
-    public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
+    public string name { get; set; }
 }

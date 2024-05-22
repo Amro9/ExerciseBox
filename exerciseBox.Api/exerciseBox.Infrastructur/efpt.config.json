@@ -15,11 +15,11 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[BranchSubjectJunction]",
+         "Name": "[dbo].[BranchesSubjectsJunction]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[QuestionDifficultyLevel]",
+         "Name": "[dbo].[QuestionDifficultyLevels]",
          "ObjectType": 0
       },
       {
@@ -27,7 +27,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[SchoolBranch]",
+         "Name": "[dbo].[SchoolBranches]",
          "ObjectType": 0
       },
       {
@@ -55,11 +55,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Subject]",
+         "Name": "[dbo].[Subjects]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Teacher]",
+         "Name": "[dbo].[Teachers]",
          "ObjectType": 0
       },
       {
@@ -79,7 +79,7 @@
    "UncountableWords": null,
    "UseAsyncStoredProcedureCalls": true,
    "UseBoolPropertiesWithoutDefaultSql": false,
-   "UseDatabaseNames": false,
+   "UseDatabaseNames": true,
    "UseDateOnlyTimeOnly": false,
    "UseDbContextSplitting": false,
    "UseDecimalDataAnnotationForSprocResult": true,

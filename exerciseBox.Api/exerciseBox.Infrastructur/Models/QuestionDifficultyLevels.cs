@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace exerciseBox.Infrastructur.Models;
 
-public partial class SchoolsLevelsJunction
+public partial class QuestionDifficultyLevels
 {
-    public string Id { get; set; }
+    public string id { get; set; }
 
-    public string School { get; set; }
+    public string description { get; set; }
 
-    public string SchoolLevel { get; set; }
+    public virtual ICollection<Questions> Questions { get; set; } = new List<Questions>();
 }
