@@ -1,6 +1,6 @@
 ﻿namespace exerciseBox.Application.Infrastructur.Models;
 
-public class Teacher
+public class TeacherDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
@@ -8,9 +8,9 @@ public class Teacher
     public string PhoneNumber { get; set; }
     public SchoolDto School { get; set; }
 
-    public static implicit operator Teacher(Domain.Entities.Teacher teacher)
+    public static implicit operator TeacherDto(Domain.Entities.Teacher teacher)
     {
-        return new Teacher
+        return new TeacherDto
         {
             Id = teacher.Id,
             Name = teacher.Name,
@@ -19,7 +19,7 @@ public class Teacher
         };
     }
 
-    public static implicit operator Domain.Entities.Teacher(Teacher teacher)
+    public static implicit operator Domain.Entities.Teacher(TeacherDto teacher)
     {
         return new Domain.Entities.Teacher
         {
