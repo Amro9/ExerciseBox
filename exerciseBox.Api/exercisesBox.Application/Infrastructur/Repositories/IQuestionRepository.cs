@@ -1,10 +1,8 @@
-﻿
-
-using exerciseBox.Application.Infrastruktur.Repositories;
+﻿using exerciseBox.Application.Infrastruktur.Repositories;
 
 namespace exerciseBox.Application.Infrastructur.Repositories
 {
-    internal class IQuestionRepository: IRepository<IQuestionRepository, Guid>
+    public class IQuestionRepository: IRepository<IQuestionRepository, Guid>
     {
     }
 }
