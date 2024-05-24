@@ -27,6 +27,7 @@
     "devextreme-angular": "23.2.4",
     "google-libphonenumber": "^3.2.34",
     "intl-tel-input": "^17.0.21",
+    "jquery": "^3.7.1",
     "ngx-hide-on-scroll": "^0.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

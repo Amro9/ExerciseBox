@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { routingComponents } from "./app.routing.module";
 import { BrowserModule } from "@angular/platform-browser";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations:[
@@ -9,7 +10,8 @@ import { BrowserModule } from "@angular/platform-browser";
         routingComponents
     ],
     imports: [
-        BrowserModule
+        BrowserModule,
+        NgbModule
     ],
     providers: [
 
