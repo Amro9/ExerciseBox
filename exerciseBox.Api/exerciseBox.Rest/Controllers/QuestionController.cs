@@ -1,6 +1,9 @@
-﻿namespace exerciseBox.Rest.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace exerciseBox.Rest.Controllers
 {
-    public class QuestionController
+    public class QuestionController: Controller
     {
+
     }
 }

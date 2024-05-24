@@ -22,7 +22,7 @@
     "@angular/router": "^17.0.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.2",
+    "bootstrap": "^5.3.3",
     "devextreme": "23.2.4",
     "devextreme-angular": "23.2.4",
     "google-libphonenumber": "^3.2.34",

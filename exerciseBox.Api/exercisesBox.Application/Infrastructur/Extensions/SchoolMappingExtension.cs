@@ -4,7 +4,7 @@ namespace exerciseBox.Application.Infrastructur.Extensions;
 
 public static class SchoolMappingExtension
 {
-    public static IEnumerable<SchoolDto> MapToSchools(this IEnumerable<Domain.Entities.School> schools)
+    public static IEnumerable<SchoolDto> MapToSchoolDto(this IEnumerable<Domain.Entities.School> schools)
     {
         return schools.Select(school => new SchoolDto
         {

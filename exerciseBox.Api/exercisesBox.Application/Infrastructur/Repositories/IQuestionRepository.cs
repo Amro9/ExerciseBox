@@ -2,7 +2,7 @@
 
 namespace exerciseBox.Application.Infrastructur.Repositories
 {
-    public class IQuestionRepository: IRepository<IQuestionRepository, Guid>
+    public interface IQuestionRepository: IRepository<IQuestionRepository, Guid>
     {
     }
 }
