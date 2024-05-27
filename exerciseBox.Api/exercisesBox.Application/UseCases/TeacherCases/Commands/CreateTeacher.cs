@@ -3,7 +3,7 @@ using MediatR;
 
 namespace exerciseBox.Application.UseCases.TeacherCases.Commands;
 
-public class CreateTeacher : IRequest<Teacher>
+public class CreateTeacher : IRequest<Teachers>
 {
-    public Teacher Teacher { get; set; }
+    public Teachers Teacher { get; set; }
 }

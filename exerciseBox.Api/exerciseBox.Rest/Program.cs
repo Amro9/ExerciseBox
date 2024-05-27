@@ -1,4 +1,5 @@
-using exerciseBox.Application.Infrastruktur;
+using exerciseBox.Infrastructur;
+using exerciseBox.Application.Abtraction;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplictaionConfiguration();
+builder.Services.AddInfrastructureConfiguration();
 
 var app = builder.Build();
 

@@ -1,4 +1,6 @@
-﻿using exerciseBox.Application.UseCases.Schools.Commands;
+﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.UseCases.Schools.Commands;
+using exerciseBox.Application.UseCases.Schools.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +28,12 @@ namespace exerciseBox.Rest.Controllers
             });
 
 
+        }
+
+        [HttpGet("Schools")]
+        public async Task<IEnumerable<SchoolDto>> GetAllSchools()
+        {
+            return await _mediator.Send(new GetAllSchools());
         }
     }
 }
