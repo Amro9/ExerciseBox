@@ -1,11 +1,11 @@
-﻿using exerciseBox.Application.Infrastructur.Repositories;
+﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Application.UseCases.TeacherCases.Commands;
 using exerciseBox.Domain.Entities;
 using MediatR;
 
 namespace exerciseBox.Application.UseCases.TeacherCases.CommandHandlers
 {
-    public class CreateTeacherHandler : IRequestHandler<CreateTeacher, Teacher>
+    public class CreateTeacherHandler : IRequestHandler<CreateTeacher, Teachers>
     {
         private readonly ITeacherRepository _teacherRepository;
 
@@ -14,7 +14,7 @@ namespace exerciseBox.Application.UseCases.TeacherCases.CommandHandlers
             _teacherRepository = teacherRepository;
         }
 
-        public async Task<Teacher> Handle(CreateTeacher request, CancellationToken cancellationToken)
+        public async Task<Teachers> Handle(CreateTeacher request, CancellationToken cancellationToken)
         {
             var teacher = await _teacherRepository.Create(request.Teacher);
             return teacher;

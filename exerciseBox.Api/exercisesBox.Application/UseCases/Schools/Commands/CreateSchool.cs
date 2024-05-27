@@ -1,4 +1,4 @@
-﻿using exerciseBox.Application.Infrastructur.Models;
+﻿using exerciseBox.Application.Abtraction.Models;
 using MediatR;
 
 namespace exerciseBox.Application.UseCases.Schools.Commands;

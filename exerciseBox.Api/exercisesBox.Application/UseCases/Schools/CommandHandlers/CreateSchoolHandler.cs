@@ -1,5 +1,5 @@
-﻿using exerciseBox.Application.Infrastructur.Models;
-using exerciseBox.Application.Infrastruktur.Repositories;
+﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Application.UseCases.Schools.Commands;
 using MediatR;
 

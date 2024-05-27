@@ -1,6 +1,6 @@
-﻿using exerciseBox.Application.Infrastructur.Extensions;
-using exerciseBox.Application.Infrastructur.Models;
-using exerciseBox.Application.Infrastruktur.Repositories;
+﻿using exerciseBox.Application.Abtraction.Extensions;
+using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Application.UseCases.Schools.Queries;
 using MediatR;
 

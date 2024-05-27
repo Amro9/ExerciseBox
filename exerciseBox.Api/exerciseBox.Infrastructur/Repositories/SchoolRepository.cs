@@ -1,40 +1,42 @@
-﻿using exerciseBox.Application.Infrastructur.Models;
-using exerciseBox.Application.Infrastruktur.Repositories;
+﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
-using exerciseBox.Infrastructur.Models;
 
 namespace exerciseBox.Infrastructur.Repositories;
 
 public class SchoolRepository : ISchoolRepository
 {
-    private readonly exercisesBoxContext _context;
-   
-    public SchoolRepository(exercisesBoxContext context)
+    private readonly ExerciseBoxContext _context;
+
+    public SchoolRepository(ExerciseBoxContext context)
     {
         _context = context;
     }
 
-    public Task<School> Create(School entity)
+    public async Task<Schools> Create(Schools entity)
+    {
+        await _context.Schools.AddAsync(entity);
+        await _context.SaveChangesAsync();
+        return entity;
+    }
+
+    public async Task<Schools> Delete(Schools entity)
+    {
+        _context.Schools.Remove(entity);
+        await _context.SaveChangesAsync();
+        return entity;
+    }
+
+    public async Task<IEnumerable<Schools>> Read()
     {
         throw new NotImplementedException();
     }
 
-    public Task<School> Delete(School entity)
+    public async Task<Schools> ReadById(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<School>> Read()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<School> ReadById(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<School> Update(School entity)
+    public async Task<Schools> Update(Schools entity)
     {
         throw new NotImplementedException();
     }
