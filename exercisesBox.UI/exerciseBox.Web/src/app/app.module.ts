@@ -3,7 +3,8 @@ import { AppComponent } from "./app.component";
 import { routingComponents } from "./app.routing.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { QuestionCreationFormComponent } from "./question-form/question-form.component";
 @NgModule({
     declarations:[
         AppComponent,
@@ -11,7 +12,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ],
     imports: [
         BrowserModule,
-        NgbModule
+        NgbModule,
+        ReactiveFormsModule
     ],
     providers: [
 
