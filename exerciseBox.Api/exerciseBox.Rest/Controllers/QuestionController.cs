@@ -1,14 +1,39 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.UseCases.Questions.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace exerciseBox.Rest.Controllers
 {
     public class QuestionController: Controller
     {
+        private readonly IMediator _mediator;
+        public QuestionController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
         [HttpPost]
-        public void CreateQuestion()
+        public void AddQuestion()
         {
 
+        }
+
+        public void RemoveQuestion() {
+        }
+
+
+        [HttpGet("Questions")]
+        public async Task<IEnumerable<QuestionDto>> GetAllQuestions()
+        {
+            try
+            {
+
+                return await _mediator.Send(new GetAllQuestions());
+            }catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
