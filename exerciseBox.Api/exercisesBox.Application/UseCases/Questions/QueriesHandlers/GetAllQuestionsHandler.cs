@@ -14,7 +14,7 @@ namespace exerciseBox.Application.UseCases.Questions.QueriesHandlers
         private readonly IQuestionRepository _questionRepository;
         public GetAllQuestionsHandler(IQuestionRepository questionRepository)
         {
-            _questionRepository= questionRepository;
+            _questionRepository = questionRepository;
         }
 
 

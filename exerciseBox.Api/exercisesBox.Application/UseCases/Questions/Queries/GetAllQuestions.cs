@@ -3,7 +3,7 @@ using MediatR;
 
 namespace exerciseBox.Application.UseCases.Questions.Queries;
 
-    public  class GetAllQuestions: IRequest<List<QuestionDto>>
+    public class GetAllQuestions : IRequest<IEnumerable<QuestionDto>>
     {
         
     }

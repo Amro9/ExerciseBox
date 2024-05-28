@@ -1,5 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace exerciseBox.Infrastructur.Repositories;
 
@@ -28,12 +29,12 @@ public class SchoolRepository : ISchoolRepository
 
     public async Task<IEnumerable<Schools>> Read()
     {
-        throw new NotImplementedException();
+        return await _context.Schools.Include(x => x.SchoolTypeNavigation).ToListAsync();
     }
 
     public async Task<Schools> ReadById(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Schools.FirstOrDefaultAsync(x => x.Id == id.ToString());
     }
 
     public async Task<Schools> Update(Schools entity)

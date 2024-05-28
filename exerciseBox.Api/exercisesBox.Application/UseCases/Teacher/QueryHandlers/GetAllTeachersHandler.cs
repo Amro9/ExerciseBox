@@ -1,10 +1,10 @@
 ﻿using exerciseBox.Application.Abtraction.Extensions;
 using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.Abtraction.Repositories;
-using exerciseBox.Application.UseCases.TeacherCases.Queries;
+using exerciseBox.Application.UseCases.Teachers.Queries;
 using MediatR;
 
-namespace exerciseBox.Application.UseCases.TeacherCases.QueryHandlers;
+namespace exerciseBox.Application.UseCases.Teachers.QueryHandlers;
 
 public class GetAllTeachersHandler : IRequestHandler<GetAllTeachers, IEnumerable<TeacherDto>>
 {

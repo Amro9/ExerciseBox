@@ -4,14 +4,18 @@ namespace exerciseBox.Application.Abtraction.Models;
 
 public class SchoolType
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
     public string Description { get; set; }
 
     public static implicit operator SchoolType(SchoolTypes schoolType)
     {
+        if(schoolType == null)
+        {
+            return null;
+        }
         return new SchoolType
         {
-            Id = Guid.Parse(schoolType.Id),
+            Id = schoolType.Id,
             Description = schoolType.Name
         };
     }
@@ -20,7 +24,7 @@ public class SchoolType
     {
         return new SchoolTypes
         {
-            Id = schoolType.Id.ToString(),
+            Id = schoolType.Id,
             Name = schoolType.Description
         };
     }

@@ -33,7 +33,28 @@ namespace exerciseBox.Rest.Controllers
         [HttpGet("Schools")]
         public async Task<IEnumerable<SchoolDto>> GetAllSchools()
         {
-            return await _mediator.Send(new GetAllSchools());
+            try
+            {
+                return await _mediator.Send(new GetAllSchools());
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
+        }
+
+        [HttpGet("School/{id}")]
+        public async Task<SchoolDto> GetSchoolById(Guid id)
+        {
+            try
+            {
+                return await _mediator.Send(new GetSchoolById { Id = id });
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

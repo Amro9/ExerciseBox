@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +17,12 @@
   <ItemGroup>
     <ProjectReference Include="..\exerciseBox.Infrastructur\exerciseBox.Infrastructur.csproj" />
     <ProjectReference Include="..\exercisesBox.Application\exerciseBox.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
