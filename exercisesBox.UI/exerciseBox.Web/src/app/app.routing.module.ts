@@ -7,9 +7,9 @@ import { QuestionCreationFormComponent } from "./question-form/question-form.com
 
 const routes: Routes = [
   { path: "adminView", component: AdminViewComponent },
-  {path: 'questionForm', component: QuestionCreationFormComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'questionForm', component: QuestionCreationFormComponent},
   { path: "home", component: AppComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   ];
 
   
