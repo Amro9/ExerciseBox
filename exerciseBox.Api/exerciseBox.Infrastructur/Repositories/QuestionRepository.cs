@@ -24,7 +24,8 @@ namespace exerciseBox.Infrastructur.Repositories
 
         public async Task<IEnumerable<Questions>> Read()
         {
-           return await _context.Questions.ToListAsync();
+            Console.WriteLine( _context.Questions.ToList().FirstOrDefault().content);
+            return await _context.Questions.ToListAsync();
         }
 
         public Task<Questions> ReadById(Guid id)

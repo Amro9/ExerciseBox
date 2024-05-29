@@ -28,8 +28,6 @@ namespace exerciseBox.Rest.Controllers
         {
             try
             {
-
-              
                     await _mediator.Send(new GetAllQuestions());
             }catch (Exception ex)
             {
