@@ -29,11 +29,13 @@ namespace exerciseBox.Rest.Controllers
             try
             {
 
-                return await _mediator.Send(new GetAllQuestions());
+              
+                    await _mediator.Send(new GetAllQuestions());
             }catch (Exception ex)
             {
-                return null;
+                Console.WriteLine(ex.Message);
             }
+                return null;
         }
     }
 }

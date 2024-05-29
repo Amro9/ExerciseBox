@@ -2,11 +2,16 @@
 
 using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace exerciseBox.Infrastructur.Repositories
 {
     internal class QuestionRepository : IQuestionRepository
     {
+        private readonly ExerciseBoxContext _context;
+        public QuestionRepository(ExerciseBoxContext context) { 
+            _context = context;
+        }
         public Task<Questions> Create(Questions entity)
         {
             throw new NotImplementedException();
@@ -17,9 +22,9 @@ namespace exerciseBox.Infrastructur.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Questions>> Read()
+        public async Task<IEnumerable<Questions>> Read()
         {
-            throw new NotImplementedException();
+           return await _context.Questions.ToListAsync();
         }
 
         public Task<Questions> ReadById(Guid id)
