@@ -7,6 +7,13 @@ namespace exerciseBox.Infrastructur.Repositories
 {
     internal class QuestionRepository : IQuestionRepository
     {
+        private readonly ExerciseBoxContext _context;
+
+        public QuestionRepository(ExerciseBoxContext context)
+        {
+            _context = context;
+        }
+
         public Task<Questions> Create(Questions entity)
         {
             throw new NotImplementedException();
@@ -17,9 +24,9 @@ namespace exerciseBox.Infrastructur.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Questions>> Read()
+        public async Task<IEnumerable<Questions>> Read()
         {
-            throw new NotImplementedException();
+            return await _context.Questions.Include(x => x.QuestionTypeNavigation).ToListAsync();
         }
 
         public Task<Questions> ReadById(Guid id)
