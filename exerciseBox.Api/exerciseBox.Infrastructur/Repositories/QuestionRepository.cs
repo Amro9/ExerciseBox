@@ -2,6 +2,7 @@
 
 using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace exerciseBox.Infrastructur.Repositories
 {

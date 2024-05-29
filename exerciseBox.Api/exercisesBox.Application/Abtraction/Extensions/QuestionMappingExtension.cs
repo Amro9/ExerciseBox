@@ -10,7 +10,12 @@ namespace exerciseBox.Application.Abtraction.Extensions
             return questions.Select(q => new QuestionDto
             {
                 Id = Guid.Parse(q.id),
-                Content = q.content
+                Content = q.content,
+                Answer = q.answer,
+                DifficultyLevel = q.difficultyLevel,
+                SchoolLevel = q.schoolLevel,
+                Topic = q.topic,
+                Author = q.author,
             });
         }
         public static IEnumerable<Questions> MapToQuestions(IEnumerable<QuestionDto> questionsDto)

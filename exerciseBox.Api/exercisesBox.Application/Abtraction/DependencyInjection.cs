@@ -10,7 +10,7 @@ public static class DependencyInjection
         //Add MedaitR
         var assembly = typeof(DependencyInjection).GetTypeInfo().Assembly;
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
-
+        
         return services;
     }
 }
