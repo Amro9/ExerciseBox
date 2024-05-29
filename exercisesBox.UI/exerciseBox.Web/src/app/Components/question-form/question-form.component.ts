@@ -8,15 +8,21 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
   styleUrl: './question-form.component.css'
 })
 export class QuestionCreationFormComponent {
-questionCreationForm =new FormGroup( {
-  content: new FormControl('', Validators.required),
+  questionCreationForm =new FormGroup( {
+    chooseSubject: new FormControl('Fach'),
+    chooseTopic: new FormControl('Thema'),
+chooseClass: new FormControl('Klasse'),
+questionText: new FormControl(''),
+questionNote: new FormControl(''),
+answer: new FormControl(''),
+answerNote: new FormControl(''),
+chooseDifficulty: new FormControl('Easy'),
 questionOnlyForMe: new FormControl(false),
-//chooseClass: new FormControl('My Class'),
-answer: new FormControl('', Validators.required),
-//chooseDifficulty: new FormControl('Easy')
+questionIsSpecific: new FormControl(false)
 });
 submitQuestionCreationForm(){
 console.log("form geht")
+console.log("Subject:", this.questionCreationForm.get('chooseSubject')!.value);
 }
 // onsubmit(){
 //   if(this.questionCreationForm.valid){
