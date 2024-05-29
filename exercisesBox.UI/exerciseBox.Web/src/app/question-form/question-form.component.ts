@@ -4,8 +4,6 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 
 @Component({
   selector: 'app-question-form',
-  standalone: true,
-  imports: [ReactiveFormsModule],
   templateUrl: './question-form.component.html',
   styleUrl: './question-form.component.css'
 })
