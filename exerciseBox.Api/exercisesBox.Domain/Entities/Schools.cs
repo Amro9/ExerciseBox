@@ -22,4 +22,8 @@ public partial class Schools
     public virtual ICollection<Teachers> Teachers { get; set; } = new List<Teachers>();
 
     public virtual SchoolTypes SchoolTypeNavigation { get; set; }
+
+    public string Email { get; set; }
+
+    public string Password { get; set; }
 }

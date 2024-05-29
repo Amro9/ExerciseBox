@@ -32,9 +32,14 @@ public class SchoolRepository : ISchoolRepository
         return await _context.Schools.Include(x => x.SchoolTypeNavigation).ToListAsync();
     }
 
+    public async Task<Schools> ReadByEmail(string email)
+    {
+        return await _context.Schools.Include(x => x.SchoolTypeNavigation).FirstOrDefaultAsync(x => x.Email == email);
+    }
+
     public async Task<Schools> ReadById(Guid id)
     {
-        return await _context.Schools.FirstOrDefaultAsync(x => x.Id == id.ToString());
+        return await _context.Schools.Include(x => x.SchoolTypeNavigation).FirstOrDefaultAsync(x => x.Id == id.ToString());
     }
 
     public async Task<Schools> Update(Schools entity)

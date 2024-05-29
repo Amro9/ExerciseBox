@@ -27,7 +27,7 @@ namespace exerciseBox.Infrastructur.Repositories
 
         public async Task<IEnumerable<Questions>> Read()
         {
-            return await _context.Questions.Include(x => x.QuestionTypeNavigation).ToListAsync();
+            return await _context.Questions.ToListAsync();
         }
 
         public Task<Questions> ReadById(Guid id)
