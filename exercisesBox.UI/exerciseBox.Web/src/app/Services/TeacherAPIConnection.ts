@@ -23,7 +23,7 @@ export class TeacherAPIConnection {
     } 
 
     getTeacherbyEmail(email : string) : Observable<Teacher> {
-        let url_ = this.baseUrl + "Teacher/ByEmail";
+        let url_ = this.baseUrl + "Teachers/{{email}}";
 
         return this.http.post(url_, email, {headers : this.headers}).pipe(
           map((response: any) => {

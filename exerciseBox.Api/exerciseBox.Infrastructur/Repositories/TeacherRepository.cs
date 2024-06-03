@@ -28,6 +28,11 @@ public class TeacherRepository : ITeacherRepository
         return await _context.Teachers.Include(x => x.SchoolNavigation).ThenInclude(x => x.SchoolTypeNavigation).ToListAsync();
     }
 
+    public async Task<Teachers> ReadByEmail(string email)
+    {
+        return await _context.Teachers.FirstOrDefaultAsync(x => x.Email == email);
+    }
+
     public Task<Teachers> ReadById(Guid id)
     {
         throw new NotImplementedException();
