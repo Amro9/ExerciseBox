@@ -1,21 +1,24 @@
-<div class="container">
-    <div class="loginContainer">
-        <div>
-            <div>
-                <input type="email">
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-5">
+        <h3 class="text-center">Login</h3>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" required [(ngModel)]="email" name="email">
             </div>
-            <div>
-                <input type="text" name="" id="">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" required [(ngModel)]="password" name="password">
             </div>
-            <div>
-                <button>Submit</button>
-            </div>
-        </div>
-        <div>
-            <p></p>
-        </div>
-        <div>
-            <p></p>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="#" class="d-block">Forgot password?</a>
+            <a href="#" class="d-block">Register</a>
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
