@@ -1,4 +1,6 @@
 ﻿
+using exerciseBox.Domain.Entities;
+
 namespace exerciseBox.Application.Abtraction.Models
 {
     public class QuestionDto
@@ -13,6 +15,21 @@ namespace exerciseBox.Application.Abtraction.Models
 
         public string Topic { get; set; }
 
+        public static implicit operator QuestionDto(Questions question)
+        {
+            return new QuestionDto
+            {
+                Id = Guid.Parse(question.id),
+            };
+        }
 
+        public static implicit operator Questions(QuestionDto question)
+        {
+            return new Questions
+            {
+                id  = question.Id.ToString(),
+                
+            };
+        }
     }
 }
