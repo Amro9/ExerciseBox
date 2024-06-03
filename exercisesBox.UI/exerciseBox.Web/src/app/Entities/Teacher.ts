@@ -13,5 +13,8 @@ export class Teacher
         this.password = password;
     }
 
-    
+    static fromJSON(json: string): Teacher {
+        const obj = JSON.parse(json);
+        return new Teacher(obj.surname, obj.givenname, obj.email, obj.password);
+    }
 }

@@ -6,6 +6,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from "./Components/navbar/navbar.component";
+import { TeacherAPIConnection } from "./Services/TeacherAPIConnection";
+import { environment } from "../environments/enviroment.develop";
+import { API_BASE_URL } from "./Infrastucture/configurations";
 
 @NgModule({
     declarations:[
@@ -22,7 +25,11 @@ import { NavbarComponent } from "./Components/navbar/navbar.component";
         FormsModule
     ],
     providers: [
-
+        {
+            provide: API_BASE_URL,
+            useValue: environment.baseUrl,
+        },
+        TeacherAPIConnection
     ],
     bootstrap:[AppComponent]
 })
