@@ -9,14 +9,14 @@ import { HttpClient } from '@angular/common/http';
 export class QuestionCreationFormComponent {
 
   questionCreationForm =new FormGroup( {
-    chooseSubject: new FormControl('Fach'),
-    chooseTopic: new FormControl('Thema'),
-chooseClass: new FormControl('Klasse'),
+    subject: new FormControl(''),
+    topic: new FormControl(''),
+class: new FormControl(''),
 questionText: new FormControl(''),
 questionNote: new FormControl(''),
 answer: new FormControl(''),
 answerNote: new FormControl(''),
-chooseDifficulty: new FormControl('Einfach'),
+difficultyLevel: new FormControl('Einfach'),
 questionOnlyForMe: new FormControl(false),
 questionIsSpecific: new FormControl(false)
 });
@@ -24,12 +24,11 @@ constructor(private http: HttpClient){}
 
 submitQuestionCreationForm() {
   const formData = this.questionCreationForm.value;
-  console.log(formData);
-  // this.http.post('http://dein-server.com/fragen', formData)
-  //   .subscribe(response => {
-  //     console.log('Frage erfolgreich an den Server gesendet:', response);
-  //   }, error => {
-  //     console.error('Fehler beim Senden der Frage an den Server:', error);
-  //   });
+  this.http.post('http://localhost:5000/api/question/add', formData)
+    .subscribe(response => {
+      console.log('Frage erfolgreich an den Server gesendet:', response);
+    }, error => {
+      console.error('Fehler beim Senden der Frage an den Server:', error);
+    });
 }
 }
