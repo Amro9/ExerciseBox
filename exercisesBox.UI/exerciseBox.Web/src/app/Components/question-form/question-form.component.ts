@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-question-form',
   templateUrl: './question-form.component.html',
   styleUrl: './question-form.component.css'
 })
 export class QuestionCreationFormComponent {
+
   questionCreationForm =new FormGroup( {
     chooseSubject: new FormControl('Fach'),
     chooseTopic: new FormControl('Thema'),
@@ -16,20 +16,20 @@ questionText: new FormControl(''),
 questionNote: new FormControl(''),
 answer: new FormControl(''),
 answerNote: new FormControl(''),
-chooseDifficulty: new FormControl('Easy'),
+chooseDifficulty: new FormControl('Einfach'),
 questionOnlyForMe: new FormControl(false),
 questionIsSpecific: new FormControl(false)
 });
-submitQuestionCreationForm(){
-console.log("form geht")
-console.log("Subject:", this.questionCreationForm.get('chooseSubject')!.value);
+constructor(private http: HttpClient){}
+
+submitQuestionCreationForm() {
+  const formData = this.questionCreationForm.value;
+  console.log(formData);
+  // this.http.post('http://dein-server.com/fragen', formData)
+  //   .subscribe(response => {
+  //     console.log('Frage erfolgreich an den Server gesendet:', response);
+  //   }, error => {
+  //     console.error('Fehler beim Senden der Frage an den Server:', error);
+  //   });
 }
-// onsubmit(){
-//   if(this.questionCreationForm.valid){
-//     console.log('Forma data:', this.questionCreationForm.value)
-//   }
-//   else{
-//     console.log('form not valid')
-//   }
-// }
 }
