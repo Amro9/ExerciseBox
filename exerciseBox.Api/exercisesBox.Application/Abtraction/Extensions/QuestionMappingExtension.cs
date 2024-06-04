@@ -5,7 +5,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
 {
     public static class QuestionMappingExtension
     {
-        public static IEnumerable<QuestionDto> MapToQuestionDto(IEnumerable<Questions> questions)
+        public static IEnumerable<QuestionDto> MapToQuestionDto(this IEnumerable<Questions> questions)
         {
             return questions.Select(q => new QuestionDto
             {
@@ -18,7 +18,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
                 Author = q.author,
             });
         }
-        public static IEnumerable<Questions> MapToQuestions(IEnumerable<QuestionDto> questionsDto)
+        public static IEnumerable<Questions> MapToQuestions(this IEnumerable<QuestionDto> questionsDto)
         {
             return questionsDto.Select(q => new Questions
             {

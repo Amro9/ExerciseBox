@@ -10,7 +10,7 @@ namespace exerciseBox.Rest.Controllers
     {
         private readonly IMediator _mediator;
 
-        public SchoolController(IMediator mediator  )
+        public SchoolController(IMediator mediator)
         {
             _mediator = mediator;
         }

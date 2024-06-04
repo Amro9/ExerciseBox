@@ -7,8 +7,6 @@ namespace exerciseBox.Application.UseCases.Questions.QueriesHandlers
 {
     // we will pass the query to the interface, and if you have an expected output then a second para
     // so the query is the request, and the request handler is this
-
-
     public class GetAllQuestionsHandler : IRequestHandler<GetAllQuestions, IEnumerable<QuestionDto>>
     {
         private readonly IQuestionRepository _questionRepository;

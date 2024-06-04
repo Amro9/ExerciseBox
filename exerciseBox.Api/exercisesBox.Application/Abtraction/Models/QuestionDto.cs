@@ -14,7 +14,10 @@ namespace exerciseBox.Application.Abtraction.Models
         public int SchoolLevel { get; set; }
 
         public string Topic { get; set; }
-
+        public QuestionDto()
+        {
+                Id = Guid.NewGuid();
+        }
         public static implicit operator QuestionDto(Questions question)
         {
             return new QuestionDto
