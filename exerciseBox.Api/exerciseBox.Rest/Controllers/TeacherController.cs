@@ -1,22 +1,36 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Queries;
+using exerciseBox.Rest.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace exerciseBox.Rest.Controllers
-{
-    public class TeacherController : Controller
-    {
-        private readonly IMediator _mediator;
-        public TeacherController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+namespace exerciseBox.Rest.Controllers;
 
-        [HttpGet("Teachers")]
-        public async Task<IEnumerable<TeacherDto>> GetAllTeachers()
+public class TeacherController : BaseController
+{
+    public TeacherController(IMediator mediator) : base(mediator)
+    {
+    }
+
+    [HttpGet("All")]
+    public async Task<IEnumerable<TeacherDto>> GetAllTeachers()
+    {
+        return await _mediator.Send(new GetAllTeachers());
+    }
+
+    [HttpPost("ByEmail")]
+    public async Task<IActionResult> GetTeacherByEmail([FromBody] EmailRequest email)
+    {
+        try
         {
-            return await _mediator.Send(new GetAllTeachers());
+            var teacher = await _mediator.Send(new GetTeacherByEmail { Email = email.Email });
+            return Ok(new { value = teacher });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest();
         }
     }
+
 }

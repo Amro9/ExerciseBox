@@ -4,13 +4,25 @@ using exerciseBox.Application.Abtraction;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplictaionConfiguration();
 builder.Services.AddInfrastructureConfiguration();
+
+builder.Services.AddSession(options => options.IdleTimeout.Add(TimeSpan.FromMinutes(15)));
+
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -21,8 +33,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Use CORS before other middlewares that handle HTTP requests
+app.UseCors("AllowAllOrigins");
 
+app.UseSession();
+
+app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();

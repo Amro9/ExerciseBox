@@ -22,6 +22,8 @@ namespace exerciseBox.Rest.Controllers
 
         public void AddSchool()
         {
+            
+            
             _mediator.Send(new CreateSchool
             {
             //    School = 
