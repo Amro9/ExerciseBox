@@ -3,6 +3,7 @@ import { Teacher } from '../../Entities/Teacher';
 import { TeacherAPIConnection } from '../../Services/TeacherAPIConnection';
 import { Router } from '@angular/router';
 import { HashGenerator } from '../../Services/HashGenerator';
+import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-login',
@@ -16,31 +17,21 @@ export class LoginComponent {
     this.teacher = new Teacher("","","","");
   }
 
+  errorMessage: string | null = null;
+
   onSubmit(): void {
   
 
-    this.teacherAPIConnection.getTeacherbyEmail(this.teacher.email).subscribe(
+    this.teacherAPIConnection.getTeacherWithPasswordValidation(this.teacher.email, this.teacher.password).subscribe(
       (response: Teacher) => {
         let teacher = response
         
-        if (teacher === null) {
-          alert('Teacher not found');
-          return;
-        }
-
-        if (teacher.password !== HashGenerator.generateHash(this.teacher.password)) {
-          console.log(HashGenerator.generateHash(this.teacher.password));
-
-          alert('Incorrect password');
-          return;
-        }
-
-        sessionStorage.setItem('teacher', JSON.stringify(this.teacher));
+        sessionStorage.setItem('teacher', JSON.stringify(teacher));
 
         this.router.navigate(['/home']); 
       },
       (error: any) => {
-        console.log(error);
+        this.errorMessage = error;
       }
     );
   }

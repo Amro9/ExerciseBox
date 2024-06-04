@@ -11,6 +11,7 @@
                 <input type="password" class="form-control" id="password" required [(ngModel)]="teacher.password" name="password">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-2">{{ errorMessage }}</div>
         </form>
         <div class="text-center mt-3">
             <a href="#" class="d-block">Forgot password?</a>

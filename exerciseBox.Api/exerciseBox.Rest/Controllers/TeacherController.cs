@@ -25,13 +25,12 @@ public class TeacherController : BaseController
         try
         {
             var teacher = await _mediator.Send(new GetTeacherByEmail { Email = email.Email });
-            return Ok(new { resultType = 0, value = teacher });
+            return Ok(new { value = teacher });
         }
         catch (Exception ex)
         {
-            return BadRequest(new { resultType = 1, message = ex.Message });
+            return BadRequest();
         }
     }
-
 
 }
