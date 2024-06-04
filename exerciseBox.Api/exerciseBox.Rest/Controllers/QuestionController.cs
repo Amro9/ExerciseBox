@@ -19,7 +19,8 @@ namespace exerciseBox.Rest.Controllers
         [HttpPost("addQuestion")]
         public async void AddQuestion([FromBody] QuestionModel question)
         {
-           //await _mediator.Send(new )
+           // den author herausfinden
+           // dann die frage mappen und createn
         }
 
         public void RemoveQuestion() {
