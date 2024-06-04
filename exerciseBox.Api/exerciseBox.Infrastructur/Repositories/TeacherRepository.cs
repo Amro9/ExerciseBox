@@ -30,7 +30,7 @@ public class TeacherRepository : ITeacherRepository
 
     public async Task<Teachers> ReadByEmail(string email)
     {
-        return await _context.Teachers.FirstOrDefaultAsync(x => x.Email == email);
+        return await _context.Teachers.Include(x => x.SchoolNavigation).ThenInclude(x => x.SchoolTypeNavigation).FirstOrDefaultAsync(x => x.Email == email);
     }
 
     public Task<Teachers> ReadById(Guid id)

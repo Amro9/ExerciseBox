@@ -19,7 +19,7 @@ namespace exerciseBox.Rest.Controllers
         [HttpPost("addQuestion")]
         public async void AddQuestion([FromBody] QuestionModel question)
         {
-           await _mediator.Send(new )
+           //await _mediator.Send(new )
         }
 
         public void RemoveQuestion() {

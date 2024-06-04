@@ -4,11 +4,11 @@
         <form (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" required [(ngModel)]="email" name="email">
+                <input type="email" class="form-control" id="email" required [(ngModel)]="teacher.email" name="email">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" required [(ngModel)]="password" name="password">
+                <input type="password" class="form-control" id="password" required [(ngModel)]="teacher.password" name="password">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </form>

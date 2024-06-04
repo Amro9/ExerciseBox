@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Teacher } from '../../Entities/Teacher';
+import { TeacherAPIConnection } from '../../Services/TeacherAPIConnection';
+import { Router } from '@angular/router';
+import { HashGenerator } from '../../Services/HashGenerator';
 
 @Component({
   selector: 'app-login',
@@ -6,17 +10,38 @@ import { Component } from '@angular/core';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  email: string;
-  password: string;
-
-  constructor() {
-    this.email = '';
-    this.password = '';
+  teacher! : Teacher;
+  
+  constructor(private teacherAPIConnection: TeacherAPIConnection, private router: Router) {
+    this.teacher = new Teacher("","","","");
   }
 
   onSubmit(): void {
-    // Add your login logic here
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+  
+
+    this.teacherAPIConnection.getTeacherbyEmail(this.teacher.email).subscribe(
+      (response: Teacher) => {
+        let teacher = response
+        
+        if (teacher === null) {
+          alert('Teacher not found');
+          return;
+        }
+
+        if (teacher.password !== HashGenerator.generateHash(this.teacher.password)) {
+          console.log(HashGenerator.generateHash(this.teacher.password));
+
+          alert('Incorrect password');
+          return;
+        }
+
+        sessionStorage.setItem('teacher', JSON.stringify(this.teacher));
+
+        this.router.navigate(['/home']); 
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -23,13 +23,15 @@ export class TeacherAPIConnection {
     } 
 
     getTeacherbyEmail(email : string) : Observable<Teacher> {
-        let url_ = this.baseUrl + "Teachers/{{email}}";
+        let url_ = this.baseUrl + "Teacher/ByEmail";
 
-        return this.http.post(url_, email, {headers : this.headers}).pipe(
+        const body = { email: email };
+
+        return this.http.post(url_, body, {headers : this.headers}).pipe(
           map((response: any) => {
             if (response && response.resultType === 0) {
               const jsonData = response.value;
-              return Teacher.fromJSON(jsonData);
+              return Teacher.fromData(jsonData);
             } else {
               throw new Error('Failed to fetch flights');
             }

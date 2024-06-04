@@ -17,4 +17,8 @@ export class Teacher
         const obj = JSON.parse(json);
         return new Teacher(obj.surname, obj.givenname, obj.email, obj.password);
     }
+
+    static fromData(data : any) : Teacher {
+        return new Teacher(data.surname, data.givenname, data.email, data.password);
+    }
 }
