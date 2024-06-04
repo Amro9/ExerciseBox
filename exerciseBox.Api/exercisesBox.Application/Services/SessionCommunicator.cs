@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Net.Http;
+﻿using exerciseBox.Application.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using System.Text;
 
 namespace exerciseBox.Application.Services;
@@ -21,6 +21,13 @@ public class SessionCommunicator : ISessionCommunicator
         }
 
         var sessionid = Guid.NewGuid().ToString();
+
+        var sessionModel = new SessionModel
+        {
+            SessionIdKey = email,
+            SessionId = sessionid
+        };  
+
         _httpContextAccessor.HttpContext.Session.Set("sessionid", Encoding.UTF8.GetBytes(sessionid));
         return sessionid;
     }

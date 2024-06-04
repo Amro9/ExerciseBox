@@ -1,4 +1,5 @@
-﻿using exerciseBox.Application.UseCases.Teacher.Queries;
+﻿using exerciseBox.Application.Services.Interface;
+using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Rest.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +8,11 @@ namespace exerciseBox.Rest.Controllers;
 
 public class AuthentificationController : BaseController
 {
-    public AuthentificationController(IMediator mediator,) : base(mediator)
-    {
+    private readonly ISessionCommunicator _sessionCommunicator;
 
+    public AuthentificationController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator)
+    {
+        _sessionCommunicator = sessionCommunicator;
     }
 
     [HttpPost("Login")]
@@ -18,7 +21,15 @@ public class AuthentificationController : BaseController
         try
         {
             var teacher = await _mediator.Send(new GetTeacherWithPasswordValidation { Email = loginRequest.Email, Password = loginRequest.Password });
-            return Ok(new { value = teacher });
+
+            if(teacher == null)
+            {
+                return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+            }
+
+            var sessionId = _sessionCommunicator.AddNewSessionId(string email);
+
+            return Ok(new { value = sessionId });
         }
         catch (UnauthorizedAccessException ex)
         {
