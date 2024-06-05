@@ -10,5 +10,10 @@ namespace exerciseBox.Application.Services.Models
     {
         public string SessionIdKey { get; set; }
         public string SessionId { get; set; }
+    
+        //public static SessionModel Parse(string storedSessionModelString)
+        //{
+            
+        //}
     }
 }

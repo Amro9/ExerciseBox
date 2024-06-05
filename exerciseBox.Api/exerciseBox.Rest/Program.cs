@@ -7,8 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplictaionConfiguration();
 builder.Services.AddInfrastructureConfiguration();
+
 
 //builder.Services.AddSession(options => options.IdleTimeout.Add(TimeSpan.FromMinutes(15)));
 

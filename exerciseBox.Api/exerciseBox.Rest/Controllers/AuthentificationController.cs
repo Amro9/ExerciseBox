@@ -1,22 +1,26 @@
-﻿using exerciseBox.Application.Services.Interface;
+﻿using exerciseBox.Application.Abtraction.Extensions;
+using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.Services;
+using exerciseBox.Application.Services.Interface;
+using exerciseBox.Application.Services.Models;
 using exerciseBox.Application.UseCases.Teacher.Queries;
+using exerciseBox.Application.UseCases.Teachers.Commands;
+using exerciseBox.Rest.Controllers;
 using exerciseBox.Rest.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace exercisebox.rest.controllers;
 
-public class authentificationcontroller : basecontroller
+public class AuthentificationController : BaseController
 {
-    private readonly ISessionCommunicator _sessionCommunicator;
-
-    public AuthentificationController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator)
+    public AuthentificationController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
     {
-        _sessionCommunicator = sessionCommunicator;
+
     }
 
-    [httppost("login")]
-    public async task<iactionresult> login([frombody] loginrequest loginrequest)
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
         try
         {
@@ -27,31 +31,50 @@ public class authentificationcontroller : basecontroller
                 return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
             }
 
-            var sessionId = _sessionCommunicator.AddNewSessionId(string email);
+            var sessionId = _sessionCommunicator.AddNewSessionId(loginRequest.Email);
 
             return Ok(new { value = sessionId });
         }
-        catch (unauthorizedaccessexception ex)
+        catch (UnauthorizedAccessException ex)
         {
-            return unauthorized("falsches passwort");
+            return Unauthorized("Falsches passwort");
         }
-        catch (exception ex)
+        catch (Exception ex)
         {
-            return statuscode(500, "während des logins ist ein fehler aufgetreten. bitte versuchen sie es später erneut.");
+            return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
         }
     }
 
-    //[httppost("register")]
-    //public async task<iactionresult> register([frombody] registerrequest registerrequest)
-    //{
-    //    try
-    //    {
-    //        var teacher = await _mediator.send(new registerteacher { email = registerrequest.email, password = registerrequest.password });
-    //        return ok(new { value = teacher });
-    //    }
-    //    catch (exception ex)
-    //    {
-    //        return statuscode(500, "während der registrierung ist ein fehler aufgetreten. bitte versuchen sie es später erneut.");
-    //    }
-    //}
+    [HttpPost("Register")]
+    public async Task<IActionResult> Register([FromBody] RegisterRequest RegisterRequest)
+    {
+        try
+        {
+            //if(_sessionCommunicator.VerifySessionId(new SessionModel { SessionIdKey = RegisterRequest.SchoolId, SessionId = RegisterRequest.SessionId }))
+            //{
+            //    return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
+            //    //return StatusCode(419, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
+            //}
+
+            var pw = $"{RegisterRequest.Surname}.{RegisterRequest.Givenname}";
+
+            var teacher = await _mediator.Send(new CreateTeacher
+            {
+                Teacher = new TeacherDto
+                {
+                    Email = RegisterRequest.Email,
+                    Password = pw.HashPassword(),
+                    Surname = RegisterRequest.Surname,
+                    Givenname = RegisterRequest.Givenname,
+                    SchoolId = RegisterRequest.SchoolId
+                }
+            });
+
+            return Ok(new { value = teacher });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Während der Registrierung ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+        }
+    }
 }

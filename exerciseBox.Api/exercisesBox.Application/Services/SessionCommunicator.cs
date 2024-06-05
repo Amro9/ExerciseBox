@@ -1,4 +1,5 @@
 ﻿using exerciseBox.Application.Services.Interface;
+using exerciseBox.Application.Services.Models;
 using Microsoft.AspNetCore.Http;
 using System.Text;
 
@@ -13,7 +14,7 @@ public class SessionCommunicator : ISessionCommunicator
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string AddNewSessionId(string email)
+    public string AddNewSessionId(string Id)
     {
         if (_httpContextAccessor.HttpContext == null)
         {
@@ -24,30 +25,35 @@ public class SessionCommunicator : ISessionCommunicator
 
         var sessionModel = new SessionModel
         {
-            SessionIdKey = email,
+            SessionIdKey = Id,
             SessionId = sessionid
-        };  
+        };
 
-        _httpContextAccessor.HttpContext.Session.Set("session                                                                                                                                id", Encoding.UTF8.GetBytes(sessionid));
+        var sessionModelBytes = Encoding.UTF8.GetBytes(sessionModel.ToString());
+        _httpContextAccessor.HttpContext.Session.Set($"session{sessionModel.SessionIdKey}", sessionModelBytes);
+
         return sessionid;
     }
 
-    public bool VerifySessionId(string sessionId)
+    public bool VerifySessionId(SessionModel session)
     {
         if (_httpContextAccessor.HttpContext == null)
         {
             throw new HttpRequestException("HttpContext is null");
         }
 
-        byte[] storedSessionId;
-        _httpContextAccessor.HttpContext.Session.TryGetValue("sessionid", out storedSessionId);
+        byte[] storedSessionModelBytes;
+        _httpContextAccessor.HttpContext.Session.TryGetValue($"session{session.SessionIdKey}", out storedSessionModelBytes);
 
-        if (storedSessionId == null)
+        if (storedSessionModelBytes == null)
         {
-            return false; // Keine Session-ID gefunden
+            return false;
         }
 
-        var storedSessionIdString = Encoding.UTF8.GetString(storedSessionId);
-        return storedSessionIdString == sessionId;
+        var storedSessionModelString = Encoding.UTF8.GetString(storedSessionModelBytes);
+        //var storedSessionModel = SessionModel.Parse(storedSessionModelString);
+
+        //return storedSessionModel.SessionId == session.SessionId;
+        return true;
     }
 }

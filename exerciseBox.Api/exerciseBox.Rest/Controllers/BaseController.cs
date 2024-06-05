@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using exerciseBox.Application.Services.Interface;
+using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +12,10 @@ namespace exerciseBox.Rest.Controllers;
 public abstract class BaseController : Controller
 {
     protected readonly IMediator _mediator;
-    public BaseController(IMediator mediator)
+    protected readonly ISessionCommunicator _sessionCommunicator;
+    public BaseController(IMediator mediator, ISessionCommunicator sessionCommunicator)
     {
         _mediator = mediator;
+        _sessionCommunicator = sessionCommunicator;
     }
 }

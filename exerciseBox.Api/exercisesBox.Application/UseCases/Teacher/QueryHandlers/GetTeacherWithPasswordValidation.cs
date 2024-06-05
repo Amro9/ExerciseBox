@@ -27,8 +27,6 @@ public class GetTeacherWithPasswordValidationHandler : IRequestHandler<GetTeache
             throw new UnauthorizedAccessException("Invalid password");
         }
 
-        
-
         return teacher;
     }
 }

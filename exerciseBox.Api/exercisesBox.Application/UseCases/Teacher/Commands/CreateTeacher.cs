@@ -1,9 +1,10 @@
-﻿using exerciseBox.Domain.Entities;
+﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Domain.Entities;
 using MediatR;
 
 namespace exerciseBox.Application.UseCases.Teachers.Commands;
 
-public class CreateTeacher : IRequest<Domain.Entities.Teachers>
+public class CreateTeacher : IRequest<TeacherDto>
 {
-    public Domain.Entities.Teachers Teacher { get; set; }
+    public TeacherDto Teacher { get; set; }
 }
