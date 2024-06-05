@@ -6,13 +6,13 @@ using exerciseBox.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
+using exerciseBox.Application.Services.Interface;
 
 namespace exerciseBox.Rest.Controllers
 {
     public class QuestionParamatersController : BaseController
     {
-       
-        public QuestionParamatersController(IMediator mediator) : base(mediator)
+        public QuestionParamatersController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
         {
         }
         

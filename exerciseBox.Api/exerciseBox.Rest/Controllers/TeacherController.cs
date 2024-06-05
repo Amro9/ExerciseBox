@@ -1,4 +1,5 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.Services.Interface;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Queries;
 using exerciseBox.Rest.Models;
@@ -9,7 +10,7 @@ namespace exerciseBox.Rest.Controllers;
 
 public class TeacherController : BaseController
 {
-    public TeacherController(IMediator mediator) : base(mediator)
+    public TeacherController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
     {
     }
 

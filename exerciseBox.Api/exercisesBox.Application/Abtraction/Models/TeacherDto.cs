@@ -5,9 +5,11 @@ namespace exerciseBox.Application.Abtraction.Models;
 public class TeacherDto
 {
     public Guid Id { get; set; }
+    public string Password { get; set; }
     public string Surname { get; set; }
     public string Givenname { get; set; }
     public string Email { get; set; }
+    public string SchoolId { get; set; }    
     public SchoolDto School { get; set; }
 
     public static implicit operator TeacherDto(Teachers teacher)
@@ -29,7 +31,8 @@ public class TeacherDto
             Id = teacher.Id.ToString(),
             Surname = teacher.Surname,
             Email = teacher.Email,
-            SchoolNavigation = teacher.School
+            SchoolNavigation = teacher.School is null ? null : teacher.School,
+            School = teacher.SchoolId is null ? null : teacher.SchoolId
         };
     }
 }

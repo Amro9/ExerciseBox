@@ -1,4 +1,5 @@
-﻿using System;
+﻿using exerciseBox.Application.Services.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace exerciseBox.Application.Services.Interface
 {
     public interface ISessionCommunicator
     {
-        string AddNewSessionId(string email);
-        bool VerifySessionId(string sessionId); 
+        string AddNewSessionId(string Id);
+        bool VerifySessionId(SessionModel session); 
 
     }
 }
