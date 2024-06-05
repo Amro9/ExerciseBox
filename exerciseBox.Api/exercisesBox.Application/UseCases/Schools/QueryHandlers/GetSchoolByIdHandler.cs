@@ -16,7 +16,7 @@ public class GetSchoolByIdHandler : IRequestHandler<GetSchoolById, SchoolDto>
 
     public async Task<SchoolDto> Handle(GetSchoolById request, CancellationToken cancellationToken)
     {
-        var school = await _schoolRepository.ReadById(request.Id);
+        var school = await _schoolRepository.ReadById(request.Email);
         return school;
     }
 }
