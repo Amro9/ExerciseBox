@@ -9,9 +9,9 @@ namespace exerciseBox.Application.Abtraction.Extensions
         {
             return topics.Select(topic => new TopicDto
             {
-                Id = Guid.Parse(topic.id),
-                Subject = topic.subjectNavigation,
-                Description = topic.description
+                Id = Guid.Parse(topic.Id),
+                Subject = topic.SubjectNavigation,
+                Description = topic.Description
             });
         }
 
@@ -19,9 +19,9 @@ namespace exerciseBox.Application.Abtraction.Extensions
         {
             return topics.Select(topic => new Topics
             {
-                id = topic.Id.ToString(),
-                subjectNavigation = topic.Subject,
-                description = topic.Description
+                Id = topic.Id.ToString(),
+                SubjectNavigation = topic.Subject,
+                Description = topic.Description
             });
         }
     }

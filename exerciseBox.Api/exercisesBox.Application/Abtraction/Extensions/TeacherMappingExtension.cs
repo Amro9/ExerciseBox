@@ -9,7 +9,6 @@ public static class TeacherMappingExtension
     {
         return teachers.Select(teacher => new TeacherDto
         {
-            Id = Guid.Parse(teacher.Id),
             Surname = teacher.Surname,
             Email = teacher.Email,
             School = teacher.SchoolNavigation
@@ -20,7 +19,6 @@ public static class TeacherMappingExtension
     {
         return teachers.Select(teacher => new Teachers
         {
-            Id = teacher.Id.ToString(),
             Surname = teacher.Surname,
             Email = teacher.Email,
             SchoolNavigation = teacher.School

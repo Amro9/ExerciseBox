@@ -15,7 +15,63 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "[dbo].[BranchesSubjectsJunction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[QuestionDifficultyLevels]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Questions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SchoolBranches]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SchoolLevels]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Schools]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SchoolsBranchesJunction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SchoolsLevelsJunction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SchoolsSubjectsJunction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SchoolTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Subjects]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Teachers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TeachersSchoolLevelsJunction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TeachersSubjectsJunction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Topics]",
          "ObjectType": 0
       }
    ],

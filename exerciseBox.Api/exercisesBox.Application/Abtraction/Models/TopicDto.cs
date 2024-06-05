@@ -16,18 +16,18 @@ namespace exerciseBox.Application.Abtraction.Models
         {
             return new TopicDto
             {
-                Id = Guid.Parse(topic.id),
-                Description = topic.description,
-                Subject = topic.subjectNavigation
+                Id = Guid.Parse(topic.Id),
+                Description = topic.Description,
+                Subject = topic.SubjectNavigation
             };
         }
         public static implicit operator Topics(TopicDto topic)
         {
             return new Topics
             {
-                id = topic.Id.ToString(),
-                description = topic.Description,
-                subjectNavigation = topic.Subject
+                Id = topic.Id.ToString(),
+                Description = topic.Description,
+                SubjectNavigation = topic.Subject
             };
         }
     }

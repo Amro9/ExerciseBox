@@ -14,18 +14,18 @@ namespace exerciseBox.Application.Abtraction.Models
         {
             return new SubjectDto
             {
-                Id = Guid.Parse(subject.id),
-                Name = subject.name,
-                Shortcut = subject.shortcut
+                Id = Guid.Parse(subject.Id),
+                Name = subject.Name,
+                Shortcut = subject.Shortcut
             };
         }
         public static implicit operator Subjects(SubjectDto subject)
         {
             return new Subjects
             {
-                id = subject.Id.ToString(),
-                name = subject.Name,
-                shortcut = subject.Shortcut
+                Id = subject.Id.ToString(),
+                Name = subject.Name,
+                Shortcut = subject.Shortcut
             };
         }
     }

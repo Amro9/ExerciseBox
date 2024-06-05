@@ -7,9 +7,9 @@ namespace exerciseBox.Domain.Entities;
 
 public partial class QuestionDifficultyLevels
 {
-    public string id { get; set; }
+    public string Id { get; set; }
 
-    public string description { get; set; }
+    public string Description { get; set; }
 
     public virtual ICollection<Questions> Questions { get; set; } = new List<Questions>();
 }

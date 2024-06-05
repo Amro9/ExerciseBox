@@ -28,7 +28,7 @@ namespace exerciseBox.Infrastructur.Repositories
         }
         public async Task<IEnumerable<Topics>> ReadBySubject(string subject)
         {
-            return await _context.Topics.Where(t => t.subject == subject).Include(s =>s.subjectNavigation).ToListAsync();
+            return await _context.Topics.Where(t => t.Subject == subject).Include(s =>s.SubjectNavigation).ToListAsync();
         }
         public Task<Topics> ReadById(Guid id)
         {

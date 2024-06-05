@@ -9,18 +9,18 @@ namespace exerciseBox.Application.Abtraction.Extensions
         {
             return subjects.Select(s => new SubjectDto
             {
-                Id = Guid.Parse(s.id),
-                Shortcut = s.shortcut,
-                Name = s.name,
+                Id = Guid.Parse(s.Id),
+                Shortcut = s.Shortcut,
+                Name = s.Name,
             });
         }
         public static IEnumerable<Subjects> MapToDomainSubjects(this IEnumerable<SubjectDto> subjects)
         {
             return subjects.Select(s => new Subjects
             {
-                id = s.Id.ToString(),
-                shortcut = s.Shortcut,
-                name = s.Name
+                Id = s.Id.ToString(),
+                Shortcut = s.Shortcut,
+                Name = s.Name
             });
         }
     }

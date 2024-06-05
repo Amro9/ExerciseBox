@@ -2,14 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace exerciseBox.Infrastructur;
+namespace exerciseBox.Domain.Entities;
 
-public partial class ExerciseBoxContext : DbContext
+public partial class exercisesBoxContext : DbContext
 {
-    public ExerciseBoxContext(DbContextOptions<ExerciseBoxContext> options)
+    public exercisesBoxContext(DbContextOptions<exercisesBoxContext> options)
         : base(options)
     {
     }
@@ -54,15 +53,18 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Branch)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("branch");
             entity.Property(e => e.Subject)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("subject");
 
             entity.HasOne(d => d.BranchNavigation).WithMany(p => p.BranchesSubjectsJunctions)
                 .HasForeignKey(d => d.Branch)
@@ -81,25 +83,32 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Answer)
                 .IsRequired()
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("answer");
             entity.Property(e => e.Author)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("author");
             entity.Property(e => e.Content)
                 .IsRequired()
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("content");
             entity.Property(e => e.DifficultyLevel)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("difficultyLevel");
+            entity.Property(e => e.SchoolLevel).HasColumnName("schoolLevel");
             entity.Property(e => e.Topic)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("topic");
 
             entity.HasOne(d => d.AuthorNavigation).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.Author)
@@ -128,11 +137,13 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Description)
                 .IsRequired()
                 .HasMaxLength(30)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("description");
         });
 
         modelBuilder.Entity<Schools>(entity =>
@@ -145,11 +156,17 @@ public partial class ExerciseBoxContext : DbContext
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(250)
+                .IsUnicode(false)
+                .HasColumnName("name");
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.SchoolType)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("schoolType");
 
             entity.HasOne(d => d.SchoolTypeNavigation).WithMany(p => p.Schools)
                 .HasForeignKey(d => d.SchoolType)
@@ -163,18 +180,22 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(250)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("name");
         });
 
         modelBuilder.Entity<SchoolLevels>(entity =>
         {
             entity.HasKey(e => e.Level).HasName("PK__SchoolLe__3213E83F9B40A2F8");
 
-            entity.Property(e => e.Level).ValueGeneratedNever();
+            entity.Property(e => e.Level)
+                .ValueGeneratedNever()
+                .HasColumnName("level");
         });
 
         modelBuilder.Entity<SchoolTypes>(entity =>
@@ -183,11 +204,13 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("name");
         });
 
         modelBuilder.Entity<SchoolsBranchesJunction>(entity =>
@@ -198,15 +221,18 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Branch)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("branch");
             entity.Property(e => e.School)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("school");
 
             entity.HasOne(d => d.BranchNavigation).WithMany(p => p.SchoolsBranchesJunctions)
                 .HasForeignKey(d => d.Branch)
@@ -216,7 +242,7 @@ public partial class ExerciseBoxContext : DbContext
             entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsBranchesJunctions)
                 .HasForeignKey(d => d.School)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_SchoolBranchesJunction_Schools");
+                .HasConstraintName("FK_SchoolsBranchesJunction_Schools");
         });
 
         modelBuilder.Entity<SchoolsLevelsJunction>(entity =>
@@ -227,11 +253,14 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.School)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("school");
+            entity.Property(e => e.SchoolLevel).HasColumnName("schoolLevel");
 
             entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsLevelsJunctions)
                 .HasForeignKey(d => d.School)
@@ -252,20 +281,23 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.School)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("school");
             entity.Property(e => e.Subject)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("subject");
 
             entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsSubjectsJunctions)
                 .HasForeignKey(d => d.School)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_SchoolsSubjectsJunction_SchoolsSubjectsJunction");
+                .HasConstraintName("FK_SchoolsSubjectsJunction_Schools");
 
             entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.SchoolsSubjectsJunctions)
                 .HasForeignKey(d => d.Subject)
@@ -279,48 +311,52 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(250)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("name");
             entity.Property(e => e.Shortcut)
                 .HasMaxLength(10)
-                .IsFixedLength();
+                .IsFixedLength()
+                .HasColumnName("shortcut");
         });
 
         modelBuilder.Entity<Teachers>(entity =>
         {
-            entity.HasKey(e => e.Email).HasName("PK__Teacher__3213E83F92A904E3");
+            entity.HasKey(e => e.Email).HasName("PK_Teacher");
 
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.Email)
-                .IsRequired()
-                .HasMaxLength(250)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("email");
             entity.Property(e => e.FamilyName)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("familyName");
             entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(256)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("password");
             entity.Property(e => e.School)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("school");
             entity.Property(e => e.Surname)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("surname");
 
             entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.Teachers)
                 .HasForeignKey(d => d.School)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Teacher_Schools");
+                .HasConstraintName("FK_Teachers_Schools");
         });
 
         modelBuilder.Entity<TeachersSchoolLevelsJunction>(entity =>
@@ -331,11 +367,14 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
+            entity.Property(e => e.SchoolLevel).HasColumnName("schoolLevel");
             entity.Property(e => e.Teacher)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("teacher");
 
             entity.HasOne(d => d.SchoolLevelNavigation).WithMany(p => p.TeachersSchoolLevelsJunctions)
                 .HasForeignKey(d => d.SchoolLevel)
@@ -356,15 +395,18 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Subject)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("subject");
             entity.Property(e => e.Teacher)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("teacher");
 
             entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.TeachersSubjectsJunctions)
                 .HasForeignKey(d => d.Subject)
@@ -374,7 +416,7 @@ public partial class ExerciseBoxContext : DbContext
             entity.HasOne(d => d.TeacherNavigation).WithMany(p => p.TeachersSubjectsJunctions)
                 .HasForeignKey(d => d.Teacher)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TeachersSubjectsJunction_Teacher");
+                .HasConstraintName("FK_TeachersSubjectsJunction_Teachers");
         });
 
         modelBuilder.Entity<Topics>(entity =>
@@ -383,15 +425,18 @@ public partial class ExerciseBoxContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("id");
             entity.Property(e => e.Description)
                 .IsRequired()
                 .HasMaxLength(1000)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("description");
             entity.Property(e => e.Subject)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("subject");
 
             entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.Topics)
                 .HasForeignKey(d => d.Subject)

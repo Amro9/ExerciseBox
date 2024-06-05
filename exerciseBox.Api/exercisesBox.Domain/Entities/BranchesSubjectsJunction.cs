@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace exerciseBox.Domain.Entities;
 
-public partial class BranchesSubjectsJunctions
+public partial class BranchesSubjectsJunction
 {
     public string Id { get; set; }
 
@@ -13,7 +13,7 @@ public partial class BranchesSubjectsJunctions
 
     public string Subject { get; set; }
 
-    public virtual SchoolBranchs BranchNavigation { get; set; }
+    public virtual SchoolBranches BranchNavigation { get; set; }
 
     public virtual Subjects SubjectNavigation { get; set; }
 }

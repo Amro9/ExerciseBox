@@ -7,23 +7,21 @@ namespace exerciseBox.Domain.Entities;
 
 public partial class Schools
 {
-    public string Id { get; set; }
-
     public string Name { get; set; }
 
     public string SchoolType { get; set; }
 
-    public virtual ICollection<SchoolsBranchesJunctions> SchoolsBranchesJunctions { get; set; } = new List<SchoolsBranchesJunctions>();
-
-    public virtual ICollection<SchoolsLevelsJunctions> SchoolsLevelsJunctions { get; set; } = new List<SchoolsLevelsJunctions>();
-
-    public virtual ICollection<SchoolsSubjectsJunctions> SchoolsSubjectsJunctions { get; set; } = new List<SchoolsSubjectsJunctions>();
-
-    public virtual ICollection<Teachers> Teachers { get; set; } = new List<Teachers>();
-
-    public virtual SchoolTypes SchoolTypeNavigation { get; set; }
-
     public string Email { get; set; }
 
     public string Password { get; set; }
+
+    public virtual SchoolTypes SchoolTypeNavigation { get; set; }
+
+    public virtual ICollection<SchoolsBranchesJunction> SchoolsBranchesJunctions { get; set; } = new List<SchoolsBranchesJunction>();
+
+    public virtual ICollection<SchoolsLevelsJunction> SchoolsLevelsJunctions { get; set; } = new List<SchoolsLevelsJunction>();
+
+    public virtual ICollection<SchoolsSubjectsJunction> SchoolsSubjectsJunctions { get; set; } = new List<SchoolsSubjectsJunction>();
+
+    public virtual ICollection<Teachers> Teachers { get; set; } = new List<Teachers>();
 }

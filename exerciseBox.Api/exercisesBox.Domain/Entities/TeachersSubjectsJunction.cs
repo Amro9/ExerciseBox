@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace exerciseBox.Domain.Entities;
 
-public partial class Topics
+public partial class TeachersSubjectsJunction
 {
     public string Id { get; set; }
 
-    public string Description { get; set; }
+    public string Teacher { get; set; }
 
     public string Subject { get; set; }
 
-    public virtual ICollection<Questions> Questions { get; set; } = new List<Questions>();
-
     public virtual Subjects SubjectNavigation { get; set; }
+
+    public virtual Teachers TeacherNavigation { get; set; }
 }

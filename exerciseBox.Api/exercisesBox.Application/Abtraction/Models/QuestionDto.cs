@@ -22,7 +22,7 @@ namespace exerciseBox.Application.Abtraction.Models
         {
             return new QuestionDto
             {
-                Id = Guid.Parse(question.id),
+                Id = Guid.Parse(question.Id),
             };
         }
 
@@ -30,7 +30,7 @@ namespace exerciseBox.Application.Abtraction.Models
         {
             return new Questions
             {
-                id  = question.Id.ToString(),
+                Id  = question.Id.ToString(),
                 
             };
         }

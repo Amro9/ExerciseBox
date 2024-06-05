@@ -1,3 +1,14 @@
+
+  <div class="d-flex justify-content-center">
+    <h2>Wähle deine Klasse aus</h2>
+        <Button >Klasse 1</Button>
+        <Button >Klasse 2</Button>
+        <Button >Klasse 3</Button>
+
+  </div>
+
+
+
 <div class="container mt-5">
     <h2 class="text-center mb-4">Frage erstellen</h2>
     <form [formGroup]="questionCreationForm" (submit)="submitQuestionCreationForm()">
@@ -19,16 +30,7 @@
           </select>
         </div>
       </div>
-      <div class="mb-3 row">
-        <label for="chooseClass" class="col-sm-2 col-form-label">Wähle die Klasse:</label>
-        <div class="col-sm-10">
-          <select class="form-select" id="chooseClass" formControlName="class">
-            <option value="1">Klasse 1</option>
-            <option value="2">Klasse 2</option>
-            <option value="3">Klasse 3</option>
-          </select>
-        </div>
-      </div>
+
       <div class="mb-3 row">
         <label for="questionText" class="col-sm-2 col-form-label">Fragestellung:</label>
         <div class="col-sm-10">

@@ -7,11 +7,11 @@ namespace exerciseBox.Domain.Entities;
 
 public partial class SchoolLevels
 {
-    public int level { get; set; }
+    public int Level { get; set; }
 
     public virtual ICollection<Questions> Questions { get; set; } = new List<Questions>();
 
-    public virtual ICollection<SchoolsLevelsJunctions> SchoolsLevelsJunctions { get; set; } = new List<SchoolsLevelsJunctions>();
+    public virtual ICollection<SchoolsLevelsJunction> SchoolsLevelsJunctions { get; set; } = new List<SchoolsLevelsJunction>();
 
-    public virtual ICollection<TeachersSchoolLevelsJunctions> TeachersSchoolLevelsJunctions { get; set; } = new List<TeachersSchoolLevelsJunctions>();
+    public virtual ICollection<TeachersSchoolLevelsJunction> TeachersSchoolLevelsJunctions { get; set; } = new List<TeachersSchoolLevelsJunction>();
 }
