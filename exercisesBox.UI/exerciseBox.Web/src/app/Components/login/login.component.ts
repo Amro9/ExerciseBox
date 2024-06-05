@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Teacher } from '../../Entities/Teacher';
 import { TeacherAPIConnection } from '../../Services/TeacherAPIConnection';
 import { Router } from '@angular/router';
-import { HashGenerator } from '../../Services/HashGenerator';
 import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
 
 @Component({

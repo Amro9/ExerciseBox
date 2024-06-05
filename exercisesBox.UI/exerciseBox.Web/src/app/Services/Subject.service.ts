@@ -1,32 +1,32 @@
 import { Inject, Injectable, Optional } from "@angular/core";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable, throwError } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, tap, throwError } from "rxjs";
 import { API_BASE_URL } from "../Infrastucture/configurations";
+import { Subject} from '../Entities/Subject';
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectService {
   private http: HttpClient;
   private baseUrl: string;
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-  });
+  // private headers = new HttpHeaders({
+  //   'Content-Type': 'application/json',
+  // });
 
   constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
     this.http = http;
     this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
 } 
 
-getAllSubjects(){
-  let url_ = this.baseUrl + "Subjects";
-  return this.http.post(url_, {headers : this.headers}).pipe(
-    map((response: any) => {
-      const jsonData = response.value;
-      return jsonData
-    }),
+getAllSubjects(): Observable<Subject[]>{
+  // let url_ = this.baseUrl + "QuestionParamaters/Subjects";
+  let url_ = "http://localhost:7292/api/QuestionParamaters/Subjects";
+  console.log('getAllSubjects called');
+  return this.http.get<Subject[]>(url_).pipe(
+    tap(data => console.log('Received subjects:', data)),
     catchError(error => {
-      return throwError(error.message);
-    })
-  );
+      console.error('Error fetching subjects:', error);
+      return throwError(error);
+    }));
 }
 }

@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplictaionConfiguration();
 builder.Services.AddInfrastructureConfiguration();
 
-builder.Services.AddSession(options => options.IdleTimeout.Add(TimeSpan.FromMinutes(15)));
+//builder.Services.AddSession(options => options.IdleTimeout.Add(TimeSpan.FromMinutes(15)));
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -36,7 +36,7 @@ if (app.Environment.IsDevelopment())
 // Use CORS before other middlewares that handle HTTP requests
 app.UseCors("AllowAllOrigins");
 
-app.UseSession();
+//app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

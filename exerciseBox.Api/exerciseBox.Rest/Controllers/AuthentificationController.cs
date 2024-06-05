@@ -1,46 +1,46 @@
-﻿using exerciseBox.Application.UseCases.Teacher.Queries;
-using exerciseBox.Rest.Models;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using exercisebox.application.usecases.teacher.queries;
+using exercisebox.rest.models;
+using mediatr;
+using microsoft.aspnetcore.mvc;
 
-namespace exerciseBox.Rest.Controllers;
+namespace exercisebox.rest.controllers;
 
-public class AuthentificationController : BaseController
+public class authentificationcontroller : basecontroller
 {
-    public AuthentificationController(IMediator mediator,) : base(mediator)
+    public authentificationcontroller(imediator mediator,) : base(mediator)
     {
 
     }
 
-    [HttpPost("Login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+    [httppost("login")]
+    public async task<iactionresult> login([frombody] loginrequest loginrequest)
     {
         try
         {
-            var teacher = await _mediator.Send(new GetTeacherWithPasswordValidation { Email = loginRequest.Email, Password = loginRequest.Password });
-            return Ok(new { value = teacher });
+            var teacher = await _mediator.send(new getteacherwithpasswordvalidation { email = loginrequest.email, password = loginrequest.password });
+            return ok(new { value = teacher });
         }
-        catch (UnauthorizedAccessException ex)
+        catch (unauthorizedaccessexception ex)
         {
-            return Unauthorized("Falsches Passwort");
+            return unauthorized("falsches passwort");
         }
-        catch (Exception ex)
+        catch (exception ex)
         {
-            return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+            return statuscode(500, "während des logins ist ein fehler aufgetreten. bitte versuchen sie es später erneut.");
         }
     }
 
-    //[HttpPost("Register")]
-    //public async Task<IActionResult> Register([FromBody] RegisterRequest registerRequest)
+    //[httppost("register")]
+    //public async task<iactionresult> register([frombody] registerrequest registerrequest)
     //{
     //    try
     //    {
-    //        var teacher = await _mediator.Send(new RegisterTeacher { Email = registerRequest.Email, Password = registerRequest.Password });
-    //        return Ok(new { value = teacher });
+    //        var teacher = await _mediator.send(new registerteacher { email = registerrequest.email, password = registerrequest.password });
+    //        return ok(new { value = teacher });
     //    }
-    //    catch (Exception ex)
+    //    catch (exception ex)
     //    {
-    //        return StatusCode(500, "Während der Registrierung ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+    //        return statuscode(500, "während der registrierung ist ein fehler aufgetreten. bitte versuchen sie es später erneut.");
     //    }
     //}
 }

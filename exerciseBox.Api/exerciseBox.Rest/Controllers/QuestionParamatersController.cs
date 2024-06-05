@@ -5,20 +5,17 @@ using exerciseBox.Application.UseCases.Topics.Queries;
 using exerciseBox.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace exerciseBox.Rest.Controllers
 {
-    public class QuestionParamatersController : Controller
+    public class QuestionParamatersController : BaseController
     {
-        private readonly IMediator _mediator;
-        public QuestionParamatersController(IMediator mediator)
+       
+        public QuestionParamatersController(IMediator mediator) : base(mediator)
         {
-               _mediator = mediator;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
         [HttpGet("Subjects")]
         public async Task<IEnumerable<SubjectDto>> GetAllSubjects()
         {
@@ -36,6 +33,7 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetTopicsBySubject(subject));
         }
+        [HttpGet("GetAllClasses")]
         public async void GetAllClasses()
         {
             // hier werden die schulstufen geholt und in klassen umgewandelt .. nur ein vorschlag
