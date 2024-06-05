@@ -9,7 +9,7 @@ import { NavbarComponent } from "./Components/navbar/navbar.component";
 import { TeacherAPIConnection } from "./Services/TeacherAPIConnection";
 import { environment } from "../environments/enviroment.develop";
 import { API_BASE_URL } from "./Infrastucture/configurations";
-import { HashGenerator } from "./Services/HashGenerator";
+
 
 @NgModule({
     declarations:[
@@ -31,7 +31,7 @@ import { HashGenerator } from "./Services/HashGenerator";
             useValue: environment.baseUrl,
         },
         TeacherAPIConnection,
-        HashGenerator
+        
     ],
     bootstrap:[AppComponent]
 })

@@ -4,10 +4,8 @@
       <div class="mb-3 row">
         <label for="chooseSubject" class="col-sm-2 col-form-label">Wähle das Fach</label>
         <div class="col-sm-10">
-          <select class="form-select" id="chooseSubject" formControlName="subject">
-            <option value="1">Fach 1</option>
-            <option value="2">Fach 2</option>
-            <option value="3">Fach 3</option>
+          <select id="subject" (change)="onSubjectChange($event)" formControlName="subject">
+            <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
           </select>
         </div>
       </div>
