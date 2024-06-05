@@ -28,7 +28,7 @@ public class SessionCommunicator : ISessionCommunicator
             SessionId = sessionid
         };  
 
-        _httpContextAccessor.HttpContext.Session.Set("sessionid", Encoding.UTF8.GetBytes(sessionid));
+        _httpContextAccessor.HttpContext.Session.Set("session                                                                                                                                id", Encoding.UTF8.GetBytes(sessionid));
         return sessionid;
     }
 
