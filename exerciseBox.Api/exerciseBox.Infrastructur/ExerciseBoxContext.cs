@@ -64,12 +64,12 @@ public partial class ExerciseBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.BranchNavigation).WithMany(p => p.BranchesSubjectsJunctions)
+            entity.HasOne(d => d.BranchNavigation).WithMany(p => p.BranchesSubjectsJunction)
                 .HasForeignKey(d => d.Branch)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_BranchSubjectJunction_SchoolBranch");
 
-            entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.BranchesSubjectsJunctions)
+            entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.BranchesSubjectsJunction)
                 .HasForeignKey(d => d.Subject)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_BranchSubjectJunction_Subject");
@@ -208,12 +208,12 @@ public partial class ExerciseBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.BranchNavigation).WithMany(p => p.SchoolsBranchesJunctions)
+            entity.HasOne(d => d.BranchNavigation).WithMany(p => p.SchoolsBranchesJunction)
                 .HasForeignKey(d => d.Branch)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SchoolBranchesJunction_SchoolBranch");
 
-            entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsBranchesJunctions)
+            entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsBranchesJunction)
                 .HasForeignKey(d => d.School)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SchoolBranchesJunction_Schools");
@@ -233,12 +233,12 @@ public partial class ExerciseBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsLevelsJunctions)
+            entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsLevelsJunction)
                 .HasForeignKey(d => d.School)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SchoolsLevelsJunction_Schools");
 
-            entity.HasOne(d => d.SchoolLevelNavigation).WithMany(p => p.SchoolsLevelsJunctions)
+            entity.HasOne(d => d.SchoolLevelNavigation).WithMany(p => p.SchoolsLevelsJunction)
                 .HasForeignKey(d => d.SchoolLevel)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SchoolsLevelsJunction_SchoolLevels");
@@ -262,12 +262,12 @@ public partial class ExerciseBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsSubjectsJunctions)
+            entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.SchoolsSubjectsJunction)
                 .HasForeignKey(d => d.School)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SchoolsSubjectsJunction_SchoolsSubjectsJunction");
 
-            entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.SchoolsSubjectsJunctions)
+            entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.SchoolsSubjectsJunction)
                 .HasForeignKey(d => d.Subject)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SchoolsSubjectsJunction_Subject");
@@ -337,12 +337,12 @@ public partial class ExerciseBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.SchoolLevelNavigation).WithMany(p => p.TeachersSchoolLevelsJunctions)
+            entity.HasOne(d => d.SchoolLevelNavigation).WithMany(p => p.TeachersSchoolLevelsJunction)
                 .HasForeignKey(d => d.SchoolLevel)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TeachersSchoolLevelsJunction_SchoolLevels");
 
-            entity.HasOne(d => d.TeacherNavigation).WithMany(p => p.TeachersSchoolLevelsJunctions)
+            entity.HasOne(d => d.TeacherNavigation).WithMany(p => p.TeachersSchoolLevelsJunction)
                 .HasForeignKey(d => d.Teacher)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TeachersSchoolLevelsJunction_Teachers");
@@ -366,12 +366,12 @@ public partial class ExerciseBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.TeachersSubjectsJunctions)
+            entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.TeachersSubjectsJunction)
                 .HasForeignKey(d => d.Subject)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TeachersSubjectsJunction_Subject");
 
-            entity.HasOne(d => d.TeacherNavigation).WithMany(p => p.TeachersSubjectsJunctions)
+            entity.HasOne(d => d.TeacherNavigation).WithMany(p => p.TeachersSubjectsJunction)
                 .HasForeignKey(d => d.Teacher)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TeachersSubjectsJunction_Teacher");

@@ -47,11 +47,11 @@ namespace exerciseBox.Rest.Controllers
         }
 
         [HttpGet("School/{id}")]
-        public async Task<SchoolDto> GetSchoolById(Guid id)
+        public async Task<SchoolDto> GetSchoolById(string email)
         {
             try
             {
-                return await _mediator.Send(new GetSchoolById { Id = id });
+                return await _mediator.Send(new GetSchoolById { Email = email });
             }
             catch (Exception ex)
             {

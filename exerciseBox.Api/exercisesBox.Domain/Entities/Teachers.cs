@@ -21,7 +21,7 @@ public partial class Teachers
 
     public virtual Schools SchoolNavigation { get; set; }
 
-    public virtual ICollection<TeachersSchoolLevelsJunction> TeachersSchoolLevelsJunctions { get; set; } = new List<TeachersSchoolLevelsJunction>();
+    public virtual ICollection<TeachersSchoolLevelsJunction> TeachersSchoolLevelsJunction { get; set; } = new List<TeachersSchoolLevelsJunction>();
 
-    public virtual ICollection<TeachersSubjectsJunction> TeachersSubjectsJunctions { get; set; } = new List<TeachersSubjectsJunction>();
+    public virtual ICollection<TeachersSubjectsJunction> TeachersSubjectsJunction { get; set; } = new List<TeachersSubjectsJunction>();
 }

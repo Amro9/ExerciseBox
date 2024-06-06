@@ -13,7 +13,11 @@ public partial class TeachersSchoolLevelsJunction
 
     public int SchoolLevel { get; set; }
 
+    public string Subject { get; set; }
+
     public virtual SchoolLevels SchoolLevelNavigation { get; set; }
+
+    public virtual Subjects SubjectNavigation { get; set; }
 
     public virtual Teachers TeacherNavigation { get; set; }
 }

@@ -17,11 +17,11 @@ public partial class Schools
 
     public virtual SchoolTypes SchoolTypeNavigation { get; set; }
 
-    public virtual ICollection<SchoolsBranchesJunction> SchoolsBranchesJunctions { get; set; } = new List<SchoolsBranchesJunction>();
+    public virtual ICollection<SchoolsBranchesJunction> SchoolsBranchesJunction { get; set; } = new List<SchoolsBranchesJunction>();
 
-    public virtual ICollection<SchoolsLevelsJunction> SchoolsLevelsJunctions { get; set; } = new List<SchoolsLevelsJunction>();
+    public virtual ICollection<SchoolsLevelsJunction> SchoolsLevelsJunction { get; set; } = new List<SchoolsLevelsJunction>();
 
-    public virtual ICollection<SchoolsSubjectsJunction> SchoolsSubjectsJunctions { get; set; } = new List<SchoolsSubjectsJunction>();
+    public virtual ICollection<SchoolsSubjectsJunction> SchoolsSubjectsJunction { get; set; } = new List<SchoolsSubjectsJunction>();
 
     public virtual ICollection<Teachers> Teachers { get; set; } = new List<Teachers>();
 }

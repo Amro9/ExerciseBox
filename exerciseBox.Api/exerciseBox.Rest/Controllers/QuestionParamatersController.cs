@@ -33,10 +33,11 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetTopicsBySubject(subject));
         }
-        [HttpGet("GetAllClasses")]
-        public async void GetAllClasses()
+        [HttpGet("GetClassByTeacherId/{TeacherId}")]
+        public async void GetClassByTeacherId(string teacherId)
         {
             // hier werden die schulstufen geholt und in klassen umgewandelt .. nur ein vorschlag
+
         }
 
         [HttpGet("GetAllDifficultyLevel")]

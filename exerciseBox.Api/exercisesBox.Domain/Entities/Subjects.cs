@@ -13,11 +13,13 @@ public partial class Subjects
 
     public string Shortcut { get; set; }
 
-    public virtual ICollection<BranchesSubjectsJunction> BranchesSubjectsJunctions { get; set; } = new List<BranchesSubjectsJunction>();
+    public virtual ICollection<BranchesSubjectsJunction> BranchesSubjectsJunction { get; set; } = new List<BranchesSubjectsJunction>();
 
-    public virtual ICollection<SchoolsSubjectsJunction> SchoolsSubjectsJunctions { get; set; } = new List<SchoolsSubjectsJunction>();
+    public virtual ICollection<SchoolsSubjectsJunction> SchoolsSubjectsJunction { get; set; } = new List<SchoolsSubjectsJunction>();
 
-    public virtual ICollection<TeachersSubjectsJunction> TeachersSubjectsJunctions { get; set; } = new List<TeachersSubjectsJunction>();
+    public virtual ICollection<TeachersSchoolLevelsJunction> TeachersSchoolLevelsJunction { get; set; } = new List<TeachersSchoolLevelsJunction>();
+
+    public virtual ICollection<TeachersSubjectsJunction> TeachersSubjectsJunction { get; set; } = new List<TeachersSubjectsJunction>();
 
     public virtual ICollection<Topics> Topics { get; set; } = new List<Topics>();
 }
