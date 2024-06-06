@@ -29,7 +29,7 @@ public class SessionCommunicator : ISessionCommunicator
             SessionId = sessionid
         };
 
-        var sessionModelBytes = Encoding.UTF8.GetBytes(sessionModel.ToString());
+        var sessionModelBytes = SessionModel.SerializeSessionModel(sessionModel);
         _httpContextAccessor.HttpContext.Session.Set($"session{sessionModel.SessionIdKey}", sessionModelBytes);
 
         return sessionid;
@@ -50,10 +50,9 @@ public class SessionCommunicator : ISessionCommunicator
             return false;
         }
 
-        var storedSessionModelString = Encoding.UTF8.GetString(storedSessionModelBytes);
-        //var storedSessionModel = SessionModel.Parse(storedSessionModelString);
+        var storedSessionModel = SessionModel.DeserializeSessionModel(storedSessionModelBytes);
 
-        //return storedSessionModel.SessionId == session.SessionId;
+        return storedSessionModel.SessionId == session.SessionId;
         return true;
     }
 }

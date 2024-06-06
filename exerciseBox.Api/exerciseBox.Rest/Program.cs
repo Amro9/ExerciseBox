@@ -11,8 +11,16 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplictaionConfiguration();
 builder.Services.AddInfrastructureConfiguration();
 
+// Add a distributed memory cache
+builder.Services.AddDistributedMemoryCache();
 
-//builder.Services.AddSession(options => options.IdleTimeout.Add(TimeSpan.FromMinutes(15)));
+// Configure session state
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true; // make the session cookie essential
+});
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -38,7 +46,7 @@ if (app.Environment.IsDevelopment())
 // Use CORS before other middlewares that handle HTTP requests
 app.UseCors("AllowAllOrigins");
 
-//app.UseSession();
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

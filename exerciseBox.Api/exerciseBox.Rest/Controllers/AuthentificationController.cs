@@ -50,23 +50,22 @@ public class AuthentificationController : BaseController
     {
         try
         {
-            //if(_sessionCommunicator.VerifySessionId(new SessionModel { SessionIdKey = RegisterRequest.SchoolId, SessionId = RegisterRequest.SessionId }))
-            //{
-            //    return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
-            //    //return StatusCode(419, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
-            //}
+            if(!_sessionCommunicator.VerifySessionId(new SessionModel { SessionIdKey = RegisterRequest.SchoolId, SessionId = RegisterRequest.SessionId }))
+            {
+                return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
+            }
 
-            ////var pw = $"{RegisterRequest.Surname}.{RegisterRequest.Givenname}";
+            var pw = $"{RegisterRequest.Surname}.{RegisterRequest.Givenname}";
 
             var teacher = await _mediator.Send(new CreateTeacher
             {
                 Teacher = new TeacherDto
                 {
-                    ////Email = RegisterRequest.Email,
-                    ////Password = pw.HashPassword(),
-                    ////Surname = RegisterRequest.Surname,
-                    ////Givenname = RegisterRequest.Givenname,
-                    ////SchoolId = RegisterRequest.SchoolId
+                    Email = RegisterRequest.Email,
+                    Password = pw.HashPassword(),
+                    Surname = RegisterRequest.Surname,
+                    Givenname = RegisterRequest.Givenname,
+                    SchoolId = RegisterRequest.SchoolId
                 }
             });
 
