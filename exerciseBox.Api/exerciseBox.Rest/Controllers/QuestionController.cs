@@ -19,8 +19,7 @@ namespace exerciseBox.Rest.Controllers
         [HttpPost("addQuestion")]
         public async void AddQuestion([FromBody] QuestionModel question)
         {
-           // den author herausfinden
-           // dann die frage mappen und createn
+           
         }
 
         public void RemoveQuestion() {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exerciseBox.Infrastructur.Repositories
 {
-    internal class SchoolLevelsRepository
+    public class SchoolLevelsRepository
     {
     }
 }
