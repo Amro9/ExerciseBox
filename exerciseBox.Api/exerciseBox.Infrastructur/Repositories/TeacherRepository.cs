@@ -13,9 +13,11 @@ public class TeacherRepository : ITeacherRepository
         _context = context;
     }
 
-    public Task<Teachers> Create(Teachers entity)
+    public async Task<Teachers> Create(Teachers entity)
     {
-        throw new NotImplementedException();
+        var teacher = await _context.Teachers.AddAsync(entity);
+        await _context.SaveChangesAsync();
+        return teacher.Entity;
     }
 
     public Task<Teachers> Delete(Teachers entity)

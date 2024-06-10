@@ -10,6 +10,9 @@ public class SchoolDto
 
     public static implicit operator SchoolDto(Schools school)
     {
+        if(school is null)
+            return null;
+
         return new SchoolDto
         {
             Name = school.Name,
@@ -19,6 +22,9 @@ public class SchoolDto
 
     public static implicit operator Schools(SchoolDto school)
     {
+        if (school is null)
+            return null;
+
         return new Schools
         {
             Name = school.Name,

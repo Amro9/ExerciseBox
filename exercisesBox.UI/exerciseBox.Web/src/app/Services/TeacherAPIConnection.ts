@@ -38,20 +38,20 @@ export class TeacherAPIConnection {
         );
     }
 
-    getTeacherWithPasswordValidation(email : string, password : string) : Observable<Teacher> {
-        let url_ = this.baseUrl + "Teacher/ByEmailAndPassword";
+    // getTeacherWithPasswordValidation(email : string, password : string) : Observable<Teacher> {
+    //     let url_ = this.baseUrl + "Teacher/ByEmailAndPassword";
     
-        const body = { email: email, password: password };
+    //     const body = { email: email, password: password };
     
-        return this.http.post(url_, body, {headers : this.headers}).pipe(
-          map((response: any) => {
-            const jsonData = response.value;
-            return Teacher.fromData(jsonData);
-          }),
-          catchError(error => {
-            return throwError(error.error);
-          })
-        );
-    }
+    //     return this.http.post(url_, body, {headers : this.headers}).pipe(
+    //       map((response: any) => {
+    //         const jsonData = response.value;
+    //         return Teacher.fromData(jsonData);
+    //       }),
+    //       catchError(error => {
+    //         return throwError(error.error);
+    //       })
+    //     );
+    // }
 
 }

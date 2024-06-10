@@ -8,6 +8,7 @@ public class TeacherDto
     public string Givenname { get; set; }
     public string Email { get; set; }
     public string SchoolId { get; set; }    
+    public string Password { get; set; }
     public SchoolDto School { get; set; }
 
     public static implicit operator TeacherDto(Teachers teacher)
@@ -17,7 +18,7 @@ public class TeacherDto
             Surname = teacher.Surname,
             Givenname = teacher.FamilyName,
             Email = teacher.Email,
-            School = teacher.SchoolNavigation
+            School = teacher.SchoolNavigation is null ? null : teacher.SchoolNavigation,
         };
     }
 
@@ -26,9 +27,11 @@ public class TeacherDto
         return new Teachers
         {
             Surname = teacher.Surname,
+            FamilyName = teacher.Givenname,
             Email = teacher.Email,
+            Password = teacher.Password is null ? null : teacher.Password,
             SchoolNavigation = teacher.School is null ? null : teacher.School,
-            School = teacher.SchoolId is null ? null : teacher.SchoolId
+            School = teacher.SchoolId is null ? null : teacher.SchoolId,
         };
     }
 }
