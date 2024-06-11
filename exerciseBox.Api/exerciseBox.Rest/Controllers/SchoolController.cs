@@ -1,18 +1,20 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.Services.Interface;
+using exerciseBox.Application.Services.Models;
 using exerciseBox.Application.UseCases.Schools.Commands;
 using exerciseBox.Application.UseCases.Schools.Queries;
+using exerciseBox.Application.UseCases.SchoolTypes.Queries;
+using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace exerciseBox.Rest.Controllers
 {
-    public class SchoolController : Controller
+    public class SchoolController : BaseController
     {
-        private readonly IMediator _mediator;
-
-        public SchoolController(IMediator mediator)
+        public SchoolController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
         {
-            _mediator = mediator;
+
         }
 
         public IActionResult Index()
@@ -56,6 +58,23 @@ namespace exerciseBox.Rest.Controllers
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        [HttpGet("Types")]
+        public async Task<IActionResult> GetAllSchoolTypes(BaseRequest request)
+        {
+            try
+            {
+                if (!_sessionCommunicator.VerifySessionId(new SessionModel { SessionIdKey = request.Id, SessionId = request.SessionId }))
+                    return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
+
+                var types = await _mediator.Send(new GetAllSchoolTypes());
+                return Ok(new { value = types });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
             }
         }
     }
