@@ -2,25 +2,25 @@
 
 namespace exerciseBox.Application.Abtraction.Models;
 
-public class SchoolType
+public class SchoolTypeDto
 {
     public string Id { get; set; }
     public string Description { get; set; }
 
-    public static implicit operator SchoolType(SchoolTypes schoolType)
+    public static implicit operator SchoolTypeDto(SchoolTypes schoolType)
     {
         if(schoolType == null)
         {
             return null;
         }
-        return new SchoolType
+        return new SchoolTypeDto
         {
             Id = schoolType.Id,
             Description = schoolType.Name
         };
     }
 
-    public static implicit operator SchoolTypes(SchoolType schoolType)
+    public static implicit operator SchoolTypes(SchoolTypeDto schoolType)
     {
         return new SchoolTypes
         {

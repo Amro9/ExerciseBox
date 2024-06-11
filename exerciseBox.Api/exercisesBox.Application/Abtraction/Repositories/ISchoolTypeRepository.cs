@@ -4,5 +4,5 @@ namespace exerciseBox.Application.Abtraction.Repositories;
 
 public interface ISchoolTypeRepository : IRepository<SchoolTypes, Guid>
 {
-
+    
 }

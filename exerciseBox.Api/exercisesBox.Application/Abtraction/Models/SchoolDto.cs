@@ -4,7 +4,7 @@ namespace exerciseBox.Application.Abtraction.Models;
 
 public class SchoolDto
 {
-    public SchoolType SchoolType { get; set; }
+    public SchoolTypeDto SchoolType { get; set; }
     public string Email { get; set; }
     public string Name { get; set; }
 
