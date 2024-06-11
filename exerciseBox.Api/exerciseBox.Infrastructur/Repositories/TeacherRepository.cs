@@ -30,7 +30,7 @@ public class TeacherRepository : ITeacherRepository
         return await _context.Teachers.Include(x => x.SchoolNavigation).ThenInclude(x => x.SchoolTypeNavigation).ToListAsync();
     }
 
-    public async Task<Teachers> ReadByEmail(string email)
+    public async Task<Teachers> ReadByEmailAsync(string email)
     {
         return await _context.Teachers.Include(x => x.SchoolNavigation).ThenInclude(x => x.SchoolTypeNavigation).FirstOrDefaultAsync(x => x.Email == email);
     }
@@ -38,6 +38,11 @@ public class TeacherRepository : ITeacherRepository
     public Task<Teachers> ReadById(string id)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<Teachers>> ReadBySchoolIdAsync(string schoolId)
+    {
+        return await _context.Teachers.Where(x => x.School == schoolId).ToListAsync();
     }
 
     public Task<Teachers> Update(Teachers entity)

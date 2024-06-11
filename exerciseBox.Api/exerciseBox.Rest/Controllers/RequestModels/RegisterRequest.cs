@@ -1,4 +1,4 @@
-﻿namespace exerciseBox.Rest.Models
+﻿namespace exerciseBox.Rest.Controllers.RequestModels
 {
     public class RegisterRequest
     {
@@ -6,6 +6,6 @@
         public string Surname { get; set; }
         public string Givenname { get; set; }
         public string SchoolId { get; set; }
-        public string SessionId { get; set; }   
+        public string SessionId { get; set; }
     }
 }

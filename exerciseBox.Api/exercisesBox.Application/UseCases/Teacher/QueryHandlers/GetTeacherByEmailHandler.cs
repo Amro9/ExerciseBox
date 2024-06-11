@@ -15,7 +15,7 @@ public class GetTeacherByEmailHandler : IRequestHandler<GetTeacherByEmail, Teach
 
     public async Task<TeacherDto> Handle(GetTeacherByEmail request, CancellationToken cancellationToken)
     {
-        var teacher = await _teacherRepository.ReadByEmail(request.Email);
+        var teacher = await _teacherRepository.ReadByEmailAsync(request.Email);
         return teacher;
     }
 }

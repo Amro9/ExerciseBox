@@ -53,6 +53,5 @@ public class SessionCommunicator : ISessionCommunicator
         var storedSessionModel = SessionModel.DeserializeSessionModel(storedSessionModelBytes);
 
         return storedSessionModel.SessionId == session.SessionId;
-        return true;
     }
 }

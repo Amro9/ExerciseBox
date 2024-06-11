@@ -1,0 +1,17 @@
+.container-schoolInfos {
+    height: 30vh;
+    background-color: lightblue;
+    margin: 3%;
+}
+
+.container-subjectInfos {
+    height: 70vh;
+    margin: 3%;
+    background-color: lightcoral;
+}
+
+.container-teacherInfos {
+    height: 70vh;
+    margin: 3%;
+    background-color: lightgreen;
+}

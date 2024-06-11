@@ -9,6 +9,7 @@ import { NavbarComponent } from "./Components/navbar/navbar.component";
 import { TeacherAPIConnection } from "./Services/TeacherAPIConnection";
 import { environment } from "../environments/enviroment.develop";
 import { API_BASE_URL } from "./Infrastucture/configurations";
+import { AuthentificationService } from "./Services/AuthentificationService";
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { API_BASE_URL } from "./Infrastucture/configurations";
             useValue: environment.baseUrl,
         },
         TeacherAPIConnection,
-        
+        AuthentificationService
     ],
     bootstrap:[AppComponent]
 })

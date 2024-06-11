@@ -18,20 +18,17 @@ export class AuthentificationService {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    public login(email : string, password : string) : boolean { 
+    public async login(email: string, password: string): Promise<boolean> {
 
         let url_ = this.baseUrl + "Authentification/Login";
 
-        return this.http.post(url_, { email: email, password: password }, { headers: this.headers }).subscribe(
-            (response: any) => {
-                const jsonData = response.value;
-                return true;
-            },
-            (error) => {
-                return false;
-            }
-        );
-
-        return "";
+        try {
+            const response: any = await this.http.post(url_, { email: email, password: password }, { headers: this.headers }).toPromise();
+            const jsonData = response.value;
+            localStorage.setItem("id", jsonData.id);
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 }

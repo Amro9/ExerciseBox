@@ -1,4 +1,4 @@
-﻿namespace exerciseBox.Rest.Models;
+﻿namespace exerciseBox.Rest.Controllers.RequestModels;
 
 public class EmailRequest
 {

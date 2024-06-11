@@ -1,8 +1,9 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.Services.Interface;
+using exerciseBox.Application.Services.Models;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Queries;
-using exerciseBox.Rest.Models;
+using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,23 @@ public class TeacherController : BaseController
         catch (Exception ex)
         {
             return BadRequest();
+        }
+    }
+
+    [HttpPost("BySchool")]
+    public async Task<IActionResult> GetTeacherBySchool([FromBody] SchoolRequest school)
+    {
+        try
+        {
+            if(!_sessionCommunicator.VerifySessionId(new SessionModel { SessionId = school.Seesionid, SessionIdKey = school.SchoolId}))
+                return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
+
+            var teachers = await _mediator.Send(new GetTeachersBySchool { SchoolId = school.SchoolId });
+            return Ok(new { value = teachers });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
         }
     }
 

@@ -17,7 +17,7 @@ builder.Services.AddDistributedMemoryCache();
 // Configure session state
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.IdleTimeout = TimeSpan.FromMinutes(1);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true; // make the session cookie essential
 });

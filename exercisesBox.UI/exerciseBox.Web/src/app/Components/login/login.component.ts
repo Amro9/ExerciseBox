@@ -3,6 +3,7 @@ import { Teacher } from '../../Entities/Teacher';
 import { TeacherAPIConnection } from '../../Services/TeacherAPIConnection';
 import { Router } from '@angular/router';
 import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
+import { AuthentificationService } from '../../Services/AuthentificationService';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
 export class LoginComponent {
   teacher! : Teacher;
   
-  constructor(private teacherAPIConnection: TeacherAPIConnection, private router: Router) {
+  constructor(private authService: AuthentificationService, private router: Router) {
     this.teacher = new Teacher("","","","");
   }
 
@@ -21,17 +22,6 @@ export class LoginComponent {
   onSubmit(): void {
   
 
-    this.teacherAPIConnection.getTeacherWithPasswordValidation(this.teacher.email, this.teacher.password).subscribe(
-      (response: Teacher) => {
-        let teacher = response
-        
-        sessionStorage.setItem('teacher', JSON.stringify(teacher));
-
-        this.router.navigate(['/home']); 
-      },
-      (error: any) => {
-        this.errorMessage = error;
-      }
-    );
+    this.authService.login(this.teacher.email, this.teacher.password)
   }
 }

@@ -38,6 +38,23 @@ export class TeacherAPIConnection {
         );
     }
 
+    getTeachersOfSchool(schoolId : string) : Observable<Teacher[]> 
+    {
+        let url_ = this.baseUrl + "Teacher/BySchool";
+    
+        const body = { schoolId: schoolId };
+    
+        return this.http.post(url_, body, {headers : this.headers}).pipe(
+          map((response: any) => {
+            const jsonData = response.value;
+            return jsonData.map((item: any) => Teacher.fromData(item));
+          }),
+          catchError(error => {
+            return throwError(error.message);
+          })
+        );
+    }
+
     // getTeacherWithPasswordValidation(email : string, password : string) : Observable<Teacher> {
     //     let url_ = this.baseUrl + "Teacher/ByEmailAndPassword";
     

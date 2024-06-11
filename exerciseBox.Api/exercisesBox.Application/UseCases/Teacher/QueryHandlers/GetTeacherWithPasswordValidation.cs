@@ -16,7 +16,7 @@ public class GetTeacherWithPasswordValidationHandler : IRequestHandler<GetTeache
 
     public async Task<TeacherDto> Handle(GetTeacherWithPasswordValidation request, CancellationToken cancellationToken)
     {
-        var teacher = await _teacherRepository.ReadByEmail(request.Email);
+        var teacher = await _teacherRepository.ReadByEmailAsync(request.Email);
         if (teacher == null)
         {
             throw new Exception("Teacher not found");

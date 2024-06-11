@@ -6,7 +6,7 @@ using exerciseBox.Application.Services.Models;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Commands;
 using exerciseBox.Rest.Controllers;
-using exerciseBox.Rest.Models;
+using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,9 +51,8 @@ public class AuthentificationController : BaseController
         try
         {
             if(!_sessionCommunicator.VerifySessionId(new SessionModel { SessionIdKey = RegisterRequest.SchoolId, SessionId = RegisterRequest.SessionId }))
-            {
                 return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
-            }
+          
 
             var pw = $"{RegisterRequest.Surname}.{RegisterRequest.Givenname}";
 
