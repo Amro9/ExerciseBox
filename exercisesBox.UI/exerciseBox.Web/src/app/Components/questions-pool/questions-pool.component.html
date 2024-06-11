@@ -40,16 +40,13 @@
 </div> 
 <div class="col-md-9">
     <!-- Hier kommen die gefundenen Ergebnisse hin -->
-<div id="results">
-                <!-- Beispiel Ergebnis -->
-                <div class="result-item">
-                    <h4>Ergebnis Titel</h4>
-                    <p>Ergebnis Beschreibung</p>
-                </div>
-                <!-- Weitere Ergebnisse... -->
-            </div>
-        </div>
-    </div>
+<div *ngfor="let question of publicQuestions">
+    <div class="question">
+        <h3>{{ question.questionText }}</h3>
+        <p>{{ question.answer }}</p>
+        <button (click)="saveQuestion(question)">Speichern</button>
+        <button (click)="excludeQuestion(question)">Diese Frage nicht mehr anzeigen</button>
+      </div> 
 </div>
 
     <!-- <div class="card question-card">

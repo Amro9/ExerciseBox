@@ -32,7 +32,7 @@ namespace exerciseBox.Infrastructur.Repositories
 
         public async Task<IEnumerable<Questions>> Read()
         {
-            return await _context.Questions.ToListAsync();
+            return await _context.Questions.Where(q => q.QuestionIsPrivate == false).ToListAsync();
         }
 
         public Task<Questions> ReadById(Guid id)

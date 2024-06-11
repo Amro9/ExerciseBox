@@ -1,4 +1,4 @@
-﻿namespace exerciseBox.Rest.Models
+﻿namespace exerciseBox.Rest.Controllers.RequestModels
 {
     public class QuestionRequest
     {
@@ -7,7 +7,7 @@
         public int SchoolLevel { get; set; }
         public string DifficultyLevel { get; set; }
         public string Subject { get; set; }
-        public string Topic { get; set; }  
+        public string Topic { get; set; }
         public bool QuestionOnlyForMe { get; set; }
     }
 }
