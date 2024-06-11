@@ -1,8 +1,10 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.UseCases.Questions.Commands;
 using exerciseBox.Application.UseCases.Questions.Queries;
 using exerciseBox.Rest.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Eventing.Reader;
 
 namespace exerciseBox.Rest.Controllers
 {
@@ -17,10 +19,19 @@ namespace exerciseBox.Rest.Controllers
         }
 
         [HttpPost("addQuestion")]
-        public async void AddQuestion([FromBody] QuestionModel question)
+        public async Task<IActionResult> AddQuestion([FromBody] QuestionDto question)
         {
-           // den author herausfinden
-           // dann die frage mappen und createn
+            try
+            {
+                await _mediator.Send(new CreateQuestion { Question = question });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
+            }
+
+            
         }
 
         public void RemoveQuestion() {

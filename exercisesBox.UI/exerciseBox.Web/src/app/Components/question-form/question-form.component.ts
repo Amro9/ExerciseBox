@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { QuestionFromService } from '../../Services/question-from.service';
 import { Subject} from '../../Entities/Subject';
 import { SubjectService } from '../../Services/Subject.service';
 import { TopicService, Topic } from '../../Services/Topic.service';
+import { ClassService } from '../../Services/class.service';
+import { DifficultyLevel, DifficultyLevelsService } from '../../Services/difficulty-levels.service';
 @Component({
   selector: 'app-question-form',
   templateUrl: './question-form.component.html',
@@ -12,24 +14,31 @@ import { TopicService, Topic } from '../../Services/Topic.service';
 
 export class QuestionCreationFormComponent implements OnInit {
   subjects: Subject[] = [];
+  schoolLevels: string[] = [];
   questionCreationForm: FormGroup;
+  subjectsTopics: Topic[] = [];
+  difficultyLevels: DifficultyLevel[] = [];
 
   constructor(
     private fb: FormBuilder,
     private subjectService: SubjectService,
-    private topicService: TopicService
+    private topicService: TopicService,
+    private classService : ClassService,
+    private difficultyLevelsService: DifficultyLevelsService,
+    private questionFromService: QuestionFromService
   ) {
     this.questionCreationForm = this.fb.group({
+      questionText: [''],
+      answer: [''],
+      SchoolLevel: [''],
+      difficultyLevel: ['Einfach'],
       subject: ['', Validators.required],
       topic: [''],
-      class: [''],
-      questionText: [''],
-      questionNote: [''],
-      answer: [''],
-      answerNote: [''],
-      difficultyLevel: ['Einfach'],
-      questionOnlyForMe: [false],
-      questionIsSpecific: [false]
+      // class: [''],
+      // questionNote: [''],
+      // answerNote: [''],
+      questionIsPrivate: [false],
+      // questionIsSpecific: [false]
     });
   }
 
@@ -38,27 +47,32 @@ export class QuestionCreationFormComponent implements OnInit {
       next: (data) => this.subjects = data,
       error: (error) => console.error('Error fetching subjects:', error)
     });
+
+    this.classService.getClassesByTeacherId("1@2.com").subscribe({
+  next:(data) => this.schoolLevels = data,
+  error: (error) => console.error('Error fetching Classes:', error)
+    });
+
+    this.difficultyLevelsService.getDifficultyLevels().subscribe({
+      next:(data) => this.difficultyLevels = data,
+      error: (error: string) => console.error('Error fetching Classes:', error)
+        });
+  }
+  onLevelClick(level: string) {
+    this.questionCreationForm.patchValue({ SchoolLevel: level });
   }
   onSubjectChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedSubjectId = selectElement.value;
-    this.topicService.getTopicsBySubject(selectedSubjectId).subscribe(topics => {
-      console.log(topics); // Do something with the fetched topics
+
+    this.topicService.getTopicsBySubject(selectedSubjectId).subscribe({
+      next: (data) => this.subjectsTopics = data,
+      error: (error: string) => console.error('Error fetching topics:', error)
     });
   }
   submitQuestionCreationForm() {
     const formData = this.questionCreationForm.value;
-    // Implement the submission logic, e.g., using HttpClient to send the form data to the backend.
-    console.log('Form data:', formData);
+    formData.Author = "1@2.com"
+    this.questionFromService.submitQuestionForm(formData);
   }
 }
-
-// submitQuestionCreationForm() {
-//   const formData = this.questionCreationForm.value;
-//   this.http.post('http://localhost:5000/api/question/add', formData)
-//     .subscribe(response => {
-//       console.log('Frage erfolgreich an den Server gesendet:', response);
-//     }, error => {
-//       console.error('Fehler beim Senden der Frage an den Server:', error);
-//     });
-// }

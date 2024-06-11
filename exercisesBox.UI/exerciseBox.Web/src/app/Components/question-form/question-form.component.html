@@ -1,17 +1,14 @@
-
-  <div class="d-flex justify-content-center">
-    <h2>Wähle deine Klasse aus</h2>
-        <Button >Klasse 1</Button>
-        <Button >Klasse 2</Button>
-        <Button >Klasse 3</Button>
-
-  </div>
-
+<div class="text-center" *ngIf="schoolLevels">
+  <label >Wähle die Schulstufe</label>
+ <button class="btn btn-primary m-3" (click)="onLevelClick(level)" *ngFor="let level of schoolLevels" [id]="level" >
+   {{ level }}. Schulstufe
+ </button>
+</div>
 
 
 <div class="container mt-5">
+  <form [formGroup]="questionCreationForm" (submit)="submitQuestionCreationForm()">
     <h2 class="text-center mb-4">Frage erstellen</h2>
-    <form [formGroup]="questionCreationForm" (submit)="submitQuestionCreationForm()">
       <div class="mb-3 row">
         <label for="chooseSubject" class="col-sm-2 col-form-label">Wähle das Fach</label>
         <div class="col-sm-10">
@@ -24,9 +21,8 @@
         <label for="chooseTopic" class="col-sm-2 col-form-label">Wähle das Thema</label>
         <div class="col-sm-10">
           <select class="form-select" id="chooseTopic" formControlName="topic">
-            <option value="1">Thema 1</option>
-            <option value="2">Thema 2</option>
-            <option value="3">Thema 3</option>
+            <option selected>Wähle das Thema</option>
+            <option *ngFor="let topic of subjectsTopics" [value]="topic.id">{{ topic.description }}</option>
           </select>
         </div>
       </div>
@@ -37,53 +33,50 @@
           <textarea class="form-control" id="questionText" formControlName="questionText" rows="3" placeholder="Fragestellung.." ></textarea>
         </div>
       </div>
-      <div class="mb-3 row">
+      <!-- <div class="mb-3 row">
         <label for="questionNote" class="col-sm-2 col-form-label">Hinweis zur Fragestellung:</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="questionNote" formControlName="questionNote" placeholder="Hinweis für den Schüler.." >
         </div>
-      </div>
+      </div> -->
       <div class="mb-3 row">
         <label for="answer" class="col-sm-2 col-form-label">Antwort:</label>
         <div class="col-sm-10">
           <textarea class="form-control" id="answer" rows="3" formControlName="answer" placeholder="Antwort.."></textarea>
         </div>
       </div>
-      <div class="mb-3 row">
+      <!-- <div class="mb-3 row">
         <label for="answerNote" class="col-sm-2 col-form-label">Hinweis zur Antwort:</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="answerNote" formControlName="answerNote" placeholder="Hinweis für den Lehrer.." >
         </div>
-      </div>
+      </div> -->
       <div class="mb-3 row">
         <label for="chooseDifficulty" class="col-sm-2 col-form-label">Schwierigkeitsgrad der Frage:</label>
         <div class="col-sm-10">
           <select class="form-select" id="chooseDifficulty" formControlName="difficultyLevel">
-            <option selected>Einfach</option>
-            <option value="1">Mittel</option>
-            <option value="2">Schwer</option>
+            <option selected>Wähle den Schwierigkeitsgrad</option>
+            <option *ngFor="let difficulty of difficultyLevels" [value]="difficulty.id">{{ difficulty.description }}</option>
           </select>
         </div>
       </div>
       <div class="mb-3 row">
-        <label for="questionOnlyForMe" class="col-sm-2 col-form-label">Frage soll nur für mich gespeichert werden:</label>
+        <label for="questionIsPrivate" class="col-sm-2 col-form-label">Frage soll nur für mich gespeichert werden:</label>
         <div class="col-sm-10 d-flex align-items-center">
-          <input type="checkbox" class="form-check-input ms-2" id="questionOnlyForMe" formControlName="questionOnlyForMe">
+          <input type="checkbox" class="form-check-input ms-2" id="questionIsPrivate" formControlName="questionIsPrivate">
         </div>
       </div>
-      <div class="mb-3 row">
+      <!-- <div class="mb-3 row">
         <label for="questionIsSpecific" class="col-sm-2 col-form-label">Frage ist berufsrelevant:</label>
         <div class="col-sm-10 d-flex align-items-center">
           <input type="checkbox" class="form-check-input ms-2" id="questionIsSpecific" formControlName="questionIsSpecific">
         </div>
-      </div>
+      </div> -->
       <div class="d-flex justify-content-end">
         <button type="reset" class="btn btn-secondary me-2">Discard</button>
         <button type="submit" class="btn btn-primary">Create</button>
       </div>
     </form>
   </div>
-  <div>
 
-  </div>
   

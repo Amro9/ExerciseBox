@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using exerciseBox.Application.Services.Interface;
+using exerciseBox.Application.UseCases.SchoolLevels.Queries;
 
 namespace exerciseBox.Rest.Controllers
 {
@@ -33,15 +34,15 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetTopicsBySubject(subject));
         }
-        [HttpGet("GetClassByTeacherId/{TeacherId}")]
-        public async void GetClassByTeacherId(string teacherId)
+        [HttpGet("GetClassByTeacherId")]
+        public async Task<IEnumerable<int>> GetClassByTeacherId([FromQuery] string teacherId)
         {
-            // hier werden die schulstufen geholt und in klassen umgewandelt .. nur ein vorschlag
-
+            string id = "1@2.com";
+            return await _mediator.Send(new GetSchoolLevelsByTeacherId(id));
         }
 
-        [HttpGet("GetAllDifficultyLevel")]
-        public async Task<IEnumerable<DifficultyLevelDto>> GettAllDifficultyLevel()
+        [HttpGet("GetDifficultyLevels")]
+        public async Task<IEnumerable<DifficultyLevelDto>> GetDifficultyLevels()
         {
             return await _mediator.Send(new GetAllDifficultyLevels());
         }

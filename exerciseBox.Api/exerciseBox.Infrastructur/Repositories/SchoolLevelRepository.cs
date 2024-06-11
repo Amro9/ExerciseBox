@@ -1,5 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +32,21 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public Task<SchoolLevels> ReadById(Guid id)
+        public Task<SchoolLevels> ReadById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<int>> ReadByTeacherId(string teacherId)
+        {
+            try
+            {
+                return _context.TeachersSchoolLevelsJunctions.Select(l => l.SchoolLevel).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Task<SchoolLevels> Update(SchoolLevels entity)

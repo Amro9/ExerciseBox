@@ -89,7 +89,7 @@ public partial class ExerciseBoxContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Content)
+            entity.Property(e => e.QuestionText)
                 .IsRequired()
                 .IsUnicode(false);
             entity.Property(e => e.DifficultyLevel)

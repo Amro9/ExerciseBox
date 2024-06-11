@@ -15,8 +15,4 @@
     <ProjectReference Include="..\exercisesBox.Domain\exerciseBox.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\SchoolLevels\QueriesHandlers\" />
-  </ItemGroup>
-
 </Project>

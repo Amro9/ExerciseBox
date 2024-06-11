@@ -9,7 +9,7 @@ public partial class Questions
 {
     public string Id { get; set; }
 
-    public string Content { get; set; }
+    public string QuestionText { get; set; }
 
     public string Answer { get; set; }
 
@@ -20,6 +20,8 @@ public partial class Questions
     public int SchoolLevel { get; set; }
 
     public string Topic { get; set; }
+
+    public bool QuestionIsPrivate { get; set; }
 
     public virtual Teachers AuthorNavigation { get; set; }
 
