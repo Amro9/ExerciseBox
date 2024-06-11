@@ -10,15 +10,17 @@ import { TeacherAPIConnection } from "./Services/TeacherAPIConnection";
 import { environment } from "../environments/enviroment.develop";
 import { API_BASE_URL } from "./Infrastucture/configurations";
 import { AuthentificationService } from "./Services/AuthentificationService";
-
-
+import { CommonModule } from "@angular/common";
+import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component";
 @NgModule({
     declarations:[
         AppComponent,
         NavbarComponent,
+        QuestionsPoolComponent,
         routingComponents
     ],
     imports: [
+    CommonModule,
         BrowserModule,
         NgbModule,
         ReactiveFormsModule,
