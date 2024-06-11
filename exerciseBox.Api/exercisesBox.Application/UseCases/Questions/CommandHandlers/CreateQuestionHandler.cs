@@ -17,6 +17,9 @@ public class CreateQuestionHandler : IRequestHandler<CreateQuestion, QuestionDto
     public async Task<QuestionDto> Handle(CreateQuestion request, CancellationToken cancellationToken)
     {
         var question = await _questionRepository.Create(request.Question);
+        if (question == null) {
+            throw new Exception("Failed to create question");
+        }
         return question;
     }
 }

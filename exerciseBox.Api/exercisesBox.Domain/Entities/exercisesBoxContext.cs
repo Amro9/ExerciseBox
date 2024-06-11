@@ -107,15 +107,16 @@ public partial class exercisesBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("author");
-            entity.Property(e => e.Content)
-                .IsRequired()
-                .IsUnicode(false)
-                .HasColumnName("content");
             entity.Property(e => e.DifficultyLevel)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("difficultyLevel");
+            entity.Property(e => e.QuestionIsPrivate).HasColumnName("questionIsPrivate");
+            entity.Property(e => e.QuestionText)
+                .IsRequired()
+                .IsUnicode(false)
+                .HasColumnName("questionText");
             entity.Property(e => e.SchoolLevel).HasColumnName("schoolLevel");
             entity.Property(e => e.Topic)
                 .IsRequired()

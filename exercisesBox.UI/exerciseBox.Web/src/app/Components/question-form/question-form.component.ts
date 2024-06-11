@@ -30,15 +30,15 @@ export class QuestionCreationFormComponent implements OnInit {
     this.questionCreationForm = this.fb.group({
       questionText: [''],
       answer: [''],
-      // selectedLevel: [''],
+      SchoolLevel: [''],
       difficultyLevel: ['Einfach'],
       subject: ['', Validators.required],
       topic: [''],
-      class: [''],
+      // class: [''],
       // questionNote: [''],
       // answerNote: [''],
-      questionOnlyForMe: [false],
-      questionIsSpecific: [false]
+      questionIsPrivate: [false],
+      // questionIsSpecific: [false]
     });
   }
 
@@ -59,7 +59,7 @@ export class QuestionCreationFormComponent implements OnInit {
         });
   }
   onLevelClick(level: string) {
-    this.questionCreationForm.patchValue({ selectedLevel: level });
+    this.questionCreationForm.patchValue({ SchoolLevel: level });
   }
   onSubjectChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
@@ -72,19 +72,7 @@ export class QuestionCreationFormComponent implements OnInit {
   }
   submitQuestionCreationForm() {
     const formData = this.questionCreationForm.value;
-    
+    formData.Author = "1@2.com"
     this.questionFromService.submitQuestionForm(formData);
-    // Implement the submission logic, e.g., using HttpClient to send the form data to the backend.
-    console.log('Form data:', formData);
   }
 }
-
-// submitQuestionCreationForm() {
-//   const formData = this.questionCreationForm.value;
-//   this.http.post('http://localhost:5000/api/question/add', formData)
-//     .subscribe(response => {
-//       console.log('Frage erfolgreich an den Server gesendet:', response);
-//     }, error => {
-//       console.error('Fehler beim Senden der Frage an den Server:', error);
-//     });
-// }

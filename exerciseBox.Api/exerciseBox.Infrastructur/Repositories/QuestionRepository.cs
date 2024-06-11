@@ -13,9 +13,16 @@ namespace exerciseBox.Infrastructur.Repositories
             _context = context;
         }
 
-        public Task<Questions> Create(Questions entity)
+        public  async Task<Questions> Create(Questions entity)
         {
-            throw new NotImplementedException();
+           await _context.Questions.AddAsync(entity);
+            int effectedRows =  await _context.SaveChangesAsync();
+            if (effectedRows > 0)
+            {
+                return entity;
+            }
+            return null;
+
         }
 
         public Task<Questions> Delete(Questions entity)
