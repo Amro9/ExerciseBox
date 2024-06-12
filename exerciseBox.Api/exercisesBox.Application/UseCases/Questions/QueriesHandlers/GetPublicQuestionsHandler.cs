@@ -7,17 +7,17 @@ namespace exerciseBox.Application.UseCases.Questions.QueriesHandlers
 {
     // we will pass the query to the interface, and if you have an expected output then a second para
     // so the query is the request, and the request handler is this
-    public class GetAllQuestionsHandler : IRequestHandler<GetAllQuestions, IEnumerable<QuestionDto>>
+    public class GetPublicQuestionsHandler : IRequestHandler<GetPublicQuestions, IEnumerable<QuestionDto>>
     {
         private readonly IQuestionRepository _questionRepository;
-        public GetAllQuestionsHandler(IQuestionRepository questionRepository)
+        public GetPublicQuestionsHandler(IQuestionRepository questionRepository)
         {
             _questionRepository = questionRepository;
         }
 
 
         // implemented method of mediator, you get the request and handle it. token is optional
-        public async Task<IEnumerable<QuestionDto>> Handle(GetAllQuestions request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<QuestionDto>> Handle(GetPublicQuestions request, CancellationToken cancellationToken)
         {
             var questions = await _questionRepository.Read();
             return QuestionMappingExtension.MapToQuestionDto(questions);

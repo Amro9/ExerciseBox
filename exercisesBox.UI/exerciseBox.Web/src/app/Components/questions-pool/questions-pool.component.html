@@ -1,64 +1,80 @@
-<div class="container mt-4">
-    <div class="row mb-3">
-        <div class="col-md-2">
-            <select class="form-control">
-                <option>Schulart</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <select class="form-control">
-                <option>Schulstufe</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <select class="form-control">
-                <option>Beruf</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <select class="form-control" id="subject" >
-                <option>Fach</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <select class="form-control">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-2 border border-dark p-3">
+         <div class="border border-dark p-3 mb-3">
+             <div class="form-group">
+                 <select class="form-control">
+                     <option>Schulart</option>
+                 </select>
+             </div>
+             <div class="form-group">
+                 <select class="form-control">
+                     <option>Schulstufe</option>
+                 </select>
+             </div>
+             <div class="form-group">
+                 <select class="form-control">
+                     <option>Beruf</option>
+                 </select>
+             </div>
+         </div>  
+         <div class="border border-dark p-3">
+             <div class="form-group">
+                 <select class="form-control" id="subject" onchange="onSubjectChange(event)">
+                     <option>Fach</option>
+                    <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
+                </select>
+            </div>
+        <div class="form-group">
+            <select class="form-control" id="chooseTopic">
                 <option>Thema</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <select class="form-control">
-                <option>Difficulty</option>
-            </select>
-        </div>
+            <option *ngFor="let topic of subjectsTopics" [value]="topic.id">{{ topic.description }}</option>
+        </select>
     </div>
-
-    <div class="card question-card">
-        <div class="card-body">
-            <h5 class="card-title">Question Title</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <button class="btn btn-primary btn-sm" onclick="toggleAnswer(this)">Show answer</button>
-            <button class="btn btn-secondary btn-sm">Save question</button>
-            <div class="answer mt-2" style="display: none;">Answer content...</div>
-        </div>
-    </div>
-
-    <div class="card question-card">
-        <div class="card-body">
-            <h5 class="card-title">Question Title</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <button class="btn btn-primary btn-sm" onclick="toggleAnswer(this)">Show answer</button>
-            <button class="btn btn-secondary btn-sm">Save question</button>
-            <div class="answer mt-2" style="display: none;">Answer content...</div>
-        </div>
-    </div>
-
-    <div class="card question-card">
-        <div class="card-body">
-            <h5 class="card-title">Question Title</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <button class="btn btn-primary btn-sm" onclick="toggleAnswer(this)">Show answer</button>
-            <button class="btn btn-secondary btn-sm">Save question</button>
-            <div class="answer mt-2" style="display: none;">Answer content...</div>
-        </div>
-    </div>
+<div class="form-group">
+    <select class="form-control">
+        <option>Schwierigkeitsgrad</option>
+    </select>
 </div>
+</div>
+</div> 
+<div class="col-md-9">
+    <!-- Hier kommen die gefundenen Ergebnisse hin -->
+<div *ngfor="let question of publicQuestions">
+    <div class="question">
+        <h3>{{ question.questionText }}</h3>
+        <p>{{ question.answer }}</p>
+        <button (click)="saveQuestion(question)">Speichern</button>
+        <button (click)="excludeQuestion(question)">Diese Frage nicht mehr anzeigen</button>
+      </div> 
+</div>
+
+    <!-- <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question Title</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            <button class="btn btn-primary btn-sm" onclick="toggleAnswer(this)">Show answer</button>
+            <button class="btn btn-secondary btn-sm">Save question</button>
+            <div class="answer mt-2" style="display: none;">Answer content...</div>
+        </div>
+    </div>
+
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question Title</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            <button class="btn btn-primary btn-sm" onclick="toggleAnswer(this)">Show answer</button>
+            <button class="btn btn-secondary btn-sm">Save question</button>
+            <div class="answer mt-2" style="display: none;">Answer content...</div>
+        </div>
+    </div>
+
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question Title</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            <button class="btn btn-primary btn-sm" onclick="toggleAnswer(this)">Show answer</button>
+            <button class="btn btn-secondary btn-sm">Save question</button>
+            <div class="answer mt-2" style="display: none;">Answer content...</div>
+        </div>
+    </div> -->

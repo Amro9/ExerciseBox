@@ -1,10 +1,8 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.UseCases.Questions.Commands;
 using exerciseBox.Application.UseCases.Questions.Queries;
-using exerciseBox.Rest.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Eventing.Reader;
 
 namespace exerciseBox.Rest.Controllers
 {
@@ -39,12 +37,12 @@ namespace exerciseBox.Rest.Controllers
         }
 
 
-        [HttpGet("Questions")]
-        public async Task<IEnumerable<QuestionDto>> GetAllQuestions()
+        [HttpGet("publicQuestions")]
+        public async Task<IEnumerable<QuestionDto>> GetPublicQuestions()
         {
             try
             {
-                    await _mediator.Send(new GetAllQuestions());
+                   return await _mediator.Send(new GetPublicQuestions());
             }catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);

@@ -10,6 +10,8 @@ import { TeacherAPIConnection } from "./Services/TeacherAPIConnection";
 import { environment } from "../environments/enviroment.develop";
 import { API_BASE_URL } from "./Infrastucture/configurations";
 import { AuthentificationService } from "./Services/AuthentificationService";
+import { CommonModule } from "@angular/common";
+import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component";
 import { SessionProvider } from "./Services/SessionProvider";
 import { ExerciseSheetService } from "./Services/exerciseSheet.service";
 
@@ -18,9 +20,11 @@ import { ExerciseSheetService } from "./Services/exerciseSheet.service";
     declarations:[
         AppComponent,
         NavbarComponent,
+        QuestionsPoolComponent,
         routingComponents
     ],
     imports: [
+    CommonModule,
         BrowserModule,
         NgbModule,
         ReactiveFormsModule,
