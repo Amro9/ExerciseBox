@@ -10,6 +10,8 @@ import { TeacherAPIConnection } from "./Services/TeacherAPIConnection";
 import { environment } from "../environments/enviroment.develop";
 import { API_BASE_URL } from "./Infrastucture/configurations";
 import { AuthentificationService } from "./Services/AuthentificationService";
+import { SessionProvider } from "./Services/SessionProvider";
+import { ExerciseSheetService } from "./Services/exerciseSheet.service";
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { AuthentificationService } from "./Services/AuthentificationService";
             useValue: environment.baseUrl,
         },
         TeacherAPIConnection,
-        AuthentificationService
+        AuthentificationService,
+        ExerciseSheetService,
     ],
     bootstrap:[AppComponent]
 })

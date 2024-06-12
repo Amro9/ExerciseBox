@@ -19,9 +19,9 @@ export class LoginComponent {
 
   errorMessage: string | null = null;
 
-  onSubmit(): void {
-  
-
-    this.authService.login(this.teacher.email, this.teacher.password)
+  async onSubmit(): Promise<void> {
+    if(await this.authService.login(this.teacher.email, this.teacher.password)) {
+      this.router.navigate(['/school-view']);
+    }
   }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace exerciseBox.Rest.Controllers;
 
 [ApiController]
-[Produces("application/json")]
+[Produces("application/json", "application/pdf")]
 [Route("api/[controller]")]
 [EnableCors("AllowAllOrigins")]
 public abstract class BaseController : Controller

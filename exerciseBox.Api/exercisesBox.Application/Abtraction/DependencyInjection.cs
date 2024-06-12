@@ -14,6 +14,7 @@ public static class DependencyInjection
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
 
         services.AddSingleton<ISessionCommunicator, SessionCommunicator>();
+        services.AddSingleton<IExerciseSheetGenerator, ExerciseSheetGenerator>();
 
         return services;
     }

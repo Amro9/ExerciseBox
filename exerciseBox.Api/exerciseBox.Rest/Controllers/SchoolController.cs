@@ -1,7 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.Services.Interface;
 using exerciseBox.Application.Services.Models;
-using exerciseBox.Application.UseCases.Schools.Commands;
 using exerciseBox.Application.UseCases.Schools.Queries;
 using exerciseBox.Application.UseCases.SchoolTypes.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
@@ -17,23 +16,6 @@ namespace exerciseBox.Rest.Controllers
 
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public void AddSchool()
-        {
-            
-            
-            _mediator.Send(new CreateSchool
-            {
-            //    School = 
-            });
-
-
-        }
-
         [HttpGet("Schools")]
         public async Task<IEnumerable<SchoolDto>> GetAllSchools()
         {
@@ -45,7 +27,7 @@ namespace exerciseBox.Rest.Controllers
             {
                 return null;
             }
-            
+
         }
 
         [HttpGet("School/{id}")]

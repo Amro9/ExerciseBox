@@ -13,17 +13,16 @@ export class SchoolViewComponent {
 
   constructor(private teacherService: TeacherAPIConnection) 
   {
+    
 
-    //sessionStorage.
-
-    // this.teacherService.getTeachersOfSchool().subscribe(
-    //   (response: any) => {
-    //     console.log(response);
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
+    this.teacherService.getTeachersOfSchool().subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   } 
 
   

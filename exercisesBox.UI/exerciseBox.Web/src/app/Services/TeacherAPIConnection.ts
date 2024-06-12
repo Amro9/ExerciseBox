@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable, Optional } from "@angular/core";
 import { API_BASE_URL } from "../Infrastucture/configurations";
 import { catchError, map, Observable, throwError } from "rxjs";
 import { Teacher } from "../Entities/Teacher";
+import { Session } from "../Entities/Session";
 
 @Injectable({
     providedIn: 'root'
@@ -41,11 +42,13 @@ export class TeacherAPIConnection {
     getTeachersOfSchool(schoolId : string) : Observable<Teacher[]> 
     {
         let url_ = this.baseUrl + "Teacher/BySchool";
+
+        let session = Session.fromJson(localStorage.getItem("session"));
     
-        const body = { schoolId: schoolId };
+        const body = { schoolId: schoolId, sessionId: session.SessionId, sessionIdKey: session.SessionIdKey};
     
         return this.http.post(url_, body, {headers : this.headers}).pipe(
-          map((response: any) => {
+          map((response: any) => {+
             const jsonData = response.value;
             return jsonData.map((item: any) => Teacher.fromData(item));
           }),
