@@ -12,6 +12,10 @@ import { API_BASE_URL } from "./Infrastucture/configurations";
 import { AuthentificationService } from "./Services/AuthentificationService";
 import { CommonModule } from "@angular/common";
 import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component";
+import { SessionProvider } from "./Services/SessionProvider";
+import { ExerciseSheetService } from "./Services/exerciseSheet.service";
+
+
 @NgModule({
     declarations:[
         AppComponent,
@@ -35,7 +39,8 @@ import { QuestionsPoolComponent } from "./Components/questions-pool/questions-po
             useValue: environment.baseUrl,
         },
         TeacherAPIConnection,
-        AuthentificationService
+        AuthentificationService,
+        ExerciseSheetService,
     ],
     bootstrap:[AppComponent]
 })

@@ -20,20 +20,20 @@ public class AuthentificationController : BaseController
     }
 
     [HttpPost("Login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+    public async Task<IActionResult> Login(LoginRequest loginRequest)
     {
         try
         {
             var teacher = await _mediator.Send(new GetTeacherWithPasswordValidation { Email = loginRequest.Email, Password = loginRequest.Password });
 
-            if(teacher == null)
+            if (teacher == null)
             {
                 return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
             }
 
             var sessionId = _sessionCommunicator.AddNewSessionId(loginRequest.Email);
 
-            return Ok(new { value = sessionId });
+            return Ok(new { SessionId = sessionId, SessionIdKey = loginRequest.Email });
         }
         catch (UnauthorizedAccessException ex)
         {
@@ -50,9 +50,9 @@ public class AuthentificationController : BaseController
     {
         try
         {
-            if(!_sessionCommunicator.VerifySessionId(new SessionModel { SessionIdKey = RegisterRequest.SchoolId, SessionId = RegisterRequest.SessionId }))
+            if (!_sessionCommunicator.VerifySessionId(new SessionModel { SessionIdKey = RegisterRequest.SchoolId, SessionId = RegisterRequest.SessionId }))
                 return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
-          
+
 
             var pw = $"{RegisterRequest.Surname}.{RegisterRequest.Givenname}";
 

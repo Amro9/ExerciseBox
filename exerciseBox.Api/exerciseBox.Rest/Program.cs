@@ -1,5 +1,6 @@
 using exerciseBox.Infrastructur;
 using exerciseBox.Application.Abtraction;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +15,12 @@ builder.Services.AddInfrastructureConfiguration();
 // Add a distributed memory cache
 builder.Services.AddDistributedMemoryCache();
 
+QuestPDF.Settings.License = LicenseType.Community;
+
 // Configure session state
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(1);
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true; // make the session cookie essential
 });

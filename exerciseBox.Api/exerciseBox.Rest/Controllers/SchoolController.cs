@@ -19,8 +19,6 @@ namespace exerciseBox.Rest.Controllers
 
         }
 
-
-
         [HttpGet("Schools")]
         public async Task<IEnumerable<SchoolDto>> GetAllSchools()
         {

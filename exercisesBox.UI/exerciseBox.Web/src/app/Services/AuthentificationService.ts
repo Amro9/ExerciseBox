@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable, Optional } from "@angular/core";
 import { API_BASE_URL } from "../Infrastucture/configurations";
+import { SessionProvider } from "./SessionProvider";
 
 @Injectable({
     providedIn : 'root'
@@ -13,7 +14,7 @@ export class AuthentificationService {
 
     private baseUrl : string;
 
-    constructor(private http: HttpClient, @Inject(API_BASE_URL) baseUrl?: string) 
+    constructor(private http: HttpClient,  private sessionProvider: SessionProvider, @Inject(API_BASE_URL) baseUrl?: string) 
     {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -25,7 +26,7 @@ export class AuthentificationService {
         try {
             const response: any = await this.http.post(url_, { email: email, password: password }, { headers: this.headers }).toPromise();
             const jsonData = response.value;
-            localStorage.setItem("id", jsonData.id);
+            this.sessionProvider.setSession(jsonData);
             return true;
         } catch (error) {
             return false;

@@ -6,6 +6,7 @@ import { QuestionCreationFormComponent } from "./Components/question-form/questi
 import { LoginComponent } from "./Components/login/login.component";
 import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component"
 import { SchoolViewComponent } from "./Components/school-view/school-view.component";
+import { ExerciseSheetGenerationComponent } from "./Components/exercise-sheet-generation/exercise-sheet-generation.component";
 
 const routes: Routes = [
   { path: "adminView", component: AdminViewComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'questionsPool', component: QuestionsPoolComponent},
   { path: "login", component: LoginComponent},
   { path: "schoolView", component: SchoolViewComponent},
+  { path: "exsGeneration", component: ExerciseSheetGenerationComponent},
   //{ path: 'home', component: AppComponent },
   //{ path: '', redirectTo: '/home', pathMatch: 'full' },
   ];
@@ -29,5 +31,6 @@ const routes: Routes = [
     QuestionCreationFormComponent,
     LoginComponent,
     SchoolViewComponent,
+    ExerciseSheetGenerationComponent
   ]
   
