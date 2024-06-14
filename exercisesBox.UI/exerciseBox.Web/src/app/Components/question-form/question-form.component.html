@@ -28,10 +28,14 @@
       </div>
 
       <div class="mb-3 row">
-        <label for="questionText" class="col-sm-2 col-form-label">Fragestellung:</label>
+        <!-- <label for="questionText" class="col-sm-2 col-form-label">Fragestellung:</label>
         <div class="col-sm-10">
           <textarea class="form-control" id="questionText" formControlName="questionText" rows="3" placeholder="Fragestellung.." ></textarea>
-        </div>
+        </div> -->
+          <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+            <ngx-editor [editor]="editor" [ngModel]="html" (ngModelChange)="onChange($event)" [placeholder]="'Type here...'"></ngx-editor>
+          </div>
       </div>
       <!-- <div class="mb-3 row">
         <label for="questionNote" class="col-sm-2 col-form-label">Hinweis zur Fragestellung:</label>

@@ -12,8 +12,8 @@ import { API_BASE_URL } from "./Infrastucture/configurations";
 import { AuthentificationService } from "./Services/AuthentificationService";
 import { CommonModule } from "@angular/common";
 import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component";
-import { SessionProvider } from "./Services/SessionProvider";
 import { ExerciseSheetService } from "./Services/exerciseSheet.service";
+import { NgxEditorModule } from "ngx-editor";
 
 
 @NgModule({
@@ -32,6 +32,7 @@ import { ExerciseSheetService } from "./Services/exerciseSheet.service";
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
+        NgxEditorModule
     ],
     providers: [
         {

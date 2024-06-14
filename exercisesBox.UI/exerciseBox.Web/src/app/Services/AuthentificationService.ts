@@ -14,7 +14,7 @@ export class AuthentificationService {
 
     private baseUrl : string;
 
-    constructor(private http: HttpClient,  private sessionProvider: SessionProvider, @Inject(API_BASE_URL) baseUrl?: string) 
+    constructor(private http: HttpClient,  @Inject(SessionProvider) private sessionProvider: SessionProvider, @Inject(API_BASE_URL) baseUrl?: string) 
     {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }

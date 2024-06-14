@@ -39,16 +39,16 @@ export class TeacherAPIConnection {
         );
     }
 
-    getTeachersOfSchool(schoolId : string) : Observable<Teacher[]> 
+    getTeachersOfSchool() : Observable<Teacher[]> 
     {
         let url_ = this.baseUrl + "Teacher/BySchool";
 
         let session = Session.fromJson(localStorage.getItem("session"));
     
-        const body = { schoolId: schoolId, sessionId: session.SessionId, sessionIdKey: session.SessionIdKey};
+        const body = { sessionId: session.SessionId, sessionIdKey: session.SessionIdKey}; //
     
         return this.http.post(url_, body, {headers : this.headers}).pipe(
-          map((response: any) => {+
+          map((response: any) => {
             const jsonData = response.value;
             return jsonData.map((item: any) => Teacher.fromData(item));
           }),
