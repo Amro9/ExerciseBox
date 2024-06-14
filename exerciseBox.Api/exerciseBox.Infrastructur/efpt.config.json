@@ -19,6 +19,14 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Folders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FoldersQuestionsJunction]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[QuestionDifficultyLevels]",
          "ObjectType": 0
       },
@@ -43,15 +51,15 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[SchoolsLevelsJunction]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[SchoolsSubjectsJunction]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[SchoolTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SchoolTypesLevelsJunction]",
          "ObjectType": 0
       },
       {
@@ -79,14 +87,14 @@
    "UncountableWords": null,
    "UseAsyncStoredProcedureCalls": true,
    "UseBoolPropertiesWithoutDefaultSql": false,
-   "UseDatabaseNames": true,
+   "UseDatabaseNames": false,
    "UseDateOnlyTimeOnly": false,
    "UseDbContextSplitting": false,
    "UseDecimalDataAnnotationForSprocResult": true,
    "UseFluentApiOnly": true,
    "UseHandleBars": false,
    "UseHierarchyId": false,
-   "UseInflector": true,
+   "UseInflector": false,
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": false,
    "UseNoDefaultConstructor": false,

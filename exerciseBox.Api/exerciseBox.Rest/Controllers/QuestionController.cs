@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace exerciseBox.Rest.Controllers
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
+   
     public class QuestionController: Controller
     {
         private readonly IMediator _mediator;

@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace exerciseBox.Domain.Entities;
 
-public partial class SchoolsLevelsJunction
+public partial class SchoolTypesLevelsJunction
 {
     public string Id { get; set; }
 
-    public string School { get; set; }
+    public int SchoolType { get; set; }
 
     public int SchoolLevel { get; set; }
 
     public virtual SchoolLevels SchoolLevelNavigation { get; set; }
 
-    public virtual Schools SchoolNavigation { get; set; }
+    public virtual SchoolTypes SchoolTypeNavigation { get; set; }
 }

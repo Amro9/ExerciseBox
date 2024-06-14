@@ -17,6 +17,7 @@ import { QuestionsPoolComponent } from "./Components/questions-pool/questions-po
         AppComponent,
         NavbarComponent,
         QuestionsPoolComponent,
+        QuestionsPoolComponent,
         routingComponents
     ],
     imports: [

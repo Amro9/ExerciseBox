@@ -8,9 +8,9 @@ namespace exerciseBox.Infrastructur.Repositories
 {
     internal class SubjectRepository : ISubjectRepository
     {
-        private readonly ExerciseBoxContext _context;
+        private readonly ExercisesBoxContext _context;
 
-        public SubjectRepository(ExerciseBoxContext context)
+        public SubjectRepository(ExercisesBoxContext context)
         {
             _context = context;
         }

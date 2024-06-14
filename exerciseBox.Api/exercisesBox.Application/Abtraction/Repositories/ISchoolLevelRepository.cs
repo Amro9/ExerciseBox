@@ -2,7 +2,7 @@
 
 namespace exerciseBox.Application.Abtraction.Repositories;
 
-public interface ISchoolLevelRepository : IRepository<SchoolLevels, int>
+public interface ISchoolLevelRepository : IRepository<int, int>
 {
     Task<IEnumerable<int>> ReadByTeacherId(string teacherId);
 }

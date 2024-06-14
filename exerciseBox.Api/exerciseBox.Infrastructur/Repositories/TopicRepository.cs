@@ -6,9 +6,9 @@ namespace exerciseBox.Infrastructur.Repositories
 {
     public class TopicRepository : ITopicRepository
     {
-        private readonly ExerciseBoxContext _context;
+        private readonly ExercisesBoxContext _context;
 
-        public TopicRepository(ExerciseBoxContext context)
+        public TopicRepository(ExercisesBoxContext context)
         {
             _context = context;
         }

@@ -9,14 +9,16 @@ import { Question } from "../Entities/Question";
 })
 export class QuestionService {
   private http: HttpClient;
-  private baseUrl: string;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-    this.http = http;
-    this.baseUrl = API_BASE_URL.toString(); }
+    constructor(
+      @Inject(HttpClient) http: HttpClient
+    ,@Inject(API_BASE_URL) private baseUrl: string
+  ) {
+    this.http = http; 
+  }
 
     getQuestions(): Observable<Question[]>{
-        let url_ = this.baseUrl + "publicQuestions";
+        let url_ = this.baseUrl + "question/publicQuestions";
         return this.http.get<Question[]>(url_).pipe(
             tap(data => console.log('Received questions:', data)),
             catchError(error => {

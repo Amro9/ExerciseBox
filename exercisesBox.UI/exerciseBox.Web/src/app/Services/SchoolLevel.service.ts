@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ClassService {
+export class SchoolLevel {
 
   private http: HttpClient;
   
@@ -13,8 +13,8 @@ export class ClassService {
     this.http = http;
 } 
 
-  getClassesByTeacherId(teacherId: string):Observable<string[]> { 
-    let url_ = 'http://localhost:7292/api/QuestionParamaters/GetClassByTeacherId?teacherId=1@2.com';
+  getSchoolLevelByTeacherId(teacherId: string):Observable<string[]> { 
+    let url_ = 'http://localhost:7292/api/QuestionParamaters/GetSchoolLevelsByTeacherId?teacherId=1@2.com';
     return this.http.get<string[]>(url_);
   }
 }

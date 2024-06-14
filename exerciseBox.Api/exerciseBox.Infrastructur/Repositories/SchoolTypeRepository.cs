@@ -6,9 +6,9 @@ namespace exerciseBox.Infrastructur.Repositories;
 
 public class SchoolTypeRepository : ISchoolTypeRepository
 {
-    private readonly ExerciseBoxContext _context;
+    private readonly ExercisesBoxContext _context;
 
-    public SchoolTypeRepository(ExerciseBoxContext context)
+    public SchoolTypeRepository(ExercisesBoxContext context)
     {
         _context = context;
     }
@@ -25,7 +25,7 @@ public class SchoolTypeRepository : ISchoolTypeRepository
 
     public async Task<IEnumerable<SchoolTypes>> Read()
     {
-        return await _context.SchoolTypes.ToListAsync();
+           return  await _context.SchoolTypes.ToListAsync(); 
     }
 
     public Task<SchoolTypes> ReadById(Guid id)

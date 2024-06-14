@@ -17,6 +17,8 @@ public partial class Teachers
 
     public string School { get; set; }
 
+    public virtual ICollection<Folders> Folders { get; set; } = new List<Folders>();
+
     public virtual ICollection<Questions> Questions { get; set; } = new List<Questions>();
 
     public virtual Schools SchoolNavigation { get; set; }

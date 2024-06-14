@@ -4,7 +4,7 @@ namespace exerciseBox.Application.Abtraction.Models;
 
 public class SchoolTypeDto
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
     public string Description { get; set; }
 
     public static implicit operator SchoolTypeDto(SchoolTypes schoolType)

@@ -9,7 +9,7 @@ public partial class Schools
 {
     public string Name { get; set; }
 
-    public string SchoolType { get; set; }
+    public int SchoolType { get; set; }
 
     public string Email { get; set; }
 
@@ -18,8 +18,6 @@ public partial class Schools
     public virtual SchoolTypes SchoolTypeNavigation { get; set; }
 
     public virtual ICollection<SchoolsBranchesJunction> SchoolsBranchesJunction { get; set; } = new List<SchoolsBranchesJunction>();
-
-    public virtual ICollection<SchoolsLevelsJunction> SchoolsLevelsJunction { get; set; } = new List<SchoolsLevelsJunction>();
 
     public virtual ICollection<SchoolsSubjectsJunction> SchoolsSubjectsJunction { get; set; } = new List<SchoolsSubjectsJunction>();
 
