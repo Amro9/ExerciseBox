@@ -1,34 +1,55 @@
 ﻿using exerciseBox.Domain.Entities;
 
-namespace exerciseBox.Application.Abtraction.Models;
-
-public class SchoolDto
+namespace exerciseBox.Application.Abtraction.Models
 {
-    public SchoolTypeDto SchoolType { get; set; }
-    public string Email { get; set; }
-    public string Name { get; set; }
-
-    public static implicit operator SchoolDto(Schools school)
+    /// <summary>
+    /// Datenübertragungsobjekt für Schulen.
+    /// </summary>
+    public class SchoolDto
     {
-        if(school is null)
-            return null;
+        /// <summary>
+        /// Ruft den Schultyp ab oder legt diesen fest.
+        /// </summary>
+        public SchoolTypeDto SchoolType { get; set; }
 
-        return new SchoolDto
+        /// <summary>
+        /// Ruft die E-Mail-Adresse der Schule ab oder legt diese fest.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Ruft den Namen der Schule ab oder legt diesen fest.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Konvertiert ein Schools-Objekt implizit in ein SchoolDto-Objekt.
+        /// </summary>
+        public static implicit operator SchoolDto(Schools school)
         {
-            Name = school.Name,
-            SchoolType = school.SchoolTypeNavigation
-        };
-    }
+            if (school is null)
+                return null;
 
-    public static implicit operator Schools(SchoolDto school)
-    {
-        if (school is null)
-            return null;
+            return new SchoolDto
+            {
+                Name = school.Name,
+                SchoolType = school.SchoolTypeNavigation
+            };
+        }
 
-        return new Schools
+        /// <summary>
+        /// Konvertiert ein SchoolDto-Objekt implizit in ein Schools-Objekt.
+        /// </summary>
+        public static implicit operator Schools(SchoolDto school)
         {
-            Name = school.Name,
-            SchoolTypeNavigation = school.SchoolType
-        };
+            if (school is null)
+                return null;
+
+            return new Schools
+            {
+                Name = school.Name,
+                SchoolTypeNavigation = school.SchoolType
+            };
+        }
     }
 }

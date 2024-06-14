@@ -1,8 +1,18 @@
 ﻿using exerciseBox.Domain.Entities;
 
-namespace exerciseBox.Application.Services.Interface;
-
-public interface IExerciseSheetGenerator
+namespace exerciseBox.Application.Services.Interface
 {
-    byte[] Generate(ExerciseSheet exerciseSheet, IEnumerable<Questions> questions);
+    /// <summary>
+    /// Schnittstelle für den Exercise Sheet Generator.
+    /// </summary>
+    public interface IExerciseSheetGenerator
+    {
+        /// <summary>
+        /// Generiert ein Übungsblatt basierend auf dem gegebenen Übungsblatt und einer Sammlung von Fragen.
+        /// </summary>
+        /// <param name="exerciseSheet">Das Übungsblatt, das generiert werden soll.</param>
+        /// <param name="questions">Die Sammlung von Fragen, die in das Übungsblatt aufgenommen werden sollen.</param>
+        /// <returns>Ein Byte-Array, das das generierte Übungsblatt repräsentiert.</returns>
+        byte[] Generate(ExerciseSheet exerciseSheet, IEnumerable<Questions> questions);
+    }
 }

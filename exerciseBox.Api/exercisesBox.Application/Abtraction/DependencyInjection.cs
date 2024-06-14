@@ -3,20 +3,29 @@ using exerciseBox.Application.Services.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace exerciseBox.Application.Abtraction;
-
-public static class DependencyInjection
+namespace exerciseBox.Application.Abtraction
 {
-    public static IServiceCollection AddApplictaionConfiguration(this IServiceCollection services)
+    /// <summary>
+    /// Statische Klasse zur Konfiguration der Anwendungsdienste.
+    /// </summary>
+    public static class DependencyInjection
     {
-        //Add MedaitR
-        var assembly = typeof(DependencyInjection).GetTypeInfo().Assembly;
-        services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
+        /// <summary>
+        /// Fügt die Anwendungskonfiguration zu den Diensten hinzu.
+        /// </summary>
+        /// <param name="services">Die Sammlung der Dienste.</param>
+        /// <returns>Die aktualisierte Sammlung der Dienste.</returns>
+        public static IServiceCollection AddApplictaionConfiguration(this IServiceCollection services)
+        {
+            // MediatR hinzufügen
+            var assembly = typeof(DependencyInjection).GetTypeInfo().Assembly;
+            services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
 
-        services.AddSingleton<ISessionCommunicator, SessionCommunicator>();
-        services.AddSingleton<IExerciseSheetGenerator, ExerciseSheetGenerator>();
+            // Singleton-Dienste hinzufügen
+            services.AddSingleton<ISessionCommunicator, SessionCommunicator>();
+            services.AddSingleton<IExerciseSheetGenerator, ExerciseSheetGenerator>();
 
-        return services;
+            return services;
+        }
     }
 }
-

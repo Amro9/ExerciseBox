@@ -1,31 +1,48 @@
 ﻿using exerciseBox.Domain.Entities;
 
-namespace exerciseBox.Application.Abtraction.Models;
-
-public class SchoolTypeDto
+namespace exerciseBox.Application.Abtraction.Models
 {
-    public int Id { get; set; }
-    public string Description { get; set; }
-
-    public static implicit operator SchoolTypeDto(SchoolTypes schoolType)
+    /// <summary>
+    /// Datenübertragungsobjekt für Schultypen.
+    /// </summary>
+    public class SchoolTypeDto
     {
-        if(schoolType == null)
+        /// <summary>
+        /// Ruft die ID des Schultyps ab oder legt diese fest.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Ruft die Beschreibung des Schultyps ab oder legt diese fest.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Konvertiert ein SchoolTypes-Objekt implizit in ein SchoolTypeDto-Objekt.
+        /// </summary>
+        public static implicit operator SchoolTypeDto(SchoolTypes schoolType)
         {
-            return null;
+            if(schoolType == null)
+            {
+                return null;
+            }
+            return new SchoolTypeDto
+            {
+                Id = schoolType.Id,
+                Description = schoolType.Name
+            };
         }
-        return new SchoolTypeDto
-        {
-            Id = schoolType.Id,
-            Description = schoolType.Name
-        };
-    }
 
-    public static implicit operator SchoolTypes(SchoolTypeDto schoolType)
-    {
-        return new SchoolTypes
+        /// <summary>
+        /// Konvertiert ein SchoolTypeDto-Objekt implizit in ein SchoolTypes-Objekt.
+        /// </summary>
+        public static implicit operator SchoolTypes(SchoolTypeDto schoolType)
         {
-            Id = schoolType.Id,
-            Name = schoolType.Description
-        };
+            return new SchoolTypes
+            {
+                Id = schoolType.Id,
+                Name = schoolType.Description
+            };
+        }
     }
 }

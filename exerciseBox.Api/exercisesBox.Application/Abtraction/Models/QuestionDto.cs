@@ -1,25 +1,68 @@
-﻿
-using exerciseBox.Domain.Entities;
+﻿using exerciseBox.Domain.Entities;
 
 namespace exerciseBox.Application.Abtraction.Models
 {
+    /// <summary>
+    /// Datenübertragungsobjekt für Fragen.
+    /// </summary>
     public class QuestionDto
     {
+        /// <summary>
+        /// Ruft die ID der Frage ab oder legt diese fest.
+        /// </summary>
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Ruft den Autor der Frage ab oder legt diesen fest.
+        /// </summary>
         public string Author { get; set; }
+
+        /// <summary>
+        /// Ruft den Text der Frage ab oder legt diesen fest.
+        /// </summary>
         public string QuestionText { get; set; }
+
+        /// <summary>
+        /// Ruft die Antwort auf die Frage ab oder legt diese fest.
+        /// </summary>
         public string Answer { get; set; }
+
+        /// <summary>
+        /// Ruft die Schulstufe der Frage ab oder legt diese fest.
+        /// </summary>
         public int SchoolLevel { get; set; }
+
+        /// <summary>
+        /// Ruft den Schwierigkeitsgrad der Frage ab oder legt diesen fest.
+        /// </summary>
         public string DifficultyLevel { get; set; }
+
+        /// <summary>
+        /// Ruft das Fach der Frage ab oder legt dieses fest.
+        /// </summary>
         public string Subject { get; set; }
+
+        /// <summary>
+        /// Ruft das Thema der Frage ab oder legt dieses fest.
+        /// </summary>
         public string Topic { get; set; }
+
+        /// <summary>
+        /// Ruft einen Wert ab, der angibt, ob die Frage privat ist, oder legt diesen fest.
+        /// </summary>
         public bool QuestionIsPrivate { get; set; }
 
-
+        /// <summary>
+        /// Konstruktor für das QuestionDto, der eine neue ID generiert.
+        /// </summary>
         public QuestionDto()
         {
-                Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
+
+        /// <summary>
+        /// Konvertiert ein Questions-Objekt implizit in ein QuestionDto-Objekt.
+        /// </summary>
         public static implicit operator QuestionDto(Questions question)
         {
             return new QuestionDto
@@ -35,11 +78,14 @@ namespace exerciseBox.Application.Abtraction.Models
             };
         }
 
+        /// <summary>
+        /// Konvertiert ein QuestionDto-Objekt implizit in ein Questions-Objekt.
+        /// </summary>
         public static implicit operator Questions(QuestionDto question)
         {
             return new Questions
             {
-                Id  = question.Id.ToString(),
+                Id = question.Id.ToString(),
                 QuestionText = question.QuestionText,
                 Answer = question.Answer,
                 DifficultyLevel = question.DifficultyLevel,
@@ -47,7 +93,6 @@ namespace exerciseBox.Application.Abtraction.Models
                 Topic = question.Topic,
                 QuestionIsPrivate = question.QuestionIsPrivate,
                 Author = question.Author
-
             };
         }
     }
