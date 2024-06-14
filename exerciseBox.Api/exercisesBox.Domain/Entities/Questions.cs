@@ -27,6 +27,8 @@ public partial class Questions
 
     public virtual QuestionDifficultyLevels DifficultyLevelNavigation { get; set; }
 
+    public virtual ICollection<FoldersQuestionsJunction> FoldersQuestionsJunction { get; set; } = new List<FoldersQuestionsJunction>();
+
     public virtual SchoolLevels SchoolLevelNavigation { get; set; }
 
     public virtual Topics TopicNavigation { get; set; }

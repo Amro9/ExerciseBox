@@ -7,9 +7,11 @@ namespace exerciseBox.Domain.Entities;
 
 public partial class SchoolTypes
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
 
     public string Name { get; set; }
+
+    public virtual ICollection<SchoolTypesLevelsJunction> SchoolTypesLevelsJunction { get; set; } = new List<SchoolTypesLevelsJunction>();
 
     public virtual ICollection<Schools> Schools { get; set; } = new List<Schools>();
 }

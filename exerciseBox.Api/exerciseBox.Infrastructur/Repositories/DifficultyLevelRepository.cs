@@ -8,9 +8,9 @@ namespace exerciseBox.Infrastructur.Repositories
 {
     internal class DifficultyLevelRepository : IDifficultyLevelRepository
     {
-        private readonly ExerciseBoxContext _context;
+        private readonly ExercisesBoxContext _context;
 
-        public DifficultyLevelRepository(ExerciseBoxContext context)
+        public DifficultyLevelRepository(ExercisesBoxContext context)
         {
             _context = context;
         }

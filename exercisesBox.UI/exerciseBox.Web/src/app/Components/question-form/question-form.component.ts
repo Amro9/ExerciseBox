@@ -4,7 +4,7 @@ import { QuestionFromService } from '../../Services/question-from.service';
 import { Subject} from '../../Entities/Subject';
 import { SubjectService } from '../../Services/Subject.service';
 import { TopicService, Topic } from '../../Services/Topic.service';
-import { ClassService } from '../../Services/class.service';
+import { SchoolLevel } from '../../Services/SchoolLevel.service';
 import { DifficultyLevel, DifficultyLevelsService } from '../../Services/difficulty-levels.service';
 import { Editor } from 'ngx-editor';
 @Component({
@@ -31,7 +31,7 @@ export class QuestionCreationFormComponent implements OnInit {
     private fb: FormBuilder,
     private subjectService: SubjectService,
     private topicService: TopicService,
-    private classService : ClassService,
+    private schoolLevel : SchoolLevel,
     private difficultyLevelsService: DifficultyLevelsService,
     private questionFromService: QuestionFromService
   ) {
@@ -57,7 +57,7 @@ export class QuestionCreationFormComponent implements OnInit {
       error: (error) => console.error('Error fetching subjects:', error)
     });
 
-    this.classService.getClassesByTeacherId("1@2.com").subscribe({
+    this.schoolLevel.getSchoolLevelByTeacherId("1@2.com").subscribe({
   next:(data) => this.schoolLevels = data,
   error: (error) => console.error('Error fetching Classes:', error)
     });

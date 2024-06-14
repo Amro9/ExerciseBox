@@ -21,6 +21,7 @@ import { NgxEditorModule } from "ngx-editor";
         AppComponent,
         NavbarComponent,
         QuestionsPoolComponent,
+        QuestionsPoolComponent,
         routingComponents
     ],
     imports: [

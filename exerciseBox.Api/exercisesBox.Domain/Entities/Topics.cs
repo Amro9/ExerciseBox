@@ -13,6 +13,8 @@ public partial class Topics
 
     public string Subject { get; set; }
 
+    public virtual ICollection<Folders> Folders { get; set; } = new List<Folders>();
+
     public virtual ICollection<Questions> Questions { get; set; } = new List<Questions>();
 
     public virtual Subjects SubjectNavigation { get; set; }

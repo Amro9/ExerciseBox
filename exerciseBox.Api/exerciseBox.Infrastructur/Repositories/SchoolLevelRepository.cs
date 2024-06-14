@@ -11,28 +11,28 @@ namespace exerciseBox.Infrastructur.Repositories
 {
     public class SchoolLevelRepository : ISchoolLevelRepository
     {
-        private readonly ExerciseBoxContext _context;
+        private readonly ExercisesBoxContext _context;
 
-        public SchoolLevelRepository(ExerciseBoxContext context)
+        public SchoolLevelRepository(ExercisesBoxContext context)
         {
             _context = context;
         }
 
-        public Task<SchoolLevels> Create(SchoolLevels entity)
+        public Task<int> Create(int entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SchoolLevels> Delete(SchoolLevels entity)
+        public Task<int> Delete(int entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SchoolLevels>> Read()
+        public async Task<IEnumerable<int>> Read()
         {
-            throw new NotImplementedException();
+            return await _context.SchoolLevels.Select(l => l.Level).ToListAsync();
         }
-        public Task<SchoolLevels> ReadById(int id)
+        public Task<int> ReadById(int id)
         {
             throw new NotImplementedException();
         }
@@ -41,7 +41,7 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             try
             {
-                return _context.TeachersSchoolLevelsJunctions.Select(l => l.SchoolLevel).ToList();
+                return await _context.TeachersSchoolLevelsJunction.Select(l => l.SchoolLevel).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace exerciseBox.Infrastructur.Repositories
             }
         }
 
-        public Task<SchoolLevels> Update(SchoolLevels entity)
+        public Task<int> Update(int entity)
         {
             throw new NotImplementedException();
         }

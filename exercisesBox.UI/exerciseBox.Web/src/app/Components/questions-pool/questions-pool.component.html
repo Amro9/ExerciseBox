@@ -5,16 +5,18 @@
              <div class="form-group">
                  <select class="form-control">
                      <option>Schulart</option>
-                 </select>
-             </div>
-             <div class="form-group">
-                 <select class="form-control">
-                     <option>Schulstufe</option>
+                     <option *ngFor="let type of schoolTypes" [value]="type.id">{{ type.description }}</option>
                  </select>
              </div>
              <div class="form-group">
                  <select class="form-control">
                      <option>Beruf</option>
+                     <option *ngFor="let branch of schoolBranches" [value]="branch.id">{{ branch.name }}</option>
+                 </select>
+             </div>
+             <div class="form-group">
+                 <select class="form-control">
+                     <option>Schulstufe</option>
                  </select>
              </div>
          </div>  
@@ -40,7 +42,7 @@
 </div> 
 <div class="col-md-9">
     <!-- Hier kommen die gefundenen Ergebnisse hin -->
-<div *ngfor="let question of publicQuestions">
+<div *ngFor="let question of publicQuestions">
     <div class="question">
         <h3>{{ question.questionText }}</h3>
         <p>{{ question.answer }}</p>

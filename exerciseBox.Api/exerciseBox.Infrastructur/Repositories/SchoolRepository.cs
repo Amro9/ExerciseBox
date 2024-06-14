@@ -6,9 +6,9 @@ namespace exerciseBox.Infrastructur.Repositories;
 
 public class SchoolRepository : ISchoolRepository
 {
-    private readonly ExerciseBoxContext _context;
+    private readonly ExercisesBoxContext _context;
 
-    public SchoolRepository(ExerciseBoxContext context)
+    public SchoolRepository(ExercisesBoxContext context)
     {
         _context = context;
     }
