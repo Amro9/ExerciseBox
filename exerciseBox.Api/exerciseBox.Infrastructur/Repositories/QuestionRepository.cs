@@ -30,6 +30,11 @@ namespace exerciseBox.Infrastructur.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<Questions>> GetAllQuestionsByRangeOfIdsAsync(string[] questionIds)
+        {
+            return await _context.Questions.Where(q => questionIds.Contains(q.Id.ToString())).ToListAsync();
+        }
+
         public async Task<IEnumerable<Questions>> Read()
         {
             return await _context.Questions.Where(q => q.QuestionIsPrivate == false).ToListAsync();
