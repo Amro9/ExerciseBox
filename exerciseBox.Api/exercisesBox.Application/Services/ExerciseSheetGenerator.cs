@@ -3,53 +3,67 @@ using exerciseBox.Domain.Entities;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using QuestPDF.Previewer;
 
-namespace exerciseBox.Application.Services;
-
-public class ExerciseSheetGenerator : IExerciseSheetGenerator
+namespace exerciseBox.Application.Services
 {
-    public byte[] Generate(ExerciseSheet exerciseSheet, IEnumerable<Questions> questions)
+    public class ExerciseSheetGenerator : IExerciseSheetGenerator
     {
-
-        //TODO: https://github.com/Relorer/HTMLToQPDF 
-
-        var pdfDocument = Document.Create(container =>
+        public byte[] Generate(ExerciseSheet exerciseSheet, IEnumerable<Questions> questions)
         {
-            container.Page(page =>
+            var pdfDocument = Document.Create(container =>
             {
-                page.Size(PageSizes.A4);
-                page.Margin(20);
-
-                page.Header().Column(column =>
+                container.Page(page =>
                 {
-                    if (exerciseSheet.StudentName)
-                    {
-                        column.Item().Text("Name:", TextStyle.Default.Size(20));
-                    }
-                    column.Item().ShowOnce().Background(Colors.Blue.Lighten2).Height(60);
-                    column.Item().SkipOnce().Background(Colors.Green.Lighten2).Height(40);
-                });
+                    page.Size(PageSizes.A4);
+                    page.Margin(20);
+                    page.PageColor(Colors.White);
 
-                page.Content().Column(column =>
-                {
-                    column.Item().Text("Title", TextStyle.Default.Size(24));
-
-                    foreach (var question in questions)
+                    // Header Section
+                    page.Header().Column(column =>
                     {
-                        column.Item().Text(question.QuestionText, TextStyle.Default.Size(16));
-                    }
+                        if (exerciseSheet.StudentName)
+                        {
+                            column.Item().Text($"Name:", TextStyle.Default.Size(12));
+                        }
+                    });
+
+                    // Content Section
+                    page.Content().Padding(5).PaddingVertical(40).Column(column =>
+                    {
+                        column.Spacing(10);
+
+                        column.Item().Text(exerciseSheet.Title)
+                            .Style(TextStyle.Default.Size(24).Bold())
+                            .AlignCenter();
+                        column.Item().PaddingBottom(20);
+
+                        foreach (var question in questions)
+                        {
+                            var questionIndex = questions.ToList().IndexOf(question) + 1;
+                            column.Item().Text($"{questionIndex}) {question.QuestionText}", TextStyle.Default.Size(12));
+                            column.Item().PaddingBottom(20);
+                        }
+                    });
+
+                    // Footer Section
+                    page.Footer().AlignLeft().Text(text =>
+                    {
+                        text.Span("Page ");
+                        text.CurrentPageNumber();
+                        text.Span(" of ");
+                        text.TotalPages();
+                    });
                 });
             });
-        });
 
-        byte[] pdfBytes;
-        using (var stream = new MemoryStream())
-        {
-            pdfDocument.GeneratePdf(stream);
-            pdfBytes = stream.ToArray();
+            byte[] pdfBytes;
+            using (var stream = new MemoryStream())
+            {
+                pdfDocument.GeneratePdf(stream);
+                pdfBytes = stream.ToArray();
+            }
+
+            return pdfBytes;
         }
-
-        return pdfBytes;
     }
 }
