@@ -1,3 +1,25 @@
-<button (click)="onGenerateExerciseSheet()">
-    Generate PDF
-</button>
+<div style="padding: 5%;">
+    <div class="row">
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="Folders">
+          </select>
+    </div>
+    <div class="row">
+        <div *ngIf="selectedFolder">
+            <div *ngFor="let question in selectedFolder.Questions">
+                <app-question [Question]="question"></app-question>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <button class="btn btn-primary" (click)="onGenerateExerciseSheet()">PDF Ansehen</button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div>
+                <button class="btn btn-primary" (click)="onSaveExerciseSheet()">Speichern</button>
+            </div>
+        </div>
+    </div>
+</div>

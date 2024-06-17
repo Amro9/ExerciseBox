@@ -1,26 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Question } from '../../Entities/Question';
 
 @Component({
   selector: 'app-question',
-  standalone: true,
-  imports: [],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css'
 })
 export class QuestionComponent {
 
-  Question! : Question;
+  ShowQuestionAnswer() {
+    throw new Error('Method not implemented.');
+  }
+
+  @Input() Question! : Question;
 
   constructor() 
   {
     this.Question = this.generateMockQuestion();
   }
 
-  onGenerateExerciseSheet() {
-
-    
-  }
   generateMockQuestion() {
     // Create a new instance of the Question class
     const mockQuestion = new Question(

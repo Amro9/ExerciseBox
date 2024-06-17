@@ -1,4 +1,4 @@
-<div>
+<div class="outer-border">
     <div class="row">
         <div class="col-md-6 text-left">
             <div>
@@ -15,6 +15,13 @@
         <div class="col-md-12">
             <div>
                 {{Question.questionText}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <button class="btn btn-primary" (click)="ShowQuestionAnswer()">Antwort</button>
             </div>
         </div>
     </div>

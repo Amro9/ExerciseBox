@@ -1,0 +1,5 @@
+.outer-border {
+    border: 1px solid #ccc; /* Border-Stil und -Farbe anpassen */
+    border-radius: 10px; /* Abgerundete Ecken */
+    padding: 15px; /* Innenabstand für den Inhalt */
+}
