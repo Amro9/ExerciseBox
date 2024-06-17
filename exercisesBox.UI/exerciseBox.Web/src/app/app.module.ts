@@ -13,26 +13,24 @@ import { AuthentificationService } from "./Services/AuthentificationService";
 import { CommonModule } from "@angular/common";
 import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component";
 import { ExerciseSheetService } from "./Services/exerciseSheet.service";
-import { NgxEditorModule } from "ngx-editor";
-
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
-    declarations:[
+    declarations: [
         AppComponent,
         NavbarComponent,
-        QuestionsPoolComponent,
         QuestionsPoolComponent,
         routingComponents
     ],
     imports: [
-    CommonModule,
+        CommonModule,
         BrowserModule,
         NgbModule,
         ReactiveFormsModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        NgxEditorModule
+        NgxEditorModule,
     ],
     providers: [
         {
@@ -43,6 +41,6 @@ import { NgxEditorModule } from "ngx-editor";
         AuthentificationService,
         ExerciseSheetService,
     ],
-    bootstrap:[AppComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

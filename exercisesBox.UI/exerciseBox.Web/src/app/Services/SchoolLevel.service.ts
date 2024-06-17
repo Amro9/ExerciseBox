@@ -17,4 +17,5 @@ export class SchoolLevel {
     let url_ = 'http://localhost:7292/api/QuestionParamaters/GetSchoolLevelsByTeacherId?teacherId=1@2.com';
     return this.http.get<string[]>(url_);
   }
+  
 }

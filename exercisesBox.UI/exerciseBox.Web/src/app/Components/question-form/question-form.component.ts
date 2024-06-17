@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { QuestionFromService } from '../../Services/question-from.service';
 import { Subject} from '../../Entities/Subject';
 import { SubjectService } from '../../Services/Subject.service';
@@ -20,11 +20,8 @@ export class QuestionCreationFormComponent implements OnInit {
   subjectsTopics: Topic[] = [];
   difficultyLevels: DifficultyLevel[] = [];
 
-  editor!: Editor;
-  html = '';
 
   onChange(newHtml: string) {
-    this.html = newHtml;
   }
 
   constructor(
@@ -35,41 +32,46 @@ export class QuestionCreationFormComponent implements OnInit {
     private difficultyLevelsService: DifficultyLevelsService,
     private questionFromService: QuestionFromService
   ) {
+
     this.questionCreationForm = this.fb.group({
-      questionText: [''],
-      answer: [''],
-      SchoolLevel: [''],
-      difficultyLevel: ['Einfach'],
-      subject: ['', Validators.required],
-      topic: [''],
-      // class: [''],
-      // questionNote: [''],
-      // answerNote: [''],
+      schoolLevel: ['0', [Validators.required, this.validateDropdown]],
+      subject: ['0',[Validators.required, this.validateDropdown]],
+      topic: ['0',[Validators.required, this.validateDropdown]],
+      questionText: ['', [Validators.required]],
+      answer: ['', [Validators.required]],
+      difficultyLevel: ['0',[Validators.required, this.validateDropdown]],
       questionIsPrivate: [false],
-      // questionIsSpecific: [false]
+      questionIsSpecific: [false]
     });
   }
-
+  validateDropdown(control: AbstractControl): { [key: string]: boolean } | null {
+    if (control.value === '0') {
+      return { 'invalidDropdown': true };
+    }
+    return null;
+  }
   ngOnInit(): void {
-    this.editor = new Editor();
-    this.subjectService.getAllSubjects().subscribe({
-      next: (data) => this.subjects = data,
-      error: (error) => console.error('Error fetching subjects:', error)
-    });
+    this.fetchSubjects();
+    this.fetchSchoolLevels();
+    this.fetchDifficultyLevels()
+  //   this.subjectService.getAllSubjects().subscribe({
+  //     next: (data) => this.subjects = data,
+  //     error: (error) => console.error('Error fetching subjects:', error)
+  //   });
 
-    this.schoolLevel.getSchoolLevelByTeacherId("1@2.com").subscribe({
-  next:(data) => this.schoolLevels = data,
-  error: (error) => console.error('Error fetching Classes:', error)
-    });
+  //   this.schoolLevel.getSchoolLevelByTeacherId("1@2.com").subscribe({
+  // next:(data) => this.schoolLevels = data,
+  // error: (error) => console.error('Error fetching Classes:', error)
+  //   });
 
-    this.difficultyLevelsService.getDifficultyLevels().subscribe({
-      next:(data) => this.difficultyLevels = data,
-      error: (error: string) => console.error('Error fetching Classes:', error)
-        });
+  //   this.difficultyLevelsService.getDifficultyLevels().subscribe({
+  //     next:(data) => this.difficultyLevels = data,
+  //     error: (error: string) => console.error('Error fetching Classes:', error)
+  //       });
   }
-  onLevelClick(level: string) {
-    this.questionCreationForm.patchValue({ SchoolLevel: level });
-  }
+  // onLevelClick(level: string) {
+  //   this.questionCreationForm.patchValue({ SchoolLevel: level });
+  // }
   onSubjectChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedSubjectId = selectElement.value;
@@ -80,11 +82,36 @@ export class QuestionCreationFormComponent implements OnInit {
     });
   }
   submitQuestionCreationForm() {
-    const dom = document.getElementsByClassName('NgxEditor__Content');
-    const txt = (dom && dom[0]) ? dom[0].innerHTML : '';
+    if (this.questionCreationForm.valid) {
+      const formData = this.questionCreationForm.value;
+      formData.Author = "1@2.com"
+      this.questionFromService.submitQuestionForm(formData);
+    
+      console.log('Form is valid');
+    } else {
+      this.questionCreationForm.markAllAsTouched();
+      console.log('Form is invalid');
+    }
+}
+fetchSubjects(): void {
+  this.subjectService.getAllSubjects().subscribe({
+    next: (data) => this.subjects = data,
+    error: (error) => console.error('Error fetching subjects:', error)
+  });
+}
 
-    const formData = this.questionCreationForm.value;
-    formData.Author = "1@2.com"
-    this.questionFromService.submitQuestionForm(formData);
-  }
+fetchSchoolLevels(): void {
+  this.schoolLevel.getSchoolLevelByTeacherId("1@2.com").subscribe({
+    next:(data) => this.schoolLevels = data,
+    error: (error) => console.error('Error fetching Classes:', error)
+  });
+}
+
+fetchDifficultyLevels(): void {
+  this.difficultyLevelsService.getDifficultyLevels().subscribe({
+    next:(data) => this.difficultyLevels = data,
+    error: (error: string) => console.error('Error fetching Classes:', error)
+  });
+}
+
 }
