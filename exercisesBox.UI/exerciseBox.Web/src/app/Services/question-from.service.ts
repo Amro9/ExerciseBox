@@ -11,7 +11,7 @@ export class QuestionFromService {
   ) { }
 
   submitQuestionForm( formData: FormData) {
-    let url_ = "http://localhost:7292/addQuestio";
+    let url_ = "http://localhost:7292/addQuestion";
     
     this.http.post(url_, formData)
     .subscribe(

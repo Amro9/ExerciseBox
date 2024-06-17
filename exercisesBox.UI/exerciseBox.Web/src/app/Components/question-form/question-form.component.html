@@ -1,86 +1,90 @@
-<div class="text-center" *ngIf="schoolLevels">
-  <label >Wähle die Schulstufe</label>
- <button class="btn btn-primary m-3" (click)="onLevelClick(level)" *ngFor="let level of schoolLevels" [id]="level" >
-   {{ level }}. Schulstufe
- </button>
-</div>
-
-
-<div class="container mt-5">
-  <form [formGroup]="questionCreationForm" (submit)="submitQuestionCreationForm()">
-    <h2 class="text-center mb-4">Frage erstellen</h2>
+<div class="container mt-3">
+  <h2 class="text-center mb-2">Frage erstellen</h2>
+  <h6 class="text-center">Bitte alle Felder ausfüllen</h6>
+  <div class="card p-4">
+    <form [formGroup]="questionCreationForm" (submit)="submitQuestionCreationForm()">
       <div class="mb-3 row">
-        <label for="chooseSubject" class="col-sm-2 col-form-label">Wähle das Fach</label>
-        <div class="col-sm-10">
-          <select id="subject" (change)="onSubjectChange($event)" formControlName="subject">
+        <div class="col-sm-4">
+          <select formControlName="schoolLevel" class="form-select" data-bs-toggle="tooltip">
+            <option [value]="0">Schulstufe</option>
+            <option *ngFor="let level of schoolLevels" [value]="level">{{ level }}. Schulstufe</option>
+          </select>
+          <div *ngIf="questionCreationForm.get('schoolLevel')?.errors?.['invalidDropdown'] && questionCreationForm.get('schoolLevel')?.touched"
+            class="text-danger">
+            Bitte wählen Sie eine gültige Schulstufe aus.
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <select id="subject" (change)="onSubjectChange($event)" formControlName="subject" class="form-select"
+            data-bs-toggle="tooltip" title="Wählen Sie das Fach">
+            <option [value]="0" selected>Wähle das Fach</option>
             <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
           </select>
+          <div *ngIf="questionCreationForm.get('subject')?.errors?.['invalidDropdown'] && questionCreationForm.get('subject')?.touched"
+            class="text-danger">
+            Bitte wählen Sie ein Fach aus.
+          </div>
         </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="chooseTopic" class="col-sm-2 col-form-label">Wähle das Thema</label>
-        <div class="col-sm-10">
-          <select class="form-select" id="chooseTopic" formControlName="topic">
-            <option selected>Wähle das Thema</option>
+        <div class="col-sm-4">
+          <select id="chooseTopic" formControlName="topic" class="form-select" data-bs-toggle="tooltip"
+            title="Wählen Sie das Thema">
+            <option [value]="0" selected>Wähle das Thema</option>
             <option *ngFor="let topic of subjectsTopics" [value]="topic.id">{{ topic.description }}</option>
           </select>
-        </div>
-      </div>
-
-      <div class="mb-3 row">
-        <!-- <label for="questionText" class="col-sm-2 col-form-label">Fragestellung:</label>
-        <div class="col-sm-10">
-          <textarea class="form-control" id="questionText" formControlName="questionText" rows="3" placeholder="Fragestellung.." ></textarea>
-        </div> -->
-          <div class="NgxEditor__Wrapper">
-            <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
-            <ngx-editor [editor]="editor" [ngModel]="html" (ngModelChange)="onChange($event)" [placeholder]="'Type here...'"></ngx-editor>
+          <div *ngIf="questionCreationForm.get('topic')?.errors?.['invalidDropdown'] && questionCreationForm.get('topic')?.touched"
+            class="text-danger">
+            Bitte wählen Sie ein Thema aus.
           </div>
-      </div>
-      <!-- <div class="mb-3 row">
-        <label for="questionNote" class="col-sm-2 col-form-label">Hinweis zur Fragestellung:</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="questionNote" formControlName="questionNote" placeholder="Hinweis für den Schüler.." >
-        </div>
-      </div> -->
-      <div class="mb-3 row">
-        <label for="answer" class="col-sm-2 col-form-label">Antwort:</label>
-        <div class="col-sm-10">
-          <textarea class="form-control" id="answer" rows="3" formControlName="answer" placeholder="Antwort.."></textarea>
         </div>
       </div>
-      <!-- <div class="mb-3 row">
-        <label for="answerNote" class="col-sm-2 col-form-label">Hinweis zur Antwort:</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="answerNote" formControlName="answerNote" placeholder="Hinweis für den Lehrer.." >
-        </div>
-      </div> -->
       <div class="mb-3 row">
-        <label for="chooseDifficulty" class="col-sm-2 col-form-label">Schwierigkeitsgrad der Frage:</label>
-        <div class="col-sm-10">
-          <select class="form-select" id="chooseDifficulty" formControlName="difficultyLevel">
-            <option selected>Wähle den Schwierigkeitsgrad</option>
-            <option *ngFor="let difficulty of difficultyLevels" [value]="difficulty.id">{{ difficulty.description }}</option>
+        <div>
+          <textarea class="form-control" id="questionText" formControlName="questionText" rows="3"
+            placeholder="Fragestellung.." data-bs-toggle="tooltip" title="Geben Sie die Fragestellung ein"></textarea>
+          <small class="form-text text-muted">Beschreiben Sie die Frage klar und präzise</small>
+          <div *ngIf="questionCreationForm.get('questionText')?.errors?.['required'] && questionCreationForm.get('questionText')?.touched"
+            class="text-danger">
+            Bitte geben Sie die Fragestellung ein.
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <div>
+          <textarea class="form-control" id="answer" rows="3" formControlName="answer" placeholder="Antwort.."
+            data-bs-toggle="tooltip" title="Geben Sie die Antwort ein"></textarea>
+          <small class="form-text text-muted">Platz für Ihre Antwort</small>
+          <div *ngIf="questionCreationForm.get('answer')?.errors?.['required'] && questionCreationForm.get('answer')?.touched"
+            class="text-danger">
+            Bitte geben Sie die Antwort ein.
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-sm-6">
+          <select id="chooseDifficulty" formControlName="difficultyLevel" class="form-select" data-bs-toggle="tooltip"
+            title="Wählen Sie den Schwierigkeitsgrad">
+            <option [value]="0">Wähle den Schwierigkeitsgrad</option>
+            <option *ngFor="let difficulty of difficultyLevels" [value]="difficulty.id">{{ difficulty.description }}
+            </option>
           </select>
+          <div *ngIf="questionCreationForm.get('difficultyLevel')?.errors?.['invalidDropdown'] && questionCreationForm.get('difficultyLevel')?.touched"
+            class="text-danger">
+            Bitte wählen Sie den Schwierigkeitsgrad aus.
+          </div>
+        </div>
+        <div class="col-sm-6 d-flex align-items-center">
+          <label for="questionIsPrivate" class="col-form-label me-2">Frage soll nur für mich gespeichert werden:</label>
+          <div class="form-check form-switch">
+            <input class="form-check-input toggle" type="checkbox" id="questionIsPrivate" formControlName="questionIsPrivate"
+              data-bs-toggle="tooltip" title="Diese Frage privat speichern">
+          </div>
         </div>
       </div>
-      <div class="mb-3 row">
-        <label for="questionIsPrivate" class="col-sm-2 col-form-label">Frage soll nur für mich gespeichert werden:</label>
-        <div class="col-sm-10 d-flex align-items-center">
-          <input type="checkbox" class="form-check-input ms-2" id="questionIsPrivate" formControlName="questionIsPrivate">
-        </div>
-      </div>
-      <!-- <div class="mb-3 row">
-        <label for="questionIsSpecific" class="col-sm-2 col-form-label">Frage ist berufsrelevant:</label>
-        <div class="col-sm-10 d-flex align-items-center">
-          <input type="checkbox" class="form-check-input ms-2" id="questionIsSpecific" formControlName="questionIsSpecific">
-        </div>
-      </div> -->
-      <div class="d-flex justify-content-end">
-        <button type="reset" class="btn btn-secondary me-2">Discard</button>
-        <button type="submit" class="btn btn-primary">Create</button>
-      </div>
-    </form>
-  </div>
 
-  
+      <div class="d-flex justify-content-center">
+        <button type="reset" class="btn btn-secondary me-2" data-bs-toggle="tooltip">Zurücksetzen</button>
+        <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip">Bestätigen</button>
+      </div>
+    </form> <!-- Correct placement of closing tag -->
+  </div>
+</div>

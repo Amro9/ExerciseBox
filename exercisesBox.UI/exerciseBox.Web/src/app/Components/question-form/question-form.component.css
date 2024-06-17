@@ -2,3 +2,7 @@
   display: block;
 
 }
+.toggle{
+  width: 2.5rem; /* Breite des Toggle-Schalters anpassen */
+  height: 1.5rem; 
+}
