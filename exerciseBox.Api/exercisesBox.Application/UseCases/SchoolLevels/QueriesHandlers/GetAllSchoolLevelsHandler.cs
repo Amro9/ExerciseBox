@@ -19,7 +19,7 @@ namespace exerciseBox.Application.UseCases.SchoolLevels.QueriesHandlers
 
         public async Task<IEnumerable<int>> Handle(GetAllSchoolLevels request, CancellationToken cancellationToken)
         {
-            return await _schoolLevelRepository.Read();
+            return await _schoolLevelRepository.ReadAsync();
         }
     }
 }

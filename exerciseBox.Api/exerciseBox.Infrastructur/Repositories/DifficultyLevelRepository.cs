@@ -15,27 +15,27 @@ namespace exerciseBox.Infrastructur.Repositories
             _context = context;
         }
 
-        public Task<QuestionDifficultyLevels> Create(QuestionDifficultyLevels entity)
+        public Task<QuestionDifficultyLevels> CreateAsync(QuestionDifficultyLevels entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<QuestionDifficultyLevels> Delete(QuestionDifficultyLevels entity)
+        public Task<QuestionDifficultyLevels> DeleteAsync(QuestionDifficultyLevels entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<QuestionDifficultyLevels>> Read()
+        public async Task<IEnumerable<QuestionDifficultyLevels>> ReadAsync()
         {
             return await _context.QuestionDifficultyLevels.ToListAsync();
         }
 
-        public Task<QuestionDifficultyLevels> ReadById(Guid id)
+        public Task<QuestionDifficultyLevels> ReadByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<QuestionDifficultyLevels> Update(QuestionDifficultyLevels entity)
+        public Task<QuestionDifficultyLevels> UpdateAsync(QuestionDifficultyLevels entity)
         {
             throw new NotImplementedException();
         }

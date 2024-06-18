@@ -13,19 +13,19 @@ public class TeacherRepository : ITeacherRepository
         _context = context;
     }
 
-    public async Task<Teachers> Create(Teachers entity)
+    public async Task<Teachers> CreateAsync(Teachers entity)
     {
         var teacher = await _context.Teachers.AddAsync(entity);
         await _context.SaveChangesAsync();
         return teacher.Entity;
     }
 
-    public Task<Teachers> Delete(Teachers entity)
+    public Task<Teachers> DeleteAsync(Teachers entity)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Teachers>> Read()
+    public async Task<IEnumerable<Teachers>> ReadAsync()
     {
         return await _context.Teachers.Include(x => x.SchoolNavigation).ThenInclude(x => x.SchoolTypeNavigation).ToListAsync();
     }
@@ -35,7 +35,7 @@ public class TeacherRepository : ITeacherRepository
         return await _context.Teachers.Include(x => x.SchoolNavigation).ThenInclude(x => x.SchoolTypeNavigation).FirstOrDefaultAsync(x => x.Email == email);
     }
 
-    public Task<Teachers> ReadById(string id)
+    public Task<Teachers> ReadByIdAsync(string id)
     {
         throw new NotImplementedException();
     }
@@ -45,7 +45,7 @@ public class TeacherRepository : ITeacherRepository
         return await _context.Teachers.Where(x => x.School == schoolId).ToListAsync();
     }
 
-    public Task<Teachers> Update(Teachers entity)
+    public Task<Teachers> UpdateAsync(Teachers entity)
     {
         throw new NotImplementedException();
     }

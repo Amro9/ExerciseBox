@@ -13,21 +13,21 @@ public class SchoolRepository : ISchoolRepository
         _context = context;
     }
 
-    public async Task<Schools> Create(Schools entity)
+    public async Task<Schools> CreateAsync(Schools entity)
     {
         await _context.Schools.AddAsync(entity);
         await _context.SaveChangesAsync();
         return entity;
     }
 
-    public async Task<Schools> Delete(Schools entity)
+    public async Task<Schools> DeleteAsync(Schools entity)
     {
         _context.Schools.Remove(entity);
         await _context.SaveChangesAsync();
         return entity;
     }
 
-    public async Task<IEnumerable<Schools>> Read()
+    public async Task<IEnumerable<Schools>> ReadAsync()
     {
         return await _context.Schools.Include(x => x.SchoolTypeNavigation).ToListAsync();
     }
@@ -37,12 +37,12 @@ public class SchoolRepository : ISchoolRepository
         return await _context.Schools.Include(x => x.SchoolTypeNavigation).FirstOrDefaultAsync(x => x.Email == email);
     }
 
-    public async Task<Schools> ReadById(string id)
+    public async Task<Schools> ReadByIdAsync(string id)
     {
         return await _context.Schools.Include(x => x.SchoolTypeNavigation).FirstOrDefaultAsync(x => x.Email == id.ToString());
     }
 
-    public async Task<Schools> Update(Schools entity)
+    public async Task<Schools> UpdateAsync(Schools entity)
     {
         throw new NotImplementedException();
     }

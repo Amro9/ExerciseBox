@@ -19,7 +19,7 @@ namespace exerciseBox.Application.UseCases.Questions.QueriesHandlers
         // implemented method of mediator, you get the request and handle it. token is optional
         public async Task<IEnumerable<QuestionDto>> Handle(GetPublicQuestions request, CancellationToken cancellationToken)
         {
-            var questions = await _questionRepository.Read();
+            var questions = await _questionRepository.ReadAsync();
             return QuestionMappingExtension.MapToQuestionDto(questions);
         }
 

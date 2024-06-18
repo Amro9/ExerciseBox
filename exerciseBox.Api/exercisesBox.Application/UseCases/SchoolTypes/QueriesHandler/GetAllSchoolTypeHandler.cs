@@ -16,7 +16,7 @@ public class GetAllSchoolTypeHandler : IRequestHandler<GetAllSchoolTypes, IEnume
     }
     public async Task<IEnumerable<SchoolTypeDto>> Handle(GetAllSchoolTypes request, CancellationToken cancellationToken)
     {
-        var schoolTypes = await _schoolTypeRepository.Read();
+        var schoolTypes = await _schoolTypeRepository.ReadAsync();
         return schoolTypes.MapToSchoolTypeDtos();
     }
 }

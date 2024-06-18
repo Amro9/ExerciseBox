@@ -16,7 +16,7 @@ public class CreateSchoolHandler : IRequestHandler<CreateSchool, SchoolDto>
 
     public async Task<SchoolDto> Handle(CreateSchool request, CancellationToken cancellationToken)
     {
-        var school = await _schoolRepository.Create(request.School);
+        var school = await _schoolRepository.CreateAsync(request.School);
         return school;
     }
 }
