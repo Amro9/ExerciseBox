@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { SessionProvider } from "./SessionProvider";
-import { API_BASE_URL } from "../Infrastucture/configurations";
-import { Folder } from "../Entities/Folder";
+import { SessionProvider } from "../SessionProvider";
+import { API_BASE_URL } from "../../Infrastucture/configurations";
+import { Folder } from "../../Entities/Folder";
 import { BoundElementProperty } from "@angular/compiler";
 
 @Injectable({
