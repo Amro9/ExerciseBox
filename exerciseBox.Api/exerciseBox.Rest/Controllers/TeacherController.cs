@@ -53,7 +53,7 @@ public class TeacherController : BaseController
         }
     }
 
-    [HttpGet("Folders")]
+    [HttpGet("Folders/{id}")]
     public async Task<IActionResult> GetFoldersOfTeacher(string id)
     {
         try

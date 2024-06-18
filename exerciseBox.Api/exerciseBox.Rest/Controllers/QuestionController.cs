@@ -1,4 +1,5 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
+using exerciseBox.Application.Services.Interface;
 using exerciseBox.Application.UseCases.Questions.Commands;
 using exerciseBox.Application.UseCases.Questions.Queries;
 using MediatR;
@@ -7,12 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace exerciseBox.Rest.Controllers
 {
    
-    public class QuestionController: Controller
+    public class QuestionController: BaseController
     {
-        private readonly IMediator _mediator;
-        public QuestionController(IMediator mediator)
+        public QuestionController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
         {
-            _mediator = mediator;
+            
         }
 
         [HttpPost("addQuestion")]
@@ -31,9 +31,9 @@ namespace exerciseBox.Rest.Controllers
             
         }
 
-        public void RemoveQuestion() {
+        //public void RemoveQuestion() {
 
-        }
+        //}
 
 
         [HttpGet("publicQuestions")]

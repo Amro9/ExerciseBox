@@ -19,10 +19,11 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
   Questions : Question[] = [];  
   Folders! : Folder[];
-  selectedFolder! : Folder;
+  selectedFolder : Folder = new Folder("0", "Select a folder", "0");
 
   constructor(private folderService: FolderService, private questionService: QuestionService) 
   {
+    this.selectedFolder.Questions = [];
     //this.session = Session.fromJson(localStorage.getItem("session"))
     this.session = new Session("test", "2@3.com")
   }
@@ -44,7 +45,11 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   }
 
   onFolderChange() {
-    this.questionService.getQuestionsByFolder(this.selectedFolder.id).subscribe(questions => this.Questions = questions);
+    this.questionService.getQuestionsByFolder(this.selectedFolder.id).subscribe(questions => this.selectedFolder.Questions = questions)
+    if(this.selectedFolder.Questions === undefined)
+    {
+      this.selectedFolder.Questions = [];
+    }
   }
 
 }
