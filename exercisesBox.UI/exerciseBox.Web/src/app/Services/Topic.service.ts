@@ -1,18 +1,22 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, tap, throwError } from "rxjs";
+import { API_BASE_URL } from '../Infrastucture/configurations';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TopicService {
   private http: HttpClient;
+  baseUrl: string;
   
-  constructor(@Inject(HttpClient) http: HttpClient) {
+  constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl: string) {
     this.http = http;
+    this.baseUrl = baseUrl;
+
 } 
 getTopicsBySubject(subjectId: string): Observable<any> {
-  let url_ = 'http://localhost:7292/api/QuestionParamaters/GetTopicBySubject/'+subjectId;
+  let url_ = this.baseUrl +"QuestionParamaters/GetTopicBySubject/"+subjectId;
 
   return this.http.get<any>(url_);
 }

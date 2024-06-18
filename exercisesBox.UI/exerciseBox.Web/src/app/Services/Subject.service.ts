@@ -8,19 +8,18 @@ import { Subject} from '../Entities/Subject';
 })
 export class SubjectService {
   private http: HttpClient;
-  private baseUrl: string;
+  baseUrl: string;
   // private headers = new HttpHeaders({
   //   'Content-Type': 'application/json',
   // });
 
-  constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+  constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl: string) {
     this.http = http;
-    this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    this.baseUrl = baseUrl;
 } 
 
 getAllSubjects(): Observable<Subject[]>{
-  // let url_ = this.baseUrl + "QuestionParamaters/Subjects";
-  let url_ = "http://localhost:7292/api/QuestionParamaters/Subjects";
+  let url_ = this.baseUrl + "QuestionParamaters/Subjects";
   console.log('getAllSubjects called');
   return this.http.get<Subject[]>(url_).pipe(
     tap(data => console.log('Received subjects:', data)),

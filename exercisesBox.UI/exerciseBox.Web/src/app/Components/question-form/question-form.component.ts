@@ -4,7 +4,7 @@ import { QuestionFromService } from '../../Services/question-from.service';
 import { Subject} from '../../Entities/Subject';
 import { SubjectService } from '../../Services/Subject.service';
 import { TopicService, Topic } from '../../Services/Topic.service';
-import { SchoolLevel } from '../../Services/SchoolLevel.service';
+import { SchoolLevel } from '../../Services/api-services/SchoolLevel.service';
 import { DifficultyLevel, DifficultyLevelsService } from '../../Services/difficulty-levels.service';
 
 @Component({

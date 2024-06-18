@@ -15,7 +15,9 @@ import { QuestionsPoolComponent } from "./Components/questions-pool/questions-po
 import { ExerciseSheetService } from "./Services/exerciseSheet.service";
 import { NgxEditorModule } from 'ngx-editor';
 import { FolderService } from "./Services/Folder.Service";
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import { FolderService } from "./Services/Folder.Service";
     imports: [
         CommonModule,
         BrowserModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
         NgbModule,
         ReactiveFormsModule,
         AppRoutingModule,
@@ -42,7 +46,8 @@ import { FolderService } from "./Services/Folder.Service";
         TeacherAPIConnection,
         AuthentificationService,
         ExerciseSheetService,
-        FolderService
+        FolderService,
+        provideAnimationsAsync()
     ],
     bootstrap: [AppComponent]
 })
