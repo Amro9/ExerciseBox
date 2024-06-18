@@ -1,7 +1,7 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, tap, throwError } from "rxjs";
-import { API_BASE_URL } from '../Infrastucture/configurations';
+import { API_BASE_URL } from '../../Infrastucture/configurations';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ getTopicsBySubject(subjectId: string): Observable<any> {
 
   return this.http.get<any>(url_);
 }
-// getAllSubjects(): Observable<Topic[]>{
+// getAllTopics(): Observable<Topic[]>{
 //   // let url_ = this.baseUrl + "QuestionParamaters/Subjects";
 //   let url_ = "http://localhost:7292/api/QuestionParamaters/Topics";
 //   return this.http.get<Topic[]>(url_).pipe(

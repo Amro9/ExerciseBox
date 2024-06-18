@@ -1,9 +1,9 @@
  import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable, Optional } from "@angular/core";
-import { API_BASE_URL } from "../Infrastucture/configurations";
+import { API_BASE_URL } from "../../Infrastucture/configurations";
 import { catchError, map, Observable, throwError } from "rxjs";
-import { Teacher } from "../Entities/Teacher";
-import { Session } from "../Entities/Session";
+import { Teacher } from "../../Entities/Teacher";
+import { Session } from "../../Entities/Session";
 
 @Injectable({
     providedIn: 'root'

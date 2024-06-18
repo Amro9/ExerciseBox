@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../../Entities/Question';
 import { Folder } from '../../Entities/Folder';
-import { FolderService } from '../../Services/Folder.Service';
+import { FolderService } from '../../Services/api-services/Folder.Service';
 import { Session } from '../../Entities/Session';
 import { SessionProvider } from '../../Services/SessionProvider';
-import { QuestionService } from '../../Services/question.service';
+import { QuestionService } from '../../Services/api-services/question.service';
 
 @Component({
   selector: 'app-exercise-sheet-generation',

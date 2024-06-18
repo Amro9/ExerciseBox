@@ -1,8 +1,8 @@
 import { Inject, Injectable, Optional } from "@angular/core";
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, map, Observable, tap, throwError } from "rxjs";
-import { API_BASE_URL } from "../Infrastucture/configurations";
-import { Question } from "../Entities/Question";
+import { API_BASE_URL } from "../../Infrastucture/configurations";
+import { Question } from "../../Entities/Question";
 
 @Injectable({
   providedIn: 'root'

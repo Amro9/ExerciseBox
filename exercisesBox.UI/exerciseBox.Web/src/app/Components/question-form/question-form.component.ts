@@ -1,11 +1,11 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { QuestionFromService } from '../../Services/question-from.service';
+import { QuestionFromService } from '../../Services/api-services/question-from.service';
 import { Subject} from '../../Entities/Subject';
-import { SubjectService } from '../../Services/Subject.service';
-import { TopicService, Topic } from '../../Services/Topic.service';
+import { SubjectService } from '../../Services/api-services/Subject.service';
+import { TopicService, Topic } from '../../Services/api-services/Topic.service';
 import { SchoolLevel } from '../../Services/api-services/SchoolLevel.service';
-import { DifficultyLevel, DifficultyLevelsService } from '../../Services/difficulty-levels.service';
+import { DifficultyLevel, DifficultyLevelsService } from '../../Services/api-services/difficulty-levels.service';
 
 @Component({
   selector: 'app-question-form',
