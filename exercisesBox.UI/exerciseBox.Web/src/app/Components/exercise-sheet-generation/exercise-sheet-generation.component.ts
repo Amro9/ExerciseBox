@@ -4,6 +4,7 @@ import { Folder } from '../../Entities/Folder';
 import { FolderService } from '../../Services/Folder.Service';
 import { Session } from '../../Entities/Session';
 import { SessionProvider } from '../../Services/SessionProvider';
+import { QuestionService } from '../../Services/question.service';
 
 @Component({
   selector: 'app-exercise-sheet-generation',
@@ -13,20 +14,21 @@ import { SessionProvider } from '../../Services/SessionProvider';
 export class ExerciseSheetGenerationComponent implements OnInit{
 
 
+
   session! : Session;
 
   Questions : Question[] = [];  
   Folders! : Folder[];
   selectedFolder! : Folder;
 
-  constructor(private folderService: FolderService) 
+  constructor(private folderService: FolderService, private questionService: QuestionService) 
   {
     //this.session = Session.fromJson(localStorage.getItem("session"))
     this.session = new Session("test", "2@3.com")
   }
 
   async ngOnInit(): Promise<void> {
-    this.Folders = await this.folderService.getFoldersOfTeacher(this.session.SessionIdKey);
+    this.Folders = await this.folderService.getFoldersOfTeacher("2@3.com");
   }
 
   onSaveExerciseSheet() {
@@ -39,6 +41,10 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
     
 
+  }
+
+  onFolderChange() {
+    this.questionService.getQuestionsByFolder(this.selectedFolder.id).subscribe(questions => this.Questions = questions);
   }
 
 }

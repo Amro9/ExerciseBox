@@ -6,7 +6,7 @@ import { SubjectService } from '../../Services/Subject.service';
 import { TopicService, Topic } from '../../Services/Topic.service';
 import { SchoolLevel } from '../../Services/SchoolLevel.service';
 import { DifficultyLevel, DifficultyLevelsService } from '../../Services/difficulty-levels.service';
-import { Editor } from 'ngx-editor';
+
 @Component({
   selector: 'app-question-form',
   templateUrl: './question-form.component.html',

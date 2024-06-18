@@ -35,6 +35,11 @@ namespace exerciseBox.Infrastructur.Repositories
             return await _context.Questions.Where(q => questionIds.Contains(q.Id.ToString())).ToListAsync();
         }
 
+        public async Task<IEnumerable<Questions>> GetFolderQuestions(string folderid)
+        {
+            return await _context.FoldersQuestionsJunction.Where(fq => fq.Folder == folderid).Select(fq => fq.QuestionNavigation).ToListAsync();
+        }
+
         public async Task<IEnumerable<Questions>> Read()
         {
             return await _context.Questions.Where(q => q.QuestionIsPrivate == false).ToListAsync();

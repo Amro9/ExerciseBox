@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { API_BASE_URL } from "../Infrastucture/configurations";
 import { Question } from "../Entities/Question";
@@ -25,6 +25,21 @@ export class QuestionService {
                 console.error('Error fetching questions:', error);
                 return throwError(error);
             }));
+    }
+
+    getQuestionsByFolder(folderId: string): Observable<Question[]>{
+      
+      let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
+
+      let param = new HttpParams().set('id', folderId);
+
+      return this.http.get<Question[]>(url_).pipe(
+        tap(data => console.log('Received questions:', data)),
+        catchError(error => {
+            console.error('Error fetching questions:', error);
+            return throwError(error);
+        }));
+
     }
 
 }

@@ -48,5 +48,19 @@ namespace exerciseBox.Rest.Controllers
             }
                 return null;
         }
+
+        [HttpGet("folderQuestions/{folderId}")]
+        public async Task<IActionResult> GetFolderQuestions(string folderId)
+        {
+            try
+            {
+                var questions = await _mediator.Send(new GetFolderQuestions { FolderId = folderId });
+                return Ok(new {value = questions});
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
+            }
+        }
     }
 }
