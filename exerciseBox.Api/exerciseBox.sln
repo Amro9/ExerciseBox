@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{BB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exerciseBox.Domain", "exercisesBox.Domain\exerciseBox.Domain.csproj", "{A7C7FB37-B27C-4213-A780-F24C2A0398BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exerciseBox.Infrastructur", "exerciseBox.Infrastructur\exerciseBox.Infrastructur.csproj", "{F3C79E1A-2B7E-46AD-B448-70254056075D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exerciseBox.Infrastructur", "exerciseBox.Infrastructur\exerciseBox.Infrastructur.csproj", "{F3C79E1A-2B7E-46AD-B448-70254056075D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2A8AFEA6-148A-42DA-A667-D7A55092EF2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

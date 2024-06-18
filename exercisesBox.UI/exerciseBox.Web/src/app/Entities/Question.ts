@@ -1,5 +1,4 @@
-export class Question
-{
+export class Question {
     id: string;
     author: string;
     questionText: string;
@@ -8,7 +7,7 @@ export class Question
     difficultyLevel: string;
     subject: string;
     topic: string;
-    
+
     constructor(id: string, author: string, questionText: string, answer: string, schoolLevel: string, difficultyLevel: string, subject: string, topic: string){
         this.id = id;
         this.author = author;
@@ -18,5 +17,18 @@ export class Question
         this.difficultyLevel = difficultyLevel;
         this.subject = subject;
         this.topic = topic;
+    }
+
+    static fromJSON(json: any): Question {
+        return new Question(
+            json.id,
+            json.author,
+            json.questionText,
+            json.answer,
+            json.schoolLevel,
+            json.difficultyLevel,
+            json.subject,
+            json.topic
+        );
     }
 }
