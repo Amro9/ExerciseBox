@@ -14,7 +14,6 @@ import { CommonModule } from "@angular/common";
 import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component";
 import { ExerciseSheetService } from "./Services/exerciseSheet.service";
 import { NgxEditorModule } from 'ngx-editor';
-import { NgxEditorModule } from "ngx-editor";
 import { FolderService } from "./Services/Folder.Service";
 
 

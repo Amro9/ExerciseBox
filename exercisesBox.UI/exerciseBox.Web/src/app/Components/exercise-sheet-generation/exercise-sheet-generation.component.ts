@@ -21,7 +21,8 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
   constructor(private folderService: FolderService) 
   {
-    //this.session = sessionProvider.getSession();
+    //this.session = Session.fromJson(localStorage.getItem("session"))
+    this.session = new Session("test", "2@3.com")
   }
 
   async ngOnInit(): Promise<void> {

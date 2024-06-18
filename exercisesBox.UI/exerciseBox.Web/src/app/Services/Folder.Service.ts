@@ -22,9 +22,9 @@ export class FolderService{
     }
 
     public async getFoldersOfTeacher(id : string): Promise<Folder[]> {
-        let url_ = this.baseUrl + "Folder/GetFolders";
+        let url_ = this.baseUrl + "Teacher/Folders";
         try {
-            let body = new HttpParams().set('teacherId', id);
+            let body = new HttpParams().set('id', id);
     
             const response: any = await this.http.get(url_, { headers: this.headers, params: body}).toPromise();
             return response.value as Folder[];

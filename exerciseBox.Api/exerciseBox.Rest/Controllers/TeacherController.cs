@@ -1,6 +1,7 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.Services.Interface;
 using exerciseBox.Application.Services.Models;
+using exerciseBox.Application.UseCases.Folder.Queries;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
@@ -49,6 +50,20 @@ public class TeacherController : BaseController
         catch (Exception ex)
         {
             return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+        }
+    }
+
+    [HttpGet("Folders")]
+    public async Task<IActionResult> GetFoldersOfTeacher(string id)
+    {
+        try
+        {
+            var folders = await _mediator.Send(new GetFoldersOfTeacher { TeacherId = id });
+            return Ok(new { value = folders });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
         }
     }
 

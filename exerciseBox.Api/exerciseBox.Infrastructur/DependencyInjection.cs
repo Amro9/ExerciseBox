@@ -24,7 +24,7 @@ public static class DependencyInjection
         services.AddScoped<IDifficultyLevelRepository, DifficultyLevelRepository>();
         services.AddScoped<ISchoolTypeRepository, SchoolTypeRepository>();
         services.AddScoped<ISchoolBranchesRepository, SchoolBranchesRepository>();
-
+        services.AddScoped<IFolderRepository, FolderRepository>();
 
         return services;
     }

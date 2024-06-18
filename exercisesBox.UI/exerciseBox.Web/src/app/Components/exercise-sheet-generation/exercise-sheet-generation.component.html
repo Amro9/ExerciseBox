@@ -1,7 +1,12 @@
 <div style="padding: 5%;">
     <div class="row">
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="Folders">
-          </select>
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder">
+            <option *ngFor="let folder of Folders" [ngValue]="folder.id">
+                <div>
+                    {{folder.name}} ({{folder.topic}})
+                </div>
+              </option>
+        </select>
     </div>
     <div class="row">
         <div *ngIf="selectedFolder">
