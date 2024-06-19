@@ -5,7 +5,7 @@
                 Fach: {{Question.subject}}
             </div>
         </div>
-        <div class="col-md-6 text-right">
+        <div *ngIf="ShowAuthor" class="col-md-6 text-right">
             <div>
                 Von: {{Question.author}}
             </div>

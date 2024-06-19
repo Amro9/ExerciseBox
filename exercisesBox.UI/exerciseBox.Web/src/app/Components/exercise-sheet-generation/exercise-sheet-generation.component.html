@@ -1,5 +1,8 @@
 <div style="padding: 5%;">
     <div class="row">
+
+    </div>
+    <div class="row">
         <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
             <option *ngFor="let folder of Folders" [ngValue]="folder">{{folder.name}}</option>
           </select>
@@ -7,20 +10,13 @@
     <div class="row">
         <div *ngIf="true">
             <div *ngFor="let question of selectedFolder.Questions">
-                <app-question [Question]="question"></app-question>
+                <div style="margin-top: 2%;">
+                    <app-question [Question]="question"></app-question>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div>
-                <button class="btn btn-primary" (click)="onGenerateExerciseSheet()">PDF Ansehen</button>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div>
-                <button class="btn btn-primary" (click)="onSaveExerciseSheet()">Speichern</button>
-            </div>
-        </div>
+    <div class="row" style="margin-top: 2%;">
+        <button class="btn btn-primary" (click)="onGenerateExerciseSheet()">PDF Generieren</button>
     </div>
 </div>

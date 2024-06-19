@@ -13,10 +13,11 @@ export class QuestionComponent {
   }
 
   @Input() Question! : Question;
+  @Input() ShowAuthor : boolean = false;  
 
   constructor() 
   {
-    this.Question = this.generateMockQuestion();
+    //this.Question = this.generateMockQuestion();
   }
 
   generateMockQuestion() {
