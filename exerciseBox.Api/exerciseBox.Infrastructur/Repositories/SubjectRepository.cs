@@ -14,26 +14,26 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             _context = context;
         }
-        public Task<Subjects> Create(Subjects entity)
+        public Task<Subjects> CreateAsync(Subjects entity)
         {
             throw new NotImplementedException();
         }
-        public Task<Subjects> Delete(Subjects entity)
+        public Task<Subjects> DeleteAsync(Subjects entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Subjects>> Read()
+        public async Task<IEnumerable<Subjects>> ReadAsync()
         {
             return await _context.Subjects.ToListAsync();   
         }
 
-        public Task<Subjects> ReadById(Guid id)
+        public Task<Subjects> ReadByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Subjects> Update(Subjects entity)
+        public Task<Subjects> UpdateAsync(Subjects entity)
         {
             throw new NotImplementedException();
         }

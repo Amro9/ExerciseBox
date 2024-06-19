@@ -20,7 +20,7 @@ namespace exerciseBox.Application.UseCases.Teachers.CommandHandlers
         {
             //request.Teacher.Password = request.Teacher.Password.HashPassword();
 
-            var teacher = await _teacherRepository.Create(request.Teacher);
+            var teacher = await _teacherRepository.CreateAsync(request.Teacher);
             return teacher;
         }
     }

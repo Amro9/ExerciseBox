@@ -13,12 +13,12 @@ public class FolderRepository : IFolderRepository
         _context = exercisesBoxContext;
     }
 
-    public Task<Folders> Create(Folders entity)
+    public Task<Folders> CreateAsync(Folders entity)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Folders> Delete(Folders entity)
+    public Task<Folders> DeleteAsync(Folders entity)
     {
         throw new NotImplementedException();
     }
@@ -28,17 +28,17 @@ public class FolderRepository : IFolderRepository
         return await _context.Folders.Where(f => f.Teacher == id).ToListAsync();
     }
 
-    public Task<IEnumerable<Folders>> Read()
+    public Task<IEnumerable<Folders>> ReadAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Folders> ReadById(Guid id)
+    public Task<Folders> ReadByIdAsync(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Folders> Update(Folders entity)
+    public Task<Folders> UpdateAsync(Folders entity)
     {
         throw new NotImplementedException();
     }

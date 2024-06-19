@@ -21,7 +21,7 @@ namespace exerciseBox.Application.UseCases.SchoolBranche.QueriesHandlers
         }
         public async Task<IEnumerable<SchoolBrancheDto>> Handle(GetAllSchoolBranches request, CancellationToken cancellationToken)
         {
-            var schoolBranches =await _schoolBranchesRepository.Read();
+            var schoolBranches =await _schoolBranchesRepository.ReadAsync();
             return SchoolBranchesMappingExtension.MapToDto(schoolBranches);
 
         }

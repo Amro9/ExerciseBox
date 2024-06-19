@@ -16,27 +16,27 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             _context = exercisesBoxContext;
         }
-        public Task<SchoolBranches> Create(SchoolBranches entity)
+        public Task<SchoolBranches> CreateAsync(SchoolBranches entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SchoolBranches> Delete(SchoolBranches entity)
+        public Task<SchoolBranches> DeleteAsync(SchoolBranches entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<SchoolBranches>> Read()
+        public async Task<IEnumerable<SchoolBranches>> ReadAsync()
         {
             return await _context.SchoolBranches.ToListAsync();
         }
 
-        public Task<SchoolBranches> ReadById(int id)
+        public Task<SchoolBranches> ReadByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SchoolBranches> Update(SchoolBranches entity)
+        public Task<SchoolBranches> UpdateAsync(SchoolBranches entity)
         {
             throw new NotImplementedException();
         }

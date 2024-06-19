@@ -15,7 +15,7 @@ namespace exerciseBox.Application.UseCases.Topics.QueriesHandlers
         }
         public async Task<IEnumerable<TopicDto>> Handle(GetAllTopics request, CancellationToken cancellationToken)
         {
-            var topics = await _topicRepository.Read();
+            var topics = await _topicRepository.ReadAsync();
             return topics.MapToTopicDto();
         }
     }
