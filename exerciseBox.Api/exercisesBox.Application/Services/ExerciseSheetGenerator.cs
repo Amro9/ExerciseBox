@@ -10,6 +10,9 @@ namespace exerciseBox.Application.Services
     {
         public byte[] Generate(ExerciseSheet exerciseSheet, IEnumerable<Questions> questions)
         {
+            if (questions == null)
+                throw new Exception("No questions found");
+
             var pdfDocument = Document.Create(container =>
             {
                 container.Page(page =>

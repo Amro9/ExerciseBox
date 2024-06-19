@@ -1,22 +1,42 @@
-<div style="padding: 5%;">
-    <div class="row">
-
-    </div>
-    <div class="row">
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
-            <option *ngFor="let folder of Folders" [ngValue]="folder">{{folder.name}}</option>
-          </select>
-    </div>
-    <div class="row">
-        <div *ngIf="true">
-            <div *ngFor="let question of selectedFolder.Questions">
-                <div style="margin-top: 2%;">
-                    <app-question [Question]="question"></app-question>
+<div class="container" style="padding: 5%;">
+    <div class="grid">
+        <div class="row"></div>
+        <div class="row">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
+                <option *ngFor="let folder of Folders" [ngValue]="folder">{{ folder.name }}</option>
+            </select>
+        </div>
+        <div class="row">
+            <div *ngIf="true">
+                <div *ngFor="let question of selectedFolder.Questions">
+                    <div class="d-flex" style="margin-top: 2%; align-items: center; position: relative;">
+                        <div style="flex-grow: 1;">
+                            <app-question [Question]="question" style="width: 100%;"></app-question>
+                        </div>
+                        <label class="switch" style="margin-left: auto;">
+                            <input type="checkbox" (change)="onQesionSwitchChange($event.target, question)">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row" style="margin-top: 2%;">
-        <button class="btn btn-primary" (click)="onGenerateExerciseSheet()">PDF Generieren</button>
+        <div class="row" style="margin-top: 2%;">
+            <button class="btn btn-primary" (click)="onGenerateExerciseSheet(pdfPreview)">PDF Generieren</button>
+        </div>
     </div>
 </div>
+
+<ng-template #pdfPreview let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">PDF Vorschau</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <iframe [src]="pdfSrc" width="100%" height="600px"></iframe>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Schließen</button>
+        <button type="button" class="btn btn-primary" (click)="downloadPdf()">Herunterladen</button>
+    </div>
+</ng-template>

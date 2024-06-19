@@ -14,11 +14,9 @@ export class FolderService{
         'Content-Type': 'application/json',
     });
 
-    private baseUrl : string;
 
-    constructor(private http: HttpClient, @Inject(API_BASE_URL) baseUrl?: string) 
+    constructor(private http: HttpClient, @Inject(API_BASE_URL) private baseUrl: string) 
     {
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     public async getFoldersOfTeacher(id : string): Promise<Folder[]> {

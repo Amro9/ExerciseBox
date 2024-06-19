@@ -5,6 +5,8 @@ import { FolderService } from '../../Services/api-services/Folder.Service';
 import { Session } from '../../Entities/Session';
 import { SessionProvider } from '../../Services/SessionProvider';
 import { QuestionService } from '../../Services/api-services/question.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ExerciseSheetService } from '../../Services/api-services/exerciseSheet.service';
 
 @Component({
   selector: 'app-exercise-sheet-generation',
@@ -12,16 +14,17 @@ import { QuestionService } from '../../Services/api-services/question.service';
   styleUrl: './exercise-sheet-generation.component.css'
 })
 export class ExerciseSheetGenerationComponent implements OnInit{
-
-
-
+  
   session! : Session;
 
-  Questions : Question[] = [];  
+  SelectedQuestions : Question[] = [];  
   Folders! : Folder[];
   selectedFolder : Folder = new Folder("0", "Select a folder", "0");
 
-  constructor(private folderService: FolderService, private questionService: QuestionService) 
+  pdfSrc: any;
+  pdfBlob!: Blob;
+
+  constructor(private folderService: FolderService, private questionService: QuestionService, private modalService: NgbModal, private exerciseSheetService: ExerciseSheetService) 
   {
     this.selectedFolder.Questions = [];
     //this.session = Session.fromJson(localStorage.getItem("session"))
@@ -38,10 +41,21 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
   }
 
-  onGenerateExerciseSheet() {
+  async onGenerateExerciseSheet(content: any) {
+    try {
+      this.pdfBlob = await this.exerciseSheetService.getNewExerciseSheet(this.SelectedQuestions.map(q => q.id));
+      this.pdfSrc = URL.createObjectURL(this.pdfBlob);
+      this.modalService.open(content, { size: 'lg' });
+    } catch (error) {
+      console.error('Error generating exercise sheet:', error);
+    }
+  }
 
-    
-
+  downloadPdf() {
+    const link = document.createElement('a');
+    link.href = this.pdfSrc;
+    link.download = 'exercise-sheet.pdf';
+    link.click();
   }
 
   onFolderChange() {
@@ -52,4 +66,14 @@ export class ExerciseSheetGenerationComponent implements OnInit{
     }
   }
 
+  onQesionSwitchChange(event : any , question: Question) {
+    if(event.checked)
+    {
+      this.SelectedQuestions.push(question);
+    }
+    else
+    {
+      this.SelectedQuestions = this.SelectedQuestions.filter(q => q.id !== question.id);
+    }
+  }
 }

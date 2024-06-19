@@ -11,21 +11,19 @@ export class ExerciseSheetService {
     private headers = new HttpHeaders({
         'Content-Type': 'application/json',
     });
-
-    private baseUrl : string;
     
-    constructor(private http: HttpClient,  @Inject(SessionProvider) private sessionProvider: SessionProvider, @Inject(API_BASE_URL) baseUrl?: string) 
+    constructor(private http: HttpClient, @Inject(API_BASE_URL) private baseUrl: string) 
     {
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    public async getNewExerciseSheet(questionIds: string[]): Promise<any> {
-        let url_ = this.baseUrl + "ExerciseSheet/GenerateExerciseSheet";
+    public async getNewExerciseSheet(questionIds: string[]): Promise<Blob> {
+        let url_ = this.baseUrl + "ExerciseSheet/GetNewExerciseSheet";
         try {
-            const response: any = await this.http.post(url_, { questionIds: questionIds  }, { headers: this.headers }).toPromise();
-            return response.value;
+            const response: any = await this.http.post(url_, { questionIds: questionIds }, { headers: this.headers, responseType: 'blob' as 'json' }).toPromise();
+            return response;
         } catch (error) {
-            return null;
+            console.error('Error generating exercise sheet:', error);
+            return new Blob();
         }
     }
   

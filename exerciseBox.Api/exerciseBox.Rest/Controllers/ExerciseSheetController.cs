@@ -10,7 +10,7 @@ namespace exerciseBox.Rest.Controllers
     {
         public ExerciseSheetController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator) { }
 
-        [HttpPost("GetNewExercise")]
+        [HttpPost("GetNewExerciseSheet")]
         public async Task<IActionResult> GetNewExerciseSheet(NewExerciseSheetRequest newExerciseSheet)
         {
             var result = await _mediator.Send(new GenerateNewExerciseSheet { ExerciseSheet = newExerciseSheet.ExerciseSheet, QuestionIds = newExerciseSheet.QuestionIds });

@@ -30,6 +30,7 @@
     "google-libphonenumber": "^3.2.34",
     "intl-tel-input": "^17.0.21",
     "jquery": "^3.7.1",
+    "ng2-pdf-viewer": "^10.2.2",
     "ngx-editor": "^17.5.4",
     "ngx-hide-on-scroll": "^0.2.0",
     "ngx-toastr": "^19.0.0",
