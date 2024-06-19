@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { SessionProvider } from "./SessionProvider";
-import { API_BASE_URL } from "../Infrastucture/configurations";
+import { SessionProvider } from "../SessionProvider";
+import { API_BASE_URL } from "../../Infrastucture/configurations";
 
 @Injectable ({
     providedIn : 'root'

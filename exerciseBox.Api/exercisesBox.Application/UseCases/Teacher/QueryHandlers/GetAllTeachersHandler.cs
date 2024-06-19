@@ -16,7 +16,7 @@ public class GetAllTeachersHandler : IRequestHandler<GetAllTeachers, IEnumerable
 
     public async Task<IEnumerable<TeacherDto>> Handle(GetAllTeachers request, CancellationToken cancellationToken)
     {
-        var teachers = await _teacherRepository.Read();
+        var teachers = await _teacherRepository.ReadAsync();
         return teachers.MapToTeacherDto();
     }
 

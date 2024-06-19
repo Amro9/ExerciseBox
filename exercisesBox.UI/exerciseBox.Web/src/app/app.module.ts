@@ -6,16 +6,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from "./Components/navbar/navbar.component";
-import { TeacherAPIConnection } from "./Services/TeacherAPIConnection";
+import { TeacherAPIConnection } from "./Services/api-services/TeacherAPIConnection";
 import { environment } from "../environments/enviroment.develop";
 import { API_BASE_URL } from "./Infrastucture/configurations";
 import { AuthentificationService } from "./Services/AuthentificationService";
 import { CommonModule } from "@angular/common";
 import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component";
-import { ExerciseSheetService } from "./Services/exerciseSheet.service";
+import { ExerciseSheetService } from "./Services/api-services/exerciseSheet.service";
 import { NgxEditorModule } from 'ngx-editor';
-import { FolderService } from "./Services/Folder.Service";
-
+import { FolderService } from "./Services/api-services/Folder.Service";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import { FolderService } from "./Services/Folder.Service";
     imports: [
         CommonModule,
         BrowserModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
         NgbModule,
         ReactiveFormsModule,
         AppRoutingModule,
@@ -42,7 +46,8 @@ import { FolderService } from "./Services/Folder.Service";
         TeacherAPIConnection,
         AuthentificationService,
         ExerciseSheetService,
-        FolderService
+        FolderService,
+        provideAnimationsAsync()
     ],
     bootstrap: [AppComponent]
 })

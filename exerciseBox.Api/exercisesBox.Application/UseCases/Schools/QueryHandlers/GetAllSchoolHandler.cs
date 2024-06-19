@@ -17,7 +17,7 @@ internal class GetAllSchoolHandler : IRequestHandler<GetAllSchools, IEnumerable<
      
     public async Task<IEnumerable<SchoolDto>> Handle(GetAllSchools request, CancellationToken cancellationToken)
     {
-        var schools = await _schoolRepository.Read();
+        var schools = await _schoolRepository.ReadAsync();
         return schools.MapToSchoolDto();
     }
 }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SubjectService } from '../../Services/Subject.service';
+import { SubjectService } from '../../Services/api-services/Subject.service';
 import { Subject } from '../../Entities/Subject';
-import { Topic, TopicService } from '../../Services/Topic.service';
-import { SchoolLevel } from '../../Services/SchoolLevel.service';
-import { DifficultyLevel, DifficultyLevelsService } from '../../Services/difficulty-levels.service';
-import { SchoolService } from '../../Services/school.service';
-import { QuestionService } from '../../Services/question.service';
+import { Topic, TopicService } from '../../Services/api-services/Topic.service';
+import { SchoolLevel } from '../../Services/api-services/SchoolLevel.service';
+import { DifficultyLevel, DifficultyLevelsService } from '../../Services/api-services/difficulty-levels.service';
+import { SchoolService } from '../../Services/api-services/school.service';
+import { QuestionService } from '../../Services/api-services/question.service';
 import { Question } from '../../Entities/Question';
 import { SchoolTypes } from '../../Entities/SchoolTypes';
 import {SchoolBranch} from '../../Entities/SchoolBranch';
@@ -49,15 +49,15 @@ export class QuestionsPoolComponent {
     });
     this.difficultyLevelsService.getDifficultyLevels().subscribe({
       next: (data) => this.difficultyLevels = data,
-      error: (error: string) => console.error('Error fetching Classes:', error)
+      error: (error: string) => console.error('Error fetching difficultyLevels:', error)
     });
-    this.questionService.getQuestions().subscribe({
-      next: (data) => this.publicQuestions = data,
-      error: (error: string) => console.error('Error fetching Classes:', error)
-    });
+    // this.questionService.getQuestions().subscribe({
+    //   next: (data) => this.publicQuestions = data,
+    //   error: (error: string) => console.error('Error fetching questions:', error)
+    // });
     this.schoolService.getSchoolBranches().subscribe({
       next: (data) => this.schoolBranches = data,
-      error: (error: string) => console.error('Error fetching Classes:', error)
+      error: (error: string) => console.error('Error fetching branches:', error)
     });
 
   }

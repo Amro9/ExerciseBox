@@ -1,9 +1,9 @@
 import { Inject, Injectable, Optional } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from "rxjs";
-import { API_BASE_URL } from "../Infrastucture/configurations";
-import { SchoolTypes } from "../Entities/SchoolTypes";
-import { SchoolBranch } from "../Entities/SchoolBranch";
+import { API_BASE_URL } from "../../Infrastucture/configurations";
+import { SchoolTypes } from "../../Entities/SchoolTypes";
+import { SchoolBranch } from "../../Entities/SchoolBranch";
 @Injectable({
   providedIn: 'root'
 })

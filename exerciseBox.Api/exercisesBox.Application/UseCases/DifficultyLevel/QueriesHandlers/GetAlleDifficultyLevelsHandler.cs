@@ -20,7 +20,7 @@ namespace exerciseBox.Application.UseCases.DifficultyLevel.QueriesHandlers
         }
         public async Task<IEnumerable<DifficultyLevelDto>> Handle(GetAllDifficultyLevels request, CancellationToken cancellationToken)
         {
-            var difficultyLevels = await _difficultyLevelRepository.Read();
+            var difficultyLevels = await _difficultyLevelRepository.ReadAsync();
             return difficultyLevels.MapToDifficultyLevelDto();
         }
     }

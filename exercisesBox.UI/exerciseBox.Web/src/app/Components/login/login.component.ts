@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Teacher } from '../../Entities/Teacher';
-import { TeacherAPIConnection } from '../../Services/TeacherAPIConnection';
+import { TeacherAPIConnection } from '../../Services/api-services/TeacherAPIConnection';
 import { Router } from '@angular/router';
 import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
 import { AuthentificationService } from '../../Services/AuthentificationService';

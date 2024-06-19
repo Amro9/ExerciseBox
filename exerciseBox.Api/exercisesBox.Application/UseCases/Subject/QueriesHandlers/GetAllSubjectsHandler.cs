@@ -15,7 +15,7 @@ namespace exerciseBox.Application.UseCases.Subject.QueriesHandlers
         }
         public async Task<IEnumerable<SubjectDto>> Handle(GetAllSubjects request, CancellationToken cancellationToken)
         {
-            var subjects = await _subjectRepository.Read();
+            var subjects = await _subjectRepository.ReadAsync();
             return subjects.MaptToSubjectDto();
         }
     }

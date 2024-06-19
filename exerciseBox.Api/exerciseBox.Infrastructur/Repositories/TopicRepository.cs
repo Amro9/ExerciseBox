@@ -12,17 +12,17 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             _context = context;
         }
-        public Task<Topics> Create(Topics entity)
+        public Task<Topics> CreateAsync(Topics entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Topics> Delete(Topics entity)
+        public Task<Topics> DeleteAsync(Topics entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Topics>> Read()
+        public async Task<IEnumerable<Topics>> ReadAsync()
         {
             return await _context.Topics.ToListAsync();
         }
@@ -30,12 +30,12 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             return await _context.Topics.Where(t => t.Subject == subject).Include(s =>s.SubjectNavigation).ToListAsync();
         }
-        public Task<Topics> ReadById(Guid id)
+        public Task<Topics> ReadByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Topics> Update(Topics entity)
+        public Task<Topics> UpdateAsync(Topics entity)
         {
             throw new NotImplementedException();
         }

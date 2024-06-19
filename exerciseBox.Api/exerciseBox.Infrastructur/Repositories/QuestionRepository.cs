@@ -13,7 +13,7 @@ namespace exerciseBox.Infrastructur.Repositories
             _context = context;
         }
 
-        public  async Task<Questions> Create(Questions entity)
+        public  async Task<Questions> CreateAsync(Questions entity)
         {
            await _context.Questions.AddAsync(entity);
             int effectedRows =  await _context.SaveChangesAsync();
@@ -25,7 +25,7 @@ namespace exerciseBox.Infrastructur.Repositories
 
         }
 
-        public Task<Questions> Delete(Questions entity)
+        public Task<Questions> DeleteAsync(Questions entity)
         {
             throw new NotImplementedException();
         }
@@ -37,25 +37,20 @@ namespace exerciseBox.Infrastructur.Repositories
 
         public async Task<IEnumerable<Questions>> GetFolderQuestions(string folderid)
         {
-            var questions =  await _context.FoldersQuestionsJunction.Where(fq => fq.Folder == folderid).Select(fq => fq.QuestionNavigation).ToListAsync();
-            foreach (var question in questions)
-            {
-                question.TopicNavigation = await _context.Topics.FindAsync(question.Topic);
-            }
-            return questions;
+            return await _context.FoldersQuestionsJunction.Where(fq => fq.Folder == folderid).Select(fq => fq.QuestionNavigation).ToListAsync();
         }
 
-        public async Task<IEnumerable<Questions>> Read()
+        public async Task<IEnumerable<Questions>> ReadAsync()
         {
             return await _context.Questions.Where(q => q.QuestionIsPrivate == false).ToListAsync();
         }
 
-        public Task<Questions> ReadById(Guid id)
+        public Task<Questions> ReadByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Questions> Update(Questions entity)
+        public Task<Questions> UpdateAsync(Questions entity)
         {
             throw new NotImplementedException();
         }
