@@ -10,7 +10,7 @@ export class NotificationService {
 
   showSuccess(message: string) {
     this.snackBar.open(message, 'Schließen', {
-      duration: 3000,
+      duration: 5000,
       panelClass: ['success-snackbar']
     });
   }
@@ -27,7 +27,7 @@ export class NotificationService {
   }
   showError(message: string) {
     this.snackBar.open(message, 'Schließen', {
-      duration: 3000,
+      duration: 5000,
       panelClass: ['error-snackbar']
     });
   }

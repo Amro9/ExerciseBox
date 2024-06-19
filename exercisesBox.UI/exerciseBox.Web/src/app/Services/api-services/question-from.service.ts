@@ -1,27 +1,32 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-
+import { Inject, Injectable, Optional } from '@angular/core';
+import { NotificationService } from '../general-services/notification.service';
+import { Observable, tap } from 'rxjs';
+import { API_BASE_URL } from '../../Infrastucture/configurations';
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionFromService {
-
+  baseUrl: string;
   constructor(
     private http: HttpClient,
-  ) { }
+    private notificationService: NotificationService,
+    @Optional() @Inject(API_BASE_URL) baseUrl: string
+  ) { 
+    this.baseUrl = baseUrl;
+  }
 
-  submitQuestionForm( formData: FormData) {
-    let url_ = "http://localhost:7292/addQuestion";
-    
-    this.http.post(url_, formData)
-    .subscribe(
-      response => {
-        console.log('Form data submitted successfully!', response);
-        // Handle successful form submission (e.g., clear form, show success message)
-      },
-      error => {
-        console.error('Error submitting form data:', error);
-        // Handle form submission error (e.g., show error message)
-      }
+  submitQuestionForm(formData: FormData): Observable<any> {
+    let url = this.baseUrl + 'question/addQuestion';
+    return this.http.post(url, formData).pipe(
+      tap(
+        response => {
+          this.notificationService.showSuccess('Frage wurde erfolgreich hinzugefügt');
+        },
+        error => {
+          console.error('Error submitting form data:', error);
+          this.notificationService.showError('Fehler beim Hinzufügen der Frage, bitte versuchen Sie es erneut.');
+        }
+      )
     );
 }}

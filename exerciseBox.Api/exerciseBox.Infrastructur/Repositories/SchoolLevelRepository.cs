@@ -48,8 +48,18 @@ namespace exerciseBox.Infrastructur.Repositories
                 throw new Exception(ex.Message);
             }
         }
-
-        public Task<int> UpdateAsync(int entity)
+        public async Task<IEnumerable<int>> ReadBySchoolTypeId(int schoolTypeId)
+        {
+            try
+                {
+            return await _context.SchoolTypesLevelsJunction.Where(l => l.SchoolType == schoolTypeId).Select(l => l.SchoolLevel).ToListAsync();
+                    }
+             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public Task<int> Update(int entity)
         {
             throw new NotImplementedException();
         }

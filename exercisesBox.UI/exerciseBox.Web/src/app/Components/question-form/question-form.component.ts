@@ -4,7 +4,7 @@ import { QuestionFromService } from '../../Services/api-services/question-from.s
 import { Subject} from '../../Entities/Subject';
 import { SubjectService } from '../../Services/api-services/Subject.service';
 import { TopicService, Topic } from '../../Services/api-services/Topic.service';
-import { SchoolLevel } from '../../Services/api-services/SchoolLevel.service';
+import { SchoolLevelService } from '../../Services/api-services/SchoolLevel.service';
 import { DifficultyLevel, DifficultyLevelsService } from '../../Services/api-services/difficulty-levels.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class QuestionCreationFormComponent implements OnInit {
     private fb: FormBuilder,
     private subjectService: SubjectService,
     private topicService: TopicService,
-    private schoolLevel : SchoolLevel,
+    private schoolLevel : SchoolLevelService,
     private difficultyLevelsService: DifficultyLevelsService,
     private questionFromService: QuestionFromService
   ) {
@@ -40,8 +40,7 @@ export class QuestionCreationFormComponent implements OnInit {
       questionText: ['', [Validators.required]],
       answer: ['', [Validators.required]],
       difficultyLevel: ['0',[Validators.required, this.validateDropdown]],
-      questionIsPrivate: [false],
-      questionIsSpecific: [false]
+      questionIsPrivate: [false]
     });
   }
   validateDropdown(control: AbstractControl): { [key: string]: boolean } | null {
@@ -81,17 +80,22 @@ export class QuestionCreationFormComponent implements OnInit {
       error: (error: string) => console.error('Error fetching topics:', error)
     });
   }
-  submitQuestionCreationForm() {
-    if (this.questionCreationForm.valid) {
-      const formData = this.questionCreationForm.value;
-      formData.Author = "1@2.com"
-      this.questionFromService.submitQuestionForm(formData);
-    
-      console.log('Form is valid');
-    } else {
+  submitQuestionCreationForm() :void{
+    if (!this.questionCreationForm.valid) {
       this.questionCreationForm.markAllAsTouched();
-      console.log('Form is invalid');
     }
+    const formData = this.questionCreationForm.value;
+    formData.Author = "1@2.com"
+    this.questionFromService.submitQuestionForm(formData).subscribe({
+      next: () => {
+        this.questionCreationForm.patchValue({
+          questionText: '',
+          answer: '',
+        });
+        this.questionCreationForm.markAsUntouched();
+
+      },
+    });
 }
 fetchSubjects(): void {
   this.subjectService.getAllSubjects().subscribe({

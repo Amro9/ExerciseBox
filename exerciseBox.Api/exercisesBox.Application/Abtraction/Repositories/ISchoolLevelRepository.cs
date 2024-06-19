@@ -17,5 +17,7 @@ namespace exerciseBox.Application.Abtraction.Repositories
         /// <param name="teacherId">Die ID des Lehrers.</param>
         /// <returns>Eine Aufgabe, die den asynchronen Vorgang darstellt. Das Ergebnis der Aufgabe enthält eine aufzählbare Sammlung von Ganzzahlen, die die Schulstufen darstellen.</returns>
         Task<IEnumerable<int>> ReadByTeacherId(string teacherId);
+
+        Task<IEnumerable<int>> ReadBySchoolTypeId(int schoolTypeId);
     }
 }

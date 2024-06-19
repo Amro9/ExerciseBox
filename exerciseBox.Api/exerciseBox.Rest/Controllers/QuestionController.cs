@@ -27,14 +27,7 @@ namespace exerciseBox.Rest.Controllers
             {
                 return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
             }
-
-            
         }
-
-        //public void RemoveQuestion() {
-
-        //}
-
 
         [HttpGet("publicQuestions")]
         public async Task<IEnumerable<QuestionDto>> GetPublicQuestions()
