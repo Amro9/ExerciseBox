@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exerciseBox.Infrastructur",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2A8AFEA6-148A-42DA-A667-D7A55092EF2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exerciseBox.Application.Tests", "exerciseBox.Application.Tests\exerciseBox.Application.Tests.csproj", "{0FB404BD-A760-4734-8961-70839F198A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exerciseBox.Application.Tests", "exerciseBox.Application.Tests\exerciseBox.Application.Tests.csproj", "{0FB404BD-A760-4734-8961-70839F198A3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
