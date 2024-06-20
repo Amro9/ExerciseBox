@@ -1,4 +1,5 @@
 ﻿using exerciseBox.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace exerciseBox.Application.Abtraction.Models
 {
@@ -15,41 +16,45 @@ namespace exerciseBox.Application.Abtraction.Models
         /// <summary>
         /// Ruft den Autor der Frage ab oder legt diesen fest.
         /// </summary>
+        [Required(ErrorMessage = "Der Autor darf nicht null sein.")]
         public string Author { get; set; }
 
         /// <summary>
         /// Ruft den Text der Frage ab oder legt diesen fest.
         /// </summary>
+        [Required(ErrorMessage = "Der Text der Frage darf nicht null sein.")]
         public string QuestionText { get; set; }
 
         /// <summary>
         /// Ruft die Antwort auf die Frage ab oder legt diese fest.
         /// </summary>
+        [Required(ErrorMessage = "Die Antwort der Frage darf nicht null sein.")]
         public string Answer { get; set; }
 
         /// <summary>
         /// Ruft die Schulstufe der Frage ab oder legt diese fest.
         /// </summary>
+        [Range(1, int.MaxValue, ErrorMessage = "Die Schulstufe muss größer als 0 sein.")]
         public int SchoolLevel { get; set; }
 
         /// <summary>
         /// Ruft den Schwierigkeitsgrad der Frage ab oder legt diesen fest.
         /// </summary>
+        [Required(ErrorMessage = "Der Schwierigkeitsgrad darf nicht null sein.")]
         public string DifficultyLevel { get; set; }
 
         /// <summary>
         /// Ruft das Fach der Frage ab oder legt dieses fest.
         /// </summary>
+        [Required(ErrorMessage = "Das Fach darf nicht null sein.")]
         public string Subject { get; set; }
 
         /// <summary>
         /// Ruft das Thema der Frage ab oder legt dieses fest.
         /// </summary>
+        [Required(ErrorMessage = "Das Thema darf nicht null sein.")]
         public string Topic { get; set; }
 
-        /// <summary>
-        /// Ruft einen Wert ab, der angibt, ob die Frage privat ist, oder legt diesen fest.
-        /// </summary>
         public bool QuestionIsPrivate { get; set; }
 
         /// <summary>

@@ -27,7 +27,10 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             throw new NotImplementedException();
         }
-
+        public Task<int> UpdateAsync(int entity)
+        {
+            throw new NotImplementedException();
+        }
         public async Task<IEnumerable<int>> ReadAsync()
         {
             return await _context.SchoolLevels.Select(l => l.Level).ToListAsync();
@@ -59,9 +62,6 @@ namespace exerciseBox.Infrastructur.Repositories
                 throw new Exception(ex.Message);
             }
         }
-        public Task<int> Update(int entity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -4,6 +4,7 @@ using exerciseBox.Application.UseCases.Questions.Commands;
 using exerciseBox.Application.UseCases.Questions.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace exerciseBox.Rest.Controllers
 {
@@ -20,12 +21,20 @@ namespace exerciseBox.Rest.Controllers
         {
             try
             {
+                var validationContext = new ValidationContext(question);
+                Validator.ValidateObject(question, validationContext);
+
                 await _mediator.Send(new CreateQuestion { Question = question });
                 return Ok();
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest($"Validierungsfehler: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
+                return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
+
             }
         }
 
