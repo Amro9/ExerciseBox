@@ -23,6 +23,12 @@ namespace exerciseBox.Infrastructur.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<Subjects>> GetSubjectsByTeacherId(string id)
+        {
+            var subjectIds = await _context.TeachersSubjectsJunction.Where(x => x.Teacher == id).Select(x => x.Subject).ToListAsync();
+            return await _context.Subjects.Where(x => subjectIds.Contains(x.Id)).ToListAsync();
+        }
+
         public async Task<IEnumerable<Subjects>> ReadAsync()
         {
             return await _context.Subjects.ToListAsync();   

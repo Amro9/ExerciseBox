@@ -7,6 +7,9 @@ import { SessionProvider } from '../../Services/SessionProvider';
 import { QuestionService } from '../../Services/api-services/question.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExerciseSheetService } from '../../Services/api-services/exerciseSheet.service';
+import { Subject } from '../../Entities/Subject';
+import { ExerciseSheet } from '../../Entities/ExerciseSheet';
+
 
 @Component({
   selector: 'app-exercise-sheet-generation',
@@ -14,12 +17,31 @@ import { ExerciseSheetService } from '../../Services/api-services/exerciseSheet.
   styleUrl: './exercise-sheet-generation.component.css'
 })
 export class ExerciseSheetGenerationComponent implements OnInit{
+onSubjectChange() {
+throw new Error('Method not implemented.');
+}
+
   
   session! : Session;
 
   SelectedQuestions : Question[] = [];  
   Folders! : Folder[];
   selectedFolder : Folder = new Folder("0", "Select a folder", "0");
+  selectedSubject : Subject = new Subject("", "", "");
+
+  Subjects : Subject[] = [];
+
+  WorkSheetHeaderOptions : Array<{Text: string, Value: number}> = 
+  [ 
+    { Text : "Nur Name", Value : 1}, 
+    { Text : "Name und Datum", Value : 2},
+    { Text : "Name und Note", Value : 3},
+    { Text : "Name, Datum und Note", Value : 4},  
+  ]
+    
+  selectedWorkSheetOption : number = 0;
+
+  ExerciseSheet : ExerciseSheet = new ExerciseSheet("0", "");
 
   pdfSrc: any;
   pdfBlob!: Blob;
@@ -59,6 +81,10 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   }
 
   onFolderChange() {
+
+    if(this.selectedFolder.Questions.length > 0){
+      return;
+    }
     this.questionService.getQuestionsByFolder(this.selectedFolder.id).subscribe(questions => this.selectedFolder.Questions = questions)
     if(this.selectedFolder.Questions === undefined)
     {
@@ -74,6 +100,33 @@ export class ExerciseSheetGenerationComponent implements OnInit{
     else
     {
       this.SelectedQuestions = this.SelectedQuestions.filter(q => q.id !== question.id);
+    }
+  }
+
+  onWorkSheetOptionChange() {
+    if(this.selectedWorkSheetOption === 1)
+    {
+      this.ExerciseSheet.namePlaceHolder = true;
+      this.ExerciseSheet.datePlaceHolder = false;
+      this.ExerciseSheet.markPlaceHolder = false;
+    }
+    else if(this.selectedWorkSheetOption === 2)
+    {
+      this.ExerciseSheet.namePlaceHolder = true;
+      this.ExerciseSheet.datePlaceHolder = true;
+      this.ExerciseSheet.markPlaceHolder = false;
+    }
+    else if(this.selectedWorkSheetOption === 3)
+    {
+      this.ExerciseSheet.namePlaceHolder = true;
+      this.ExerciseSheet.markPlaceHolder = true;
+      this.ExerciseSheet.datePlaceHolder = false;
+    }
+    else if(this.selectedWorkSheetOption === 4)
+    {
+      this.ExerciseSheet.namePlaceHolder = true;
+      this.ExerciseSheet.datePlaceHolder = true;
+      this.ExerciseSheet.markPlaceHolder = true;
     }
   }
 }

@@ -8,9 +8,9 @@ namespace exerciseBox.Application.Services
 {
     public class ExerciseSheetGenerator : IExerciseSheetGenerator
     {
-        public byte[] Generate(ExerciseSheet exerciseSheet, IEnumerable<Questions> questions)
+        public byte[] Generate(ExerciseSheets exerciseSheet, IEnumerable<Questions> questions)
         {
-            if (questions == null)
+            if (questions.Count() <= 0)
                 throw new Exception("No questions found");
 
             var pdfDocument = Document.Create(container =>
@@ -24,7 +24,7 @@ namespace exerciseBox.Application.Services
                     // Header Section
                     page.Header().Column(column =>
                     {
-                        if (exerciseSheet.StudentName)
+                        if (exerciseSheet.NamePlaceHolder)
                         {
                             column.Item().Text($"Name:", TextStyle.Default.Size(12));
                         }
@@ -35,7 +35,7 @@ namespace exerciseBox.Application.Services
                     {
                         column.Spacing(10);
 
-                        column.Item().Text(exerciseSheet.Title)
+                        column.Item().Text(exerciseSheet.Tilte)
                             .Style(TextStyle.Default.Size(24).Bold())
                             .AlignCenter();
                         column.Item().PaddingBottom(20);
