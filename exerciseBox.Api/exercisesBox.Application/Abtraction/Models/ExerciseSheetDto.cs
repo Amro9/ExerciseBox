@@ -11,14 +11,12 @@ namespace exerciseBox.Application.Abtraction.Models
     {
         public string Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
         public bool NamePlaceHolder { get; set; }
         public bool MarkPlaceHolder { get; set; }
         public bool DatePlaceHolder { get; set; }
         public bool ClassNumberPlaceHolder { get; set; }
         public string ClassNumberText { get; set; }
         public bool SubjectPlaceHolder { get; set; }
-        public string SubjectText { get; set; }
         //public List<QuestionDto> Questions { get; set; }
 
         public static implicit operator ExerciseSheetDto(ExerciseSheets v)

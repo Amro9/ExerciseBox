@@ -27,6 +27,9 @@ namespace exerciseBox.Application.Abtraction.Models
         /// </summary>
         public static implicit operator TopicDto(Topics topic)
         {
+            if(topic == null)
+                return null;
+
             return new TopicDto
             {
                 Id = Guid.Parse(topic.Id),

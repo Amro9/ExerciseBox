@@ -11,7 +11,7 @@ public static class FolderMappingExtension
         {
             Id = f.Id,
             Name = f.Name,
-            Topic = f.Topic,
+            TopicId = f.Topic,
         });
     }
 
@@ -21,7 +21,7 @@ public static class FolderMappingExtension
         {
             Id = f.Id,
             Name = f.Name,
-            Topic = f.Topic,
+            Topic = f.TopicId,
         });
     }
     

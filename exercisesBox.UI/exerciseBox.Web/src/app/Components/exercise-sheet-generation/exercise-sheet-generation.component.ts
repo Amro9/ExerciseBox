@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExerciseSheetService } from '../../Services/api-services/exerciseSheet.service';
 import { Subject } from '../../Entities/Subject';
 import { ExerciseSheet } from '../../Entities/ExerciseSheet';
+import { SubjectService } from '../../Services/api-services/Subject.service';
+import { Topic } from '../../Entities/Topic';
 
 
 @Component({
@@ -17,16 +19,15 @@ import { ExerciseSheet } from '../../Entities/ExerciseSheet';
   styleUrl: './exercise-sheet-generation.component.css'
 })
 export class ExerciseSheetGenerationComponent implements OnInit{
-onSubjectChange() {
-throw new Error('Method not implemented.');
-}
+
 
   
   session! : Session;
 
   SelectedQuestions : Question[] = [];  
   Folders! : Folder[];
-  selectedFolder : Folder = new Folder("0", "Select a folder", "0");
+  DisplayedFolders! : Folder[];
+  selectedFolder : Folder = new Folder("0", "Select a folder", new Topic ("0", "Select a topic", new Subject("", "", "")));
   selectedSubject : Subject = new Subject("", "", "");
 
   Subjects : Subject[] = [];
@@ -46,7 +47,12 @@ throw new Error('Method not implemented.');
   pdfSrc: any;
   pdfBlob!: Blob;
 
-  constructor(private folderService: FolderService, private questionService: QuestionService, private modalService: NgbModal, private exerciseSheetService: ExerciseSheetService) 
+  constructor(private folderService: FolderService,
+     private questionService: QuestionService,
+      private modalService: NgbModal, 
+      private exerciseSheetService: ExerciseSheetService,
+      private subjectService: SubjectService
+    ) 
   {
     this.selectedFolder.Questions = [];
     //this.session = Session.fromJson(localStorage.getItem("session"))
@@ -55,6 +61,7 @@ throw new Error('Method not implemented.');
 
   async ngOnInit(): Promise<void> {
     this.Folders = await this.folderService.getFoldersOfTeacher("2@3.com");
+    this.Subjects = await this.subjectService.getSubjectById("2@3.com");
   }
 
   onSaveExerciseSheet() {
@@ -63,9 +70,27 @@ throw new Error('Method not implemented.');
 
   }
 
+  getQuestionDifficultyLevelCount(difficulty: number) : number {
+    if(this.SelectedQuestions !== undefined && this.SelectedQuestions.length > 0){
+      if(difficulty === 1)
+      {
+        return this.SelectedQuestions.filter(q => q.difficultyLevel.id === "4c4731a6-4456-4fdf-af73-80123016e7a1").length
+      }
+      else if(difficulty === 2)
+      {
+        return this.SelectedQuestions.filter(q => q.difficultyLevel.id === "aff14e35-bf94-47c5-89e5-1ca1e7ebcde4").length
+      }
+      else if(difficulty === 3)
+      {
+        return this.SelectedQuestions.filter(q => q.difficultyLevel.id === "bd04180b-ef00-427e-824b-288650098130").length
+      }
+    }
+    return 0;
+  }
+
   async onGenerateExerciseSheet(content: any) {
     try {
-      this.pdfBlob = await this.exerciseSheetService.getNewExerciseSheet(this.SelectedQuestions.map(q => q.id));
+      this.pdfBlob = await this.exerciseSheetService.getNewExerciseSheet(this.SelectedQuestions.map(q => q.id), this.ExerciseSheet);
       this.pdfSrc = URL.createObjectURL(this.pdfBlob);
       this.modalService.open(content, { size: 'lg' });
     } catch (error) {
@@ -81,15 +106,22 @@ throw new Error('Method not implemented.');
   }
 
   onFolderChange() {
-
-    if(this.selectedFolder.Questions.length > 0){
-      return;
+    if(this.selectedFolder.Questions !== undefined){
+      if(this.selectedFolder.Questions.length > 0){
+        return;
+      }
     }
     this.questionService.getQuestionsByFolder(this.selectedFolder.id).subscribe(questions => this.selectedFolder.Questions = questions)
     if(this.selectedFolder.Questions === undefined)
     {
       this.selectedFolder.Questions = [];
     }
+  }
+
+  onSubjectChange() {
+   
+    this.DisplayedFolders = this.Folders.filter(f => f.topic.subject.id === this.selectedSubject.id);
+
   }
 
   onQesionSwitchChange(event : any , question: Question) {

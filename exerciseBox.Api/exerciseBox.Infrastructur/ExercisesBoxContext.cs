@@ -19,10 +19,6 @@ public partial class ExercisesBoxContext : DbContext
 
     public virtual DbSet<BranchesSubjectsJunction> BranchesSubjectsJunction { get; set; }
 
-    public virtual DbSet<ExerciseSheetQuestionJunction> ExerciseSheetQuestionJunction { get; set; }
-
-    public virtual DbSet<ExerciseSheets> ExerciseSheets { get; set; }
-
     public virtual DbSet<Folders> Folders { get; set; }
 
     public virtual DbSet<FoldersQuestionsJunction> FoldersQuestionsJunction { get; set; }

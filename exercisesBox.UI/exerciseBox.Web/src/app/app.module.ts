@@ -18,6 +18,7 @@ import { FolderService } from "./Services/api-services/Folder.Service";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PdfViewerModule } from "ng2-pdf-viewer";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
@@ -38,7 +39,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         HttpClientModule,
         FormsModule,
         NgxEditorModule,
-        // PdfViewerModule
+        PdfViewerModule
     ],
     providers: [
         {
