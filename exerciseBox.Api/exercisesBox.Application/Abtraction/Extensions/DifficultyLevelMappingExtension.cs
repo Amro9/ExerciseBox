@@ -20,7 +20,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
         {
             return difficultyLevels.Select(difficultyLevel => new DifficultyLevelDto
             {
-                Id = Guid.Parse(difficultyLevel.Id),
+                Id = difficultyLevel.Id,
                 Description = difficultyLevel.Description
             });
         }

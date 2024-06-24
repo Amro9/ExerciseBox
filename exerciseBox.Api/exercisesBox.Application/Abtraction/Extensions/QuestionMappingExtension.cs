@@ -22,19 +22,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
             {
                 return null;
             }
-            return questions.Select(q => new QuestionDto
-            {
-                Id = Guid.Parse(q.Id),
-                QuestionText = q.QuestionText,
-                Answer = q.Answer,
-                DifficultyLevel = q.DifficultyLevel,
-                SchoolLevel = q.SchoolLevel,
-                Topic = q.Topic,
-                QuestionIsPrivate = q.QuestionIsPrivate,
-                Author = q.Author,
-                SchoolBranch = q.SchoolBranch ,
-                SchoolType = q.SchoolType
-            });
+            return questions.Select(q => (QuestionDto)q);
         }
 
         /// <summary>
@@ -55,7 +43,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
                 QuestionIsPrivate = q.QuestionIsPrivate,
                 Author = q.Author,
                 SchoolBranch = q.SchoolBranch,
-                    SchoolType = q.SchoolType
+                SchoolType = q.SchoolType
             });
         }
     }

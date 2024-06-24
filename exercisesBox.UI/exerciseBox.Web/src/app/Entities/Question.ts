@@ -6,17 +6,17 @@ export class Question {
     questionText: string;
     answer: string;
     schoolLevel: string;
-    difficultyLevel: DifficultyLevel;
+    difficultyLevelDto: DifficultyLevel;
     subject: string;
     topic: string;
 
-    constructor(id: string, author: string, questionText: string, answer: string, schoolLevel: string, difficultyLevel: DifficultyLevel, subject: string, topic: string){
+    constructor(id: string, author: string, questionText: string, answer: string, schoolLevel: string, difficultyLevelDto: DifficultyLevel, subject: string, topic: string){
         this.id = id;
         this.author = author;
         this.questionText = questionText;
         this.answer = answer;
         this.schoolLevel = schoolLevel;
-        this.difficultyLevel = difficultyLevel;
+        this.difficultyLevelDto = difficultyLevelDto;
         this.subject = subject;
         this.topic = topic;
     }
@@ -28,7 +28,7 @@ export class Question {
             json.questionText,
             json.answer,
             json.schoolLevel,
-            json.difficultyLevel,
+            json.difficultyLevelDto,
             json.subject,
             json.topic
         );

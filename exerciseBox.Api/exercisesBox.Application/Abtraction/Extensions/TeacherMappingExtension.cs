@@ -32,12 +32,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
         /// <returns>Eine Sammlung von <see cref="Teachers"/>.</returns>
         public static IEnumerable<Teachers> MapToDomainTeachers(this IEnumerable<TeacherDto> teachers)
         {
-            return teachers.Select(teacher => new Teachers
-            {
-                Surname = teacher.Surname,
-                Email = teacher.Email,
-                SchoolNavigation = teacher.School
-            });
+            return teachers.Select(teacher => (Teachers)teacher);
         }
     }
 }
