@@ -6,4 +6,5 @@ public interface IQuestionRepository: IRepository<Questions, Guid>
 {
     Task<IEnumerable<Questions>> GetAllQuestionsByRangeOfIdsAsync(string[] questionIds);
     Task<IEnumerable<Questions>> GetFolderQuestions(string folderid);
+    Task<IEnumerable<Questions>> GetQuestionsBySubject(string subject);
 }

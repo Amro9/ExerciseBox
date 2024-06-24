@@ -10,43 +10,56 @@ import { QuestionService } from '../../Services/api-services/question.service';
 import { Question } from '../../Entities/Question';
 import { SchoolTypes } from '../../Entities/SchoolTypes';
 import { SchoolBranch } from '../../Entities/SchoolBranch';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-questions-pool',
   templateUrl: './questions-pool.component.html',
   styleUrl: './questions-pool.component.css'
 })
 export class QuestionsPoolComponent {
+hideQuestion() {
+throw new Error('Method not implemented.');
+}
+  publicQuestions: Question[] = [];
+
   subjects: Subject[] = [];
   subjectsTopics: Topic[] = [];
   schoolLevels: string[] = [];
   difficultyLevels: DifficultyLevel[] = [];
-  publicQuestions: Question[] = [];
   schoolTypes: SchoolTypes[] = [];
   schoolBranches: SchoolBranch[] = [];
-  isSchoolBranchSelectEnabled: boolean = false;
+  // isSchoolBranchSelectEnabled: boolean ;
 
-  selectedSchoolType: number = 0;
-  selectedSchoolBranch: string = '';
-  selectedSchoolLevel: number = 0;
-  selectedSubject: string = '';
-  selectedTopic: string = '';
-  selectedDifficultyLevel: string = '';
+  questionSearchParams: FormGroup;
+
+  // selectedSchoolType: number = 0;
+  // selectedSchoolBranch: string = '';
+  // selectedSchoolLevel: number = 0;
+  // selectedSubject: string = '';
+  // selectedTopic: string = '';
+  // selectedDifficultyLevel: string = '';
 
   constructor(
+    private fb: FormBuilder,
     private schoolService: SchoolService,
     private subjectService: SubjectService,
     private topicService: TopicService,
     private schoolLevel: SchoolLevelService,
     private difficultyLevelsService: DifficultyLevelsService,
     private questionService: QuestionService
-  ) { }
+  ) {
+    // this.isSchoolBranchSelectEnabled = false;
+    this.questionSearchParams = this.fb.group({
+      schoolType: ['0'],
+      schoolBranch: [{value: 'null', disabled: true}],
+      schoolLevel: ['0'],
+      subject: ['null'],
+      topic: ['null'],
+      difficultyLevel: ['null']
+    });
 
-  excludeQuestion(_t50: any) {
-    throw new Error('Method not implemented.');
   }
-  saveQuestion(_t50: any) {
-    throw new Error('Method not implemented.');
-  }
+
   ngOnInit(): void {
     this.subjectService.getAllSubjects().subscribe({
       next: (data) => this.subjects = data,
@@ -70,65 +83,84 @@ export class QuestionsPoolComponent {
     });
 
   }
-  // nur vorrübergehend, da wir uns zuerst auf die Berufsschule kontzentrieren
-  isSchoolTypeDisabled(schoolTypeId: number): boolean {
+
+  deactivateButVocationalSchool(schoolTypeId: number): boolean {
     return schoolTypeId !== 16;
   }
-  // abfangen der Events von den Select-Elementen
+  // abfangen des SchoolType Events vom Select-Element
   onSchoolTypeChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedSchoolTypeId = selectElement.value;
-    this.selectedSchoolType = parseInt(selectedSchoolTypeId, 10);
+    // this.selectedSchoolType = parseInt(selectedSchoolTypeId, 10);
 
     // Aktivieren der Berufswahl nur wenn die Schule Berufsschule ist
-    this.isSchoolBranchSelectEnabled = selectedSchoolTypeId === '16'
+    // this.isSchoolBranchSelectEnabled = selectedSchoolTypeId === '16'
+    if (selectedSchoolTypeId === '16') {
+      this.questionSearchParams.get('schoolBranch')?.enable();
+    }
+    else {
+      this.questionSearchParams.get('schoolBranch')?.disable();
+      this.questionSearchParams.get('schoolBranch')?.setValue('null');
+    }
+    
+    if(selectedSchoolTypeId === '0') {
+    this.questionSearchParams.get('schoolLevel')?.setValue('0');
+    }
+    else
+    {
+      // Hole die Schulstufen anhand des gewählten Schultypes
+      this.schoolLevel.getSchoolLevelsBySchoolTypeId(selectedSchoolTypeId).subscribe({
+        next: (data) => this.schoolLevels = data,
+        error: (error: string) => console.error('Error fetching branches:', error)
+      });
 
-    // Hole die Schulstufen anhand des gewählten Schultypes
-    this.schoolLevel.getSchoolLevelsBySchoolTypeId(selectedSchoolTypeId).subscribe({
-      next: (data) => this.schoolLevels = data,
-      error: (error: string) => console.error('Error fetching branches:', error)
-    });
+    }
   }
 
-  onBranchChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedSchoolBranch =  selectElement.value;
-  }
-  onSchoolLevelChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedSchoolLevel = parseInt(selectElement.value, 10);
-  }
-  onTopicChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedTopic = selectElement.value;
-  }
-  onDifficultyLevelChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedDifficultyLevel = selectElement.value;
-  }
+  // onBranchChange(event: Event) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   this.selectedSchoolBranch =  selectElement.value;
+  // }
+  // onSchoolLevelChange(event: Event) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   this.selectedSchoolLevel = parseInt(selectElement.value, 10);
+  // }
+  // onTopicChange(event: Event) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   this.selectedTopic = selectElement.value;
+  // }
+  // onDifficultyLevelChange(event: Event) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   this.selectedDifficultyLevel = selectElement.value;
+  // }
   onSubjectChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    this.selectedSubject = selectElement.value;
+    // this.selectedSubject = selectElement.value;
 
-    this.topicService.getTopicsBySubject(this.selectedSubject).subscribe({
+    this.topicService.getTopicsBySubject(selectElement.value).subscribe({
       next: (data) => this.subjectsTopics = data,
       error: (error: string) => console.error('Error fetching topics:', error)
     });
   }
 
   submitSearch() {
-    const searchParams = {
-      schoolTypeId: this.selectedSchoolType,
-      schoolBranch: this.selectedSchoolBranch,
-      schoolLevel: this.selectedSchoolLevel,
-      subjectId: this.selectedSubject,
-      topicId: this.selectedTopic,
-      difficultyLevel: this.selectedDifficultyLevel
-    };
 
-    // this.questionService.searchQuestions(searchParams).subscribe({
-    //   next: (data) => this.publicQuestions = data,
-    //   error: (error: string) => console.error('Error fetching questions:', error)
-    // });
+    const searchParams = { ...this.questionSearchParams.value };
+
+    Object.entries(searchParams).forEach(([key, value]) => {
+      if (value === 'null') {
+        delete searchParams[key];
+      }
+    });
+
+    console.log('searchParams', searchParams);
+    this.questionService.getQuestions(searchParams).subscribe({
+      next: (data) => this.publicQuestions = data,
+      error: (error: string) => console.error('Error fetching questions:', error)
+    });
+  }
+
+  saveQuestion() {
+    throw new Error('Method not implemented.');
   }
 }

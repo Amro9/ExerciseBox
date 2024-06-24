@@ -23,13 +23,25 @@ public partial class Questions
 
     public bool QuestionIsPrivate { get; set; }
 
+    public string InnerHtml { get; set; }
+
+    public int SchoolType { get; set; }
+
+    public string SchoolBranch { get; set; }
+
     public virtual Teachers AuthorNavigation { get; set; }
 
     public virtual QuestionDifficultyLevels DifficultyLevelNavigation { get; set; }
 
+    public virtual ICollection<ExerciseSheetQuestionJunction> ExerciseSheetQuestionJunction { get; set; } = new List<ExerciseSheetQuestionJunction>();
+
     public virtual ICollection<FoldersQuestionsJunction> FoldersQuestionsJunction { get; set; } = new List<FoldersQuestionsJunction>();
 
+    public virtual SchoolBranches SchoolBranchNavigation { get; set; }
+
     public virtual SchoolLevels SchoolLevelNavigation { get; set; }
+
+    public virtual SchoolTypes SchoolTypeNavigation { get; set; }
 
     public virtual Topics TopicNavigation { get; set; }
 }

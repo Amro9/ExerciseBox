@@ -11,6 +11,8 @@ public partial class SchoolTypes
 
     public string Name { get; set; }
 
+    public virtual ICollection<Questions> Questions { get; set; } = new List<Questions>();
+
     public virtual ICollection<SchoolTypesLevelsJunction> SchoolTypesLevelsJunction { get; set; } = new List<SchoolTypesLevelsJunction>();
 
     public virtual ICollection<Schools> Schools { get; set; } = new List<Schools>();

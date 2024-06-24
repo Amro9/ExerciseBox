@@ -34,12 +34,12 @@ export class QuestionCreationFormComponent implements OnInit {
   ) {
 
     this.questionCreationForm = this.fb.group({
-      schoolLevel: ['0', [Validators.required, this.validateDropdown]],
-      subject: ['0',[Validators.required, this.validateDropdown]],
-      topic: ['0',[Validators.required, this.validateDropdown]],
+      schoolLevel: [0, [Validators.required, this.validateDropdown]],
+      // subject: ['0',[Validators.required, this.validateDropdown]],
+      topic: ['',[Validators.required, this.validateDropdown]],
       questionText: ['', [Validators.required]],
       answer: ['', [Validators.required]],
-      difficultyLevel: ['0',[Validators.required, this.validateDropdown]],
+      difficultyLevel: [0,[Validators.required, this.validateDropdown]],
       questionIsPrivate: [false]
     });
   }
@@ -84,14 +84,19 @@ export class QuestionCreationFormComponent implements OnInit {
     if (!this.questionCreationForm.valid) {
       this.questionCreationForm.markAllAsTouched();
     }
+    
     const formData = this.questionCreationForm.value;
     formData.Author = "1@2.com"
+    formData.SchoolType= "16"
+    formData.SchoolBranch = "f475008d-222d-4e34-8e8f-b9700cb828e5" 
+    
     this.questionFromService.submitQuestionForm(formData).subscribe({
       next: () => {
         this.questionCreationForm.patchValue({
           questionText: '',
           answer: '',
         });
+        
         this.questionCreationForm.markAsUntouched();
 
       },

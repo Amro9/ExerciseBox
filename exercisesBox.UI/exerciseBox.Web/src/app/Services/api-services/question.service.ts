@@ -10,35 +10,50 @@ import { Question } from "../../Entities/Question";
 export class QuestionService {
   private http: HttpClient;
 
-    constructor(
-      @Inject(HttpClient) http: HttpClient
-    ,@Inject(API_BASE_URL) private baseUrl: string
+  constructor(
+    @Inject(HttpClient) http: HttpClient
+    , @Inject(API_BASE_URL) private baseUrl: string
   ) {
-    this.http = http; 
+    this.http = http;
   }
 
-    getQuestions(): Observable<Question[]>{
-        let url_ = this.baseUrl + "question/publicQuestions";
-        return this.http.get<Question[]>(url_).pipe(
-            tap(data => console.log('Received questions:', data)),
-            catchError(error => {
-                console.error('Error fetching questions:', error);
-                return throwError(error);
-            }));
+  getQuestions(obj: any): Observable<Question[]> {
+    let url_ = this.baseUrl + "question/searchquestions";
+    let params = new HttpParams();
+    console.log('obj:', obj)
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key) && obj[key] !== null && obj[key] !== undefined && obj[key] !== '' && obj[key] !== 0) {
+        params = params.append(key, obj[key]);
+      }
     }
+    console.log('params:', params)
+    return this.http.get<Question[]>(url_, { params: params }).pipe(
+      tap(data => console.log('Received questions:', data)),
+      catchError(error => {
+        console.error('Error fetching questions:', error);
+        return throwError(error);
+      }));
+    // return this.http.get<Question[]>(url_).pipe(
+    //   tap(data => console.log('Received questions:', data)),
+    //   catchError(error => {
+    //     console.error('Error fetching questions:', error);
+    //     return throwError(error);
+    //   }));
+  }
 
-    getQuestionsByFolder(folderId: string): Observable<Question[]>{
-  
-      let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
-        
-      return this.http.get(url_).pipe(
-        map((response : any) => {
-          const data = response.value // replace 'data' with the actual key in the response object
-          return data.map((question: any) => Question.fromJSON(question));
-        }),
-        catchError(error => {
-            console.error('Error fetching questions:', error);
-            return throwError(error);
-        }));
-    }
+
+  getQuestionsByFolder(folderId: string): Observable<Question[]> {
+
+    let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
+
+    return this.http.get(url_).pipe(
+      map((response: any) => {
+        const data = response.value // replace 'data' with the actual key in the response object
+        return data.map((question: any) => Question.fromJSON(question));
+      }),
+      catchError(error => {
+        console.error('Error fetching questions:', error);
+        return throwError(error);
+      }));
+  }
 }

@@ -15,15 +15,15 @@
           </div>
         </div>
         <div class="col-sm-4">
-          <select id="subject" (change)="onSubjectChange($event)" formControlName="subject" class="form-select"
+          <select id="subject" (change)="onSubjectChange($event)" class="form-select"
             data-bs-toggle="tooltip" title="Wählen Sie das Fach">
             <option [value]="0" selected>Wähle das Fach</option>
             <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
           </select>
-          <div *ngIf="questionCreationForm.get('subject')?.errors?.['invalidDropdown'] && questionCreationForm.get('subject')?.touched"
+          <!-- <div *ngIf="questionCreationForm.get('subject')?.errors?.['invalidDropdown'] && questionCreationForm.get('subject')?.touched"
             class="text-danger">
             Bitte wählen Sie ein Fach aus.
-          </div>
+          </div> -->
         </div>
         <div class="col-sm-4">
           <select id="chooseTopic" formControlName="topic" class="form-select" data-bs-toggle="tooltip"

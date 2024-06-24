@@ -19,6 +19,14 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[ExerciseSheetQuestionJunction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ExerciseSheets]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Folders]",
          "ObjectType": 0
       },

@@ -32,7 +32,8 @@ namespace exerciseBox.Application.Abtraction.Extensions
                 Topic = q.Topic,
                 QuestionIsPrivate = q.QuestionIsPrivate,
                 Author = q.Author,
-                Subject = q.TopicNavigation.Subject
+                SchoolBranch = q.SchoolBranch ,
+                SchoolType = q.SchoolType
             });
         }
 
@@ -52,7 +53,9 @@ namespace exerciseBox.Application.Abtraction.Extensions
                 SchoolLevel = q.SchoolLevel,
                 Topic = q.Topic,
                 QuestionIsPrivate = q.QuestionIsPrivate,
-                Author = q.Author
+                Author = q.Author,
+                SchoolBranch = q.SchoolBranch,
+                    SchoolType = q.SchoolType
             });
         }
     }

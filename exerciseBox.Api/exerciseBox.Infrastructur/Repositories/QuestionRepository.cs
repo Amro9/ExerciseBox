@@ -45,6 +45,30 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             return await _context.Questions.Where(q => q.QuestionIsPrivate == false).ToListAsync();
         }
+        public async Task<IEnumerable<Questions>> GetQuestionsBySubject(string subject)
+        {
+            var questions =  await _context.Questions
+                .Join(
+                _context.Topics,
+                q => q.Topic,
+                t => t.Id,
+                (q, t) => new { Question = q, Topic = t })
+                .Join(
+                _context.Subjects,
+                qt => qt.Topic.Subject,
+                s => s.Id,
+                (qt, s) => new { qt.Question, qt.Topic, subject = s }
+                ).Where(qts => qts.subject.Id == subject).
+                Select(qts => qts.Question).ToListAsync();
+
+            foreach (var question in questions)
+            {
+                Console.WriteLine(question.Id);
+                Console.WriteLine(question.QuestionText);
+            }
+            return questions;
+        }
+
 
         public Task<Questions> ReadByIdAsync(Guid id)
         {

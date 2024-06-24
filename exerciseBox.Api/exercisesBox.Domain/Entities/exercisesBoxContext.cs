@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace exerciseBox.Domain.Entities;
 
-public partial class ExercisesBoxContext : DbContext
+public partial class exercisesBoxContext : DbContext
 {
-    public ExercisesBoxContext(DbContextOptions<ExercisesBoxContext> options)
+    public exercisesBoxContext(DbContextOptions<exercisesBoxContext> options)
         : base(options)
     {
     }

@@ -46,14 +46,20 @@ namespace exerciseBox.Application.Abtraction.Models
         /// <summary>
         /// Ruft das Fach der Frage ab oder legt dieses fest.
         /// </summary>
-        [Required(ErrorMessage = "Das Fach darf nicht null sein.")]
-        public string Subject { get; set; }
+        //[Required(ErrorMessage = "Das Fach darf nicht null sein.")]
+        //public string Subject { get; set; }
+
+       
+        [Required(ErrorMessage = "Der Schultyp darf nicht null sein.")]
+        public int SchoolType { get; set; }
+        public string? SchoolBranch { get; set; }
 
         /// <summary>
         /// Ruft das Thema der Frage ab oder legt dieses fest.
         /// </summary>
         [Required(ErrorMessage = "Das Thema darf nicht null sein.")]
         public string Topic { get; set; }
+
 
         public bool QuestionIsPrivate { get; set; }
 
@@ -79,7 +85,9 @@ namespace exerciseBox.Application.Abtraction.Models
                 SchoolLevel = question.SchoolLevel,
                 Topic = question.Topic,
                 QuestionIsPrivate = question.QuestionIsPrivate,
-                Author = question.Author
+                Author = question.Author,
+                SchoolBranch = question.SchoolBranch,
+                SchoolType = question.SchoolType
             };
         }
 
@@ -97,7 +105,10 @@ namespace exerciseBox.Application.Abtraction.Models
                 SchoolLevel = question.SchoolLevel,
                 Topic = question.Topic,
                 QuestionIsPrivate = question.QuestionIsPrivate,
-                Author = question.Author
+                Author = question.Author,
+                SchoolBranch = question.SchoolBranch,
+                SchoolType = question.SchoolType
+                
             };
         }
     }

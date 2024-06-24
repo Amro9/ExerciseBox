@@ -4,3 +4,34 @@ select{
 .container{
     margin-left: 0 !important;
 }
+.sidebar {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    width: 16%;
+    background-color: #f8f9fa;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.content {
+    margin-left: 16%;
+    padding: 10px;
+    /* padding-top: 56px; */
+}
+
+.circle-btn {
+    display: inline-block;
+    width: 40px; /* Beispiel: Breite erhöht auf 40px */
+    height: 40px; /* Beispiel: Höhe erhöht auf 40px */
+    background-color: #ccc;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px; /* Vertikal zentrieren */
+}
+
+.circle-btn i {
+    color: white;
+    font-size: 20px; /* Beispiel: Größe des Icons im Kreis */
+}

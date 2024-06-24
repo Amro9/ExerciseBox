@@ -1,55 +1,149 @@
-<div class="container mt-5">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...deine-integritätsprüfsumme-hier..." crossorigin="anonymous" />
+
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-2 border border-dark p-3">
-         <div class="border border-dark p-3 mb-3">
-             <div class="form-group">
-                 <select class="form-select" (change)="onSchoolTypeChange($event)">
-                     <option>Schulart</option>
-                     <option *ngFor="let type of schoolTypes" [value]="type.id" [disabled]="isSchoolTypeDisabled(type.id)">
-                        {{ type.description }}
-                    </option>
-                 </select>
-             </div>
-             <div class="form-group">
-                 <select class="form-select" [disabled]="!isSchoolBranchSelectEnabled">
-                     <option>Beruf</option>
-                     <option *ngFor="let branch of schoolBranches" [value]="branch.id">{{ branch.name }}</option>
-                 </select>
-             </div>
-             <div class="form-group">
-                <select class="form-select">
-                    <option>Schulstufe</option>
-                    <option *ngFor="let level of schoolLevels" [value]="level">{{ level }}. Schulstufe</option>
-                </select>
-             </div>
-         </div>  
-         <div class="border border-dark p-3">
-             <div class="form-group">
-                 <select class="form-select" id="subject" (change)="onSubjectChange($event)">
-                     <option>Fach</option>
-                    <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
-                </select>
+        <div class="col-md-3 sidebar">
+            <form [formGroup]="questionSearchParams" (ngSubmit)="submitSearch()">
+                <div class="border border-dark p-3 mb-3">
+                    <div class="form-group">
+                        <label for="schoolType">Schulart</label>
+                        <select id="schoolType" class="form-select" formControlName="schoolType"
+                            (change)="onSchoolTypeChange($event)">
+                            <option [value]="0">Schulart</option>
+                            <option *ngFor="let type of schoolTypes" [value]="type.id"
+                                [disabled]="deactivateButVocationalSchool(type.id)">
+                                {{ type.description }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="schoolBranch">Beruf</label>
+                        <select id="schoolBranch" class="form-select" formControlName="schoolBranch">
+                            <option [value]="null">Beruf</option>
+                            <option *ngFor="let branch of schoolBranches" [value]="branch.id">{{ branch.name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="schoolLevel">Schulstufe</label>
+                        <select id="schoolLevel" class="form-select" formControlName="schoolLevel">
+                            <option [value]="0">Schulstufe</option>
+                            <option *ngFor="let level of schoolLevels" [value]="level">{{ level }}. Schulstufe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="border border-dark p-3">
+                    <div class="form-group">
+                        <label for="subject">Fach</label>
+                        <select id="subject" class="form-select" (change)="onSubjectChange($event)"
+                            formControlName="subject">
+                            <option [value]="null">Fach</option>
+                            <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="chooseTopic">Thema</label>
+                        <select id="chooseTopic" class="form-select" formControlName="topic">
+                            <option [value]="null">Thema</option>
+                            <option *ngFor="let topic of subjectsTopics" [value]="topic.id">{{ topic.description }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="difficultyLevel">Schwierigkeitsgrad</label>
+                        <select id="difficultyLevel" class="form-select" formControlName="difficultyLevel">
+                            <option [value]="null">Schwierigkeitsgrad</option>
+                            <option *ngFor="let level of difficultyLevels" [value]="level.id">{{ level.description }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 w-100">Suche</button>
+            </form>
+        </div>
+        <div class="col-md-5 content">
+            <div *ngFor="let question of publicQuestions" class="border p-3 mb-3 ">
+                <h5>{{ question.questionText }}</h5>
+                <p>{{ question.answer }}</p>
+                <button class="btn btn-link p-0" (click)="saveQuestion()" data-toggle="tooltip" title="Frage speichern">
+                    <span class="circle-btn" (click)="saveQuestion()">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                </button>
+                <button class="btn btn-link p-0" (click)="hideQuestion()" data-toggle="tooltip" title="Frage ausblenden">
+                    <span class="circle-btn">
+                        <i class="fas fa-minus"></i>
+                    </span>
+                </button>
+                
             </div>
-        <div class="form-group">
-            <select class="form-select" id="chooseTopic">
-                <option>Thema</option>
-            <option *ngFor="let topic of subjectsTopics" [value]="topic.id">{{ topic.description }}</option>
-        </select>
+        </div>
     </div>
-<div class="form-group">
-    <select class="form-select">
-        <option>Schwierigkeitsgrad</option>
-    </select>
 </div>
-</div>
-</div> 
-<div class="col-md-9">
-    <!-- Hier kommen die gefundenen Ergebnisse hin -->
-<div *ngFor="let question of publicQuestions">
-    <div class="question">
-        <h3>{{ question.questionText }}</h3>
-        <p>{{ question.answer }}</p>
-        <button (click)="saveQuestion(question)">Speichern</button>
-        <button (click)="excludeQuestion(question)">Diese Frage nicht mehr anzeigen</button>
-      </div> 
-</div>
+
+
+
+
+<!-- <div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3 col-sm-12 border border-dark p-3 mb-3">
+            <form [formGroup]="questionSearchParams" (ngSubmit)="submitSearch()">
+                <div class="border border-dark p-3 mb-3">
+                    <div class="form-group">
+                        <label for="schoolType">Schulart</label>
+                        <select id="schoolType" class="form-select" formControlName="schoolType" (change)="onSchoolTypeChange($event)">
+                            <option [value]="0">Schulart</option>
+                            <option *ngFor="let type of schoolTypes" [value]="type.id" [disabled]="deactivateButVocationalSchool(type.id)">
+                                {{ type.description }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="schoolBranch">Beruf</label>
+                        <select id="schoolBranch" class="form-select"  formControlName="schoolBranch">
+                            <option [value]="null">Beruf</option>
+                            <option *ngFor="let branch of schoolBranches" [value]="branch.id">{{ branch.name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="schoolLevel">Schulstufe</label>
+                        <select id="schoolLevel" class="form-select" formControlName="schoolLevel">
+                            <option [value]="0">Schulstufe</option>
+                            <option *ngFor="let level of schoolLevels" [value]="level">{{ level }}. Schulstufe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="border border-dark p-3">
+                    <div class="form-group">
+                        <label for="subject">Fach</label>
+                        <select id="subject" class="form-select" (change)="onSubjectChange($event)" formControlName="subject">
+                            <option [value]="null">Fach</option>
+                            <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="chooseTopic">Thema</label>
+                        <select id="chooseTopic" class="form-select" formControlName="topic">
+                            <option [value]="null">Thema</option>
+                            <option *ngFor="let topic of subjectsTopics" [value]="topic.id">{{ topic.description }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="difficultyLevel">Schwierigkeitsgrad</label>
+                        <select id="difficultyLevel" class="form-select" formControlName="difficultyLevel">
+                            <option [value]="null">Schwierigkeitsgrad</option>
+                            <option *ngFor="let level of difficultyLevels" [value]="level.id">{{ level.description }}</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 w-100">Suche</button> 
+            </form>
+        </div>
+        <div class="col-md-9 col-sm-12">
+         
+            <div *ngFor="let question of publicQuestions" class="border p-3 mb-3">
+                <h5>{{ question.questionText }}</h5>
+                <p>{{ question.answer }}</p>
+            </div>
+        </div>
+    </div>
+</div> -->
