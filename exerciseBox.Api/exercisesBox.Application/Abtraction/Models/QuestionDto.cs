@@ -49,7 +49,9 @@ namespace exerciseBox.Application.Abtraction.Models
         //[Required(ErrorMessage = "Das Fach darf nicht null sein.")]
         //public string Subject { get; set; }
 
-       
+        public DifficultyLevelDto DifficultyLevelDto { get; set; }
+
+
         [Required(ErrorMessage = "Der Schultyp darf nicht null sein.")]
         public int SchoolType { get; set; }
         public string? SchoolBranch { get; set; }
@@ -87,7 +89,8 @@ namespace exerciseBox.Application.Abtraction.Models
                 QuestionIsPrivate = question.QuestionIsPrivate,
                 Author = question.Author,
                 SchoolBranch = question.SchoolBranch,
-                SchoolType = question.SchoolType
+                SchoolType = question.SchoolType,
+                DifficultyLevelDto = question.DifficultyLevelNavigation
             };
         }
 

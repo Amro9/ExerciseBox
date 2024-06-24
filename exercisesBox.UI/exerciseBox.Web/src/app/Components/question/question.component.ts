@@ -13,7 +13,7 @@ export class QuestionComponent {
   }
 
   @Input() Question! : Question;
-  @Input() ShowAuthor : boolean = false;  
+  @Input() ShwoSubject : boolean = false;  
 
   constructor() 
   {

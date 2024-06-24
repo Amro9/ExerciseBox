@@ -1,27 +1,12 @@
 <div class="outer-border">
     <div class="row" style="display: flex; justify-content: right;">
-        <div class="col-md-6 text-left">
-            <div>
-                Schwierigkeit: {{Question.difficultyLevel.description}}
-            </div>
+        <div class="col">
+            <h5>{{ Question.questionText }}</h5>
+            <p>{{ Question.answer }}</p>
         </div>
-        <div *ngIf="ShowAuthor" class="col-md-6 text-right">
-            <div>
-                Von: {{Question.author}}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div>
-                {{Question.questionText}}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div>
-                <button class="btn btn-primary" (click)="ShowQuestionAnswer()">Antwort</button>
+        <div class="col-md-6 text-right" style="justify-content: right;">
+            <div class="text-right" style="text-align: right;">
+                Schwierigkeit: {{Question.difficultyLevelDto.description}}
             </div>
         </div>
     </div>

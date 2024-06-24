@@ -74,15 +74,15 @@ export class ExerciseSheetGenerationComponent implements OnInit{
     if(this.SelectedQuestions !== undefined && this.SelectedQuestions.length > 0){
       if(difficulty === 1)
       {
-        return this.SelectedQuestions.filter(q => q.difficultyLevel.id === "4c4731a6-4456-4fdf-af73-80123016e7a1").length
+        return this.SelectedQuestions.filter(q => q.difficultyLevelDto.id === "4c4731a6-4456-4fdf-af73-80123016e7a1").length
       }
       else if(difficulty === 2)
       {
-        return this.SelectedQuestions.filter(q => q.difficultyLevel.id === "aff14e35-bf94-47c5-89e5-1ca1e7ebcde4").length
+        return this.SelectedQuestions.filter(q => q.difficultyLevelDto.id === "aff14e35-bf94-47c5-89e5-1ca1e7ebcde4").length
       }
       else if(difficulty === 3)
       {
-        return this.SelectedQuestions.filter(q => q.difficultyLevel.id === "bd04180b-ef00-427e-824b-288650098130").length
+        return this.SelectedQuestions.filter(q => q.difficultyLevelDto.id === "bd04180b-ef00-427e-824b-288650098130").length
       }
     }
     return 0;
