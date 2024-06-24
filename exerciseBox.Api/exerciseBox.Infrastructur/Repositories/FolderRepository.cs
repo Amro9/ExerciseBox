@@ -25,7 +25,7 @@ public class FolderRepository : IFolderRepository
 
     public async Task<IEnumerable<Folders>> GetFoldersByTeacherId(string id)
     {
-        return await _context.Folders.Where(f => f.Teacher == id).ToListAsync();
+        return await _context.Folders.Where(f => f.Teacher == id).Include(f => f.TopicNavigation).ToListAsync();
     }
 
     public Task<IEnumerable<Folders>> ReadAsync()

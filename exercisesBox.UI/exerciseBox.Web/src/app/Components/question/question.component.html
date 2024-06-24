@@ -1,8 +1,8 @@
 <div class="outer-border">
-    <div class="row">
+    <div class="row" style="display: flex; justify-content: right;">
         <div class="col-md-6 text-left">
             <div>
-                Fach: {{Question.subject}}
+                Schwierigkeit: {{Question.difficultyLevel.description}}
             </div>
         </div>
         <div *ngIf="ShowAuthor" class="col-md-6 text-right">

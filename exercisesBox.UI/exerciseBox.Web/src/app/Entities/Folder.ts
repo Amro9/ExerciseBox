@@ -1,13 +1,14 @@
 import { Question } from "./Question";
+import { Topic } from "./Topic";
 
 export class Folder {
 
     id: string;
     name: string;
-    topic: string;
+    topic: Topic;
     Questions : Question[] = [];
 
-    constructor(id : string, name : string, topic : string) {
+    constructor(id : string, name : string, topic : Topic) {
         this.id = id;
         this.name = name;
         this.topic = topic;

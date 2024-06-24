@@ -6,7 +6,8 @@ public class FolderDto
 {
     public string Id { get; set; }
     public string Name { get; set; }
-    public string Topic { get; set; }
+    public string TopicId { get; set; }
+    public TopicDto Topic { get; set; }
 
     public static implicit operator FolderDto(Folders folder)
     {
@@ -18,7 +19,8 @@ public class FolderDto
         {
             Id = folder.Id,
             Name = folder.Name,
-            Topic = folder.Topic
+            TopicId = folder.Topic,
+            Topic = folder.TopicNavigation
         };
     }
 
@@ -28,7 +30,7 @@ public class FolderDto
         {
             Id = folder.Id,
             Name = folder.Name,
-            Topic = folder.Topic
+            Topic = folder.TopicId
         };
     }
 }

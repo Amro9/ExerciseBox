@@ -20,20 +20,20 @@ export class QuestionComponent {
     //this.Question = this.generateMockQuestion();
   }
 
-  generateMockQuestion() {
-    // Create a new instance of the Question class
-    const mockQuestion = new Question(
-        '1', // id
-        'Test Author', // author
-        'What is the capital of France?', // questionText
-        'Paris', // answer
-        'High School', // schoolLevel
-        'Easy', // difficultyLevel
-        'Geography', // subject
-        'Capitals' // topic
-    );
+//   generateMockQuestion() {
+//     // Create a new instance of the Question class
+//     const mockQuestion = new Question(
+//         '1', // id
+//         'Test Author', // author
+//         'What is the capital of France?', // questionText
+//         'Paris', // answer
+//         'High School', // schoolLevel
+//         'Easy', // difficultyLevel
+//         'Geography', // subject
+//         'Capitals' // topic
+//     );
 
-    // Return the mock question
-    return mockQuestion;
-}
+//     // Return the mock question
+//     return mockQuestion;
+// }
 }
