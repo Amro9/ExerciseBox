@@ -19,7 +19,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PdfViewerModule } from "ng2-pdf-viewer";
-// import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
     declarations: [

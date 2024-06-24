@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...deine-integritätsprüfsumme-hier..." crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-...deine-integritätsprüfsumme-hier..." crossorigin="anonymous" />
 
 <div class="container-fluid">
     <div class="row">
@@ -61,19 +62,32 @@
             </form>
         </div>
         <div class="col-md-5 content">
+          
             <div *ngFor="let question of publicQuestions" class="border p-3 mb-3 bg-white">
-                <h5>{{ question.questionText }}</h5>
-                <p>{{ question.answer }}</p>
-                <button class="btn btn-link p-0" (click)="saveQuestion()" data-toggle="tooltip" title="Frage speichern">
-                    <span class="circle-btn m-2" (click)="saveQuestion()">
+              <div>
+                <app-question [Question]="question" style="width: 100%;"></app-question>
+              </div>
+
+                <button class="btn btn-link p-0" (click)="showFoldersList()" data-toggle="tooltip"
+                    title="Frage speichern">
+                    <span class="circle-btn m-2" (click)="showFoldersList()">
                         <i class="fas fa-plus"></i>
                     </span>
                 </button>
-                <button class="btn btn-link p-0" (click)="hideQuestion()" data-toggle="tooltip" title="Frage ausblenden">
-                    <span class="circle-btn" (click)="saveQuestion()">
+                <button class="btn btn-link p-0" (click)="hideQuestion()" data-toggle="tooltip"
+                    title="Frage ausblenden">
+                    <span class="circle-btn" (click)="hideQuestion()">
                         <i class="fas fa-minus"></i>
                     </span>
                 </button>
+                <div *ngIf="showFolderList" class="folder-list border p-2 mt-2">
+                    <p>Wähle einen Ordner aus:</p>
+                    <ul>
+                        <li *ngFor="let folder of Folders">
+                            <a href="#" (click)="saveQuestion(folder.id)">{{ folder.name }}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

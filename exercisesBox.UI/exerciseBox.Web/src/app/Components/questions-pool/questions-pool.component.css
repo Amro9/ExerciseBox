@@ -35,3 +35,23 @@ select{
     color: white;
     font-size: 20px; /* Beispiel: Größe des Icons im Kreis */
 }
+
+.folder-list {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+  }
+  .folder-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  .folder-list ul li {
+    margin: 5px 0;
+  }
+  .folder-list ul li a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  .folder-list ul li a:hover {
+    text-decoration: underline;
+  }
+  

@@ -11,17 +11,18 @@ import { Question } from '../../Entities/Question';
 import { SchoolTypes } from '../../Entities/SchoolTypes';
 import { SchoolBranch } from '../../Entities/SchoolBranch';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Folder } from '../../Entities/Folder';
+import { FolderService } from '../../Services/api-services/Folder.Service';
 @Component({
   selector: 'app-questions-pool',
   templateUrl: './questions-pool.component.html',
   styleUrl: './questions-pool.component.css'
 })
 export class QuestionsPoolComponent {
-hideQuestion() {
-throw new Error('Method not implemented.');
-}
+  hideQuestion() {
+    throw new Error('Method not implemented.');
+  }
   publicQuestions: Question[] = [];
-
   subjects: Subject[] = [];
   subjectsTopics: Topic[] = [];
   schoolLevels: string[] = [];
@@ -29,7 +30,9 @@ throw new Error('Method not implemented.');
   schoolTypes: SchoolTypes[] = [];
   schoolBranches: SchoolBranch[] = [];
   // isSchoolBranchSelectEnabled: boolean ;
-
+  
+  Folders!: Folder[];
+  showFolderList: boolean = false;
   questionSearchParams: FormGroup;
 
   // selectedSchoolType: number = 0;
@@ -46,12 +49,13 @@ throw new Error('Method not implemented.');
     private topicService: TopicService,
     private schoolLevel: SchoolLevelService,
     private difficultyLevelsService: DifficultyLevelsService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private folderService: FolderService
   ) {
     // this.isSchoolBranchSelectEnabled = false;
     this.questionSearchParams = this.fb.group({
       schoolType: ['0'],
-      schoolBranch: [{value: 'null', disabled: true}],
+      schoolBranch: [{ value: 'null', disabled: true }],
       schoolLevel: ['0'],
       subject: ['null'],
       topic: ['null'],
@@ -60,7 +64,7 @@ throw new Error('Method not implemented.');
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.subjectService.getAllSubjects().subscribe({
       next: (data) => this.subjects = data,
       error: (error) => console.error('Error fetching subjects:', error)
@@ -81,7 +85,7 @@ throw new Error('Method not implemented.');
       next: (data) => this.schoolBranches = data,
       error: (error: string) => console.error('Error fetching branches:', error)
     });
-
+    this.Folders = this.Folders = await this.folderService.getFoldersOfTeacher("2@3.com");
   }
 
   deactivateButVocationalSchool(schoolTypeId: number): boolean {
@@ -102,12 +106,11 @@ throw new Error('Method not implemented.');
       this.questionSearchParams.get('schoolBranch')?.disable();
       this.questionSearchParams.get('schoolBranch')?.setValue('null');
     }
-    
-    if(selectedSchoolTypeId === '0') {
-    this.questionSearchParams.get('schoolLevel')?.setValue('0');
+
+    if (selectedSchoolTypeId === '0') {
+      this.questionSearchParams.get('schoolLevel')?.setValue('0');
     }
-    else
-    {
+    else {
       // Hole die Schulstufen anhand des gewählten Schultypes
       this.schoolLevel.getSchoolLevelsBySchoolTypeId(selectedSchoolTypeId).subscribe({
         next: (data) => this.schoolLevels = data,
@@ -145,7 +148,7 @@ throw new Error('Method not implemented.');
 
   submitSearch() {
 
-    const searchParams = this.questionSearchParams.value ;
+    const searchParams = this.questionSearchParams.value;
 
     Object.entries(searchParams).forEach(([key, value]) => {
       if (value === 'null') {
@@ -160,7 +163,11 @@ throw new Error('Method not implemented.');
     });
   }
 
-  saveQuestion() {
-    throw new Error('Method not implemented.');
+  showFoldersList() {
+    this.showFolderList = !this.showFolderList;
+  }
+  saveQuestion(folder: string) {
+    console.log(`Frage wird in ${folder} gespeichert.`);
+    // this.showFolderList = false; // Schließe das Div nach Auswahl eines Ordners
   }
 }
