@@ -63,9 +63,6 @@ namespace exerciseBox.Infrastructur.Repositories
             }
         }
 
-        public Task<int> UpdateAsync(int entity)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

@@ -145,7 +145,7 @@ throw new Error('Method not implemented.');
 
   submitSearch() {
 
-    const searchParams = { ...this.questionSearchParams.value };
+    const searchParams = this.questionSearchParams.value ;
 
     Object.entries(searchParams).forEach(([key, value]) => {
       if (value === 'null') {

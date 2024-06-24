@@ -61,20 +61,19 @@
             </form>
         </div>
         <div class="col-md-5 content">
-            <div *ngFor="let question of publicQuestions" class="border p-3 mb-3 ">
+            <div *ngFor="let question of publicQuestions" class="border p-3 mb-3 bg-white">
                 <h5>{{ question.questionText }}</h5>
                 <p>{{ question.answer }}</p>
                 <button class="btn btn-link p-0" (click)="saveQuestion()" data-toggle="tooltip" title="Frage speichern">
-                    <span class="circle-btn" (click)="saveQuestion()">
+                    <span class="circle-btn m-2" (click)="saveQuestion()">
                         <i class="fas fa-plus"></i>
                     </span>
                 </button>
                 <button class="btn btn-link p-0" (click)="hideQuestion()" data-toggle="tooltip" title="Frage ausblenden">
-                    <span class="circle-btn">
+                    <span class="circle-btn" (click)="saveQuestion()">
                         <i class="fas fa-minus"></i>
                     </span>
                 </button>
-                
             </div>
         </div>
     </div>
