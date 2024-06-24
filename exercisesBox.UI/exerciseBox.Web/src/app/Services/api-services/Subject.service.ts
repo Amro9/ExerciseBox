@@ -28,4 +28,15 @@ getAllSubjects(): Observable<Subject[]>{
       return throwError(error);
     }));
 }
+
+  getSubjectById(id: string): Promise<Subject[]>{
+    let url_ = this.baseUrl + "Teacher/Subjects/" + id;
+
+    try {
+      let response : any = this.http.get(url_).toPromise();
+      return Promise.resolve(response.value as Subject[]);
+    } catch (error : any) {
+      return Promise.reject(error.message);
+    }
+  }
 }

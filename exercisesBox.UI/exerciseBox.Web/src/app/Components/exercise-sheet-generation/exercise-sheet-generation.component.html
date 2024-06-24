@@ -1,28 +1,45 @@
-<div class="container" style="padding: 5%;">
-    <div class="grid">
-        <div class="row"></div>
+<div class="container" style="margin-top: 5%;">
+    <div class="box">
         <div class="row">
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
-                <option *ngFor="let folder of Folders" [ngValue]="folder">{{ folder.name }}</option>
-            </select>
-        </div>
-        <div class="row">
-            <div *ngIf="true">
-                <div *ngFor="let question of selectedFolder.Questions">
-                    <div class="d-flex" style="margin-top: 2%; align-items: center; position: relative;">
-                        <div style="flex-grow: 1;">
-                            <app-question [Question]="question" style="width: 100%;"></app-question>
-                        </div>
-                        <label class="switch" style="margin-left: auto;">
-                            <input type="checkbox" (change)="onQesionSwitchChange($event.target, question)">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Arbeitsblatt Header</label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedWorkSheetOption" (ngModelChange)="onWorkSheetOptionChange()">
+                        <option *ngFor="let option of WorkSheetHeaderOptions" [ngValue]="option.Value">{{option.Text}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Arbeitsblatt Titel</label>
+                    <input type="text" class="form-control" [(ngModel)]="ExerciseSheet.title" placeholder="Gramatik, Multiplikation..."/>
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top: 2%;">
-            <button class="btn btn-primary" (click)="onGenerateExerciseSheet(pdfPreview)">PDF Generieren</button>
+    </div>
+    <div class="box">
+        <div class="grid">
+            <div class="row">
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
+                    <option *ngFor="let folder of Folders" [ngValue]="folder">{{ folder.name }}</option>
+                </select>
+            </div>
+            <div class="row">
+                <div *ngIf="true">
+                    <div *ngFor="let question of selectedFolder.Questions">
+                        <div class="d-flex" style="margin-top: 2%; align-items: center; position: relative;">
+                            <div style="flex-grow: 1;">
+                                <app-question [Question]="question" style="width: 100%; margin-right: 1%;"></app-question>
+                            </div>
+                            <label class="switch" style="margin-left: auto;">
+                                <input type="checkbox" (change)="onQesionSwitchChange($event.target, question)">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 2%;">
+                <button class="btn btn-primary" (click)="onGenerateExerciseSheet(pdfPreview)">PDF Generieren</button>
+            </div>
         </div>
     </div>
 </div>

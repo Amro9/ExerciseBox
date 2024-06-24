@@ -2,6 +2,7 @@
 using exerciseBox.Application.Services.Interface;
 using exerciseBox.Application.Services.Models;
 using exerciseBox.Application.UseCases.Folder.Queries;
+using exerciseBox.Application.UseCases.Subject.Queries;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
@@ -60,6 +61,20 @@ public class TeacherController : BaseController
         {
             var folders = await _mediator.Send(new GetFoldersOfTeacher { TeacherId = id });
             return Ok(new { value = folders });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+        }
+    }
+
+    [HttpGet("Subjects/{id}")]
+    public async Task<IActionResult> GetTeachersSubjects(string id)
+    {
+        try
+        {
+            var subjects = await _mediator.Send(new GetTeachersSubjects { TeacherId = id });
+            return Ok(new { value = subjects });
         }
         catch (Exception ex)
         {

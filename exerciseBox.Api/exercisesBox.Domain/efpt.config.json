@@ -6,7 +6,7 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Entities",
+   "OutputPath": "Model",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "exerciseBox.Domain",
    "Schemas": null,
@@ -15,7 +15,7 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[BranchesSubjectsJunction]",
+         "Name": "[dbo].[ExerciseSheetQuestionJunction]",
          "ObjectType": 0
       },
       {

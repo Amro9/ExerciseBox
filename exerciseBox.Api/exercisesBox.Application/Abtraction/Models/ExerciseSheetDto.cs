@@ -9,50 +9,46 @@ namespace exerciseBox.Application.Abtraction.Models
 {
     public class ExerciseSheetDto
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public bool StudentName { get; set; }
-        public bool Mark { get; set; }
-        public bool Date { get; set; }
-        public bool ClassNumber { get; set; }
+        public bool NamePlaceHolder { get; set; }
+        public bool MarkPlaceHolder { get; set; }
+        public bool DatePlaceHolder { get; set; }
+        public bool ClassNumberPlaceHolder { get; set; }
         public string ClassNumberText { get; set; }
-        public bool Subject { get; set; }
+        public bool SubjectPlaceHolder { get; set; }
         public string SubjectText { get; set; }
-        public List<QuestionDto> Questions { get; set; }
+        //public List<QuestionDto> Questions { get; set; }
 
-        public static implicit operator ExerciseSheetDto(ExerciseSheet v)
+        public static implicit operator ExerciseSheetDto(ExerciseSheets v)
         {
             return new ExerciseSheetDto
             {
                 Id = v.Id,
-                Title = v.Title,
-                Description = v.Description,
-                StudentName = v.StudentName,
-                Mark = v.Mark,
-                Date = v.Date,
-                ClassNumber = v.ClassNumber,
+                Title = v.Tilte,
+                NamePlaceHolder = v.NamePlaceHolder,
+                MarkPlaceHolder = v.MarkPlaceHolder,
+                DatePlaceHolder = v.DatePlaceHolder,
+                ClassNumberPlaceHolder = v.ClassNumberPlaceHolder,
                 ClassNumberText = v.ClassNumberText,
-                Subject = v.Subject,
-                SubjectText = v.SubjectText,
+                SubjectPlaceHolder = v.SubjectPlaceHolder,
                 //Questions = v.Questions.Select(q => (QuestionDto)q).ToList()
             };
         }
 
-        public static implicit operator ExerciseSheet(ExerciseSheetDto v)
+        public static implicit operator ExerciseSheets(ExerciseSheetDto v)
         {
-            return new ExerciseSheet
+            return new ExerciseSheets
             {
                 Id = v.Id,
-                Title = v.Title,
-                Description = v.Description,
-                StudentName = v.StudentName,
-                Mark = v.Mark,
-                Date = v.Date,
-                ClassNumber = v.ClassNumber,
+                Tilte = v.Title,
+                NamePlaceHolder = v.NamePlaceHolder,
+                MarkPlaceHolder = v.MarkPlaceHolder,
+                DatePlaceHolder = v.DatePlaceHolder,
+                ClassNumberPlaceHolder = v.ClassNumberPlaceHolder,
                 ClassNumberText = v.ClassNumberText,
-                Subject = v.Subject,
-                SubjectText = v.SubjectText,
+                SubjectPlaceHolder = v.SubjectPlaceHolder,
                 //Questions = v.Questions.Select(q => (Question)q).ToList()
             };
         }
