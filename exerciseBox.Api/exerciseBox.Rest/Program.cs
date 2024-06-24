@@ -1,6 +1,7 @@
 using exerciseBox.Infrastructur;
 using exerciseBox.Application.Abtraction;
 using QuestPDF.Infrastructure;
+using exerciseBox.Rest;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,7 @@ QuestPDF.Settings.License = LicenseType.Community;
 // Configure session state
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.IdleTimeout = TimeSpan.FromMinutes(1);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true; // make the session cookie essential
 });
@@ -53,6 +54,7 @@ app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseMiddleware<CustomMiddleWare>();
 
 app.MapControllers();
 

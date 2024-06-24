@@ -1,33 +1,18 @@
+import { Inject, Injectable } from "@angular/core";
 import { Session } from "../Entities/Session";
 
-export class SessionProvider {
+@Injectable({
+    providedIn : 'root'
+})
+export class SessionStorageProvider {
 
-    private static instance : SessionProvider;
-    private session : Session;
-
-    private constructor(){
-        this.session = Session.fromJson(localStorage.getItem("session"));
+    public async GetUserId() : Promise<string> {
+    
+        const id : string = (await sessionStorage.getItem("id")) ?? "";
+        return id;
     }
 
-    static getInstance() : SessionProvider {
-        if(!SessionProvider.instance){
-            SessionProvider.instance = new SessionProvider();
-        }
-        return SessionProvider.instance;
-    }
-
-    getSession() : Session {
-        return this.session;
-    }
-
-    setSession(session : Session) : void {
-        this.session = session;
-        localStorage.setItem("session", JSON.stringify(session));
-    }
-
-    clearSession() : void {
-        this.session = (null as unknown as Session);
-        localStorage.removeItem("session");
-    }
-
+    public async SetUserId(id : string) {
+        await sessionStorage.setItem("id", id);
+    }   
 }

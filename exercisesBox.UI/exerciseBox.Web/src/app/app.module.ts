@@ -19,6 +19,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PdfViewerModule } from "ng2-pdf-viewer";
+import { SessionStorageProvider } from "./Services/SessionProvider";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
@@ -50,6 +51,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
         AuthentificationService,
         ExerciseSheetService,
         FolderService,
+        SessionStorageProvider,
         provideAnimationsAsync()
     ],
     bootstrap: [AppComponent]

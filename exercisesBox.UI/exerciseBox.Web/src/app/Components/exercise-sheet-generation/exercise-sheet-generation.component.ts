@@ -3,7 +3,6 @@ import { Question } from '../../Entities/Question';
 import { Folder } from '../../Entities/Folder';
 import { FolderService } from '../../Services/api-services/Folder.Service';
 import { Session } from '../../Entities/Session';
-import { SessionProvider } from '../../Services/SessionProvider';
 import { QuestionService } from '../../Services/api-services/question.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExerciseSheetService } from '../../Services/api-services/exerciseSheet.service';
@@ -47,6 +46,8 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   pdfSrc: any;
   pdfBlob!: Blob;
 
+  sessionKey : string = "";
+
   constructor(private folderService: FolderService,
      private questionService: QuestionService,
       private modalService: NgbModal, 
@@ -57,6 +58,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
     this.selectedFolder.Questions = [];
     //this.session = Session.fromJson(localStorage.getItem("session"))
     this.session = new Session("test", "2@3.com")
+    session = localStorage.getItem("sessionKey")?.toString();
   }
 
   async ngOnInit(): Promise<void> {
