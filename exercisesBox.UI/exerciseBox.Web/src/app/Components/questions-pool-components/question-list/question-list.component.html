@@ -6,7 +6,7 @@
       <app-question [Question]="question" style="width: 100%;"></app-question>
     </div>
     <div class="col-1 d-flex align-items-center justify-content-center">
-      <button class="btn btn-link p-0" (click)="onShowFoldersList($event)" data-toggle="tooltip" title="Frage speichern">
+      <button class="btn btn-link p-0" (click)="onShowFoldersList($event,question.id)" data-toggle="tooltip" title="Frage speichern">
         <span class="circle-btn">
           <i class="fas fa-plus"></i>
         </span>

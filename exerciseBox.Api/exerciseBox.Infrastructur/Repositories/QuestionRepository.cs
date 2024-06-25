@@ -24,7 +24,22 @@ namespace exerciseBox.Infrastructur.Repositories
             return null;
 
         }
-
+        public async Task<int> SaveQuestionToFolder(string junctionId, string folderId, string questionId)
+        {
+            
+             try
+            {
+                _context.Add(new FoldersQuestionsJunction { Id = junctionId, Folder = folderId, Question = questionId });
+                await _context.SaveChangesAsync();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+               
+                Console.WriteLine($"Error saving question to folder: {ex.Message}");
+                return 0;
+            }
+        }
         public Task<Questions> DeleteAsync(Questions entity)
         {
             throw new NotImplementedException();
