@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 sidebar">
+        <app-filter-formular (search)="submitSearch($event)"></app-filter-formular>
+      </div>
+      <div class="col-md-9 content">
+        <app-question-list [questions]="publicQuestions" (showFolders)="showFoldersList($event)" (hideQuestion)="hideQuestion()"></app-question-list>
+      </div>
+
+      <app-folders-popup
+      [folders]="Folders"
+      [popupTop]="popupTop"
+      [popupLeft]="popupLeft"
+      [showFolderList]="showFolderList"
+      (save) = "saveQuestion($event)"
+      (close) = "showFolderList = false"
+      ></app-folders-popup>
+    </div>
+  </div>
+  

@@ -4,7 +4,7 @@ import { AdminViewComponent } from "./Components/admin-view/admin-view.component
 import { AppComponent } from "./app.component";
 import { QuestionCreationFormComponent } from "./Components/question-form/question-form.component"
 import { LoginComponent } from "./Components/login/login.component";
-import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component"
+import { QuestionsPoolComponent } from "./Components/questions-pool-components/questions-pool/questions-pool.component"
 import { SchoolViewComponent } from "./Components/school-view/school-view.component";
 import { ExerciseSheetGenerationComponent } from "./Components/exercise-sheet-generation/exercise-sheet-generation.component";
 import { QuestionComponent } from "./Components/question/question.component";

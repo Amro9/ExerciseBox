@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { QuestionFromService } from '../../Services/api-services/question-from.service';
+import { QuestionFromService } from '../../Services/api-services/question-form.service';
 import { Subject} from '../../Entities/Subject';
 import { SubjectService } from '../../Services/api-services/Subject.service';
 import { TopicService, Topic } from '../../Services/api-services/Topic.service';

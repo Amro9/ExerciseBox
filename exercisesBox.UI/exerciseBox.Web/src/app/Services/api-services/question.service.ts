@@ -27,25 +27,25 @@ export class QuestionService {
       }
     }
     console.log('params:', params)
-    return this.http.get<Question[]>(url_, { params: params }).pipe(
+    return this.http.get<Question[]>(url_, { params: params, withCredentials : true }).pipe(
       tap(data => console.log('Received questions:', data)),
       catchError(error => {
         console.error('Error fetching questions:', error);
         return throwError(error);
       }));
-    // return this.http.get<Question[]>(url_).pipe(
-    //   tap(data => console.log('Received questions:', data)),
-    //   catchError(error => {
-    //     console.error('Error fetching questions:', error);
-    //     return throwError(error);
-    //   }));
+  }
+saveQuestionInFolder(questionId: string, folderId: string): Observable<any> {
+    let url_ = this.baseUrl + "question/addQuestionToFolder";
+    return this.http.post(url_, { questionId, folderId }).pipe(
+      tap(data => console.log('Question added to folder:', data)),
+      catchError(error => {
+        console.error('Error adding question to folder:', error);
+        return throwError(error);
+      }));
   }
 
-
   getQuestionsByFolder(folderId: string): Observable<Question[]> {
-
     let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
-
     return this.http.get(url_).pipe(
       map((response: any) => {
         const data = response.value // replace 'data' with the actual key in the response object

@@ -11,7 +11,7 @@ import { environment } from "../environments/enviroment.develop";
 import { API_BASE_URL } from "./Infrastucture/configurations";
 import { AuthentificationService } from "./Services/AuthentificationService";
 import { CommonModule } from "@angular/common";
-import { QuestionsPoolComponent } from "./Components/questions-pool/questions-pool.component";
+import { QuestionsPoolComponent } from "./Components/questions-pool-components/questions-pool/questions-pool.component";
 import { ExerciseSheetService } from "./Services/api-services/exerciseSheet.service";
 import { NgxEditorModule } from 'ngx-editor';
 import { FolderService } from "./Services/api-services/Folder.Service";
@@ -20,13 +20,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { SessionStorageProvider } from "./Services/SessionProvider";
-// import { PdfViewerModule } from "ng2-pdf-viewer";
-
+import { FilterFormularComponent } from "./Components/questions-pool-components/filter-formular/filter-formular.component";
+import { FoldersPopupComponent } from "./Components/questions-pool-components/folders-popup/folders-popup.component";
+import { QuestionListComponent } from "./Components/questions-pool-components/question-list/question-list.component";
 @NgModule({
     declarations: [
         AppComponent,
         NavbarComponent,
         QuestionsPoolComponent,
+        FilterFormularComponent,
+        FoldersPopupComponent,
+        QuestionListComponent,
         routingComponents
     ],
     imports: [

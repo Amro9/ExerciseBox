@@ -18,7 +18,7 @@ namespace exerciseBox.Application.UseCases.Teachers.CommandHandlers
 
         public async Task<TeacherDto> Handle(CreateTeacher request, CancellationToken cancellationToken)
         {
-            //request.Teacher.Password = request.Teacher.Password.HashPassword();
+            request.Teacher.Password = request.Teacher.Password.HashPassword();
 
             var teacher = await _teacherRepository.CreateAsync(request.Teacher);
             return teacher;

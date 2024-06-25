@@ -15,7 +15,7 @@ export class SchoolService {
     }
     getSchoolTypes(): Observable<SchoolTypes[]>{ 
         let url_ = this.baseUrl + "school/types";
-        return this.http.get<SchoolTypes[]>(url_).pipe(
+        return this.http.get<SchoolTypes[]>(url_, {withCredentials:true}).pipe(
             tap(data => console.log('Received school types:', data)),
             catchError(error => {
                 console.error('Error fetching school types:', error);
@@ -24,7 +24,7 @@ export class SchoolService {
     }
     getSchoolBranches(): Observable<SchoolBranch[]>{
         let url_ = this.baseUrl + "school/branches";
-        return this.http.get<SchoolBranch[]>(url_).pipe(
+        return this.http.get<SchoolBranch[]>(url_, {withCredentials: true}).pipe(
             tap(data => console.log('Received school branches:', data)),
             catchError(error => {
                 console.error('Error fetching school branches:', error);

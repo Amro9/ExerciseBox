@@ -18,7 +18,7 @@ export class QuestionFromService {
 
   submitQuestionForm(formData: FormData): Observable<any> {
     let url = this.baseUrl + 'question/addQuestion';
-    return this.http.post(url, formData).pipe(
+    return this.http.post(url,{params: formData, withCredentials: true}).pipe(
       tap(
         response => {
           this.notificationService.showSuccess('Frage wurde erfolgreich hinzugefügt');

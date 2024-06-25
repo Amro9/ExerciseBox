@@ -1,0 +1,10 @@
+<div *ngIf="showFolderList" class="popup-folder-list" [ngStyle]="{'top': popupTop, 'left': popupLeft}">
+  <div class="popup-content">
+    <h6 class="popup-header">In welchem Ordner speichern?</h6>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-action" *ngFor="let folder of folders" (click)="saveQuestion(folder.id)">
+        {{ folder.name }}
+      </li>
+    </ul>
+  </div>
+</div>

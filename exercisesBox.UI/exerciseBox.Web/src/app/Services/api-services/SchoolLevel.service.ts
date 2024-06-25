@@ -30,7 +30,7 @@ export class SchoolLevelService {
   }
   getSchoolLevelsBySchoolTypeId(schoolTypeId: string):Observable<string[]> {
     let url_ = this.baseUrl+'QuestionParamaters/GetSchoolLevelsBySchoolTypeId?schoolTypeId='+ schoolTypeId.toString();
-    return this.http.get<string[]>(url_).pipe(
+    return this.http.get<string[]>(url_, {withCredentials: true}).pipe(
       catchError((error: HttpErrorResponse) => {
         this.notificationService.showPersistentError('Fehler beim Laden der Daten');
         return throwError(error);
