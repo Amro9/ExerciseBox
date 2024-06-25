@@ -9,8 +9,8 @@ namespace exerciseBox.Application.Services.Interface
 {
     public interface ISessionCommunicator
     {
-        string AddNewSessionId(string Id);
-        bool VerifySessionId(SessionModel session); 
+        string AddNewSessionId();
+        bool VerifySessionId(); 
 
     }
 }

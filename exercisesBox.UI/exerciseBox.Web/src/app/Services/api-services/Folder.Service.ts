@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { SessionProvider } from "../SessionProvider";
 import { API_BASE_URL } from "../../Infrastucture/configurations";
 import { Folder } from "../../Entities/Folder";
 import { BoundElementProperty } from "@angular/compiler";
@@ -24,7 +23,7 @@ export class FolderService{
         try {
             let body = new HttpParams().set('id', id);
     
-            const response: any = await this.http.get(url_, { headers: this.headers, params: body}).toPromise();
+            const response: any = await this.http.get(url_, { headers: this.headers, params: body, withCredentials: true}).toPromise();
             return response.value as Folder[];
         } catch (error) {
             console.error('Error in getFolders:', error);

@@ -42,7 +42,7 @@ public class TeacherController : BaseController
     {
         try
         {
-            if(!_sessionCommunicator.VerifySessionId(new SessionModel { SessionId = school.Seesionid, SessionIdKey = school.SchoolId}))
+            if(!_sessionCommunicator.VerifySessionId())
                 return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
 
             var teachers = await _mediator.Send(new GetTeachersBySchool { SchoolId = school.SchoolId });

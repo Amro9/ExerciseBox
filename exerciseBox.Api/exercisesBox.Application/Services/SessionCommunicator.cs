@@ -2,6 +2,7 @@
 using exerciseBox.Application.Services.Models;
 using Microsoft.AspNetCore.Http;
 using System.Text;
+using System.Text.Json;
 
 namespace exerciseBox.Application.Services;
 
@@ -14,7 +15,7 @@ public class SessionCommunicator : ISessionCommunicator
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string AddNewSessionId(string Id)
+    public string AddNewSessionId()
     {
         if (_httpContextAccessor.HttpContext == null)
         {
@@ -23,19 +24,14 @@ public class SessionCommunicator : ISessionCommunicator
 
         var sessionid = Guid.NewGuid().ToString();
 
-        var sessionModel = new SessionModel
-        {
-            SessionIdKey = Id,
-            SessionId = sessionid
-        };
-
-        var sessionModelBytes = SessionModel.SerializeSessionModel(sessionModel);
-        _httpContextAccessor.HttpContext.Session.Set($"session{sessionModel.SessionIdKey}", sessionModelBytes);
+        var jsonString = JsonSerializer.Serialize(sessionid);
+        var sessionModelBytes = Encoding.UTF8.GetBytes(jsonString);
+        _httpContextAccessor.HttpContext.Session.Set($"SessionId", sessionModelBytes);
 
         return sessionid;
     }
 
-    public bool VerifySessionId(SessionModel session)
+    public bool VerifySessionId()
     {
         if (_httpContextAccessor.HttpContext == null)
         {
@@ -43,15 +39,31 @@ public class SessionCommunicator : ISessionCommunicator
         }
 
         byte[] storedSessionModelBytes;
-        _httpContextAccessor.HttpContext.Session.TryGetValue($"session{session.SessionIdKey}", out storedSessionModelBytes);
+        _httpContextAccessor.HttpContext.Session.TryGetValue($"SessionId", out storedSessionModelBytes);
 
         if (storedSessionModelBytes == null)
         {
             return false;
         }
+        return true;
+    }
 
-        var storedSessionModel = SessionModel.DeserializeSessionModel(storedSessionModelBytes);
+    public string GetUserId()
+    {
+        if (_httpContextAccessor.HttpContext == null)
+        {
+            throw new HttpRequestException("HttpContext is null");
+        }
 
-        return storedSessionModel.SessionId == session.SessionId;
+        byte[] storedSessionModelBytes;
+        _httpContextAccessor.HttpContext.Session.TryGetValue($"UserId", out storedSessionModelBytes);
+
+        if (storedSessionModelBytes == null)
+        {
+            return null;
+        }
+
+        var storedSessionModelJson = Encoding.UTF8.GetString(storedSessionModelBytes);
+        return JsonSerializer.Deserialize<string>(storedSessionModelJson);
     }
 }
