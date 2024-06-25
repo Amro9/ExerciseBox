@@ -5,6 +5,7 @@ using exerciseBox.Application.UseCases.Questions.Commands;
 using exerciseBox.Application.UseCases.Questions.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,7 +18,23 @@ namespace exerciseBox.Rest.Controllers
         {
             
         }
-
+        [HttpPost("saveQuestionToFolder")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SaveQuestionToFolder([FromBody] SaveQuestionToFolderRequest request)
+        {
+            try
+            {
+                await _mediator.Send(
+                    new SaveQuestionToFolder (
+                        request.JunctionId.ToString(),request.FolderId,request.QuestionId
+                        ));
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
+            }
+        }
         [HttpPost("addQuestion")]
         public async Task<IActionResult> AddQuestion([FromBody] QuestionDto question)
         {
