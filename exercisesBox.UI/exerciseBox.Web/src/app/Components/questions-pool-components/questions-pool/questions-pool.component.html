@@ -11,7 +11,9 @@
       [folders]="Folders"
       [popupTop]="popupTop"
       [popupLeft]="popupLeft"
+      [questionId]="selectedQuestionId"
       [showFolderList]="showFolderList"
+
       (save) = "saveQuestion($event)"
       (close) = "showFolderList = false"
       ></app-folders-popup>

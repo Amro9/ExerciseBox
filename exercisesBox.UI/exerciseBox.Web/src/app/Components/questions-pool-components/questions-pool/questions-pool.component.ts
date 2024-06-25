@@ -1,13 +1,14 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { Question } from '../../../Entities/Question';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Folder } from '../../../Entities/Folder';
 import { FolderService } from '../../../Services/api-services/Folder.Service';
 import { QuestionService } from '../../../Services/api-services/question.service';
+
 @Component({
   selector: 'app-questions-pool',
   templateUrl: './questions-pool.component.html',
-  styleUrl: './questions-pool.component.css'
+  styleUrls: ['./questions-pool.component.css']
 })
 export class QuestionsPoolComponent {
   publicQuestions: Question[] = [];
@@ -15,6 +16,7 @@ export class QuestionsPoolComponent {
   showFolderList: boolean = false;
   popupTop!: string;
   popupLeft!: string;
+  selectedQuestionId: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -51,20 +53,25 @@ export class QuestionsPoolComponent {
     }
   }
 
-  showFoldersList(event: MouseEvent) {
-    event.stopPropagation();
+  showFoldersList(event: { questionId: string, event: MouseEvent }) {
+    event.event.stopPropagation();
     this.showFolderList = true;
-    this.popupTop = `${event.clientY}px`;
-    this.popupLeft = `${event.clientX}px`;
+    this.popupTop = `${event.event.clientY}px`;
+    this.popupLeft = `${event.event.clientX}px`;
+    this.selectedQuestionId = event.questionId;
   }
 
-  saveQuestion(folder: string) {
-    console.log(`Frage wird in ${folder} gespeichert.`);
+  saveQuestion(folderId: string) {
+    console.log(`Frage wird in ${folderId} gespeichert.`);
     this.showFolderList = false;
+
+    this.questionService.saveQuestionToFolder(this.selectedQuestionId, folderId).subscribe({
+      next: (data) => console.log('Question saved:', data),
+      error: (error: string) => console.error('Error saving question:', error)
+    });
   }
 
   hideQuestion() {
     console.log('Frage wird ausgeblendet.');
   }
-
 }

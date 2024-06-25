@@ -34,9 +34,14 @@ export class QuestionService {
         return throwError(error);
       }));
   }
-saveQuestionInFolder(questionId: string, folderId: string): Observable<any> {
-    let url_ = this.baseUrl + "question/addQuestionToFolder";
-    return this.http.post(url_, { questionId, folderId }).pipe(
+saveQuestionToFolder(questionId: string, folderId: string): Observable<any> {
+    let url_ = this.baseUrl + "question/saveQuestionToFolder";
+    const body = {
+      questionId: questionId,
+      folderId: folderId,
+      withValidation: true,
+    };
+    return this.http.post(url_,body,{withCredentials: true}).pipe(
       tap(data => console.log('Question added to folder:', data)),
       catchError(error => {
         console.error('Error adding question to folder:', error);
@@ -47,7 +52,7 @@ saveQuestionInFolder(questionId: string, folderId: string): Observable<any> {
   getQuestionsByFolder(folderId: string): Observable<Question[]> {
     let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
 
-    return this.http.get(url_, {withCredentials: true}).pipe(
+    return this.http.get(url_,{withCredentials: true}).pipe(
       map((response: any) => {
         const data = response.value // replace 'data' with the actual key in the response object
         return data.map((question: any) => Question.fromJSON(question));
