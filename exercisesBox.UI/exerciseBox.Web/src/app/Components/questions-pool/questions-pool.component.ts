@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubjectService } from '../../Services/api-services/Subject.service';
 import { Subject } from '../../Entities/Subject';
@@ -30,7 +30,7 @@ export class QuestionsPoolComponent {
   schoolTypes: SchoolTypes[] = [];
   schoolBranches: SchoolBranch[] = [];
   // isSchoolBranchSelectEnabled: boolean ;
-  
+
   Folders!: Folder[];
   showFolderList: boolean = false;
   questionSearchParams: FormGroup;
@@ -50,7 +50,8 @@ export class QuestionsPoolComponent {
     private schoolLevel: SchoolLevelService,
     private difficultyLevelsService: DifficultyLevelsService,
     private questionService: QuestionService,
-    private folderService: FolderService
+    private folderService: FolderService,
+    private elementRef: ElementRef
   ) {
     // this.isSchoolBranchSelectEnabled = false;
     this.questionSearchParams = this.fb.group({
@@ -162,12 +163,33 @@ export class QuestionsPoolComponent {
       error: (error: string) => console.error('Error fetching questions:', error)
     });
   }
-
-  showFoldersList() {
-    this.showFolderList = !this.showFolderList;
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    // Überprüfe, ob das Pop-up-Div sichtbar ist und blende es aus, wenn der Benutzer scrollt
+    if (this.showFolderList) {
+      this.showFolderList = false;
+    }
+  }
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (this.showFolderList && !this.elementRef.nativeElement.querySelector('.popup-folder-list').contains(event.target)) {
+      // Klick erfolgte außerhalb des Pop-up-Divs, also ausblenden
+      this.showFolderList = false;
+    }
+  }
+  popupTop!: string;
+  popupLeft!: string;
+  showFoldersList(event: MouseEvent) {
+    event.stopPropagation(); // Stoppt die Ausbreitung des Klick-Ereignisses, um das Dokument: Klick-Ereignis nicht zu triggern
+    // this.showFolderList = !this.showFolderList;
+    this.showFolderList = true;
+    // Position des Pop-ups basierend auf dem Klick-Event
+    this.popupTop = `${event.clientY}px`;
+    this.popupLeft = `${event.clientX}px`;
   }
   saveQuestion(folder: string) {
     console.log(`Frage wird in ${folder} gespeichert.`);
+    this.showFolderList = false;
     // this.showFolderList = false; // Schließe das Div nach Auswahl eines Ordners
   }
 }

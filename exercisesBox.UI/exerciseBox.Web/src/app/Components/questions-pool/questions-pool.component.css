@@ -36,22 +36,29 @@ select{
     font-size: 20px; /* Beispiel: Größe des Icons im Kreis */
 }
 
-.folder-list {
-    background-color: #f8f9fa;
-    border-radius: 5px;
-  }
-  .folder-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  .folder-list ul li {
-    margin: 5px 0;
-  }
-  .folder-list ul li a {
-    text-decoration: none;
-    color: #007bff;
-  }
-  .folder-list ul li a:hover {
-    text-decoration: underline;
-  }
-  
+.popup-folder-list {
+  position: fixed; /* oder fixed, falls das Pop-up immer im Viewport bleiben soll */
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1000; /* Damit das Pop-up über anderen Elementen liegt */
+  width: 200px; /* Passe die Breite nach Bedarf an */
+}
+
+.popup-folder-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.popup-folder-list ul li {
+  margin: 5px 0;
+}
+
+.popup-folder-list ul li a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.popup-folder-list ul li a:hover {
+  text-decoration: underline;
+}
