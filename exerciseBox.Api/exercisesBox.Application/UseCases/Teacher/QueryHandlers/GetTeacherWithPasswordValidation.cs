@@ -19,7 +19,7 @@ public class GetTeacherWithPasswordValidationHandler : IRequestHandler<GetTeache
         var teacher = await _teacherRepository.ReadByEmailAsync(request.Email);
         if (teacher == null)
         {
-            throw new Exception("Teacher not found");
+            return null;
         }
 
         if (!request.Password.VerifyPassword(teacher.Password))

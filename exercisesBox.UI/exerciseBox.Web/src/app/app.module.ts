@@ -23,6 +23,9 @@ import { SessionStorageProvider } from "./Services/SessionProvider";
 import { FilterFormularComponent } from "./Components/questions-pool-components/filter-formular/filter-formular.component";
 import { FoldersPopupComponent } from "./Components/questions-pool-components/folders-popup/folders-popup.component";
 import { QuestionListComponent } from "./Components/questions-pool-components/question-list/question-list.component";
+import { AuthGuard } from "./Services/AuthGuard";
+// import { PdfViewerModule } from "ng2-pdf-viewer";
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -56,6 +59,7 @@ import { QuestionListComponent } from "./Components/questions-pool-components/qu
         ExerciseSheetService,
         FolderService,
         SessionStorageProvider,
+        AuthGuard,
         provideAnimationsAsync()
     ],
     bootstrap: [AppComponent]

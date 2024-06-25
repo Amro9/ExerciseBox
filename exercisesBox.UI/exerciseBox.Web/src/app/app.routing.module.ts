@@ -8,15 +8,17 @@ import { QuestionsPoolComponent } from "./Components/questions-pool-components/q
 import { SchoolViewComponent } from "./Components/school-view/school-view.component";
 import { ExerciseSheetGenerationComponent } from "./Components/exercise-sheet-generation/exercise-sheet-generation.component";
 import { QuestionComponent } from "./Components/question/question.component";
+import { AuthGuard } from "./Services/AuthGuard";
+import { Roles } from "./Infrastucture/enums";
 
 const routes: Routes = [
   { path: "adminView", component: AdminViewComponent },
-  { path: 'questionForm', component: QuestionCreationFormComponent},
-  { path: 'questionsPool', component: QuestionsPoolComponent},
+  { path: 'questionForm', component: QuestionCreationFormComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
+  { path: 'questionsPool', component: QuestionsPoolComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
   { path: "login", component: LoginComponent},
-  { path: "schoolView", component: SchoolViewComponent},
-  { path: "ExerciseSheet", component: ExerciseSheetGenerationComponent},
-  { path: "question", component: QuestionComponent},
+  { path: "schoolView", component: SchoolViewComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.School }},
+  { path: "ExerciseSheet", component: ExerciseSheetGenerationComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
+  //{ path: "question", component: QuestionComponent},
   //{ path: 'home', component: AppComponent },
   //{ path: '', redirectTo: '/home', pathMatch: 'full' },
   ];

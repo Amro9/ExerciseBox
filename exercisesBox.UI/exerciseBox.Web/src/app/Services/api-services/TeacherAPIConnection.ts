@@ -28,7 +28,7 @@ export class TeacherAPIConnection {
     
         const body = { email: email };
     
-        return this.http.post(url_, body, {headers : this.headers}).pipe(
+        return this.http.post(url_, body, {headers : this.headers, withCredentials:true}).pipe(
           map((response: any) => {
             const jsonData = response.value;
             return Teacher.fromData(jsonData);
@@ -47,7 +47,7 @@ export class TeacherAPIConnection {
     
         const body = { sessionId: session.SessionId, sessionIdKey: session.SessionIdKey}; //
     
-        return this.http.post(url_, body, {headers : this.headers}).pipe(
+        return this.http.post(url_, body, {headers : this.headers, withCredentials:true}).pipe(
           map((response: any) => {
             const jsonData = response.value;
             return jsonData.map((item: any) => Teacher.fromData(item));

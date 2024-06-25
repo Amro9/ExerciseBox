@@ -13,7 +13,7 @@ namespace exerciseBox.Rest.Controllers;
 
 public class TeacherController : BaseController
 {
-    public TeacherController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
+    public TeacherController(IMediator mediator) : base(mediator)
     {
     }
 
@@ -42,8 +42,6 @@ public class TeacherController : BaseController
     {
         try
         {
-            if(!_sessionCommunicator.VerifySessionId())
-                return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
 
             var teachers = await _mediator.Send(new GetTeachersBySchool { SchoolId = school.SchoolId });
             return Ok(new { value = teachers });

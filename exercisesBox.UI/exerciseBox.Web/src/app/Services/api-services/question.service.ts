@@ -46,7 +46,8 @@ saveQuestionInFolder(questionId: string, folderId: string): Observable<any> {
 
   getQuestionsByFolder(folderId: string): Observable<Question[]> {
     let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
-    return this.http.get(url_).pipe(
+
+    return this.http.get(url_, {withCredentials: true}).pipe(
       map((response: any) => {
         const data = response.value // replace 'data' with the actual key in the response object
         return data.map((question: any) => Question.fromJSON(question));

@@ -8,7 +8,7 @@ namespace exerciseBox.Rest.Controllers
 {
     public class ExerciseSheetController : BaseController
     {
-        public ExerciseSheetController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator) { }
+        public ExerciseSheetController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("GetNewExerciseSheet")]
         public async Task<IActionResult> GetNewExerciseSheet(NewExerciseSheetRequest newExerciseSheet)

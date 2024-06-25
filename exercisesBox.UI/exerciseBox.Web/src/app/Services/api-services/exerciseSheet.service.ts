@@ -19,7 +19,7 @@ export class ExerciseSheetService {
     public async getNewExerciseSheet(questionIds: string[], exerciseSheet : ExerciseSheet): Promise<Blob> {
         let url_ = this.baseUrl + "ExerciseSheet/GetNewExerciseSheet";
         try {
-            const response: any = await this.http.post(url_, { questionIds: questionIds, exerciseSheet }, { headers: this.headers, responseType: 'blob' as 'json' }).toPromise();
+            const response: any = await this.http.post(url_, { questionIds: questionIds, exerciseSheet}, { headers: this.headers, responseType: 'blob' as 'json', withCredentials: true }).toPromise();
             return response;
         } catch (error) {
             console.error('Error generating exercise sheet:', error);

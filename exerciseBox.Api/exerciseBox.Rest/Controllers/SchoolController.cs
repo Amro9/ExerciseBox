@@ -24,7 +24,7 @@ namespace exerciseBox.Rest.Controllers
         /// </summary>
         /// <param name="mediator">Der MediatR-Mediator.</param>
         /// <param name="sessionCommunicator">Der Sitzungs-Kommunikator.</param>
-        public SchoolController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
+        public SchoolController(IMediator mediator) : base(mediator)
         {
         }
 
