@@ -33,7 +33,7 @@ getAllSubjects(): Observable<Subject[]>{
     let url_ = this.baseUrl + "Teacher/Subjects/" + id;
   
     try {
-      const response : any = await this.http.get(url_).toPromise();
+      const response : any = await this.http.get(url_, { withCredentials: true}).toPromise();
       return response.value as Subject[];
     } catch (error : any) {
       return Promise.reject(error.message);

@@ -25,7 +25,7 @@ export class AuthentificationService {
         let url_ = this.baseUrl + "Authentification/Login";
 
         try {
-            const response: any = await this.http.post(url_, { email: email, password: password }, { headers: this.headers }).toPromise();
+            const response: any = await this.http.post(url_, { email: email, password: password }, { headers: this.headers, withCredentials: true }).toPromise();
             const jsonData = response.value;
             this.SessionStorageProvider.SetUserId(jsonData.id);
             return true;

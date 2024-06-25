@@ -8,7 +8,11 @@ using exerciseBox.Application.UseCases.Teachers.Commands;
 using exerciseBox.Rest.Controllers;
 using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace exercisebox.rest.controllers;
 
@@ -20,6 +24,7 @@ public class AuthentificationController : BaseController
     }
 
     [HttpPost("Login")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login(LoginRequest loginRequest)
     {
         try
@@ -31,7 +36,28 @@ public class AuthentificationController : BaseController
                 return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
             }
 
-            var sessionId = _sessionCommunicator.AddNewSessionId();
+            //var sessionId = _sessionCommunicator.AddNewSessionId();
+
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, teacher.Email),
+                new Claim(ClaimTypes.Role, "Teacher")
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+
 
             return Ok(new { Id = teacher.Email });
         }

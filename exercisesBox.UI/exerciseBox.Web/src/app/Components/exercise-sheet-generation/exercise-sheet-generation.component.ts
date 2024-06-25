@@ -57,8 +57,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   {
     this.selectedFolder.Questions = [];
     //this.session = Session.fromJson(localStorage.getItem("session"))
-    this.session = new Session("test", "2@3.com")
-    session = localStorage.getItem("sessionKey")?.toString();
+    
   }
 
   async ngOnInit(): Promise<void> {

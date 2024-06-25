@@ -2,6 +2,7 @@ using exerciseBox.Infrastructur;
 using exerciseBox.Application.Abtraction;
 using QuestPDF.Infrastructure;
 using exerciseBox.Rest;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,12 +20,26 @@ builder.Services.AddDistributedMemoryCache();
 QuestPDF.Settings.License = LicenseType.Community;
 
 // Configure session state
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(1);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true; // make the session cookie essential
-});
+//builder.Services.AddSession(options =>
+//{
+//    options.IdleTimeout = TimeSpan.FromMinutes(1);
+//    options.Cookie.HttpOnly = true;
+//    options.Cookie.IsEssential = true; // make the session cookie essential
+//});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "AuthCookie";
+        options.LoginPath = "/api/Authentification/Login";
+        options.LogoutPath = "/api/Authentification/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.SlidingExpiration = true;
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.SameSite = SameSiteMode.None;
+    });
+
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -32,9 +47,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.WithOrigins("https://localhost:4200")
+                   .AllowCredentials() // Allow credentials to be sent
                    .AllowAnyHeader()
                    .AllowAnyMethod();
+                   //.AllowAnyOrigin()
         });
 });
 
@@ -50,11 +67,12 @@ if (app.Environment.IsDevelopment())
 // Use CORS before other middlewares that handle HTTP requests
 app.UseCors("AllowAllOrigins");
 
-app.UseSession();
+//app.UseSession();
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
-app.UseMiddleware<CustomMiddleWare>();
+//app.UseMiddleware<CustomMiddleWare>();
 
 app.MapControllers();
 

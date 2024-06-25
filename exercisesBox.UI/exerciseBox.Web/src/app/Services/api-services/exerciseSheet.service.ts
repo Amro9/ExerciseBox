@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { SessionProvider } from "../SessionProvider";
 import { API_BASE_URL } from "../../Infrastucture/configurations";
 import { ExerciseSheet } from "../../Entities/ExerciseSheet";
 
