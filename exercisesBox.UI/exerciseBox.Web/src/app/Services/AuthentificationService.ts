@@ -32,13 +32,13 @@ export class AuthentificationService {
             const response: any = await this.http.post(url_, { email, password }, { headers: this.headers, withCredentials: true }).toPromise();
             const jsonData = response;
             this.cookieService.set('userEmail', jsonData.id, 1, '/', '', true, 'Strict');
+            this.cookieService.set('userRole', jsonData.role, 1, '/', '', true, 'Strict');
             this.userRole = jsonData.role as Roles; 
             this.startTokenRefresh();
             return true;
         } catch (error) {
-            console.error('Login error:', error);
-            return false;
-        }
+            throw error;
+      }
     }
 
     public async refreshToken(): Promise<boolean> {
@@ -76,7 +76,18 @@ export class AuthentificationService {
       }
       
       public hasRole(role: Roles): boolean {
-        return this.userRole === role;
+        try {
+            this.userRole = this.cookieService.get('userRole') as Roles;  
+
+            if (this.userRole === role) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (error) {
+            throw error;
+      }
       }
 
       public logout(): void {

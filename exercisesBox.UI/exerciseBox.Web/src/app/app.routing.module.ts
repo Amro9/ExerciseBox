@@ -10,6 +10,7 @@ import { ExerciseSheetGenerationComponent } from "./Components/exercise-sheet-ge
 import { QuestionComponent } from "./Components/question/question.component";
 import { AuthGuard } from "./Services/AuthGuard";
 import { Roles } from "./Infrastucture/enums";
+import { HomeComponent } from "./Components/home/home.component";
 
 const routes: Routes = [
   { path: "adminView", component: AdminViewComponent },
@@ -19,8 +20,8 @@ const routes: Routes = [
   { path: "schoolView", component: SchoolViewComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.School }},
   { path: "ExerciseSheet", component: ExerciseSheetGenerationComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
   //{ path: "question", component: QuestionComponent},
-  //{ path: 'home', component: AppComponent },
-  //{ path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   ];
 
   
@@ -36,6 +37,7 @@ const routes: Routes = [
     LoginComponent,
     SchoolViewComponent,
     ExerciseSheetGenerationComponent,
-    QuestionComponent
+    QuestionComponent,
+    HomeComponent
   ]
   

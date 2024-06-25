@@ -20,8 +20,14 @@ export class LoginComponent {
   errorMessage: string | null = null;
 
   async onSubmit(): Promise<void> {
-    if(await this.authService.login(this.teacher.email, this.teacher.password)) {
-      this.router.navigate(['/school-view']);
+
+    try {
+      if(await this.authService.login(this.teacher.email, this.teacher.password)) {
+        this.router.navigate(['/home']);
+      }
+    } catch (error : any) {
+      this.errorMessage = error.error.toString();
     }
+    
   }
 }
