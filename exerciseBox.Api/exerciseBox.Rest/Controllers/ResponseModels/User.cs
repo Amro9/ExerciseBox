@@ -22,6 +22,10 @@ public class User
 
     public static implicit operator User(SchoolDto v)
     {
+        if(v == null)
+        {
+            return null;
+        }
         return new User
         {
             Email = v.Email

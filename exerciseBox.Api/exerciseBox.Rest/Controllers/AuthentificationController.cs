@@ -39,7 +39,7 @@ public class AuthentificationController : BaseController
               
 
                 if (user == null)
-                    return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+                    return StatusCode(500, "Mit dieser Email wurde kein Account gefunden.");
                 
                 user.Role = "School";
             }
