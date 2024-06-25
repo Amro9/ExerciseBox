@@ -3,6 +3,8 @@ import { Inject, Injectable, Optional } from "@angular/core";
 import { API_BASE_URL } from "../Infrastucture/configurations";
 import { SessionStorageProvider } from "./SessionProvider";
 import { CookieService } from "ngx-cookie-service";
+import { throwError } from "rxjs";
+import { Roles } from "../Infrastucture/enums";
 
 
 @Injectable({
@@ -16,21 +18,25 @@ export class AuthentificationService {
 
     private baseUrl : string;
 
+    private userRole: Roles | null = null; 
+
     constructor(private http: HttpClient, private SessionStorageProvider : SessionStorageProvider, private cookieService: CookieService, @Inject(API_BASE_URL) baseUrl?: string) 
     {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     public async login(email: string, password: string): Promise<boolean> {
-
         let url_ = this.baseUrl + "Authentification/Login";
 
         try {
-            const response: any = await this.http.post(url_, { email: email, password: password }, { headers: this.headers, withCredentials: true }).toPromise();
-            const jsonData = response.value;
-            this.SessionStorageProvider.SetUserId(jsonData.id);
+            const response: any = await this.http.post(url_, { email, password }, { headers: this.headers, withCredentials: true }).toPromise();
+            const jsonData = response;
+            this.cookieService.set('userEmail', jsonData.id, 1, '/', '', true, 'Strict');
+            this.userRole = jsonData.role as Roles; 
+            this.startTokenRefresh();
             return true;
         } catch (error) {
+            console.error('Login error:', error);
             return false;
         }
     }
@@ -56,8 +62,25 @@ export class AuthentificationService {
       public isLoggedIn(): boolean {
         return this.cookieService.check('AuthCookie');
       }
-    
+
+      public async getRole(): Promise<Roles> {
+          let url_ = this.baseUrl + "Authentification/Role";
+        
+          try {
+              const response: any = await this.http.get(url_, { headers: this.headers, withCredentials: true }).toPromise();
+              const roleAsString: string = response.value;
+              return Roles[roleAsString as keyof typeof Roles]; // Convert string to Role enum
+          } catch (error) {
+              throw error; 
+          }
+      }
+      
+      public hasRole(role: Roles): boolean {
+        return this.userRole === role;
+      }
+
       public logout(): void {
         this.cookieService.delete('AuthCookie', '/', '', true, 'Strict');
+        this.userRole = null; 
       }
 }

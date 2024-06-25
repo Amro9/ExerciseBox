@@ -3,10 +3,12 @@ using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.Services;
 using exerciseBox.Application.Services.Interface;
 using exerciseBox.Application.Services.Models;
+using exerciseBox.Application.UseCases.Schools.Queries;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Commands;
 using exerciseBox.Rest.Controllers;
 using exerciseBox.Rest.Controllers.RequestModels;
+using exerciseBox.Rest.Controllers.ResponseModels;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -29,37 +31,26 @@ public class AuthentificationController : BaseController
     {
         try
         {
-            var teacher = await _mediator.Send(new GetTeacherWithPasswordValidation { Email = loginRequest.Email, Password = loginRequest.Password });
+            User user = await _mediator.Send(new GetTeacherWithPasswordValidation { Email = loginRequest.Email, Password = loginRequest.Password });
 
-            if (teacher == null)
+            if (user == null)
             {
-                return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+                user = await _mediator.Send(new GetSchoolWithPasswordValidation { SchoolId = loginRequest.Email, Password = loginRequest.Password });
+              
+
+                if (user == null)
+                    return StatusCode(500, "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+                
+                user.Role = "School";
+            }
+            else
+            {
+                user.Role = "Teacher";
             }
 
-            //var sessionId = _sessionCommunicator.AddNewSessionId();
+            await CreateCookiesAsync(user.Role, user.Email);
 
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, teacher.Email),
-                new Claim(ClaimTypes.Role, "Teacher")
-            };
-
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
-            };
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
-
-
-            return Ok(new { Id = teacher.Email });
+            return Ok(new { Id = user.Email, Role = user.Role });
         }
         catch (UnauthorizedAccessException ex)
         {
@@ -96,24 +87,9 @@ public class AuthentificationController : BaseController
     {
         try
         {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, User.Identity.Name),
-                new Claim(ClaimTypes.Role, "Teacher")
-            };
+            var role = User.FindFirstValue(ClaimTypes.Role); 
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
-            };
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+            await CreateCookiesAsync(role, User.Identity.Name);
 
             return Ok();
         }
@@ -121,5 +97,56 @@ public class AuthentificationController : BaseController
         {
             return StatusCode(500, "Während der Registrierung ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
         }
+    }
+
+    [HttpPost("Logout")]
+    public async Task<IActionResult> Logout()
+    {
+        try
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Während des Logouts ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+        }
+    }
+
+    [HttpGet("Role")]
+    public async Task<IActionResult> GetRole()
+    {
+        try
+        {
+            var role = User.FindFirstValue(ClaimTypes.Role); // Retrieve the role from the user claims
+
+            return Ok(new { Role = role });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Während des Logouts ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+        }
+    }
+
+    private async Task CreateCookiesAsync(string Role, string Name)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, Name),
+            new Claim(ClaimTypes.Role, Role)
+        };
+
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        var authProperties = new AuthenticationProperties
+        {
+            IsPersistent = true,
+            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
+        };
+
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            authProperties);
     }
 }
