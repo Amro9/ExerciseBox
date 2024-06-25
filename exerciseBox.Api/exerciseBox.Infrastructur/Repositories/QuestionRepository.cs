@@ -43,7 +43,7 @@ namespace exerciseBox.Infrastructur.Repositories
 
         public async Task<IEnumerable<Questions>> ReadAsync()
         {
-            return await _context.Questions.Where(q => q.QuestionIsPrivate == false).ToListAsync();
+            return await _context.Questions.Where(q => q.QuestionIsPrivate == false).Include(q => q.DifficultyLevelNavigation).ToListAsync();
         }
         public async Task<IEnumerable<Questions>> GetQuestionsBySubject(string subject)
         {
@@ -59,13 +59,7 @@ namespace exerciseBox.Infrastructur.Repositories
                 s => s.Id,
                 (qt, s) => new { qt.Question, qt.Topic, subject = s }
                 ).Where(qts => qts.subject.Id == subject).
-                Select(qts => qts.Question).ToListAsync();
-
-            foreach (var question in questions)
-            {
-                Console.WriteLine(question.Id);
-                Console.WriteLine(question.QuestionText);
-            }
+                Select(qts => qts.Question).ToListAsync();          
             return questions;
         }
 
