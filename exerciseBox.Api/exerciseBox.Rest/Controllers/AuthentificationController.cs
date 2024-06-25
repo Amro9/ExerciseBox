@@ -18,7 +18,7 @@ namespace exercisebox.rest.controllers;
 
 public class AuthentificationController : BaseController
 {
-    public AuthentificationController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
+    public AuthentificationController(IMediator mediator) : base(mediator)
     {
 
     }
@@ -76,10 +76,6 @@ public class AuthentificationController : BaseController
     {
         try
         {
-            if (!_sessionCommunicator.VerifySessionId())
-                return StatusCode(440, "Ihre Sitzung ist abgelaufen. Bitte melden sie sich erneut an.");
-
-
             var pw = $"{RegisterRequest.Surname}.{RegisterRequest.Givenname}";
 
             var teacher = await _mediator.Send(new CreateTeacher
@@ -88,6 +84,38 @@ public class AuthentificationController : BaseController
             });
 
             return Ok(new { value = teacher });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Während der Registrierung ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.");
+        }
+    }
+
+    [HttpPost("RefreshToken")]
+    public async Task<IActionResult> RefreshToken()
+    {
+        try
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, User.Identity.Name),
+                new Claim(ClaimTypes.Role, "Teacher")
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+
+            return Ok();
         }
         catch (Exception ex)
         {

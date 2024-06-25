@@ -21,7 +21,7 @@ export class SubjectService {
 getAllSubjects(): Observable<Subject[]>{
   let url_ = this.baseUrl + "QuestionParamaters/Subjects";
   console.log('getAllSubjects called');
-  return this.http.get<Subject[]>(url_).pipe(
+  return this.http.get<Subject[]>(url_, { withCredentials: true}).pipe(
     tap(data => console.log('Received subjects:', data)),
     catchError(error => {
       console.error('Error fetching subjects:', error);

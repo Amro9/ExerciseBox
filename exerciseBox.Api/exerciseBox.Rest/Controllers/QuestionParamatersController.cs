@@ -13,7 +13,7 @@ namespace exerciseBox.Rest.Controllers
 {
     public class QuestionParamatersController : BaseController
     {
-        public QuestionParamatersController(IMediator mediator, ISessionCommunicator sessionCommunicator) : base(mediator, sessionCommunicator)
+        public QuestionParamatersController(IMediator mediator) : base(mediator)
         {
         }
         

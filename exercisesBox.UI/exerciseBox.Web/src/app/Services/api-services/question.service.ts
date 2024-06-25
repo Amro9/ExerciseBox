@@ -27,7 +27,7 @@ export class QuestionService {
       }
     }
     console.log('params:', params)
-    return this.http.get<Question[]>(url_, { params: params }).pipe(
+    return this.http.get<Question[]>(url_, { params: params, withCredentials: true }).pipe(
       tap(data => console.log('Received questions:', data)),
       catchError(error => {
         console.error('Error fetching questions:', error);
@@ -46,7 +46,7 @@ export class QuestionService {
 
     let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
 
-    return this.http.get(url_).pipe(
+    return this.http.get(url_, {withCredentials: true}).pipe(
       map((response: any) => {
         const data = response.value // replace 'data' with the actual key in the response object
         return data.map((question: any) => Question.fromJSON(question));

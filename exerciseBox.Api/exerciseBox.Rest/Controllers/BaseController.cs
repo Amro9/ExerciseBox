@@ -14,10 +14,8 @@ namespace exerciseBox.Rest.Controllers;
 public abstract class BaseController : Controller
 {
     protected readonly IMediator _mediator;
-    protected readonly ISessionCommunicator _sessionCommunicator;
-    public BaseController(IMediator mediator, ISessionCommunicator sessionCommunicator)
+    public BaseController(IMediator mediator)
     {
         _mediator = mediator;
-        _sessionCommunicator = sessionCommunicator;
     }
 }
