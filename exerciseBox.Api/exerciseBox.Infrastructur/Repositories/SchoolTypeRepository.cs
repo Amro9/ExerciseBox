@@ -51,6 +51,12 @@ namespace exerciseBox.Infrastructur.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<int> ReadIdByTeacher(string teacherId)
+        {
+            var school = await _context.Teachers.Where(t => t.Email == teacherId).Select(s => s.School).FirstOrDefaultAsync();
+            return await _context.Schools.Where(s => s.Email == school).Select(s => s.SchoolType).FirstOrDefaultAsync();
+        }
+
         /// <summary>
         /// Aktualisiert einen Schultyp in der Datenbank (nicht implementiert).
         /// </summary>

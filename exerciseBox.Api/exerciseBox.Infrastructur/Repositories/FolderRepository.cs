@@ -19,9 +19,11 @@ namespace exerciseBox.Infrastructure.Repositories
         /// <summary>
         /// Erstellt einen neuen Ordner in der Datenbank (nicht implementiert).
         /// </summary>
-        public Task<Folders> CreateAsync(Folders entity)
+        public async Task<Folders> CreateAsync(Folders entity)
         {
-            throw new NotImplementedException();
+            var folder = await _context.Folders.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return folder.Entity;
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.Services.Interface;
 using exerciseBox.Application.Services.Models;
+using exerciseBox.Application.UseCases.Folder.Commands;
 using exerciseBox.Application.UseCases.Folder.Queries;
 using exerciseBox.Application.UseCases.Subject.Queries;
 using exerciseBox.Application.UseCases.Teacher.Queries;
@@ -106,6 +107,20 @@ namespace exerciseBox.Rest.Controllers
             {
                 var subjects = await _mediator.Send(new GetTeachersSubjects { TeacherId = id });
                 return Ok(new { value = subjects });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        [HttpPost("NewFolder")]
+        public async Task<IActionResult> CreateNewFolder([FromBody] FolderDto folder)
+        {
+            try
+            {
+                await _mediator.Send(new CreateFolder { Folder = folder });
+                return Ok();
             }
             catch (Exception ex)
             {

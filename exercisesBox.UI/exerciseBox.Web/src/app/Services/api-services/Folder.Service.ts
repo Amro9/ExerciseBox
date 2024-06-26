@@ -30,4 +30,15 @@ export class FolderService{
             return [] as Folder[];
         }
     }
+
+    public async createNewFolder(folder : Folder): Promise<boolean> {
+        let url_ = this.baseUrl + "Teacher/NewFolder";
+        try {
+            const response: any = await this.http.post(url_, folder, { headers: this.headers, withCredentials: true }).toPromise();
+            return true;
+        } catch (error) {
+            console.error('Error creating folder:', error);
+            return false;
+        }
+    }
 }
