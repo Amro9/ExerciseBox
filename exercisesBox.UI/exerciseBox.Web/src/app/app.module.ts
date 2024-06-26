@@ -23,6 +23,7 @@ import { SessionStorageProvider } from "./Services/SessionProvider";
 import { FilterFormularComponent } from "./Components/questions-pool-components/filter-formular/filter-formular.component";
 import { FoldersPopupComponent } from "./Components/questions-pool-components/folders-popup/folders-popup.component";
 import { QuestionListComponent } from "./Components/questions-pool-components/question-list/question-list.component";
+import { HideQuestionPopupComponent } from "./Components/questions-pool-components/hide-question-popup/hide-question-popup.component";
 import { AuthGuard } from "./Services/AuthGuard";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
@@ -33,6 +34,7 @@ import { AuthGuard } from "./Services/AuthGuard";
         QuestionsPoolComponent,
         FilterFormularComponent,
         FoldersPopupComponent,
+        HideQuestionPopupComponent,
         QuestionListComponent,
         routingComponents
     ],

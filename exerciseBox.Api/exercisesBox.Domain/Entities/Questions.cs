@@ -43,5 +43,7 @@ public partial class Questions
 
     public virtual SchoolTypes SchoolTypeNavigation { get; set; }
 
+    public virtual ICollection<TeachersHiddenQuestions> TeachersHiddenQuestions { get; set; } = new List<TeachersHiddenQuestions>();
+
     public virtual Topics TopicNavigation { get; set; }
 }

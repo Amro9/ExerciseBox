@@ -13,11 +13,11 @@ public partial class ExercisesBoxContext : DbContext
     {
     }
 
+    public virtual DbSet<BranchesSubjectsJunction> BranchesSubjectsJunction { get; set; }
+
     public virtual DbSet<ExerciseSheetQuestionJunction> ExerciseSheetQuestionJunction { get; set; }
 
     public virtual DbSet<ExerciseSheets> ExerciseSheets { get; set; }
-
-    public virtual DbSet<BranchesSubjectsJunction> BranchesSubjectsJunction { get; set; }
 
     public virtual DbSet<Folders> Folders { get; set; }
 
@@ -44,6 +44,8 @@ public partial class ExercisesBoxContext : DbContext
     public virtual DbSet<Subjects> Subjects { get; set; }
 
     public virtual DbSet<Teachers> Teachers { get; set; }
+
+    public virtual DbSet<TeachersHiddenQuestions> TeachersHiddenQuestions { get; set; }
 
     public virtual DbSet<TeachersSchoolLevelsJunction> TeachersSchoolLevelsJunction { get; set; }
 
@@ -487,6 +489,36 @@ public partial class ExercisesBoxContext : DbContext
                 .HasConstraintName("FK_Teachers_Schools");
         });
 
+        modelBuilder.Entity<TeachersHiddenQuestions>(entity =>
+        {
+            entity.ToTable("teachersHiddenQuestions");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("id");
+            entity.Property(e => e.QuestionId)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("questionId");
+            entity.Property(e => e.TeacherId)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("teacherId");
+
+            entity.HasOne(d => d.Question).WithMany(p => p.TeachersHiddenQuestions)
+                .HasForeignKey(d => d.QuestionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_teachersHiddenQuestions_Questions");
+
+            entity.HasOne(d => d.Teacher).WithMany(p => p.TeachersHiddenQuestions)
+                .HasForeignKey(d => d.TeacherId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_teachersHiddenQuestions_Teachers");
+        });
+
         modelBuilder.Entity<TeachersSchoolLevelsJunction>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Teachers__3213E83F9B0C3F1A");
@@ -577,61 +609,6 @@ public partial class ExercisesBoxContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_topics_Subject");
         });
-
-        modelBuilder.Entity<ExerciseSheetQuestionJunction>(entity =>
-        {
-            entity.Property(e => e.Id)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("id");
-            entity.Property(e => e.ExerciseSheet)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("exerciseSheet");
-            entity.Property(e => e.Question)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("question");
-
-            entity.HasOne(d => d.ExerciseSheetNavigation).WithMany(p => p.ExerciseSheetQuestionJunction)
-                .HasForeignKey(d => d.ExerciseSheet)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ExerciseSheetQuestionJunction_ExerciseSheets");
-        });
-
-        modelBuilder.Entity<ExerciseSheets>(entity =>
-        {
-            entity.Property(e => e.Id)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("id");
-            entity.Property(e => e.ClassNumberPlaceHolder).HasColumnName("classNumberPlaceHolder");
-            entity.Property(e => e.ClassNumberText)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("classNumberText");
-            entity.Property(e => e.DatePlaceHolder).HasColumnName("datePlaceHolder");
-            entity.Property(e => e.MarkPlaceHolder).HasColumnName("markPlaceHolder");
-            entity.Property(e => e.NamePlaceHolder).HasColumnName("namePlaceHolder");
-            entity.Property(e => e.SubjectPlaceHolder).HasColumnName("subjectPlaceHolder");
-            entity.Property(e => e.Teacher)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("teacher");
-            entity.Property(e => e.Tilte)
-                .IsRequired()
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("tilte");
-            entity.Property(e => e.Topic)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("topic");
-        });
-
 
         OnModelCreatingPartial(modelBuilder);
     }

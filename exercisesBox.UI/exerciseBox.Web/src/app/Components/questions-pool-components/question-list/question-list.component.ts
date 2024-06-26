@@ -9,12 +9,12 @@ import { Question } from  '../../../Entities/Question';
 export class QuestionListComponent {
   @Input() questions: Question[] = [];
   @Output() showFolders = new EventEmitter<{ questionId: string, event: MouseEvent }>();
-  @Output() hideQuestion = new EventEmitter<void>();
+  @Output() hideQuestion = new EventEmitter<{ questionId: string, event: MouseEvent }>();
 
   onShowFoldersList(event: MouseEvent, questionId: string) {
     this.showFolders.emit({ questionId, event });
   }
-  onHideQuestion() {
-    this.hideQuestion.emit();
+  showHideQuestionPopUp(event: MouseEvent, questionId: string) {
+    this.hideQuestion.emit({ questionId, event });
   }
 }

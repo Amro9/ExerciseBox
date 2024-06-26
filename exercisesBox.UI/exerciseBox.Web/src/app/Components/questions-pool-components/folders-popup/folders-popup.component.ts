@@ -38,6 +38,8 @@ export class FoldersPopupComponent implements OnChanges {
   saveQuestion(folderId: string) {
     if (!this.folderQuestionMap[folderId]) {
       this.save.emit(folderId);
+      // Immediately mark the folder as having the question (optimistic update)
+      this.folderQuestionMap[folderId] = true;
     }
   }
 

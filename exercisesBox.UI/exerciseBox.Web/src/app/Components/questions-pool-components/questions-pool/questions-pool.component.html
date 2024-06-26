@@ -17,6 +17,13 @@
       (save) = "saveQuestion($event)"
       (close) = "showFolderList = false"
       ></app-folders-popup>
+      <app-hide-question-popup [popupTop]="popupTop"
+      [popupLeft]="popupLeft"
+      [showHideConfirm]="showHideConfirm"
+      (hideQuestion)="hideQuestion()"
+      >
+
+      </app-hide-question-popup>
     </div>
   </div>
   

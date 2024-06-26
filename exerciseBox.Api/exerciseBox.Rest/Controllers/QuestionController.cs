@@ -80,19 +80,14 @@ namespace exerciseBox.Rest.Controllers
                 return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
             }
         }
-
-        //[HttpGet("publicQuestions")]
-        //public async Task<IEnumerable<QuestionDto>> GetPublicQuestions()
-        //{
-        //    try
-        //    {
-        //           return await _mediator.Send(new GetAllPublicQuestions());
-        //    }catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //        return null;
-        //}
+        [HttpPut("hideQuestion")]
+        public async Task<IActionResult> HideQuestion([FromBody] HideQuestionRequest request)
+        {
+            // Hier Logik zum Ausblenden der Frage basierend auf request.Days
+            // Beispiel: this.questionService.HideQuestion(questionId, request.Days);
+            bool isHidden = await _mediator.Send(new HideQuestionByTeacher (request.QuestionId , request.TeacherId));
+            return Ok(new { message = "Frage erfolgreich ausgeblendet." });
+        }
 
         [HttpGet("folderQuestions/{folderId}")]
         public async Task<IActionResult> GetFolderQuestions(string folderId)

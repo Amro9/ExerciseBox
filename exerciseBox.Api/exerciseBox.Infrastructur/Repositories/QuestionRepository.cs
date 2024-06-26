@@ -24,6 +24,7 @@ namespace exerciseBox.Infrastructur.Repositories
             return null;
 
         }
+        
         public async Task<int> SaveQuestionToFolder(string junctionId, string folderId, string questionId)
         {
             
@@ -78,6 +79,28 @@ namespace exerciseBox.Infrastructur.Repositories
             return questions;
         }
 
+        public async Task<bool> HideQuestion(string teacherId, string questionId)
+        {
+            try { 
+            var questionToHide = new TeachersHiddenQuestions
+            {
+                TeacherId = teacherId,
+                QuestionId = questionId,
+            };
+            _context.TeachersHiddenQuestions.Add(questionToHide);
+            _context.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> IsQuestionHidden(string teacherId, string questionId)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task<Questions> ReadByIdAsync(Guid id)
         {
@@ -88,5 +111,6 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             throw new NotImplementedException();
         }
+
     }
 }
