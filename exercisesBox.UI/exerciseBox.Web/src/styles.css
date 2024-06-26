@@ -13,3 +13,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;    backgrou
   background-color: #4caf50 !important;
   color: #fff !important;
 }
+
+
+.circle-btn {
+  display: inline-block;
+  width: 40px; /* Beispiel: Breite erhöht auf 40px */
+  height: 40px; /* Beispiel: Höhe erhöht auf 40px */
+  background-color: #ccc;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px; /* Vertikal zentrieren */
+}
+
+.circle-btn i {
+  color: white;
+  font-size: 20px; /* Beispiel: Größe des Icons im Kreis */
+}
