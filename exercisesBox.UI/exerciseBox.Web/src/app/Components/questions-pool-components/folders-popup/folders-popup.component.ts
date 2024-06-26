@@ -1,13 +1,13 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Folder } from '../../../Entities/Folder';
 import { QuestionService } from '../../../Services/api-services/question.service';
 
 @Component({
   selector: 'app-folders-popup',
   templateUrl: './folders-popup.component.html',
-  styleUrls: ['./folders-popup.component.css'] // Korrigiert zu styleUrls
+  styleUrls: ['./folders-popup.component.css']
 })
-export class FoldersPopupComponent implements OnInit {
+export class FoldersPopupComponent implements OnChanges {
   @Input() folders: Folder[] = [];
   @Input() popupTop: string = '';
   @Input() popupLeft: string = '';
@@ -20,8 +20,11 @@ export class FoldersPopupComponent implements OnInit {
 
   constructor(private questionService: QuestionService) {}
 
-  ngOnInit() {
-    this.checkQuestionsInFolders();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['questionId'] && this.questionId) {
+      console.log("questionId has changed:", this.questionId);
+      this.checkQuestionsInFolders();
+    }
   }
 
   checkQuestionsInFolders() {

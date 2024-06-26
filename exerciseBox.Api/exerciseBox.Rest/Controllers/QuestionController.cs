@@ -19,7 +19,6 @@ namespace exerciseBox.Rest.Controllers
             
         }
         [HttpPost("saveQuestionToFolder")]
-        [AllowAnonymous]
         public async Task<IActionResult> SaveQuestionToFolder([FromBody] SaveQuestionToFolderRequest request)
         {
             try

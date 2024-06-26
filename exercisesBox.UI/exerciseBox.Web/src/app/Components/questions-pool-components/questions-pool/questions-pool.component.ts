@@ -66,11 +66,19 @@ export class QuestionsPoolComponent {
     this.showFolderList = false;
 
     this.questionService.saveQuestionToFolder(this.selectedQuestionId, folderId).subscribe({
-      next: (data) => console.log('Question saved:', data),
+      next: (data) => {
+        console.log('Question saved:', data);
+        this.updateFoldersPopup();
+      },
       error: (error: string) => console.error('Error saving question:', error)
     });
   }
-
+  updateFoldersPopup() {
+    const foldersPopupComponent = this.elementRef.nativeElement.querySelector('app-folders-popup');
+    if (foldersPopupComponent) {
+      foldersPopupComponent.checkQuestionsInFolders();
+    }
+  }
   hideQuestion() {
     console.log('Frage wird ausgeblendet.');
   }

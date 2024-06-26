@@ -7,7 +7,7 @@
           (click)="saveQuestion(folder.id)" 
           [ngClass]="{'disabled': folderQuestionMap[folder.id]}" 
           [style.pointerEvents]="folderQuestionMap[folder.id] ? 'none' : 'auto'">
-        {{ folder.name }} <span *ngIf="folderQuestionMap[folder.id]" class="text-muted">(Bereits gespeichert)</span>
+        {{ folder.name }} <span *ngIf="folderQuestionMap[folder.id]" class="text-muted">(Frage bereits in diesem Ordner gespeichert)</span>
       </li>
     </ul>
   </div>
