@@ -6,7 +6,7 @@ select{
 }
 .sidebar {
     position: fixed;
-    top: 56px;
+    top: 75px;
     bottom: 0;
     left: 0;
     width: 16%;
