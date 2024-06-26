@@ -2,44 +2,69 @@
 using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace exerciseBox.Infrastructur.Repositories;
-
-public class FolderRepository : IFolderRepository
+namespace exerciseBox.Infrastructure.Repositories
 {
-    private readonly ExercisesBoxContext _context;
-
-    public FolderRepository(ExercisesBoxContext exercisesBoxContext)
+    /// <summary>
+    /// Implementierung des IFolderRepository-Interfaces für Datenbankoperationen bezüglich Ordner.
+    /// </summary>
+    public class FolderRepository : IFolderRepository
     {
-        _context = exercisesBoxContext;
-    }
+        private readonly ExercisesBoxContext _context;
 
-    public Task<Folders> CreateAsync(Folders entity)
-    {
-        throw new NotImplementedException();
-    }
+        public FolderRepository(ExercisesBoxContext exercisesBoxContext)
+        {
+            _context = exercisesBoxContext;
+        }
 
-    public Task<Folders> DeleteAsync(Folders entity)
-    {
-        throw new NotImplementedException();
-    }
+        /// <summary>
+        /// Erstellt einen neuen Ordner in der Datenbank (nicht implementiert).
+        /// </summary>
+        public Task<Folders> CreateAsync(Folders entity)
+        {
+            throw new NotImplementedException();
+        }
 
-    public async Task<IEnumerable<Folders>> GetFoldersByTeacherId(string id)
-    {
-        return await _context.Folders.Where(f => f.Teacher == id).Include(f => f.TopicNavigation).ToListAsync();
-    }
+        /// <summary>
+        /// Löscht einen Ordner aus der Datenbank (nicht implementiert).
+        /// </summary>
+        public Task<Folders> DeleteAsync(Folders entity)
+        {
+            throw new NotImplementedException();
+        }
 
-    public Task<IEnumerable<Folders>> ReadAsync()
-    {
-        throw new NotImplementedException();
-    }
+        /// <summary>
+        /// Liest alle Ordner eines Lehrers aus der Datenbank.
+        /// </summary>
+        public async Task<IEnumerable<Folders>> GetFoldersByTeacherId(string id)
+        {
+            return await _context.Folders
+                .Where(f => f.Teacher == id)
+                .Include(f => f.TopicNavigation)
+                .ToListAsync();
+        }
 
-    public Task<Folders> ReadByIdAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+        /// <summary>
+        /// Liest alle Ordner aus der Datenbank (nicht implementiert).
+        /// </summary>
+        public Task<IEnumerable<Folders>> ReadAsync()
+        {
+            throw new NotImplementedException();
+        }
 
-    public Task<Folders> UpdateAsync(Folders entity)
-    {
-        throw new NotImplementedException();
+        /// <summary>
+        /// Liest einen Ordner anhand seiner ID aus der Datenbank (nicht implementiert).
+        /// </summary>
+        public Task<Folders> ReadByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Aktualisiert einen Ordner in der Datenbank (nicht implementiert).
+        /// </summary>
+        public Task<Folders> UpdateAsync(Folders entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -23,7 +23,6 @@ namespace exerciseBox.Rest.Controllers
         /// Initialisiert eine neue Instanz der <see cref="SchoolController"/> Klasse.
         /// </summary>
         /// <param name="mediator">Der MediatR-Mediator.</param>
-        /// <param name="sessionCommunicator">Der Sitzungs-Kommunikator.</param>
         public SchoolController(IMediator mediator) : base(mediator)
         {
         }

@@ -1,13 +1,18 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace exerciseBox.Application.UseCases.SchoolLevels.Queries
 {
-    public class GetAllSchoolLevels: IRequest<IEnumerable<int>>
+    /// <summary>
+    /// Query zur Abfrage aller Schulstufen.
+    /// </summary>
+    public class GetAllSchoolLevels : IRequest<IEnumerable<int>>
     {
+        /// <summary>
+        /// Konstruktor für die Initialisierung eines neuen Objekts der Klasse GetAllSchoolLevels.
+        /// </summary>
+        public GetAllSchoolLevels()
+        {
+            // Keine weiteren Parameter benötigt.
+        }
     }
 }

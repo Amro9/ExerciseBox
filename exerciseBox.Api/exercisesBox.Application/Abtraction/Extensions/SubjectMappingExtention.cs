@@ -16,7 +16,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
         /// </summary>
         /// <param name="subjects">Die Sammlung der <see cref="Subjects"/>.</param>
         /// <returns>Eine Sammlung von <see cref="SubjectDto"/>.</returns>
-        public static IEnumerable<SubjectDto> MaptToSubjectDto(this IEnumerable<Subjects> subjects)
+        public static IEnumerable<SubjectDto> MapToSubjectDto(this IEnumerable<Subjects> subjects)
         {
             return subjects.Select(s => new SubjectDto
             {

@@ -2,34 +2,47 @@
 using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Application.UseCases.Schools.Queries;
-using exerciseBox.Application.UseCases.Teacher.Queries;
-using exerciseBox.Domain.Entities;
 using MediatR;
 
-namespace exerciseBox.Application.UseCases.Schools.QueryHandlers;
-
-public class GetSchoolWithPasswordValidationHandler : IRequestHandler<GetSchoolWithPasswordValidation, SchoolDto>
+namespace exerciseBox.Application.UseCases.Schools.QueryHandlers
 {
-    private readonly ISchoolRepository _schoolRepository;
-
-    public GetSchoolWithPasswordValidationHandler(ISchoolRepository schoolRepository)
+    /// <summary>
+    /// Handler zur Validierung von Schulen anhand der E-Mail-Adresse und des Passworts.
+    /// </summary>
+    public class GetSchoolWithPasswordValidationHandler : IRequestHandler<GetSchoolWithPasswordValidation, SchoolDto>
     {
-        _schoolRepository = schoolRepository;
-    }
-    public async Task<SchoolDto> Handle(GetSchoolWithPasswordValidation request, CancellationToken cancellationToken)
-    {
-        var school = await _schoolRepository.ReadByEmail(request.SchoolId);
+        private readonly ISchoolRepository _schoolRepository;
 
-        if (school == null)
+        /// <summary>
+        /// Konstruktor für den GetSchoolWithPasswordValidationHandler.
+        /// </summary>
+        /// <param name="schoolRepository">Das Repository, das für die Datenbankoperationen mit Schulen verwendet wird.</param>
+        public GetSchoolWithPasswordValidationHandler(ISchoolRepository schoolRepository)
         {
-            return null;
+            _schoolRepository = schoolRepository ?? throw new ArgumentNullException(nameof(schoolRepository));
         }
 
-        if (!request.Password.VerifyPassword(school.Password))
+        /// <summary>
+        /// Verarbeitet den Query zur Validierung einer Schule anhand der E-Mail-Adresse und des Passworts.
+        /// </summary>
+        /// <param name="request">Der Query zur Validierung der Schule.</param>
+        /// <param name="cancellationToken">Das Abbruchtoken.</param>
+        /// <returns>Das SchoolDto-Objekt der validierten Schule oder null, falls die Schule nicht gefunden wurde oder das Passwort ungültig ist.</returns>
+        public async Task<SchoolDto> Handle(GetSchoolWithPasswordValidation request, CancellationToken cancellationToken)
         {
-            throw new UnauthorizedAccessException("Invalid password");
-        }
+            var school = await _schoolRepository.ReadByEmail(request.Email);
 
-        return school;
+            if (school == null)
+            {
+                return null;
+            }
+
+            if (!request.Password.VerifyPassword(school.Password))
+            {
+                throw new UnauthorizedAccessException("Invalid password");
+            }
+
+            return school;
+        }
     }
 }

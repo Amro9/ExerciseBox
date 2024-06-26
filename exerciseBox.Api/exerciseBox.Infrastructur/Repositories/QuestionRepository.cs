@@ -2,9 +2,12 @@
 using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace exerciseBox.Infrastructur.Repositories
+namespace exerciseBox.Infrastructure.Repositories
 {
-    internal class QuestionRepository : IQuestionRepository
+    /// <summary>
+    /// Implementierung des IQuestionRepository-Interfaces für Datenbankoperationen bezüglich Fragen.
+    /// </summary>
+    public class QuestionRepository : IQuestionRepository
     {
         private readonly ExercisesBoxContext _context;
 
@@ -13,21 +16,22 @@ namespace exerciseBox.Infrastructur.Repositories
             _context = context;
         }
 
-        public  async Task<Questions> CreateAsync(Questions entity)
+        /// <summary>
+        /// Erstellt eine neue Frage in der Datenbank.
+        /// </summary>
+        public async Task<Questions> CreateAsync(Questions entity)
         {
-           await _context.Questions.AddAsync(entity);
-            int effectedRows =  await _context.SaveChangesAsync();
-            if (effectedRows > 0)
-            {
-                return entity;
-            }
-            return null;
-
+            await _context.Questions.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
+
+        /// <summary>
+        /// Speichert eine Frage in einem Ordner.
+        /// </summary>
         public async Task<int> SaveQuestionToFolder(string junctionId, string folderId, string questionId)
         {
-            
-             try
+            try
             {
                 _context.Add(new FoldersQuestionsJunction { Id = junctionId, Folder = folderId, Question = questionId });
                 await _context.SaveChangesAsync();
@@ -35,55 +39,86 @@ namespace exerciseBox.Infrastructur.Repositories
             }
             catch (Exception ex)
             {
-               
-                Console.WriteLine($"Error saving question to folder: {ex.Message}");
+                Console.WriteLine($"Fehler beim Speichern der Frage im Ordner: {ex.Message}");
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Löscht eine Frage aus der Datenbank (nicht implementiert).
+        /// </summary>
         public Task<Questions> DeleteAsync(Questions entity)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Ruft alle Fragen anhand einer Liste von Frage-IDs aus der Datenbank ab.
+        /// </summary>
         public async Task<IEnumerable<Questions>> GetAllQuestionsByRangeOfIdsAsync(string[] questionIds)
         {
             return await _context.Questions.Where(q => questionIds.Contains(q.Id.ToString())).ToListAsync();
         }
 
-        public async Task<IEnumerable<Questions>> GetFolderQuestions(string folderid)
+        /// <summary>
+        /// Ruft alle Fragen eines Ordners aus der Datenbank ab.
+        /// </summary>
+        public async Task<IEnumerable<Questions>> GetFolderQuestions(string folderId)
         {
-            var questions = await _context.FoldersQuestionsJunction.Where(fq => fq.Folder == folderid).Select(fq => fq.QuestionNavigation).ToListAsync();
-            return await _context.Questions.Where(q => questions.Contains(q)).Include(q=> q.TopicNavigation).Include(q => q.DifficultyLevelNavigation).ToListAsync();
+            var questionIds = await _context.FoldersQuestionsJunction
+                .Where(fq => fq.Folder == folderId)
+                .Select(fq => fq.Question)
+                .ToListAsync();
+
+            return await _context.Questions
+                .Where(q => questionIds.Contains(q.Id.ToString()))
+                .Include(q => q.TopicNavigation)
+                .Include(q => q.DifficultyLevelNavigation)
+                .ToListAsync();
         }
 
+        /// <summary>
+        /// Liest alle öffentlichen Fragen aus der Datenbank.
+        /// </summary>
         public async Task<IEnumerable<Questions>> ReadAsync()
         {
             return await _context.Questions.Where(q => q.QuestionIsPrivate == false).Include(q => q.DifficultyLevelNavigation).ToListAsync();
         }
-        public async Task<IEnumerable<Questions>> GetQuestionsBySubject(string subject)
+
+        /// <summary>
+        /// Ruft alle Fragen eines bestimmten Themas aus der Datenbank ab.
+        /// </summary>
+        public async Task<IEnumerable<Questions>> GetQuestionsBySubject(string subjectId)
         {
-            var questions =  await _context.Questions
+            var questions = await _context.Questions
                 .Join(
-                _context.Topics,
-                q => q.Topic,
-                t => t.Id,
-                (q, t) => new { Question = q, Topic = t })
+                    _context.Topics,
+                    q => q.Topic,
+                    t => t.Id,
+                    (q, t) => new { Question = q, Topic = t })
                 .Join(
-                _context.Subjects,
-                qt => qt.Topic.Subject,
-                s => s.Id,
-                (qt, s) => new { qt.Question, qt.Topic, subject = s }
-                ).Where(qts => qts.subject.Id == subject).
-                Select(qts => qts.Question).ToListAsync();          
+                    _context.Subjects,
+                    qt => qt.Topic.Subject,
+                    s => s.Id,
+                    (qt, s) => new { qt.Question, qt.Topic, Subject = s })
+                .Where(qts => qts.Subject.Id == subjectId)
+                .Select(qts => qts.Question)
+                .ToListAsync();
+
             return questions;
         }
 
-
+        /// <summary>
+        /// Liest eine Frage anhand ihrer ID aus der Datenbank (nicht implementiert).
+        /// </summary>
         public Task<Questions> ReadByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Aktualisiert eine Frage in der Datenbank (nicht implementiert).
+        /// </summary>
         public Task<Questions> UpdateAsync(Questions entity)
         {
             throw new NotImplementedException();
