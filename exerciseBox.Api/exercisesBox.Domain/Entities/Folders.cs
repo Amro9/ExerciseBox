@@ -15,6 +15,8 @@ public partial class Folders
 
     public string Teacher { get; set; }
 
+    public bool IsCreationFolder { get; set; }
+
     public virtual Teachers TeacherNavigation { get; set; }
 
     public virtual Topics TopicNavigation { get; set; }

@@ -161,6 +161,7 @@ public partial class ExercisesBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
+            entity.Property(e => e.IsCreationFolder).HasColumnName("isCreationFolder");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
@@ -180,7 +181,8 @@ public partial class ExercisesBoxContext : DbContext
             entity.HasOne(d => d.TopicNavigation).WithMany(p => p.Folders)
                 .HasForeignKey(d => d.Topic)
                 .HasConstraintName("FK_Folders_Topics");
-        });
+        });   
+
 
         modelBuilder.Entity<FoldersQuestionsJunction>(entity =>
         {

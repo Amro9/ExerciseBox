@@ -40,6 +40,7 @@ namespace exerciseBox.Infrastructure.Repositories
             return await _context.Folders
                 .Where(f => f.Teacher == id)
                 .Include(f => f.TopicNavigation)
+                .ThenInclude(t => t.SubjectNavigation)
                 .ToListAsync();
         }
 

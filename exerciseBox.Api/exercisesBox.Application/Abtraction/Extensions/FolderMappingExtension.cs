@@ -7,22 +7,12 @@ public static class FolderMappingExtension
 {
     public static IEnumerable<FolderDto> MapToFolderDto(this IEnumerable<Folders> folders)
     {
-        return folders.Select(f => new FolderDto
-        {
-            Id = f.Id,
-            Name = f.Name,
-            TopicId = f.Topic,
-        });
+        return folders.Select(f => (FolderDto)f );
     }
 
     public static IEnumerable<Folders> MapToFolders(this IEnumerable<FolderDto> folders)
     {
-        return folders.Select(f => new Folders
-        {
-            Id = f.Id,
-            Name = f.Name,
-            Topic = f.TopicId,
-        });
+        return folders.Select(f => (Folders)f );
     }
     
 }

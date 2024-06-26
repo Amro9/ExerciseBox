@@ -6,7 +6,7 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Entities",
+   "OutputPath": "Entitiesd",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "exerciseBox.Domain",
    "Schemas": null,
@@ -15,83 +15,7 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[BranchesSubjectsJunction]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ExerciseSheetQuestionJunction]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ExerciseSheets]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Folders]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[FoldersQuestionsJunction]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[QuestionDifficultyLevels]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Questions]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SchoolBranches]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SchoolLevels]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Schools]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SchoolsBranchesJunction]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SchoolsSubjectsJunction]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SchoolTypes]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SchoolTypesLevelsJunction]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Subjects]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Teachers]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[teachersHiddenQuestions]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[TeachersSchoolLevelsJunction]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[TeachersSubjectsJunction]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Topics]",
          "ObjectType": 0
       }
    ],

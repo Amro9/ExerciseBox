@@ -3,24 +3,33 @@
 
     </div>
     <div class="row">
+        <select class="form-select form-select-sm" [(ngModel)]="selectedSubject" (ngModelChange)="onSubjectChange()">
+            <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
+        </select>
+    </div>
+    <div class="row" style="margin-top: 2%;">
         <div class="col-10">
             <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
-                <option *ngFor="let folder of Folders" [ngValue]="folder">{{ folder.name }}</option>
+                <option *ngFor="let folder of DisplayedFolders" [ngValue]="folder">{{ folder.name }}</option>
             </select>
         </div>
         <div class="col-2">
             <button class="btn btn-primary"></button>
         </div>
     </div>
+   
     <div class="row">
-        <div *ngIf="true">
-            <div *ngFor="let question of selectedFolder.Questions">
-                <div class="row" style="margin-top: 2%;">
-                    <div class="col-11">
-                        <app-question [Question]="question" style="width: 100%;"></app-question>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-question-list [questions]="selectedFolder.Questions" (showFolders)="showFoldersList($event)"></app-question-list>
     </div>
+
+    <app-folders-popup
+    [folders]="Folders"
+    [popupTop]="popupTop"
+    [popupLeft]="popupLeft"
+    [questionId]="selectedQuestionId"
+    [showFolderList]="showFolderList"
+
+    (save) = "saveQuestion($event)"
+    (close) = "showFolderList = false"
+    ></app-folders-popup>
 </div>

@@ -26,7 +26,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   SelectedQuestions : Question[] = [];  
   Folders! : Folder[];
   DisplayedFolders! : Folder[];
-  selectedFolder : Folder = new Folder("0", "Select a folder", new Topic ("0", "Select a topic", new Subject("", "", "")));
+  selectedFolder : Folder = new Folder("0", "Select a folder", new Topic ("0", "Select a topic", new Subject("", "", "")), false);
   selectedSubject : Subject = new Subject("", "", "");
 
   Subjects : Subject[] = [];
