@@ -10,6 +10,9 @@ import { Roles } from '../../Infrastucture/enums';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+onLogout() {
+throw new Error('Method not implemented.');
+}
 
   constructor(public authService: AuthentificationService) { }
 
