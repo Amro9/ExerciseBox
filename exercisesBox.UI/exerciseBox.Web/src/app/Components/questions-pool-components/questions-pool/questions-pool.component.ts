@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Folder } from '../../../Entities/Folder';
 import { FolderService } from '../../../Services/api-services/Folder.Service';
 import { QuestionService } from '../../../Services/api-services/question.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-questions-pool',
@@ -18,15 +19,19 @@ export class QuestionsPoolComponent {
   popupLeft!: string;
   selectedQuestionId: string = '';
 
+  userEmail! : string;
+
   constructor(
     private fb: FormBuilder,
     private questionService: QuestionService,
     private folderService: FolderService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private cookieService: CookieService 
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.Folders = await this.folderService.getFoldersOfTeacher("1@2.com");
+    this.userEmail = this.cookieService.get("userEmail");
+    this.Folders = await this.folderService.getFoldersOfTeacher(this.userEmail);
   }
 
   submitSearch(searchParams: any) {

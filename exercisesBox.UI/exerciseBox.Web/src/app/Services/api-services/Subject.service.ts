@@ -19,7 +19,7 @@ export class SubjectService {
 } 
 
 getAllSubjects(): Observable<Subject[]>{
-  let url_ = this.baseUrl + "QuestionParamaters/Subjects";
+  let url_ = this.baseUrl + "QuestionParameters/Subjects";
   console.log('getAllSubjects called');
   return this.http.get<Subject[]>(url_, {withCredentials: true}).pipe(
     tap(data => console.log('Received subjects:', data)),

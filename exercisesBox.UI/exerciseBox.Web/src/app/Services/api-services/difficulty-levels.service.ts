@@ -15,7 +15,7 @@ export class DifficultyLevelsService {
     this.baseUrl = baseUrl;
 } 
 getDifficultyLevels(): Observable<DifficultyLevel[]> {
-  let url_ =  this.baseUrl+ 'QuestionParamaters/GetDifficultyLevels';
+  let url_ =  this.baseUrl+ 'QuestionParameters/GetDifficultyLevels';
 
   return this.http.get<DifficultyLevel[]>(url_,{withCredentials: true});
 }

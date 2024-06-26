@@ -16,7 +16,7 @@ export class TopicService {
 
 } 
 getTopicsBySubject(subjectId: string): Observable<any> {
-  let url_ = this.baseUrl +"QuestionParamaters/GetTopicBySubject/"+subjectId;
+  let url_ = this.baseUrl +"QuestionParameters/GetTopicBySubject/"+subjectId;
 
   return this.http.get<any>(url_, {withCredentials: true});
 }
