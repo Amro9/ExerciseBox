@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light ">
+<nav class="navbar navbar-expand-lg navbar-light" style="padding: 0; height: 70px;">
   <a class="navbar-brand" href="#">ExerciseBox</a>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <div class="d-flex justify-content-between w-100">
+  <div class="collapse navbar-collapse" id="navbarNav" style="height: 100%;">
+    <div class="d-flex justify-content-between w-100" style="height: 100%;">
       <!-- Conditional rendering of the navigation links -->
-      <div *ngIf="userIsLoggedIn() && userIsTeacher(); else loginLink">
+      <div *ngIf="userIsLoggedIn() && userIsTeacher(); else loginLink" style="height: 100%;">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" routerLink="/questionForm" routerLinkActive="active">Question Parameters</a>
@@ -24,11 +24,19 @@
         </ul>
       </div>
       <!-- Placeholder for the login link when the user is not logged in -->
-      <ng-template #loginLink>
+      <ng-template id="auth" #loginLink>
         <div class="d-flex align-items-center justify-content-end" style="width: 100%; margin-right: 2%;">
           <a class="nav-link" routerLink="/login" routerLinkActive="active">Anmelden</a>
         </div>
       </ng-template>
+      <div id="auth" class="d-flex" *ngIf="userIsLoggedIn()">
+        <div  class="d-flex align-items-center justify-content-end" style="width: auto;">
+          <a class="nav-link" (click)="onLogout()">Abmelden</a>
+        </div>
+        <div class="d-flex align-items-center justify-content-end" style="width: auto;">
+          ad
+        </div>
+      </div> 
     </div>
   </div>
 </nav>
