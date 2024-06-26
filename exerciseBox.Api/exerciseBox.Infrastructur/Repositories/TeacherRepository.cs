@@ -1,52 +1,89 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace exerciseBox.Infrastructur.Repositories;
-
-public class TeacherRepository : ITeacherRepository
+namespace exerciseBox.Infrastructur.Repositories
 {
-    private readonly ExercisesBoxContext _context;
-
-    public TeacherRepository(ExercisesBoxContext context)
+    /// <summary>
+    /// Implementierung des ITeacherRepository-Interfaces für die Datenbankoperationen bezüglich Lehrer.
+    /// </summary>
+    public class TeacherRepository : ITeacherRepository
     {
-        _context = context;
-    }
+        private readonly ExercisesBoxContext _context;
 
-    public async Task<Teachers> CreateAsync(Teachers entity)
-    {
-        var teacher = await _context.Teachers.AddAsync(entity);
-        await _context.SaveChangesAsync();
-        return teacher.Entity;
-    }
+        public TeacherRepository(ExercisesBoxContext context)
+        {
+            _context = context;
+        }
 
-    public Task<Teachers> DeleteAsync(Teachers entity)
-    {
-        throw new NotImplementedException();
-    }
+        /// <summary>
+        /// Erstellt einen neuen Lehrer in der Datenbank.
+        /// </summary>
+        public async Task<Teachers> CreateAsync(Teachers entity)
+        {
+            var teacher = await _context.Teachers.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return teacher.Entity;
+        }
 
-    public async Task<IEnumerable<Teachers>> ReadAsync()
-    {
-        return await _context.Teachers.Include(x => x.SchoolNavigation).ThenInclude(x => x.SchoolTypeNavigation).ToListAsync();
-    }
+        /// <summary>
+        /// Löscht einen Lehrer (nicht implementiert).
+        /// </summary>
+        public Task<Teachers> DeleteAsync(Teachers entity)
+        {
+            throw new NotImplementedException();
+        }
 
-    public async Task<Teachers> ReadByEmailAsync(string email)
-    {
-        return await _context.Teachers.Include(x => x.SchoolNavigation).ThenInclude(x => x.SchoolTypeNavigation).FirstOrDefaultAsync(x => x.Email == email);
-    }
+        /// <summary>
+        /// Liest alle Lehrer aus der Datenbank und schließt die Navigationseigenschaften zu Schule und Schultyp ein.
+        /// </summary>
+        public async Task<IEnumerable<Teachers>> ReadAsync()
+        {
+            return await _context.Teachers
+                .Include(t => t.SchoolNavigation) // Schließt die Navigationseigenschaft zur Schule ein
+                    .ThenInclude(s => s.SchoolTypeNavigation) // Schließt die Navigationseigenschaft zum Schultyp der Schule ein
+                .ToListAsync();
+        }
 
-    public Task<Teachers> ReadByIdAsync(string id)
-    {
-        throw new NotImplementedException();
-    }
+        /// <summary>
+        /// Liest einen Lehrer anhand seiner E-Mail-Adresse aus der Datenbank und schließt die Navigationseigenschaften zu Schule und Schultyp ein.
+        /// </summary>
+        public async Task<Teachers> ReadByEmailAsync(string email)
+        {
+            return await _context.Teachers
+                .Include(t => t.SchoolNavigation) // Schließt die Navigationseigenschaft zur Schule ein
+                    .ThenInclude(s => s.SchoolTypeNavigation) // Schließt die Navigationseigenschaft zum Schultyp der Schule ein
+                .FirstOrDefaultAsync(t => t.Email == email);
+        }
 
-    public async Task<IEnumerable<Teachers>> ReadBySchoolIdAsync(string schoolId)
-    {
-        return await _context.Teachers.Where(x => x.School == schoolId).ToListAsync();
-    }
+        /// <summary>
+        /// Liest einen Lehrer anhand seiner ID aus der Datenbank (nicht implementiert).
+        /// </summary>
+        public Task<Teachers> ReadByIdAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
 
-    public Task<Teachers> UpdateAsync(Teachers entity)
-    {
-        throw new NotImplementedException();
+        /// <summary>
+        /// Liest alle Lehrer einer bestimmten Schule aus der Datenbank.
+        /// </summary>
+        public async Task<IEnumerable<Teachers>> ReadBySchoolIdAsync(string schoolId)
+        {
+            return await _context.Teachers
+                .Where(t => t.School == schoolId)
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Aktualisiert einen Lehrer (nicht implementiert).
+        /// </summary>
+        public Task<Teachers> UpdateAsync(Teachers entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

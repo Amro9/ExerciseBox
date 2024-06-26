@@ -1,11 +1,16 @@
-﻿
-
-using exerciseBox.Application.Abtraction.Repositories;
+﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace exerciseBox.Infrastructur.Repositories
 {
+    /// <summary>
+    /// Implementierung des ISubjectRepository-Interfaces für die Datenbankoperationen bezüglich Schulfächern.
+    /// </summary>
     internal class SubjectRepository : ISubjectRepository
     {
         private readonly ExercisesBoxContext _context;
@@ -14,34 +19,62 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             _context = context;
         }
+
+        /// <summary>
+        /// Erstellt ein neues Schulfach in der Datenbank (nicht implementiert).
+        /// </summary>
         public Task<Subjects> CreateAsync(Subjects entity)
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Löscht ein Schulfach in der Datenbank (nicht implementiert).
+        /// </summary>
         public Task<Subjects> DeleteAsync(Subjects entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Subjects>> GetSubjectsByTeacherId(string id)
-        {
-            var subjectIds = await _context.TeachersSubjectsJunction.Where(x => x.Teacher == id).Select(x => x.Subject).ToListAsync();
-            return await _context.Subjects.Where(x => subjectIds.Contains(x.Id)).ToListAsync();
-        }
-
+        /// <summary>
+        /// Liest alle Schulfächer aus der Datenbank.
+        /// </summary>
         public async Task<IEnumerable<Subjects>> ReadAsync()
         {
-            return await _context.Subjects.ToListAsync();   
+            return await _context.Subjects.ToListAsync();
         }
 
+        /// <summary>
+        /// Liest ein Schulfach anhand seiner ID aus der Datenbank (nicht implementiert).
+        /// </summary>
         public Task<Subjects> ReadByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Aktualisiert ein Schulfach in der Datenbank (nicht implementiert).
+        /// </summary>
         public Task<Subjects> UpdateAsync(Subjects entity)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Liest alle Schulfächer, die einem bestimmten Lehrer zugeordnet sind, aus der Datenbank.
+        /// </summary>
+        public async Task<IEnumerable<Subjects>> GetSubjectsByTeacherId(string id)
+        {
+            // Zuerst werden die IDs der Schulfächer abgerufen, die dem gegebenen Lehrer zugeordnet sind
+            var subjectIds = await _context.TeachersSubjectsJunction
+                .Where(x => x.Teacher == id)
+                .Select(x => x.Subject)
+                .ToListAsync();
+
+            // Anschließend werden die Schulfächer aus der Datenbank abgerufen, deren IDs in der Liste subjectIds enthalten sind
+            return await _context.Subjects
+                .Where(x => subjectIds.Contains(x.Id))
+                .ToListAsync();
         }
     }
 }

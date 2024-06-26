@@ -1,6 +1,13 @@
-﻿namespace exerciseBox.Rest.Controllers.RequestModels;
-
-public class EmailRequest
+﻿namespace exerciseBox.Rest.Controllers.RequestModels
 {
-    public string Email { get; set; }
+    /// <summary>
+    /// Modell für Anfragen, die nur eine E-Mail-Adresse enthalten.
+    /// </summary>
+    public class EmailRequest
+    {
+        /// <summary>
+        /// Die E-Mail-Adresse.
+        /// </summary>
+        public string Email { get; set; }
+    }
 }

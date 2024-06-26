@@ -7,39 +7,59 @@ using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace exerciseBox.Rest.Controllers
 {
-   
-    public class QuestionController: BaseController
+    /// <summary>
+    /// Controller für Fragenoperationen.
+    /// </summary>
+    public class QuestionController : BaseController
     {
+        /// <summary>
+        /// Initialisiert eine neue Instanz der <see cref="QuestionController"/> Klasse.
+        /// </summary>
+        /// <param name="mediator">Der MediatR-Mediator.</param>
         public QuestionController(IMediator mediator) : base(mediator)
         {
-            
+
         }
+
+        /// <summary>
+        /// Speichert eine Frage in einem Ordner.
+        /// </summary>
+        /// <param name="request">Die Anfrage zum Speichern der Frage.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe.</returns>
         [HttpPost("saveQuestionToFolder")]
         public async Task<IActionResult> SaveQuestionToFolder([FromBody] SaveQuestionToFolderRequest request)
         {
             try
             {
                 await _mediator.Send(
-                    new SaveQuestionToFolder (
-                        request.JunctionId.ToString(),request.FolderId,request.QuestionId
+                    new SaveQuestionToFolder(
+                        request.JunctionId.ToString(), request.FolderId, request.QuestionId
                         ));
                 return Ok();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
+                return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Fügt eine neue Frage hinzu.
+        /// </summary>
+        /// <param name="question">Die Frage, die hinzugefügt werden soll.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe.</returns>
         [HttpPost("addQuestion")]
         public async Task<IActionResult> AddQuestion([FromBody] QuestionDto question)
         {
             try
-                {
-                //schulfach müssen noch vom lehrer profil kommen
+            {
                 var validationContext = new ValidationContext(question);
                 Validator.ValidateObject(question, validationContext);
 
@@ -53,31 +73,36 @@ namespace exerciseBox.Rest.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
-
             }
         }
+
+        /// <summary>
+        /// Sucht Fragen basierend auf Suchparametern.
+        /// </summary>
+        /// <param name="parameters">Die Suchparameter.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe mit den gefundenen Fragen.</returns>
         [HttpGet("SearchQuestions")]
         public async Task<IActionResult> SearchQuestions([FromQuery] QuestionSearchParamsRequest parameters)
         {
             try
             {
-               IEnumerable<QuestionDto> questions;
-                //var questions = new Enumerable<QuestionDto>();
-                //var questions = new List<QuestionDto>();
+                IEnumerable<QuestionDto> questions;
+
                 if (!string.IsNullOrEmpty(parameters.Subject))
                 {
-                     questions = await _mediator.Send(new GetPublicQuestionsBySubject(parameters.Subject));
-                }else
-                {
-
-                 questions = await _mediator.Send(new GetAllPublicQuestions());
+                    questions = await _mediator.Send(new GetPublicQuestionsBySubject(parameters.Subject));
                 }
+                else
+                {
+                    questions = await _mediator.Send(new GetAllPublicQuestions());
+                }
+
                 var filteredQuestions = QuestionsFilter.Filter(questions, parameters);
                 return Ok(filteredQuestions);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
+                return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
             }
         }
         [HttpPut("hideQuestion")]
@@ -89,17 +114,23 @@ namespace exerciseBox.Rest.Controllers
             return Ok(new { message = "Frage erfolgreich ausgeblendet." });
         }
 
+
+        /// <summary>
+        /// Holt Fragen eines bestimmten Ordners.
+        /// </summary>
+        /// <param name="folderId">Die ID des Ordners.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe mit den Fragen des Ordners.</returns>
         [HttpGet("folderQuestions/{folderId}")]
         public async Task<IActionResult> GetFolderQuestions(string folderId)
         {
             try
             {
                 var questions = await _mediator.Send(new GetFolderQuestions { FolderId = folderId });
-                return Ok(new {value = questions});
+                return Ok(new { value = questions });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ein Problem ist aufgetreten. Hier müssen wir uns auf Messages einigen");
+                return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
             }
         }
     }
