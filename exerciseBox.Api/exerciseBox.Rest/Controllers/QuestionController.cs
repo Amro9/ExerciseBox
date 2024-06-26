@@ -105,6 +105,15 @@ namespace exerciseBox.Rest.Controllers
                 return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
             }
         }
+        [HttpPut("hideQuestion")]
+        public async Task<IActionResult> HideQuestion([FromBody] HideQuestionRequest request)
+        {
+            // Hier Logik zum Ausblenden der Frage basierend auf request.Days
+            // Beispiel: this.questionService.HideQuestion(questionId, request.Days);
+            bool isHidden = await _mediator.Send(new HideQuestionByTeacher (request.QuestionId , request.TeacherId));
+            return Ok(new { message = "Frage erfolgreich ausgeblendet." });
+        }
+
 
         /// <summary>
         /// Holt Fragen eines bestimmten Ordners.

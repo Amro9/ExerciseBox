@@ -1,10 +1,11 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Question } from '../../../Entities/Question';
 import { FormBuilder } from '@angular/forms';
 import { Folder } from '../../../Entities/Folder';
 import { FolderService } from '../../../Services/api-services/Folder.Service';
 import { QuestionService } from '../../../Services/api-services/question.service';
 import { CookieService } from 'ngx-cookie-service';
+import { FoldersPopupComponent } from '../folders-popup/folders-popup.component';
 
 @Component({
   selector: 'app-questions-pool',
@@ -15,11 +16,14 @@ export class QuestionsPoolComponent {
   publicQuestions: Question[] = [];
   Folders: Folder[] = [];
   showFolderList: boolean = false;
+  showHideConfirm: boolean = false;
   popupTop!: string;
   popupLeft!: string;
   selectedQuestionId: string = '';
 
   userEmail! : string;
+
+  @ViewChild(FoldersPopupComponent) foldersPopupComponent!: FoldersPopupComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -64,6 +68,7 @@ export class QuestionsPoolComponent {
     this.popupTop = `${event.event.clientY}px`;
     this.popupLeft = `${event.event.clientX}px`;
     this.selectedQuestionId = event.questionId;
+    this.foldersPopupComponent.checkQuestionsInFolders(); // Update the popup component whenever the folder list is shown
   }
 
   saveQuestion(folderId: string) {
@@ -73,17 +78,12 @@ export class QuestionsPoolComponent {
     this.questionService.saveQuestionToFolder(this.selectedQuestionId, folderId).subscribe({
       next: (data) => {
         console.log('Question saved:', data);
-        this.updateFoldersPopup();
+        this.foldersPopupComponent.checkQuestionsInFolders(); // Re-check questions in folders after saving
       },
       error: (error: string) => console.error('Error saving question:', error)
     });
   }
-  updateFoldersPopup() {
-    const foldersPopupComponent = this.elementRef.nativeElement.querySelector('app-folders-popup');
-    if (foldersPopupComponent) {
-      foldersPopupComponent.checkQuestionsInFolders();
-    }
-  }
+
   hideQuestion() {
     console.log('Frage wird ausgeblendet.');
   }

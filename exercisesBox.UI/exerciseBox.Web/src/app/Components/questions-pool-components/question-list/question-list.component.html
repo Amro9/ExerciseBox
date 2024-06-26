@@ -10,7 +10,7 @@
           <i class="fas fa-plus"></i>
         </span>
       </button>
-      <button class="btn btn-link p-0" (click)="onHideQuestion()" data-toggle="tooltip" title="Frage ausblenden">
+      <button class="btn btn-link p-0" (click)="showHideQuestionPopUp($event,question.id)" data-toggle="tooltip" title="Frage ausblenden">
         <span class="circle-btn">
           <i class="fas fa-minus"></i>
         </span>

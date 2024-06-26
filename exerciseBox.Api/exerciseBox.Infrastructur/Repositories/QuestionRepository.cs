@@ -108,6 +108,29 @@ namespace exerciseBox.Infrastructure.Repositories
             return questions;
         }
 
+        public async Task<bool> HideQuestion(string teacherId, string questionId)
+        {
+            try { 
+            var questionToHide = new TeachersHiddenQuestions
+            {
+                TeacherId = teacherId,
+                QuestionId = questionId,
+            };
+            _context.TeachersHiddenQuestions.Add(questionToHide);
+            _context.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> IsQuestionHidden(string teacherId, string questionId)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Liest eine Frage anhand ihrer ID aus der Datenbank (nicht implementiert).
         /// </summary>
@@ -123,5 +146,6 @@ namespace exerciseBox.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
     }
 }
