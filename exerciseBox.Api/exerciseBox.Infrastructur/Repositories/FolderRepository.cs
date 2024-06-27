@@ -1,5 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using exerciseBox.Infrastructur;
 using Microsoft.EntityFrameworkCore;
 
 namespace exerciseBox.Infrastructure.Repositories
@@ -34,6 +35,11 @@ namespace exerciseBox.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<Folders> GetCreationFolder(string subjectId, string teacherId)
+        {
+            return await _context.Folders.FirstOrDefaultAsync(f => f.Teacher == teacherId && f.Subject == subjectId && f.IsCreationFolder == true);
+        }
+
         /// <summary>
         /// Liest alle Ordner eines Lehrers aus der Datenbank.
         /// </summary>
@@ -41,8 +47,7 @@ namespace exerciseBox.Infrastructure.Repositories
         {
             return await _context.Folders
                 .Where(f => f.Teacher == id)
-                .Include(f => f.TopicNavigation)
-                .ThenInclude(t => t.SubjectNavigation)
+                .Include(f => f.SubjectNavigation)
                 .ToListAsync();
         }
 

@@ -6,8 +6,8 @@ public class FolderDto
 {
     public string Id { get; set; }
     public string Name { get; set; }
-    public string TopicId { get; set; }
-    public TopicDto Topic { get; set; }
+    public string SubjectId { get; set; }
+    public SubjectDto Subject { get; set; }
     public bool IsCreationFolder { get; set; }  
 
     public static implicit operator FolderDto(Folders folder)
@@ -20,8 +20,8 @@ public class FolderDto
         {
             Id = folder.Id,
             Name = folder.Name,
-            TopicId = folder.Topic,
-            Topic = folder.TopicNavigation,
+            SubjectId = folder.Subject,
+            Subject = folder.SubjectNavigation,
             IsCreationFolder = folder.IsCreationFolder
         };
     }
@@ -32,7 +32,7 @@ public class FolderDto
         {
             Id = folder.Id,
             Name = folder.Name,
-            Topic = folder.TopicId,
+            Subject = folder.SubjectId,
             IsCreationFolder = folder.IsCreationFolder
         };
     }

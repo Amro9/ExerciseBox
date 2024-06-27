@@ -3,6 +3,7 @@ using exerciseBox.Application.Services.Interface;
 using exerciseBox.Application.Services.Models;
 using exerciseBox.Application.UseCases.Folder.Commands;
 using exerciseBox.Application.UseCases.Folder.Queries;
+using exerciseBox.Application.UseCases.Folder.QueryHandlers;
 using exerciseBox.Application.UseCases.Subject.Queries;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Queries;
@@ -114,6 +115,11 @@ namespace exerciseBox.Rest.Controllers
             }
         }
 
+        /// <summary>
+        /// Erstellt einen neuen Folder für einen Lehrer
+        /// </summary>
+        /// <param name="folder">Das <see cref="FolderDto"/>, das erstellt werden soll.</param>
+        /// <returns>Ein <see cref="IActionResult"/>.</returns>
         [HttpPost("NewFolder")]
         public async Task<IActionResult> CreateNewFolder([FromBody] FolderDto folder)
         {
@@ -121,6 +127,25 @@ namespace exerciseBox.Rest.Controllers
             {
                 await _mediator.Send(new CreateFolder { Folder = folder });
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        /// <summary>
+        /// Holt den Ordner, in dem die erstellten Fragen eines Faches gespeichert werden.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Ein <see cref="FolderDto"/> Objekt</returns>
+        [HttpPost("CreationFolder")]
+        public async Task<IActionResult> GetCreationFolder([FromBody] CreationFolderRequest request)
+        {
+            try
+            {
+                var folder = await _mediator.Send(new GetCreationFolder { SubjectId = request.SubjectId, TeacherId = request.UserId });
+                return Ok(new { folder });
             }
             catch (Exception ex)
             {

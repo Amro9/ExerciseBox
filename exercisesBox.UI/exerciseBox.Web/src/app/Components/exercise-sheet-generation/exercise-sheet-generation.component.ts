@@ -26,7 +26,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   SelectedQuestions : Question[] = [];  
   Folders! : Folder[];
   DisplayedFolders! : Folder[];
-  selectedFolder : Folder = new Folder("0", "Select a folder", new Topic ("0", "Select a topic", new Subject("", "", "")), false);
+  selectedFolder : Folder = new Folder("0", "Select a folder", new Subject("", "", ""), false);
   selectedSubject : Subject = new Subject("", "", "");
 
   Subjects : Subject[] = [];
@@ -121,7 +121,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
   onSubjectChange() {
    
-    this.DisplayedFolders = this.Folders.filter(f => f.topic.subject.id === this.selectedSubject.id);
+    this.DisplayedFolders = this.Folders.filter(f => f.Subject.id === this.selectedSubject.id);
 
   }
 

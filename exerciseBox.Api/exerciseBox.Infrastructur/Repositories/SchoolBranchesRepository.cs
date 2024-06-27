@@ -1,5 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using exerciseBox.Infrastructur;
 using Microsoft.EntityFrameworkCore;
 
 namespace exerciseBox.Infrastructure.Repositories
