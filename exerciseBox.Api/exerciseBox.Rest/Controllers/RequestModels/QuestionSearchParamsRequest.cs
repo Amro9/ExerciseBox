@@ -21,7 +21,7 @@ namespace exerciseBox.Rest.Controllers.RequestModels
         /// <summary>
         /// Das Level der Schule.
         /// </summary>
-        public int? SchoolLevel { get; set; }
+        public int SchoolLevel { get; set; }
 
         /// <summary>
         /// Das Fach der Frage.

@@ -92,6 +92,7 @@ namespace exerciseBox.Infrastructure.Repositories
         public async Task<IEnumerable<Questions>> GetQuestionsBySubject(string subjectId)
         {
             var questions = await _context.Questions
+                .Include(q => q.DifficultyLevelNavigation)
                 .Join(
                     _context.Topics,
                     q => q.Topic,

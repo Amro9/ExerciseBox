@@ -8,9 +8,9 @@
         </select>
       </div>
       <div class="form-group mt-3">
-        <label for="schoolBranch">Beruf</label>
+        <label for="schoolBranch">Schulzweig</label>
         <select id="schoolBranch" class="form-select" formControlName="schoolBranch">
-          <option [value]="null">Beruf</option>
+          <option [value]="null">Schulzweig</option>
           <option *ngFor="let branch of schoolBranches" [value]="branch.id">{{ branch.name }}</option>
         </select>
       </div>

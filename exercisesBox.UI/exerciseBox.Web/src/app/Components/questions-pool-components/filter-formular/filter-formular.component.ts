@@ -37,7 +37,7 @@ export class FilterFormularComponent {
     this.questionSearchParams = this.fb.group({
       schoolType: ['0'],
       schoolBranch: [{ value: 'null', disabled: true }],
-      schoolLevel: ['0'],
+      schoolLevel: [{ value: '0', disabled: true }],
       subject: ['null'],
       topic: ['null'],
       difficultyLevel: ['null']
@@ -83,7 +83,10 @@ onSchoolTypeChange(event: Event) {
   const selectedSchoolTypeId = selectElement.value;
   if (selectedSchoolTypeId === '16') {
     this.questionSearchParams.get('schoolBranch')?.enable();
+    this.questionSearchParams.get('schoolLevel')?.enable();
   } else {
+    this.questionSearchParams.get('schoolLevel')?.disable();
+    this.questionSearchParams.get('schoolLevel')?.setValue('0');
     this.questionSearchParams.get('schoolBranch')?.disable();
     this.questionSearchParams.get('schoolBranch')?.setValue('null');
   }
@@ -99,6 +102,7 @@ onSchoolTypeChange(event: Event) {
 }
 onSubjectChange(event: Event) {
   const selectElement = event.target as HTMLSelectElement;
+  this.questionSearchParams.get('topic')?.setValue('null');
   this.topicService.getTopicsBySubject(selectElement.value).subscribe({
     next: (data) => this.subjectsTopics = data,
     error: (error: string) => console.error('Error fetching topics:', error)

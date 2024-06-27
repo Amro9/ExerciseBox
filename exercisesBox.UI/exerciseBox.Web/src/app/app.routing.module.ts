@@ -11,7 +11,7 @@ import { QuestionComponent } from "./Components/question/question.component";
 import { AuthGuard } from "./Services/AuthGuard";
 import { Roles } from "./Infrastucture/enums";
 import { HomeComponent } from "./Components/home/home.component";
-import { ProfileComponent } from "./Components/profile/profile.component";
+import { ProfileComponent } from "./Components/user-profile/profile/profile.component";
 import { TeacherManagerComponent } from "./Components/teacher-manager/teacher-manager.component";
 
 const routes: Routes = [
@@ -43,6 +43,7 @@ const routes: Routes = [
     QuestionComponent,
     HomeComponent,
     TeacherManagerComponent,
-    ProfileComponent
+    ProfileComponent,
+    
   ]
   

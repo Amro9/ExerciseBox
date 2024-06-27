@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Folder } from '../../Entities/Folder';
-import { QuestionService } from '../../Services/api-services/question.service';
-import { FolderService } from '../../Services/api-services/Folder.Service';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Folder } from '../../../Entities/Folder';
+import { QuestionService } from '../../../Services/api-services/question.service';
+import { FolderService } from '../../../Services/api-services/Folder.Service';
 import { CookieService } from 'ngx-cookie-service';
-import { Subject } from '../../Entities/Subject';
-import { Topic } from '../../Entities/Topic';
-import { FoldersPopupComponent } from '../questions-pool-components/folders-popup/folders-popup.component';
-import { SubjectService } from '../../Services/api-services/Subject.service';
+import { Subject } from '../../../Entities/Subject';
+import { Topic } from '../../../Entities/Topic';
+import { FoldersPopupComponent } from '../../questions-pool-components/folders-popup/folders-popup.component';
+import { SubjectService } from '../../../Services/api-services/Subject.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -15,16 +15,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit{
-
-
-
   errorMessage: string | null = null;
-
-
   userMail : string = "";
 
   showFolderList: boolean = false;
-  showHideConfirm: boolean = false;
+  showDeletConfirm: boolean = false;
   popupTop!: string;
   popupLeft!: string;
   selectedQuestionId: string = '';
@@ -32,7 +27,7 @@ export class ProfileComponent implements OnInit{
   @ViewChild(FoldersPopupComponent) foldersPopupComponent!: FoldersPopupComponent;
 
 
-  selectedFolder : Folder = new Folder("0", "Select a folder", new Subject("", "", ""), false);
+  selectedFolder?: Folder;
   Folders : Folder[] = [];
   selectedSubject : Subject = new Subject("", "", "");
   Subjects : Subject[] = [];
@@ -44,6 +39,7 @@ export class ProfileComponent implements OnInit{
   constructor(private folderService: FolderService,
     private questionService: QuestionService,
     private cookieService: CookieService,
+    private elementRef: ElementRef,
     private subjectService: SubjectService,
     private modalService: NgbModal
   )
@@ -53,11 +49,11 @@ export class ProfileComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     this.userMail = this.cookieService.get("userEmail");
-    await this.folderService.getFoldersOfTeacher(this.userMail).then(folders => {
+  await this.folderService.getFoldersOfTeacher(this.userMail).then(folders => {
       this.Folders = folders;
     });
     this.Subjects = await this.subjectService.getSubjectById(this.userMail);
-  }
+ }
 
   onFolderSubmit() {
     try{
@@ -74,7 +70,31 @@ export class ProfileComponent implements OnInit{
     }
 
   }
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    // Schließe das Popup-Fenster für die Ordnerliste, wenn gescrollt wird
+    if (this.showFolderList) {
+      this.showFolderList = false;
+    }
 
+    // Schließe das Popup-Fenster für das Ausblenden der Frage, wenn gescrollt wird
+    if (this.showDeletConfirm) {
+      this.showDeletConfirm = false;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    // Schließe das Popup-Fenster für die Ordnerliste, wenn außerhalb geklickt wird
+    if (this.showFolderList && !this.elementRef.nativeElement.querySelector('.popup-folder-list').contains(event.target)) {
+      this.showFolderList = false;
+    }
+
+    // Schließe das Popup-Fenster für das Ausblenden der Frage, wenn außerhalb geklickt wird
+    if (this.showDeletConfirm && !this.elementRef.nativeElement.querySelector('.popup-hide-question').contains(event.target)) {
+      this.showDeletConfirm = false;
+    }
+  }
   openNewFolderModal(content: any) {
     this.errorMessage = null;
   
@@ -85,17 +105,18 @@ export class ProfileComponent implements OnInit{
     this.DisplayedFolders = this.Folders.filter(f => f.subject.id === this.selectedSubject.id);
   }
 
-  onFolderChange() {
-    if(this.selectedFolder.Questions !== undefined){
-      if(this.selectedFolder.Questions.length > 0){
-        return;
-      }
+  async onFolderChange() {
+    
+    if (!this.selectedFolder) {
+      return;
     }
-    this.questionService.getQuestionsByFolder(this.selectedFolder.id).subscribe(questions => this.selectedFolder.Questions = questions)
-    if(this.selectedFolder.Questions === undefined)
-    {
-      this.selectedFolder.Questions = [];
-    }
+
+    this.questionService.getQuestionsByFolder(this.selectedFolder.id).subscribe(questions => {
+      console.log(this.selectedFolder);
+  
+      this.selectedFolder!.Questions = questions;
+
+    });
   }
 
   showFoldersList(event: { questionId: string, event: MouseEvent }) {
@@ -107,8 +128,8 @@ export class ProfileComponent implements OnInit{
     this.foldersPopupComponent.checkQuestionsInFolders(); // Update the popup component whenever the folder list is shown
   }
 
-  hideQuestion() {
-    console.log('Frage wird ausgeblendet.');
+  removeSavedQuestionFromFolder() {
+    console.log('Frage wird gelöscht.');
   }
 
   

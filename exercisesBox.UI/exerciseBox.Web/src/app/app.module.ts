@@ -25,6 +25,7 @@ import { FoldersPopupComponent } from "./Components/questions-pool-components/fo
 import { QuestionListComponent } from "./Components/questions-pool-components/question-list/question-list.component";
 import { HideQuestionPopupComponent } from "./Components/questions-pool-components/hide-question-popup/hide-question-popup.component";
 import { AuthGuard } from "./Services/AuthGuard";
+import { ProfileQuestionListComponent } from "./Components/user-profile/profile-question-list/profile-question-list.component";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
@@ -36,6 +37,7 @@ import { AuthGuard } from "./Services/AuthGuard";
         FoldersPopupComponent,
         HideQuestionPopupComponent,
         QuestionListComponent,
+        ProfileQuestionListComponent,
         routingComponents
     ],
     imports: [

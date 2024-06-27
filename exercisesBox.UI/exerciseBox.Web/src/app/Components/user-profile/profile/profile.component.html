@@ -1,7 +1,5 @@
 <div class="container">
-    <div class="row">
-
-    </div>
+    <div class="row"></div>
     <div class="row">
         <select class="form-select form-select-sm" [(ngModel)]="selectedSubject" (ngModelChange)="onSubjectChange()">
             <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
@@ -18,22 +16,26 @@
         </div>
     </div>
    
-    <div class="row">
-        <app-question-list [questions]="selectedFolder.Questions" (showFolders)="showFoldersList($event)" [isCreationFolder]="true"></app-question-list>     
+    <div class="row" *ngIf="selectedFolder">
+        <app-profile-question-list *ngIf="selectedFolder.Questions !== undefined"
+                                   [questions]="selectedFolder.Questions"
+                                   (showFolders)="showFoldersList($event)"
+                                   (showRemoveQuestionConfirm)=""
+                                   [selectedFolderName]="selectedFolder.name"
+                                   >
+        </app-profile-question-list>
     </div>
 
     <app-folders-popup
-    [folders]="Folders"
-    [popupTop]="popupTop"
-    [popupLeft]="popupLeft"
-    [questionId]="selectedQuestionId"
-    [showFolderList]="showFolderList"
-
-    (save) = "saveQuestion($event)"
-    (close) = "showFolderList = false"
-    ></app-folders-popup>
+        [folders]="Folders"
+        [popupTop]="popupTop"
+        [popupLeft]="popupLeft"
+        [questionId]="selectedQuestionId"
+        [showFolderList]="showFolderList"
+        (save)="saveQuestion($event)"
+        (close)="showFolderList = false">
+    </app-folders-popup>
 </div>
-
 
 <ng-template #newFolder let-modal>
     <div class="container" style="padding: 5%; background-color: #EEF7FF; border-radius: 10px;">
@@ -48,6 +50,6 @@
         <div class="row d-flex justify-content-right">
             <button class="btn btn-primary" style="float: right; background-color: #4D869C;" (click)="onFolderSubmit()">Speichern</button>
         </div>
-        <div *ngIf="errorMessage" class="alert alert-danger mt-2" style="margin-top: 3%; ">{{ errorMessage }}</div>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-2" style="margin-top: 3%;">{{ errorMessage }}</div>
     </div>
 </ng-template>
