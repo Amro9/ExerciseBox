@@ -1,0 +1,14 @@
+.box-custom{
+    border-color: black;
+    border-width: 3px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.grey-background {
+    background-color: #f0f0f0;
+}
+
+.white-background {
+    background-color: #ffffff;
+}

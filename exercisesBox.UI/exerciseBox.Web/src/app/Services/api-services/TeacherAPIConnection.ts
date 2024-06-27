@@ -56,7 +56,7 @@ export class TeacherAPIConnection {
         let url_ = this.baseUrl + "Teacher/Deactivate/" + teacherId;
     
         try{
-          await this.http.post(url_,{headers : this.headers, withCredentials:true}).toPromise();
+          await this.http.post(url_,{},{headers : this.headers, withCredentials:true}).toPromise();
         }
         catch(error : any){
           throw error;
@@ -67,10 +67,65 @@ export class TeacherAPIConnection {
       let url_ = this.baseUrl + "Teacher/Activate/" + teacherId;
   
       try{
+        await this.http.post(url_,{},{headers : this.headers, withCredentials:true}).toPromise();
+      }
+      catch(error : any){
+        throw error;
+      }
+    }
+    
+    async updateTeacher(teacher : Teacher) : Promise<void> {
+      let url_ = this.baseUrl + "Teacher/Update";
+  
+      try{
+        await this.http.post(url_,teacher,{headers : this.headers, withCredentials:true}).toPromise();
+      }
+      catch(error : any){
+        throw error;
+      }
+    }
+
+    async addTeacher(teacher : Teacher) : Promise<void> {
+      let url_ = this.baseUrl + "Teacher/Add";
+  
+      try{
+        await this.http.post(url_,teacher,{headers : this.headers, withCredentials:true}).toPromise();
+      }
+      catch(error : any){
+        throw error;
+      }
+    }
+
+    async resetPassword(teacherId : string) : Promise<void> {
+      let url_ = this.baseUrl + "Teacher/ResetPassword/" + teacherId;
+  
+      try{
         await this.http.post(url_,{headers : this.headers, withCredentials:true}).toPromise();
       }
       catch(error : any){
         throw error;
       }
-  }
+    }
+
+    async addSubjectToTeacher(teacherId : string, subjectId : string) : Promise<void> {
+      let url_ = this.baseUrl + "Teacher/AddSubject"
+  
+      try{
+        await this.http.post(url_,{teacherId, subjectId},{headers : this.headers, withCredentials:true}).toPromise();
+      }
+      catch(error : any){
+        throw error;
+      }
+    }
+    
+    async removeSubjectFromTeacher(teacherId : string, subjectId : string) : Promise<void> {
+      let url_ = this.baseUrl + "Teacher/RemoveSubject"
+  
+      try{
+        await this.http.post(url_,{teacherId, subjectId},{headers : this.headers, withCredentials:true}).toPromise();
+      }
+      catch(error : any){
+        throw error;
+      }
+    }
 }
