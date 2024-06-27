@@ -1,6 +1,7 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.Services;
 using exerciseBox.Application.Services.Interface;
+using exerciseBox.Application.UseCases.Folder.Commands;
 using exerciseBox.Application.UseCases.Questions.Commands;
 using exerciseBox.Application.UseCases.Questions.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
@@ -63,7 +64,8 @@ namespace exerciseBox.Rest.Controllers
                 var validationContext = new ValidationContext(question);
                 Validator.ValidateObject(question, validationContext);
 
-                await _mediator.Send(new CreateQuestion { Question = question });
+                var newQuestion = await _mediator.Send(new CreateQuestion { Question = question });
+                await _mediator.Send(new AddQuestionToCreationFolder { Question = newQuestion });
                 return Ok();
             }
             catch (ValidationException ex)

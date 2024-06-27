@@ -58,7 +58,7 @@ namespace exerciseBox.Infrastructur.Repositories
         /// <summary>
         /// Liest ein Thema anhand seiner ID aus der Datenbank (nicht implementiert).
         /// </summary>
-        public Task<Topics> ReadByIdAsync(Guid id)
+        public Task<Topics> ReadByIdAsync(string id)
         {
             throw new NotImplementedException();
         }

@@ -3,6 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { API_BASE_URL } from "../../Infrastucture/configurations";
 import { Folder } from "../../Entities/Folder";
 import { BoundElementProperty } from "@angular/compiler";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn : 'root'
@@ -31,14 +32,15 @@ export class FolderService{
         }
     }
 
-    public async createNewFolder(folder : Folder): Promise<boolean> {
+    public async createNewFolder(folderName : string, subjectId : string, teacherId : string): Promise<Folder> {
         let url_ = this.baseUrl + "Teacher/NewFolder";
         try {
-            const response: any = await this.http.post(url_, folder, { headers: this.headers, withCredentials: true }).toPromise();
-            return true;
+            const response : any = await this.http.post(url_, { folderName, subjectId, teacherId }, { headers: this.headers, withCredentials: true }).toPromise();
+            return response as Folder;
+            
         } catch (error) {
             console.error('Error creating folder:', error);
-            return false;
+            throw error;
         }
     }
 

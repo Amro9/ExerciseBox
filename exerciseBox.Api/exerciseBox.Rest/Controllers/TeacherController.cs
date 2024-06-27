@@ -121,11 +121,11 @@ namespace exerciseBox.Rest.Controllers
         /// <param name="folder">Das <see cref="FolderDto"/>, das erstellt werden soll.</param>
         /// <returns>Ein <see cref="IActionResult"/>.</returns>
         [HttpPost("NewFolder")]
-        public async Task<IActionResult> CreateNewFolder([FromBody] FolderDto folder)
+        public async Task<IActionResult> CreateNewFolder([FromBody] NewFolderRequest folder)
         {
             try
             {
-                await _mediator.Send(new CreateFolder { Folder = folder });
+                await _mediator.Send(new CreateFolder { Name = folder.FolderName, SubjectId = folder.SubjectId, TeacherId = folder.TeacherId });
                 return Ok();
             }
             catch (Exception ex)

@@ -28,8 +28,9 @@ public class CreateQuestionHandler : IRequestHandler<CreateQuestion, QuestionDto
         request.Question.SchoolType = await _schoolTypeRepository.ReadIdByTeacher(request.Question.Author);
 
         var question = await _questionRepository.CreateAsync(request.Question);
-        if (question == null) {
-            throw new Exception("Failed to create question");
+        if (question == null)
+        {
+            throw new Exception("failed to create question");
         }
         return question;
     }

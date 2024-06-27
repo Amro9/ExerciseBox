@@ -6,7 +6,7 @@ namespace exerciseBox.Application.Abtraction.Repositories
     /// Schnittstelle für das Topic Repository.
     /// Erbt von IRepository mit Topics als Entitätstyp und Guid als Schlüsseltyp.
     /// </summary>
-    public interface ITopicRepository : IRepository<Topics, Guid>
+    public interface ITopicRepository : IRepository<Topics, string>
     {
         /// <summary>
         /// Liest asynchron die Themen anhand des gegebenen Fachs.

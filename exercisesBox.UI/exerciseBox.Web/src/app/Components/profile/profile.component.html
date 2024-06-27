@@ -14,7 +14,7 @@
             </select>
         </div>
         <div class="col-2">
-            <button class="btn btn-primary"></button>
+            <button class="btn btn-primary" (click)="openNewFolderModal(newFolder)">Neuer Ordner</button>
         </div>
     </div>
    
@@ -33,3 +33,21 @@
     (close) = "showFolderList = false"
     ></app-folders-popup>
 </div>
+
+
+<ng-template #newFolder let-modal>
+    <div class="container" style="padding: 5%; background-color: #EEF7FF; border-radius: 10px;">
+        <div class="row" style="margin-bottom: 3%;">
+            <input type="text" class="form-control" placeholder="Ordnername" [(ngModel)]="folderName">
+        </div>
+        <div class="row" style="margin-bottom: 3%;">
+            <select class="form-select form-select-sm" [(ngModel)]="selectedSubjectforNewFolder">
+                <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
+            </select>
+        </div>
+        <div class="row d-flex justify-content-right">
+            <button class="btn btn-primary" style="float: right; background-color: #4D869C;" (click)="onFolderSubmit()">Speichern</button>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-2" style="margin-top: 3%; ">{{ errorMessage }}</div>
+    </div>
+</ng-template>

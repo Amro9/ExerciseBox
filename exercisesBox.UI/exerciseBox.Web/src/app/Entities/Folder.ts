@@ -6,14 +6,14 @@ export class Folder {
 
     id: string;
     name: string;
-    Subject: Subject;
+    subject: Subject;
     Questions : Question[] = [];
     IsCreationFolder : boolean;;
 
     constructor(id : string, name : string, subject : Subject, isCreationFolder: boolean) {
         this.id = id;
         this.name = name;
-        this.Subject = subject;
+        this.subject = subject;
         this.IsCreationFolder = isCreationFolder;
     }
 }

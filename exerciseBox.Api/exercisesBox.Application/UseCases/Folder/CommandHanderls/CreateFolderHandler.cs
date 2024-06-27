@@ -16,7 +16,14 @@ namespace exerciseBox.Application.UseCases.Folder.CommandHanderls
 
         public async Task<FolderDto> Handle(CreateFolder request, CancellationToken cancellationToken)
         {
-            return await _folderRepository.CreateAsync(request.Folder);
+            return await _folderRepository.CreateAsync(new Domain.Entities.Folders
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = request.Name,
+                Subject = request.SubjectId,
+                Teacher = request.TeacherId,
+                IsCreationFolder = false
+            });
         }
     }
 }

@@ -121,7 +121,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
   onSubjectChange() {
    
-    this.DisplayedFolders = this.Folders.filter(f => f.Subject.id === this.selectedSubject.id);
+    this.DisplayedFolders = this.Folders.filter(f => f.subject.id === this.selectedSubject.id);
 
   }
 
