@@ -11,19 +11,6 @@ export class SchoolViewComponent {
 
   teachers : Teacher[] = [];
 
-  constructor(private teacherService: TeacherAPIConnection) 
-  {
-    
-
-    this.teacherService.getTeachersOfSchool().subscribe(
-      (response: any) => {
-        console.log(response);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  } 
 
   
 

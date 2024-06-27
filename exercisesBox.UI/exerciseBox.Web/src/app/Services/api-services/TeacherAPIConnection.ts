@@ -39,39 +39,16 @@ export class TeacherAPIConnection {
         );
     }
 
-    getTeachersOfSchool() : Observable<Teacher[]> 
+    async getTeachersOfSchool(schoolEmail : string) : Promise<Teacher[]> 
     {
-        let url_ = this.baseUrl + "Teacher/BySchool";
-
-        let session = Session.fromJson(localStorage.getItem("session"));
+        let url_ = this.baseUrl + "School/Teachers/" + schoolEmail;
     
-        const body = { sessionId: session.SessionId, sessionIdKey: session.SessionIdKey}; //
-    
-        return this.http.post(url_, body, {headers : this.headers, withCredentials:true}).pipe(
-          map((response: any) => {
-            const jsonData = response.value;
-            return jsonData.map((item: any) => Teacher.fromData(item));
-          }),
-          catchError(error => {
-            return throwError(error.message);
-          })
-        );
+        try{
+          const response : any =  await this.http.get(url_,{headers : this.headers, withCredentials:true}).toPromise();
+          return response.teachers as Teacher[];
+        }
+        catch(error : any){
+          throw error;
+        }
     }
-
-    // getTeacherWithPasswordValidation(email : string, password : string) : Observable<Teacher> {
-    //     let url_ = this.baseUrl + "Teacher/ByEmailAndPassword";
-    
-    //     const body = { email: email, password: password };
-    
-    //     return this.http.post(url_, body, {headers : this.headers}).pipe(
-    //       map((response: any) => {
-    //         const jsonData = response.value;
-    //         return Teacher.fromData(jsonData);
-    //       }),
-    //       catchError(error => {
-    //         return throwError(error.error);
-    //       })
-    //     );
-    // }
-
 }

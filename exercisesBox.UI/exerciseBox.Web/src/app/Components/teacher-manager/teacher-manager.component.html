@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="box">
+        <div class="row">
+            <div class="col-12">
+                <h1>Lehrpersonen Übersicht</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let teacher of Teachers">
+                            <td>{{ teacher.surname }} {{teacher.givenname}}</td>
+                            <td>{{ teacher.email }}</td>
+                            <td>
+                                <button class="btn btn-primary" (click)="onEditTeacher(teacher, teacherDetails)">Bearbeiten</button>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-primary" (click)="onAddTeacher()">Lehrperson hinzufügen</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #teacherDetails let-modal>
+    <div class="container" style="padding: 5%; background-color: #EEF7FF; border-radius: 10px;">
+        <div class="row" style="margin-bottom: 3%;">
+            <h3><b>Lehrperson bearbeiten</b></h3>
+            <hr>
+        </div>
+        <div class="row" style="margin-bottom: 3%;">
+            <div class="col-6">
+                <input type="text" class="form-control" placeholder="Vorname" [(ngModel)]="selectedTeacher.surname">
+            </div>
+            <div class="col-6">
+                <input type="text" class="form-control" placeholder="Nachname" [(ngModel)]="selectedTeacher.givenname" >
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 3%;">
+            <div class="col-12">
+                <input type="email" class="form-control" placeholder="Email" [(ngModel)]="selectedTeacher.email">
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 3%;">
+            <div class="col-6">
+                <button class="btn btn-primary" style="width: 100%; background-color: #4D869C;" (click)="onChangePassword()">Passwort ändern</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary" style="width: 100%; background-color: #4D869C;" (click)="onPasswordReset()">Passwort zurücksetzen</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button class="btn btn-danger" style="width: 100%;" (click)="onDeleteTeacher()">Löschen</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary" style="width: 100%; background-color: #4D869C;" (click)="onSaveTeacher()">Speichern</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

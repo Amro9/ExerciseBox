@@ -60,7 +60,7 @@ namespace exerciseBox.Infrastructur.Repositories
         /// </summary>
         public Task<Topics> ReadByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return _context.Topics.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using exerciseBox.Application.UseCases.SchoolLevels.Queries;
 using exerciseBox.Application.UseCases.Schools.Commands;
 using exerciseBox.Application.UseCases.Schools.Queries;
 using exerciseBox.Application.UseCases.SchoolTypes.Queries;
+using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -109,6 +110,20 @@ namespace exerciseBox.Rest.Controllers
             {
                 var types = await _mediator.Send(new GetAllSchoolTypes());
                 return Ok(types);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        [HttpGet("Teachers/{id}")]
+        public async Task<IActionResult> GetSchoolTeachers(string id)
+        {
+            try
+            {
+                var teachers = await _mediator.Send(new GetTeachersBySchool { SchoolId = id });
+                return Ok(new { teachers });
             }
             catch (Exception ex)
             {

@@ -33,6 +33,7 @@ namespace exerciseBox.Application.Abtraction.Models
             return new SchoolDto
             {
                 Name = school.Name,
+                Email = school.Email,
                 SchoolType = school.SchoolTypeNavigation
             };
         }
