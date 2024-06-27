@@ -4,7 +4,7 @@
         <app-filter-formular (search)="submitSearch($event)"></app-filter-formular>
       </div>
       <div class="col-md-9 content">
-        <app-question-list [questions]="publicQuestions" (showFolders)="showFoldersList($event)" (hideQuestion)="hideQuestion()"></app-question-list>
+        <app-question-list [questions]="publicQuestions" (showFolders)="showFoldersList($event)" (hideQuestion)="hideQuestion()" [isCreationFolder]="true"></app-question-list>
       </div>
 
       <app-folders-popup

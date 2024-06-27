@@ -41,4 +41,15 @@ export class FolderService{
             return false;
         }
     }
+
+    public async getCreationFolder(subjectId: string, userId: string): Promise<Folder> {
+        let url_ = this.baseUrl + "Teacher/CreationFolder/" + subjectId;
+        try {
+            const response: any = await this.http.post(url_,{subjectId, userId} ,{ headers: this.headers, withCredentials: true }).toPromise();
+            return response.value as Folder;
+        } catch (error) {
+            console.error('Error fetching creation folder:', error);
+            throw error;
+        }
+    }
 }
