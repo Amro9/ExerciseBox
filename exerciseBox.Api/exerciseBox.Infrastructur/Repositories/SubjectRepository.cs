@@ -76,5 +76,22 @@ namespace exerciseBox.Infrastructur.Repositories
                 .Where(x => subjectIds.Contains(x.Id))
                 .ToListAsync();
         }
+
+        /// <summary>
+        /// Liest alle Schulfächer, die einer bestimmten Schule zugeordnet sind, aus der Datenbank.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Subjects>> GetSubjectsBySchoolId(string id)
+        {
+            var subjectIds = await _context.SchoolsSubjectsJunction
+                .Where(x => x.School == id)
+                .Select(x => x.Subject)
+                .ToListAsync();
+
+            return await _context.Subjects
+                .Where(x => subjectIds.Contains(x.Id))
+                .ToListAsync();
+        }
     }
 }

@@ -8,6 +8,18 @@ namespace exerciseBox.Application.Abtraction.Repositories
     /// </summary>
     public interface ISubjectRepository : IRepository<Subjects, Guid>
     {
+        /// <summary>
+        /// Holt alle Fächer eines Lehrers.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task<IEnumerable<Subjects>> GetSubjectsByTeacherId(string id);
+
+        /// <summary>
+        /// Holt alle Fächer einer Schule.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Subjects>> GetSubjectsBySchoolId(string id);
     }
 }

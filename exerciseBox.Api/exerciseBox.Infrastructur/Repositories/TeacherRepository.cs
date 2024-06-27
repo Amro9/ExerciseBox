@@ -34,11 +34,13 @@ namespace exerciseBox.Infrastructur.Repositories
         public async Task DeactivateTeacher(string teacherId)
         {
             await _context.Teachers.Where(t => t.Email == teacherId).ForEachAsync(t => t.IsActive = false);
+            await _context.SaveChangesAsync();
         }
 
         public async Task ActivateTeacher(string teacherId)
         {
             await _context.Teachers.Where(t => t.Email == teacherId).ForEachAsync(t => t.IsActive = true);
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -92,9 +94,14 @@ namespace exerciseBox.Infrastructur.Repositories
         /// <summary>
         /// Aktualisiert einen Lehrer (nicht implementiert).
         /// </summary>
-        public Task<Teachers> UpdateAsync(Teachers entity)
+        public async Task<Teachers> UpdateAsync(Teachers entity)
         {
-            throw new NotImplementedException();
+            var teacher = _context.Teachers.FirstOrDefault(t => t.Email == entity.Email);
+            teacher.Surname = entity.Surname;
+            teacher.FamilyName = entity.FamilyName;
+            teacher.IsActive = entity.IsActive;
+            var updatedTeacher = await _context.SaveChangesAsync();
+            return teacher;
         }
 
         /// <summary>
@@ -103,14 +110,28 @@ namespace exerciseBox.Infrastructur.Repositories
         /// <param name="teacherId"></param>
         /// <param name="subjectIds"></param>
         /// <returns></returns>
-        public async Task AddSubjects(string teacherId, string[] subjectIds)
+        public async Task AddSubject(string teacherId, string subjectId)
         {
-            await _context.TeachersSubjectsJunction.AddRangeAsync(subjectIds.Select(s => new TeachersSubjectsJunction
+            await _context.TeachersSubjectsJunction.AddAsync(new TeachersSubjectsJunction
             {
                 Id = Guid.NewGuid().ToString(),
                 Teacher = teacherId,
-                Subject = s
-            }));
+                Subject = subjectId
+            });
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Entfernt das gegebene Fach von einem Lehrer.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <param name="subjectId"></param>
+        /// <returns></returns>
+        public async Task RemoveSubject(string teacherId, string subjectId)
+        {
+            var subject = await _context.TeachersSubjectsJunction.FirstOrDefaultAsync(ts => ts.Teacher == teacherId && ts.Subject == subjectId);
+            _context.TeachersSubjectsJunction.Remove(subject);
+            await _context.SaveChangesAsync();
         }
     }
 }

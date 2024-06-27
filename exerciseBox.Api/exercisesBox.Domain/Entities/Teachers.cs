@@ -32,4 +32,6 @@ public partial class Teachers
     public virtual ICollection<TeachersSchoolLevelsJunction> TeachersSchoolLevelsJunction { get; set; } = new List<TeachersSchoolLevelsJunction>();
 
     public virtual ICollection<TeachersSubjectsJunction> TeachersSubjectsJunction { get; set; } = new List<TeachersSubjectsJunction>();
+
+
 }
