@@ -1,6 +1,7 @@
 <div *ngIf="showHideConfirm" class="popup-hide-question" [ngStyle]="{'top': popupTop, 'left': popupLeft}">
-<div class="popup-content">
-    <h6 class="popup-header">Fragen ausblenden:</h6>
-    <button class="close-popup" (click)="hideQuestion()">Bestätigen</button>
-</div>
-</div>
+    <div class="popup-content">
+      <h6 class="popup-header">Fragen wirklich für immer ausblenden?</h6>
+      <button class="btn btn-danger" (click)="hideQuestion()">Bestätigen</button>
+    </div>
+  </div>
+  

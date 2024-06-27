@@ -1,22 +1,19 @@
-
 <div *ngFor="let question of questions">
   <div class="row" style="margin-top: 2%;">
     <div class="col-11">
       <app-question [Question]="question" style="width: 100%;"></app-question>
     </div>
     <div class="col-1 d-flex align-items-center justify-content-center">
-      <button class="btn btn-link p-0" (click)="onShowFoldersList($event,question.id)" data-toggle="tooltip" title="Frage speichern">
+      <button class="btn btn-link p-0" (click)="onShowFoldersList($event, question.id)" data-toggle="tooltip" title="Frage speichern">
         <span class="circle-btn">
           <i class="fas fa-plus"></i>
         </span>
       </button>
-      <button class="btn btn-link p-0" (click)="showHideQuestionPopUp($event,question.id)" data-toggle="tooltip" title="Frage ausblenden">
+      <button class="btn btn-link p-0" (click)="showHideQuestionPopUp($event, question.id)" data-toggle="tooltip" title="Frage ausblenden">
         <span class="circle-btn">
           <i class="fas fa-minus"></i>
         </span>
       </button>
-
     </div>
-    
   </div>
 </div>
