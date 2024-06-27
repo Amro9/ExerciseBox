@@ -18,12 +18,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
         /// <returns>Eine Sammlung von <see cref="SubjectDto"/>.</returns>
         public static IEnumerable<SubjectDto> MapToSubjectDto(this IEnumerable<Subjects> subjects)
         {
-            return subjects.Select(s => new SubjectDto
-            {
-                Id = Guid.Parse(s.Id),
-                Shortcut = s.Shortcut,
-                Name = s.Name,
-            });
+            return subjects.Select(s => (SubjectDto)s);
         }
 
         /// <summary>
@@ -33,12 +28,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
         /// <returns>Eine Sammlung von <see cref="Subjects"/>.</returns>
         public static IEnumerable<Subjects> MapToDomainSubjects(this IEnumerable<SubjectDto> subjects)
         {
-            return subjects.Select(s => new Subjects
-            {
-                Id = s.Id.ToString(),
-                Shortcut = s.Shortcut,
-                Name = s.Name
-            });
+            return subjects.Select(s => (Subjects)s);
         }
     }
 }

@@ -39,4 +39,15 @@ getAllSubjects(): Observable<Subject[]>{
       return Promise.reject(error.message);
     }
   }
+
+  public async getSubjectBySchool(schoolId : string): Promise<Subject[]> {
+    let url_ = this.baseUrl + "School/Subjects/" + schoolId;
+  
+    try {
+      const response : any = await this.http.get(url_, { withCredentials: true}).toPromise();
+      return response.value as Subject[];
+    } catch (error : any) {
+      throw error;
+    }
+  }
 }

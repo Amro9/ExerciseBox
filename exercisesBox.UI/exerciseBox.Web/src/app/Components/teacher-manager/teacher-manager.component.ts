@@ -3,6 +3,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { TeacherAPIConnection } from '../../Services/api-services/TeacherAPIConnection';
 import { Teacher } from '../../Entities/Teacher';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from '../../Entities/Subject';
+import { SubjectService } from '../../Services/api-services/Subject.service';
 
 @Component({
   selector: 'app-teacher-manager',
@@ -14,9 +16,10 @@ export class TeacherManagerComponent implements OnInit{
 
 
 
-onPasswordReset() {
-throw new Error('Method not implemented.');
-}
+
+
+
+
 onChangePassword() {
 throw new Error('Method not implemented.');
 }
@@ -29,10 +32,17 @@ throw new Error('Method not implemented.');
   Teachers! : Teacher[];
   selectedTeacher : Teacher = new Teacher("","","","");
 
+  subjectsOfTeacher : Subject[] = [];
+
+  subjectOfSchool : Subject[] = [];
+  selectedSubject : Subject = new Subject("","","");
+  displayedSchoolSubjects : Subject[] = [];
+
   constructor (
     private cookieService : CookieService,
     private teacherService : TeacherAPIConnection,
-    private modal : NgbModal
+    private modal : NgbModal,
+    private subjectService : SubjectService
   )
   {
     
@@ -41,6 +51,7 @@ throw new Error('Method not implemented.');
   
   async ngOnInit(): Promise<void> {
     this.Teachers = await this.teacherService.getTeachersOfSchool(this.userMail);
+    this.subjectOfSchool = await this.subjectService.getSubjectBySchool(this.userMail);
   }
 
   onEditTeacher(teacher : Teacher, content: any) {
@@ -48,29 +59,56 @@ throw new Error('Method not implemented.');
     this.modal.open(content , {ariaLabelledBy: 'modal-basic-title', centered: true});
   }
 
-  onSaveTeacher() {
-    throw new Error('Method not implemented.');
+  async onSaveTeacher() {
+    this.selectedTeacher.schoolId = this.userMail;
+    this.selectedTeacher.password = "";
+    await this.teacherService.updateTeacher(this.selectedTeacher);
+    this.modal.dismissAll();
+    this.refresh();
   }
 
-  onDeactivateTeacher() {
-    this.teacherService.deactivateTeacher(this.selectedTeacher.email).then(() => {
-      const teacher = this.Teachers.find(t => t.email !== this.selectedTeacher.email);
-      if (teacher) {
-        teacher.isActive = false;
-      }
-    });
+  async onDeactivateTeacher() {
+    await this.teacherService.deactivateTeacher(this.selectedTeacher.email);
+    this.modal.dismissAll();
+    this.refresh();
   }
 
-  onActivateTeacher() {
-    this.teacherService.activateTeacher(this.selectedTeacher.email).then(() => {
-      const teacher = this.Teachers.find(t => t.email !== this.selectedTeacher.email);
-      if (teacher) {
-        teacher.isActive = true;
-      }
-    });
+  async onActivateTeacher() {
+    await this.teacherService.activateTeacher(this.selectedTeacher.email);
+    this.modal.dismissAll();
+    this.refresh();
   }
 
   getState(teacher: Teacher) : string {
     return teacher.isActive ? "Active" : "Inactive";
+  }
+
+  onPasswordReset() {
+    
+  }
+
+  async refresh() {
+    this.Teachers =  await this.teacherService.getTeachersOfSchool(this.userMail);
+  }
+
+  async refreshSubjects() {
+    this.subjectsOfTeacher = await this.subjectService.getSubjectById(this.selectedTeacher.email);
+  }
+
+  async onSubjectsEdit(_t17: Teacher, content: any) {
+    this.subjectsOfTeacher = await this.subjectService.getSubjectById(_t17.email);
+    this.selectedTeacher = _t17;
+    this.displayedSchoolSubjects = this.subjectOfSchool.filter(x => !this.subjectsOfTeacher);
+    this.modal.open(content, {centered: true, size: 'lg'});
+  }
+
+  async onRemoveSubject(_t80: Subject) {
+    await this.teacherService.removeSubjectFromTeacher(this.selectedTeacher.email, _t80.id);
+    this.refreshSubjects();
+  }
+
+  async onAddSubject() {
+    await this.teacherService.addSubjectToTeacher(this.selectedTeacher.email, this.selectedSubject.id);
+    this.refreshSubjects();
   }
 }

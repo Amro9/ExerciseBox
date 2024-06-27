@@ -42,6 +42,14 @@ namespace exerciseBox.Application.Abtraction.Repositories
         /// <param name="teacherId"></param>
         /// <param name="subjectIds"></param>
         /// <returns></returns>
-        Task AddSubjects(string teacherId, string[] subjectIds);
+        Task AddSubject(string teacherId, string subjectIds);
+
+        /// <summary>
+        /// Entfernt das gegebene Fach von einem Lehrer.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <param name="subjectId"></param>
+        /// <returns></returns>
+        Task RemoveSubject(string teacherId, string subjectId);
     }
 }

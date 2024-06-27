@@ -5,6 +5,7 @@ export class Teacher
     email: string;
     password: string;
     isActive: boolean; 
+    schoolId?: string;
 
     constructor(surname: string, givenname: string, email: string, password: string, isActive: boolean = true)
     {

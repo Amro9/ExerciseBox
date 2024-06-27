@@ -21,7 +21,8 @@
                             <td>{{ teacher.email }}</td>
                             <td>{{ getState(teacher) }}</td>
                             <td>
-                                <button class="btn btn-primary" (click)="onEditTeacher(teacher, teacherDetails)">Bearbeiten</button>
+                                <button class="btn btn-primary" style="background-color: #4D869C; border-color: #4D869C;" (click)="onEditTeacher(teacher, teacherDetails)">Bearbeiten</button>
+                                <button class="btn btn-primary" style="background-color: #4D869C; margin-left: 1%; border-color: #4D869C;" (click)="onSubjectsEdit(teacher, subjectEdit)">Fächer</button>
                             </td>
                         </tr>
                     </tbody>
@@ -70,6 +71,41 @@
             </div>
             <div class="col-6">
                 <button class="btn btn-primary" style="width: 100%; background-color: #4D869C;" (click)="onSaveTeacher()">Speichern</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #subjectEdit let-modal>
+    <div class="container" style="padding: 5%; background-color: #EEF7FF; border-radius: 10px;">
+        <div class="row" style="margin-bottom: 3%;">
+            <h3><b>Fächer bearbeiten</b></h3>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="box-custom">
+                    <div *ngFor="let subject of subjectsOfTeacher; let i = index" [ngClass]="{'grey-background': i % 2 === 0, 'white-background': i % 2 === 1}">
+                        <div class="row">
+                            <div class="col-10 d-flex" style="align-items: center;">
+                                <p>{{ subject.name }}</p>
+                            </div>
+                            <div class="col-2 d-flex" style="align-items: center;">
+                                <button class="btn btn-danger" (click)="onRemoveSubject(subject)">Entfernen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10">
+                        <select class="form-control" [(ngModel)]="selectedSubject">
+                            <option *ngFor="let subject of displayedSchoolSubjects" [ngValue]="subject">{{ subject.name }}</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onAddSubject()">Hinzufügen</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
