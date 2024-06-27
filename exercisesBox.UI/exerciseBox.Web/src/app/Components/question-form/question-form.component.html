@@ -137,9 +137,9 @@
       </div>
       <div class="mb-3 row">
         <div class="col-sm-6">
-          <select id="chooseDifficulty" formControlName="difficultyLevel" class="form-select" data-bs-toggle="tooltip" title="Wählen Sie den Schwierigkeitsgrad">
+          <select id="chooseDifficulty" formControlName="difficultyLevelDto" class="form-select" data-bs-toggle="tooltip" title="Wählen Sie den Schwierigkeitsgrad">
             <option value="0">Wähle den Schwierigkeitsgrad</option>
-            <option *ngFor="let difficulty of difficultyLevels" [value]="difficulty.id">{{ difficulty.description }}</option>
+            <option *ngFor="let difficulty of difficultyLevels" [ngValue]="difficulty">{{ difficulty.description }}</option>
           </select>
           <div *ngIf="questionCreationForm.get('difficultyLevel')?.errors?.['invalidDropdown'] && questionCreationForm.get('difficultyLevel')?.touched" class="text-danger">
             Bitte wählen Sie den Schwierigkeitsgrad aus.

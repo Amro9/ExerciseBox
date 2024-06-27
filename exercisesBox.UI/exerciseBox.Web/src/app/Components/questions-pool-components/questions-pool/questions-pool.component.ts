@@ -6,6 +6,7 @@ import { FolderService } from '../../../Services/api-services/Folder.Service';
 import { QuestionService } from '../../../Services/api-services/question.service';
 import { CookieService } from 'ngx-cookie-service';
 import { FoldersPopupComponent } from '../folders-popup/folders-popup.component';
+import { NotificationService } from '../../../Services/general-services/notification.service';
 
 @Component({
   selector: 'app-questions-pool',
@@ -30,7 +31,8 @@ export class QuestionsPoolComponent {
     private questionService: QuestionService,
     private folderService: FolderService,
     private elementRef: ElementRef,
-    private cookieService: CookieService 
+    private cookieService: CookieService ,
+    private notificationService: NotificationService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -141,7 +143,7 @@ export class QuestionsPoolComponent {
 
   hideQuestion() {
     console.log('Frage wird ausgeblendet.');
-    this.showHideConfirm = false;
-    // Hier die Logik zum Ausblenden der Frage hinzufügen.
+
+    this.questionService.hideQuestionByTeacher(this.selectedQuestionId, this.userEmail).subscribe({ });
   }
 }

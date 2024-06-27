@@ -37,7 +37,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
                 Id = q.Id.ToString(),
                 QuestionText = q.QuestionText,
                 Answer = q.Answer,
-                DifficultyLevel = q.DifficultyLevel,
+                DifficultyLevel = q.DifficultyLevelDto.Id,
                 SchoolLevel = q.SchoolLevel,
                 Topic = q.Topic,
                 QuestionIsPrivate = q.QuestionIsPrivate,

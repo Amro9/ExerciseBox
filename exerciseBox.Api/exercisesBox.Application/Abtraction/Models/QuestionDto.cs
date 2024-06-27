@@ -40,19 +40,10 @@ namespace exerciseBox.Application.Abtraction.Models
         /// <summary>
         /// Ruft den Schwierigkeitsgrad der Frage ab oder legt diesen fest.
         /// </summary>
-        [Required(ErrorMessage = "Der Schwierigkeitsgrad darf nicht null sein.")]
-        public string DifficultyLevel { get; set; }
-
-        /// <summary>
-        /// Ruft das Fach der Frage ab oder legt dieses fest.
-        /// </summary>
-        //[Required(ErrorMessage = "Das Fach darf nicht null sein.")]
-        //public string Subject { get; set; }
+        //public string DifficultyLevel { get; set; }
 
         public DifficultyLevelDto DifficultyLevelDto { get; set; }
 
-
-        [Required(ErrorMessage = "Der Schultyp darf nicht null sein.")]
         public int SchoolType { get; set; }
         public string? SchoolBranch { get; set; }
 
@@ -83,7 +74,6 @@ namespace exerciseBox.Application.Abtraction.Models
                 Id = Guid.Parse(question.Id),
                 QuestionText = question.QuestionText,
                 Answer = question.Answer,
-                DifficultyLevel = question.DifficultyLevel,
                 SchoolLevel = question.SchoolLevel,
                 Topic = question.Topic,
                 QuestionIsPrivate = question.QuestionIsPrivate,
@@ -104,7 +94,7 @@ namespace exerciseBox.Application.Abtraction.Models
                 Id = question.Id.ToString(),
                 QuestionText = question.QuestionText,
                 Answer = question.Answer,
-                DifficultyLevel = question.DifficultyLevel,
+                DifficultyLevel = question.DifficultyLevelDto.Id,
                 SchoolLevel = question.SchoolLevel,
                 Topic = question.Topic,
                 QuestionIsPrivate = question.QuestionIsPrivate,

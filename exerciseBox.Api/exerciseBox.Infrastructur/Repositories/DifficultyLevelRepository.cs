@@ -44,9 +44,10 @@ namespace exerciseBox.Infrastructure.Repositories
         /// <summary>
         /// Liest ein Schwierigkeitslevel anhand seiner ID aus der Datenbank (nicht implementiert).
         /// </summary>
-        public Task<QuestionDifficultyLevels> ReadByIdAsync(Guid id)
+        public async Task<QuestionDifficultyLevels> ReadByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            
+            return await _context.QuestionDifficultyLevels.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         /// <summary>

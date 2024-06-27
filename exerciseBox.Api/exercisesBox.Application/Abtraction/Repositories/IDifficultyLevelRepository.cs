@@ -2,7 +2,7 @@
 
 namespace exerciseBox.Application.Abtraction.Repositories;
 
-public interface IDifficultyLevelRepository : IRepository<QuestionDifficultyLevels, Guid>
+public interface IDifficultyLevelRepository : IRepository<QuestionDifficultyLevels, string>
 {
 
 }

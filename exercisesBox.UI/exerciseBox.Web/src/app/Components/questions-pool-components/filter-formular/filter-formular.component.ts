@@ -2,13 +2,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SchoolBranch } from '../../../Entities/SchoolBranch';
 import { SchoolTypes } from '../../../Entities/SchoolTypes';
-import { DifficultyLevel, DifficultyLevelsService } from '../../../Services/api-services/difficulty-levels.service';
+import {  DifficultyLevelsService } from '../../../Services/api-services/difficulty-levels.service';
 import { Topic, TopicService } from '../../../Services/api-services/Topic.service';
 import { Subject } from '../../../Entities/Subject';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { SchoolLevelService } from '../../../Services/api-services/SchoolLevel.service';
 import { SubjectService } from '../../../Services/api-services/Subject.service';
 import { SchoolService } from '../../../Services/api-services/school.service';
+import { DifficultyLevel } from '../../../Entities/DifficutlyLevel';
 
 @Component({
   selector: 'app-filter-formular',

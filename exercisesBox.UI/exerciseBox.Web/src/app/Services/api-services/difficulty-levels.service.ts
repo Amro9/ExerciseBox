@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../../Infrastucture/configurations';
+import { DifficultyLevel } from '../../Entities/DifficutlyLevel';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +20,11 @@ getDifficultyLevels(): Observable<DifficultyLevel[]> {
 
   return this.http.get<DifficultyLevel[]>(url_,{withCredentials: true});
 }
+getDifficultyLevelById(id :string): Observable<DifficultyLevel> {
+  let url_ =  this.baseUrl+ 'QuestionParameters/GetDifficultyLevelById?id='+id;
+
+  return this.http.get<DifficultyLevel>(url_,{withCredentials: true});
 }
 
-export class DifficultyLevel {
-id: string;
-description: string;
 
-constructor(id: string, description: string){
-  this.id = id;
-  this.description = description;
-}
 }

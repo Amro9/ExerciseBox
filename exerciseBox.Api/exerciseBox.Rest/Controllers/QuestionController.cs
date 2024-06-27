@@ -105,13 +105,18 @@ namespace exerciseBox.Rest.Controllers
                 return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
             }
         }
-        [HttpPut("hideQuestion")]
-        public async Task<IActionResult> HideQuestion([FromBody] HideQuestionRequest request)
+        [HttpPut("hideQuestionByTeacher")]
+        public async Task<IActionResult> HideQuestionByTeacher([FromBody] HideQuestionRequest request)
         {
-            // Hier Logik zum Ausblenden der Frage basierend auf request.Days
+
             // Beispiel: this.questionService.HideQuestion(questionId, request.Days);
+            try { 
             bool isHidden = await _mediator.Send(new HideQuestionByTeacher (request.QuestionId , request.TeacherId));
             return Ok(new { message = "Frage erfolgreich ausgeblendet." });
+            }catch
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
         }
 
 

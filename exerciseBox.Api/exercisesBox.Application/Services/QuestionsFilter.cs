@@ -30,7 +30,7 @@ namespace exerciseBox.Application.Services
             }
             if (!string.IsNullOrEmpty(searchParams.DifficultyLevel))
             {
-                questions = questions.Where(q => q.DifficultyLevel == searchParams.DifficultyLevel);
+                questions = questions.Where(q => q.DifficultyLevelDto.Id == searchParams.DifficultyLevel);
             }
             if (!string.IsNullOrEmpty(searchParams.Subject))
             {

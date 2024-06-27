@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, map, Observable, tap, throwError } from "rxjs";
 import { API_BASE_URL } from "../../Infrastucture/configurations";
 import { Question } from "../../Entities/Question";
+import { NotificationService } from "../general-services/notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,25 @@ export class QuestionService {
 
   constructor(
     @Inject(HttpClient) http: HttpClient
-    , @Inject(API_BASE_URL) private baseUrl: string
+    , @Inject(API_BASE_URL) private baseUrl: string,
+    private notificationService: NotificationService
   ) {
     this.http = http;
   }
+hideQuestionByTeacher(questionId: string, teacherId : string): Observable<any> {
+    let url_ =this.baseUrl + "question/hideQuestionByTeacher";
+    const body = { questionId, teacherId };
 
+    return this.http.put(url_, body, { withCredentials: true }).pipe(
+      tap((response: any) => {
+        this.notificationService.showSuccess(response.message)
+      }),
+      catchError(error => {
+        console.error('Error hiding question:', error);
+        return throwError(error);
+      })
+    );
+  }
   getQuestions(obj: any): Observable<Question[]> {
     let url_ = this.baseUrl + "question/searchquestions";
     let params = new HttpParams();

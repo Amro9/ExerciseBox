@@ -90,5 +90,10 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetAllDifficultyLevels());
         }
+        [HttpGet("GetDifficultyLevelById")]
+        public async Task<DifficultyLevelDto> GetDifficultyLevelById([FromQuery] string id)
+        {
+            return await _mediator.Send(new GetDifficultyLevelById(id));
+        }
     }
 }

@@ -1,4 +1,5 @@
-import { DifficultyLevel } from "../Services/api-services/difficulty-levels.service";
+import { DifficultyLevel } from "./DifficutlyLevel";
+
 
 export class Question {
     id: string;

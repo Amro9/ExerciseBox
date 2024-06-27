@@ -5,8 +5,9 @@ import { Subject} from '../../Entities/Subject';
 import { SubjectService } from '../../Services/api-services/Subject.service';
 import { TopicService, Topic } from '../../Services/api-services/Topic.service';
 import { SchoolLevelService } from '../../Services/api-services/SchoolLevel.service';
-import { DifficultyLevel, DifficultyLevelsService } from '../../Services/api-services/difficulty-levels.service';
+import {  DifficultyLevelsService } from '../../Services/api-services/difficulty-levels.service';
 import { CookieService } from 'ngx-cookie-service';
+import { DifficultyLevel } from '../../Entities/DifficutlyLevel';
 
 @Component({
   selector: 'app-question-form',
@@ -40,7 +41,7 @@ export class QuestionCreationFormComponent implements OnInit {
       topic: ['0',[Validators.required, this.validateDropdown]],
       questionText: ['', [Validators.required]],
       answer: ['', [Validators.required]],
-      difficultyLevel: ['0',[Validators.required, this.validateDropdown]],
+      difficultyLevelDto: ['0',[Validators.required, this.validateDropdown]],
       questionIsPrivate: [false]
     });
   }
