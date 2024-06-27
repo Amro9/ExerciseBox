@@ -11,6 +11,7 @@ using exerciseBox.Application.UseCases.Teachers.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -197,12 +198,31 @@ namespace exerciseBox.Rest.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns>Ein <see cref="IActionResult"/></returns>
-        [HttpPost("AddSubjects")]
-        public async Task<IActionResult> AddSubjectRange([FromBody] AddSubjectsRequest request)
+        [HttpPost("AddSubject")]
+        public async Task<IActionResult> AddSubject([FromBody] SubjectsRequest request)
         {
             try
             {
-                await _mediator.Send(new AddSubjects { TeacherId = request.TeacherId, SubjectIds = request.SubjectIds });
+                await _mediator.Send(new AddSubject { TeacherId = request.TeacherId, SubjectId = request.SubjectId });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        /// <summary>
+        /// Entfernt einem Lehrer Fächer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("RemoveSubject")]
+        public async Task<IActionResult> RemoveSubject([FromBody] SubjectsRequest request)
+        {
+            try
+            {
+                await _mediator.Send(new RemoveSubject { TeacherId = request.TeacherId, SubjectId = request.SubjectId });
                 return Ok();
             }
             catch (Exception ex)
@@ -214,21 +234,41 @@ namespace exerciseBox.Rest.Controllers
         /// <summary>
         /// Aktualisiert einen Lehrer.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name = "request" ></ param >
+        /// < returns ></ returns >
+        [HttpPost("Update")]
+        public async Task<IActionResult> UpdateTeacher([FromBody] TeacherUpdateRequest request)
+        {
+            try
+            {
+                await _mediator.Send(new UpdateTeacher { Teacher = request });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+
+        /// <summary>
+        /// Setzt das Passwort eines Lehrers zurück.
+        /// </summary>
+        /// <param name="email"></param>
         /// <returns></returns>
-        //[HttpPost("Update")]
-        //public async Task<IActionResult> UpdateTeacher([FromBody] TeacherDto request)
-        //{
-        //    try
-        //    {
-        //        await _mediator.Send(new UpdateTeacher { Teacher = request });
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
-        //    }
-        //}
+        [HttpPost("ResetPassword/{id}")]
+        public async Task<IActionResult> ResetPassword(string id)
+        {
+            try
+            {
+                await _mediator.Send(new ResetPassword { Email = id });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
 
     }
 }

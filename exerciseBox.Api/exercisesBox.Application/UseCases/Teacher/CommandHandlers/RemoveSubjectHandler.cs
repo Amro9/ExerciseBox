@@ -1,35 +1,35 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Application.UseCases.Teacher.Commands;
 using MediatR;
+using Microsoft.VisualBasic;
 
 namespace exerciseBox.Application.UseCases.Teacher.CommandHandlers
 {
     /// <summary>
-    /// Command-Handler zum hinzufügen von Fächern zu einem Lehrer.
+    /// Command-Handler zum entfernen von Fächern von einem Lehrer.
     /// </summary>
-    public class AddSubjectsHandler : IRequestHandler<AddSubject>
+    public class RemoveSubjectHandler : IRequestHandler<RemoveSubject>
     {
         private readonly ITeacherRepository _teacherRepository;
 
         /// <summary>
-        /// Konstruktor für den AddSubjectsHandler.
+        /// Konstruktor für den RemoveSubjectHandler.
         /// </summary>
         /// <param name="teacherRepository"></param>
-        public AddSubjectsHandler(ITeacherRepository teacherRepository)
+        public RemoveSubjectHandler(ITeacherRepository teacherRepository)
         {
             _teacherRepository = teacherRepository;
         }
 
         /// <summary>
-        /// Verarbeitet den Befehl zum Hinzufügen von Fächern zu einem Lehrer.
+        /// Verarbeitet den Befehl zum Entfernen von Fächern von einem Lehrer.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task Handle(AddSubject request, CancellationToken cancellationToken)
+        public async Task Handle(RemoveSubject request, CancellationToken cancellationToken)
         {
-            await _teacherRepository.AddSubject(request.TeacherId, request.SubjectId);
+            await _teacherRepository.RemoveSubject(request.TeacherId, request.SubjectId);
         }
     }
 }
