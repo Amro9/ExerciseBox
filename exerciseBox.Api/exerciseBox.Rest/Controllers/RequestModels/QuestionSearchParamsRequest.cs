@@ -16,6 +16,7 @@ namespace exerciseBox.Rest.Controllers.RequestModels
         /// Der Zweig der Schule.
         /// </summary>
         public string? SchoolBranch { get; set; }
+        public string TeacherEmail { get; set; }
 
         /// <summary>
         /// Das Level der Schule.

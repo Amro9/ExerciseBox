@@ -122,6 +122,7 @@ onSubjectChange(event: Event) {
 // }
 submitSearch() {
   const searchParams = this.questionSearchParams.value;
+  
   Object.entries(searchParams).forEach(([key, value]) => {
     if (value === 'null') {
       delete searchParams[key];

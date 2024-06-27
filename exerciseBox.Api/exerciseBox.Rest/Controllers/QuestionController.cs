@@ -100,6 +100,11 @@ namespace exerciseBox.Rest.Controllers
                 }
 
                 var filteredQuestions = QuestionsFilter.Filter(questions, parameters);
+
+                var hiddenQuestions = await _mediator.Send(new GetHiddenQuestionsByTeacher(parameters.TeacherEmail));
+
+                filteredQuestions = QuestionsFilter.FilterHiddenQuestions(filteredQuestions, hiddenQuestions);
+
                 return Ok(filteredQuestions);
             }
             catch (Exception ex)

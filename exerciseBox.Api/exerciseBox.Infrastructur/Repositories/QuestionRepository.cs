@@ -109,11 +109,12 @@ namespace exerciseBox.Infrastructure.Repositories
             return questions;
         }
 
-        public async Task<bool> HideQuestion(string teacherId, string questionId)
+        public async Task<bool> HideQuestion(string id,string teacherId, string questionId)
         {
             try { 
             var questionToHide = new TeachersHiddenQuestions
             {
+                Id = id,
                 TeacherId = teacherId,
                 QuestionId = questionId,
             };
@@ -127,9 +128,16 @@ namespace exerciseBox.Infrastructure.Repositories
             }
         }
 
-        public async Task<bool> IsQuestionHidden(string teacherId, string questionId)
+        public async Task<IEnumerable<Questions>> GetHiddenQuestionsByTeacher(string teacherId)
         {
-            throw new NotImplementedException();
+            var hiddenQuestions = await _context.TeachersHiddenQuestions
+                .Where(q => q.TeacherId == teacherId)
+                .Select(q => q.QuestionId)
+                .ToListAsync();
+
+            return await _context.Questions
+                .Where(q => hiddenQuestions.Contains(q.Id.ToString()))
+                .ToListAsync();
         }
 
         /// <summary>

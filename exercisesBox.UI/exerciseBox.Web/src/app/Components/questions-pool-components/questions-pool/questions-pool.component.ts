@@ -42,9 +42,12 @@ export class QuestionsPoolComponent {
   }
 
   submitSearch(searchParams: any) {
+    searchParams.teacherEmail = this.userEmail;
+    console.log('Search parameters:', searchParams);
     this.questionService.getQuestions(searchParams).subscribe({
       next: (data) => {
         this.publicQuestions = data;
+
         console.log('Questions fetched:', this.publicQuestions);
       },
       error: (error: string) => console.error('Error fetching questions:', error)
@@ -144,6 +147,13 @@ export class QuestionsPoolComponent {
   hideQuestion() {
     console.log('Frage wird ausgeblendet.');
 
-    this.questionService.hideQuestionByTeacher(this.selectedQuestionId, this.userEmail).subscribe({ });
+    this.questionService.hideQuestionByTeacher(this.selectedQuestionId, this.userEmail).subscribe({ 
+      next: (data) => {
+        console.log('Question hidden:', data);
+        this.notificationService.showSuccess('Frage ausgeblendet');
+        this.publicQuestions = this.publicQuestions.filter(q => q.id !== this.selectedQuestionId);
+        this.showHideConfirm = false;
+      }
+    });
   }
 }

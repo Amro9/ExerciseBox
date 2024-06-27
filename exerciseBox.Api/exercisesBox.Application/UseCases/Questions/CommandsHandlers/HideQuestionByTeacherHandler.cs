@@ -18,7 +18,8 @@ namespace exerciseBox.Application.UseCases.Questions.CommandsHandlers
         }
         public Task<bool> Handle(HideQuestionByTeacher request, CancellationToken cancellationToken)
         {
-            return  _questionRepository.HideQuestion(request.QuestionId, request.TeacherId);
+
+            return  _questionRepository.HideQuestion(Guid.NewGuid().ToString(), request.TeacherId, request.QuestionId);
         }
     }
 }

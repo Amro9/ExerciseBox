@@ -10,6 +10,10 @@ namespace exerciseBox.Application.Services
 {
     public static class QuestionsFilter
     {
+        public static IEnumerable<QuestionDto> FilterHiddenQuestions(IEnumerable<QuestionDto> questions,IEnumerable<QuestionDto> hiddenQuestions)
+        {
+            return questions.Where(q => !hiddenQuestions.Any(hq => hq.Id == q.Id));
+        }
         public static IEnumerable<QuestionDto> Filter(IEnumerable<QuestionDto> questions, QuestionSearchParams searchParams)
         {
             if (searchParams.SchoolType != 0)

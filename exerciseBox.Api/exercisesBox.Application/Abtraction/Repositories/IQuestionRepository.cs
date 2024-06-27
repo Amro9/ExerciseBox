@@ -8,6 +8,6 @@ public interface IQuestionRepository: IRepository<Questions, Guid>
     Task<IEnumerable<Questions>> GetFolderQuestions(string folderid);
     Task<IEnumerable<Questions>> GetQuestionsBySubject(string subject);
     Task<int> SaveQuestionToFolder(string junctionId, string folderId, string questionId);
-    Task<bool> HideQuestion(string teacherId, string questionId);
-  Task<bool> IsQuestionHidden(string teacherId, string questionId);
+    Task<bool> HideQuestion(string id, string teacherId, string questionId);
+    Task<IEnumerable<Questions>> GetHiddenQuestionsByTeacher(string teacherId);
 }
