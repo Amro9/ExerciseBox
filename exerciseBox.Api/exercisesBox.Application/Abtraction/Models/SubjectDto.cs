@@ -28,6 +28,11 @@ namespace exerciseBox.Application.Abtraction.Models
         /// </summary>
         public static implicit operator SubjectDto(Subjects subject)
         {
+            if(subject == null)
+            {
+                return null;
+            }
+
             return new SubjectDto
             {
                 Id = Guid.Parse(subject.Id),

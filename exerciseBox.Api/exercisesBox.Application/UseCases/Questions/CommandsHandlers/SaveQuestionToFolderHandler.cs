@@ -19,7 +19,7 @@ namespace exerciseBox.Application.UseCases.Questions.CommandsHandlers
         public async Task<int> Handle(SaveQuestionToFolder request, CancellationToken cancellationToken)
         {
             int questionSaved = await _questionRepository.SaveQuestionToFolder(request.JunctionId,request.FolderId, request.QuestionId);
-        return questionSaved;
+            return questionSaved;
         }
     }
 }

@@ -7,6 +7,7 @@ import { Subject } from '../../Entities/Subject';
 import { Topic } from '../../Entities/Topic';
 import { FoldersPopupComponent } from '../questions-pool-components/folders-popup/folders-popup.component';
 import { SubjectService } from '../../Services/api-services/Subject.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,10 @@ import { SubjectService } from '../../Services/api-services/Subject.service';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit{
+
+
+
+  errorMessage: string | null = null;
 
 
   userMail : string = "";
@@ -33,10 +38,14 @@ export class ProfileComponent implements OnInit{
   Subjects : Subject[] = [];
   DisplayedFolders : Folder[] = [];
 
+  selectedSubjectforNewFolder: Subject = new Subject("", "", "");
+  folderName: any;
+
   constructor(private folderService: FolderService,
     private questionService: QuestionService,
     private cookieService: CookieService,
-    private subjectService: SubjectService  
+    private subjectService: SubjectService,
+    private modalService: NgbModal
   )
   {
   
@@ -44,12 +53,36 @@ export class ProfileComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     this.userMail = this.cookieService.get("userEmail");
-    this.Folders = await this.folderService.getFoldersOfTeacher(this.userMail);
+    await this.folderService.getFoldersOfTeacher(this.userMail).then(folders => {
+      this.Folders = folders;
+    });
     this.Subjects = await this.subjectService.getSubjectById(this.userMail);
   }
 
+  onFolderSubmit() {
+    try{
+      this.folderService.createNewFolder(this.folderName, this.selectedSubjectforNewFolder.id, this.userMail).then(
+        value => {
+          console.log('Folder created:', value);
+          this.Folders.push(value);
+          this.DisplayedFolders.push(value);
+          this.modalService.dismissAll();
+        },);
+    }
+    catch (error : any){
+      this.errorMessage = error.toString();
+    }
+
+  }
+
+  openNewFolderModal(content: any) {
+    this.errorMessage = null;
+  
+    this.modalService.open(content, { centered: true, size: 'md'});
+  }
+
   onSubjectChange() {
-    this.DisplayedFolders = this.Folders.filter(f => f.Subject.id === this.selectedSubject.id);
+    this.DisplayedFolders = this.Folders.filter(f => f.subject.id === this.selectedSubject.id);
   }
 
   onFolderChange() {
