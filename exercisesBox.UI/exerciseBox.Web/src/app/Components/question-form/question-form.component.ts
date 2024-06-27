@@ -6,13 +6,13 @@ import { SubjectService } from '../../Services/api-services/Subject.service';
 import { TopicService, Topic } from '../../Services/api-services/Topic.service';
 import { SchoolLevelService } from '../../Services/api-services/SchoolLevel.service';
 import { DifficultyLevel, DifficultyLevelsService } from '../../Services/api-services/difficulty-levels.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-question-form',
   templateUrl: './question-form.component.html',
   styleUrl: './question-form.component.css'
 })
-
 export class QuestionCreationFormComponent implements OnInit {
   subjects: Subject[] = [];
   schoolLevels: string[] = [];
@@ -20,6 +20,7 @@ export class QuestionCreationFormComponent implements OnInit {
   subjectsTopics: Topic[] = [];
   difficultyLevels: DifficultyLevel[] = [];
 
+  userEmail! : string;
 
   onChange(newHtml: string) {
   }
@@ -30,7 +31,8 @@ export class QuestionCreationFormComponent implements OnInit {
     private topicService: TopicService,
     private schoolLevel : SchoolLevelService,
     private difficultyLevelsService: DifficultyLevelsService,
-    private questionFromService: QuestionFromService
+    private questionFromService: QuestionFromService,
+    private cookieService: CookieService
   ) {
 
     this.questionCreationForm = this.fb.group({
@@ -49,6 +51,7 @@ export class QuestionCreationFormComponent implements OnInit {
     return null;
   }
   ngOnInit(): void {
+    this.userEmail = this.cookieService.get("userEmail");
     this.fetchSubjects();
     this.fetchSchoolLevels();
     this.fetchDifficultyLevels()
@@ -86,9 +89,7 @@ export class QuestionCreationFormComponent implements OnInit {
     else{
 
       const formData = this.questionCreationForm.value;
-      formData.Author = "1@2.com"
-      formData.SchoolType= "16"
-      formData.SchoolBranch = "f475008d-222d-4e34-8e8f-b9700cb828e5" 
+      formData.Author = this.userEmail;
       
       this.questionFromService.submitQuestionForm(formData).subscribe({
         next: () => {

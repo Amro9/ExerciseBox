@@ -15,6 +15,8 @@ public partial class Subjects
 
     public virtual ICollection<BranchesSubjectsJunction> BranchesSubjectsJunction { get; set; } = new List<BranchesSubjectsJunction>();
 
+    public virtual ICollection<Folders> Folders { get; set; } = new List<Folders>();
+
     public virtual ICollection<SchoolsSubjectsJunction> SchoolsSubjectsJunction { get; set; } = new List<SchoolsSubjectsJunction>();
 
     public virtual ICollection<TeachersSchoolLevelsJunction> TeachersSchoolLevelsJunction { get; set; } = new List<TeachersSchoolLevelsJunction>();

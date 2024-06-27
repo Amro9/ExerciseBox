@@ -30,4 +30,26 @@ export class FolderService{
             return [] as Folder[];
         }
     }
+
+    public async createNewFolder(folder : Folder): Promise<boolean> {
+        let url_ = this.baseUrl + "Teacher/NewFolder";
+        try {
+            const response: any = await this.http.post(url_, folder, { headers: this.headers, withCredentials: true }).toPromise();
+            return true;
+        } catch (error) {
+            console.error('Error creating folder:', error);
+            return false;
+        }
+    }
+
+    public async getCreationFolder(subjectId: string, userId: string): Promise<Folder> {
+        let url_ = this.baseUrl + "Teacher/CreationFolder/" + subjectId;
+        try {
+            const response: any = await this.http.post(url_,{subjectId, userId} ,{ headers: this.headers, withCredentials: true }).toPromise();
+            return response.value as Folder;
+        } catch (error) {
+            console.error('Error fetching creation folder:', error);
+            throw error;
+        }
+    }
 }

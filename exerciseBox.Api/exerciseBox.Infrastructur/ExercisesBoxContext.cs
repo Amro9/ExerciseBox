@@ -2,9 +2,10 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace exerciseBox.Domain.Entities;
+namespace exerciseBox.Infrastructur;
 
 public partial class ExercisesBoxContext : DbContext
 {
@@ -157,6 +158,8 @@ public partial class ExercisesBoxContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Folders__3213E83FDD862A75");
 
+            entity.HasIndex(e => e.Id, "IX_Folders");
+
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -165,24 +168,23 @@ public partial class ExercisesBoxContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
+            entity.Property(e => e.Subject)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("subject");
             entity.Property(e => e.Teacher)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("teacher");
-            entity.Property(e => e.Topic)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("topic");
+
+            entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.Folders)
+                .HasForeignKey(d => d.Subject)
+                .HasConstraintName("FK_Folders_Subjects");
 
             entity.HasOne(d => d.TeacherNavigation).WithMany(p => p.Folders)
                 .HasForeignKey(d => d.Teacher)
                 .HasConstraintName("FK_Folders_Teachers");
-
-            entity.HasOne(d => d.TopicNavigation).WithMany(p => p.Folders)
-                .HasForeignKey(d => d.Topic)
-                .HasConstraintName("FK_Folders_Topics");
-        });   
-
+        });
 
         modelBuilder.Entity<FoldersQuestionsJunction>(entity =>
         {

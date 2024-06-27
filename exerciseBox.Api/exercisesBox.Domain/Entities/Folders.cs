@@ -11,13 +11,13 @@ public partial class Folders
 
     public string Name { get; set; }
 
-    public string Topic { get; set; }
-
     public string Teacher { get; set; }
 
     public bool IsCreationFolder { get; set; }
 
-    public virtual Teachers TeacherNavigation { get; set; }
+    public string Subject { get; set; }
 
-    public virtual Topics TopicNavigation { get; set; }
+    public virtual Subjects SubjectNavigation { get; set; }
+
+    public virtual Teachers TeacherNavigation { get; set; }
 }

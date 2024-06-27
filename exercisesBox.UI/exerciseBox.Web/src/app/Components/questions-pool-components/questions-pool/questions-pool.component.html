@@ -1,11 +1,11 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3 sidebar">
-      <app-filter-formular (search)="submitSearch($event)"></app-filter-formular>
-    </div>
-    <div class="col-md-9 content">
-      <app-question-list [questions]="publicQuestions" (showFolders)="showFoldersList($event)" (hideQuestionEvent)="showHideQuestionPopUp($event)"></app-question-list>
-    </div>
+    <div class="row">
+      <div class="col-md-3 sidebar">
+        <app-filter-formular (search)="submitSearch($event)"></app-filter-formular>
+      </div>
+      <div class="col-md-9 content">
+        <app-question-list [questions]="publicQuestions" (showFolders)="showFoldersList($event)" (hideQuestion)="hideQuestion()" [isCreationFolder]="true"></app-question-list>
+      </div>
 
     <app-folders-popup
       [folders]="Folders"

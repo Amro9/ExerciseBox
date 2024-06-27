@@ -7,6 +7,7 @@ import { Question } from '../../../Entities/Question';
   styleUrls: ['./question-list.component.css']
 })
 export class QuestionListComponent {
+  @Input() isCreationFolder = false;
   @Input() questions: Question[] = [];
   @Output() showFolders = new EventEmitter<{ questionId: string, event: MouseEvent }>();
   @Output() hideQuestionEvent = new EventEmitter<{ questionId: string, event: MouseEvent }>();
