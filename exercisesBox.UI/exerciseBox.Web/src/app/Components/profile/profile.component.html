@@ -19,7 +19,7 @@
     </div>
    
     <div class="row">
-        <app-question-list [questions]="selectedFolder.Questions" (showFolders)="showFoldersList($event)" [isCreationFolder]="selectedFolder.IsCreationFolder"></app-question-list>     
+        <app-question-list [questions]="selectedFolder.Questions" (showFolders)="showFoldersList($event)" [isCreationFolder]="true"></app-question-list>     
     </div>
 
     <app-folders-popup

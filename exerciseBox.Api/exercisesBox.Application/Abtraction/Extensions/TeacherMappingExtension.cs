@@ -17,12 +17,7 @@ namespace exerciseBox.Application.Abtraction.Extensions
         /// <returns>Eine Sammlung von <see cref="TeacherDto"/>.</returns>
         public static IEnumerable<TeacherDto> MapToTeacherDto(this IEnumerable<Teachers> teachers)
         {
-            return teachers.Select(teacher => new TeacherDto
-            {
-                Surname = teacher.Surname,
-                Email = teacher.Email,
-                School = teacher.SchoolNavigation
-            });
+            return teachers.Select(teacher => (TeacherDto)teacher);
         }
 
         /// <summary>

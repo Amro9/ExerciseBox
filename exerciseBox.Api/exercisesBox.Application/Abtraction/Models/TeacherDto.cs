@@ -38,6 +38,11 @@ public class TeacherDto
     public SchoolDto School { get; set; }
 
     /// <summary>
+    /// Ruft einen Wert ab, der angibt, ob der Lehrer aktiv ist oder legt diesen fest.
+    /// </summary>
+    public bool IsActive { get; set; }
+
+    /// <summary>
     /// Konvertiert ein Teachers-Objekt implizit in ein TeacherDto-Objekt.
     /// </summary>
     public static implicit operator TeacherDto(Teachers teacher)
@@ -48,6 +53,7 @@ public class TeacherDto
             Givenname = teacher.FamilyName,
             Email = teacher.Email,
             School = teacher.SchoolNavigation is null ? null : teacher.SchoolNavigation,
+            IsActive = teacher.IsActive,
         };
     }
 
@@ -64,6 +70,7 @@ public class TeacherDto
             Password = teacher.Password is null ? null : teacher.Password,
             SchoolNavigation = teacher.School is null ? null : teacher.School,
             School = teacher.SchoolId is null ? null : teacher.SchoolId,
+            IsActive = teacher.IsActive,
         };
     }
 }

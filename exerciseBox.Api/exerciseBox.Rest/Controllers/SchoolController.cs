@@ -117,6 +117,11 @@ namespace exerciseBox.Rest.Controllers
             }
         }
 
+        /// <summary>
+        /// Holt alle Lehrer einer Schule.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Ein <see cref="IActionResult"/> mit den Lehrer einer Schule.</returns>
         [HttpGet("Teachers/{id}")]
         public async Task<IActionResult> GetSchoolTeachers(string id)
         {

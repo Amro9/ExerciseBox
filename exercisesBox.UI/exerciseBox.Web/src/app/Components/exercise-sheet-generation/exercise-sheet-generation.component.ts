@@ -10,6 +10,8 @@ import { Subject } from '../../Entities/Subject';
 import { ExerciseSheet } from '../../Entities/ExerciseSheet';
 import { SubjectService } from '../../Services/api-services/Subject.service';
 import { Topic } from '../../Entities/Topic';
+import { FolderPickModel } from '../../Entities/FolderPickModel';
+import { QuestionPickModel } from '../../Entities/QuestionPickModel';
 
 
 @Component({
@@ -18,6 +20,9 @@ import { Topic } from '../../Entities/Topic';
   styleUrl: './exercise-sheet-generation.component.css'
 })
 export class ExerciseSheetGenerationComponent implements OnInit{
+onRandomPick() {
+throw new Error('Method not implemented.');
+}
 
 
   
@@ -26,7 +31,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   SelectedQuestions : Question[] = [];  
   Folders! : Folder[];
   DisplayedFolders! : Folder[];
-  selectedFolder : Folder = new Folder("0", "Select a folder", new Subject("", "", ""), false);
+  selectedFolder : FolderPickModel = new FolderPickModel(new Folder("", "", new Subject("", "", ""), false),false, []);
   selectedSubject : Subject = new Subject("", "", "");
 
   Subjects : Subject[] = [];
@@ -55,7 +60,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
       private subjectService: SubjectService
     ) 
   {
-    this.selectedFolder.Questions = [];
+    this.selectedFolder.QuestionPickModels = [];
     //this.session = Session.fromJson(localStorage.getItem("session"))
     
   }
@@ -107,15 +112,15 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   }
 
   onFolderChange() {
-    if(this.selectedFolder.Questions !== undefined){
-      if(this.selectedFolder.Questions.length > 0){
+    if(this.selectedFolder.QuestionPickModels !== undefined){
+      if(this.selectedFolder.QuestionPickModels.length > 0){
         return;
       }
     }
-    this.questionService.getQuestionsByFolder(this.selectedFolder.id).subscribe(questions => this.selectedFolder.Questions = questions)
-    if(this.selectedFolder.Questions === undefined)
+    this.questionService.getQuestionsByFolder(this.selectedFolder.folder.id).subscribe(questions => questions.map(q => this.selectedFolder.QuestionPickModels.push(new QuestionPickModel(q, false))));
+    if(this.selectedFolder.QuestionPickModels === undefined)
     {
-      this.selectedFolder.Questions = [];
+      this.selectedFolder.QuestionPickModels = [];
     }
   }
 

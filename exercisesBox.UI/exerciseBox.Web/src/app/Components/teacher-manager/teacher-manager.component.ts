@@ -11,9 +11,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TeacherManagerComponent implements OnInit{
 
-onDeleteTeacher() {
-throw new Error('Method not implemented.');
-}
+
+
+
 onPasswordReset() {
 throw new Error('Method not implemented.');
 }
@@ -52,4 +52,25 @@ throw new Error('Method not implemented.');
     throw new Error('Method not implemented.');
   }
 
+  onDeactivateTeacher() {
+    this.teacherService.deactivateTeacher(this.selectedTeacher.email).then(() => {
+      const teacher = this.Teachers.find(t => t.email !== this.selectedTeacher.email);
+      if (teacher) {
+        teacher.isActive = false;
+      }
+    });
+  }
+
+  onActivateTeacher() {
+    this.teacherService.activateTeacher(this.selectedTeacher.email).then(() => {
+      const teacher = this.Teachers.find(t => t.email !== this.selectedTeacher.email);
+      if (teacher) {
+        teacher.isActive = true;
+      }
+    });
+  }
+
+  getState(teacher: Teacher) : string {
+    return teacher.isActive ? "Active" : "Inactive";
+  }
 }

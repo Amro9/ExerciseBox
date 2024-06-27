@@ -5,6 +5,7 @@ using exerciseBox.Application.UseCases.Folder.Commands;
 using exerciseBox.Application.UseCases.Folder.Queries;
 using exerciseBox.Application.UseCases.Folder.QueryHandlers;
 using exerciseBox.Application.UseCases.Subject.Queries;
+using exerciseBox.Application.UseCases.Teacher.Commands;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
@@ -152,6 +153,82 @@ namespace exerciseBox.Rest.Controllers
                 return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
             }
         }
+
+        /// <summary>
+        /// Deaktiviert einen Lehrer.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Ein <see cref="IActionResult"/></returns>
+        [HttpPost("Deactivate/{id}")]
+        public async Task<IActionResult> DeactivateTeacher(string id)
+        {
+            try
+            {
+                await _mediator.Send(new DeactivateTeacher { TeacherId = id });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        /// <summary>
+        /// Aktiviert einen Lehrer.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Ein <see cref="IActionResult"/></returns>
+        [HttpPost("Activate/{id}")]
+        public async Task<IActionResult> ActivateTeacher(string id)
+        {
+            try
+            {
+                await _mediator.Send(new ActivateTeacher { TeacherId = id });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        /// <summary>
+        /// Fügt einem Lehrer Fächer hinzu.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Ein <see cref="IActionResult"/></returns>
+        [HttpPost("AddSubjects")]
+        public async Task<IActionResult> AddSubjectRange([FromBody] AddSubjectsRequest request)
+        {
+            try
+            {
+                await _mediator.Send(new AddSubjects { TeacherId = request.TeacherId, SubjectIds = request.SubjectIds });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        /// <summary>
+        /// Aktualisiert einen Lehrer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        //[HttpPost("Update")]
+        //public async Task<IActionResult> UpdateTeacher([FromBody] TeacherDto request)
+        //{
+        //    try
+        //    {
+        //        await _mediator.Send(new UpdateTeacher { Teacher = request });
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+        //    }
+        //}
 
     }
 }

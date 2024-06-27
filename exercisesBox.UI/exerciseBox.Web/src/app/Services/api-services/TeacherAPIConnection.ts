@@ -51,4 +51,26 @@ export class TeacherAPIConnection {
           throw error;
         }
     }
+
+    async deactivateTeacher(teacherId : string) : Promise<void> {
+        let url_ = this.baseUrl + "Teacher/Deactivate/" + teacherId;
+    
+        try{
+          await this.http.post(url_,{headers : this.headers, withCredentials:true}).toPromise();
+        }
+        catch(error : any){
+          throw error;
+        }
+    }
+    
+    async activateTeacher(teacherId : string) : Promise<void> {
+      let url_ = this.baseUrl + "Teacher/Activate/" + teacherId;
+  
+      try{
+        await this.http.post(url_,{headers : this.headers, withCredentials:true}).toPromise();
+      }
+      catch(error : any){
+        throw error;
+      }
+  }
 }

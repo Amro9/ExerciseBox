@@ -471,6 +471,7 @@ public partial class ExercisesBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("familyName");
+            entity.Property(e => e.IsActive).HasColumnName("isActive");
             entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(256)

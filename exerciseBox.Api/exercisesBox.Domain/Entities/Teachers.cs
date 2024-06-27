@@ -17,6 +17,8 @@ public partial class Teachers
 
     public string School { get; set; }
 
+    public bool IsActive { get; set; }
+
     public virtual ICollection<ExerciseSheets> ExerciseSheets { get; set; } = new List<ExerciseSheets>();
 
     public virtual ICollection<Folders> Folders { get; set; } = new List<Folders>();

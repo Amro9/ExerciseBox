@@ -21,5 +21,27 @@ namespace exerciseBox.Application.Abtraction.Repositories
         /// <param name="schoolId">Die ID der Schule, um die Lehrer zu lesen.</param>
         /// <returns>Eine Aufgabe, die den asynchronen Vorgang darstellt. Das Ergebnis der Aufgabe ist eine Auflistung von Lehrern.</returns>
         Task<IEnumerable<Teachers>> ReadBySchoolIdAsync(string schoolId);
+
+        /// <summary>
+        /// Deaktiviert den Lehrer mit der gegebenen ID.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
+        Task DeactivateTeacher(string teacherId);
+
+        /// <summary>
+        /// Aktiviert den Lehrer mit der gegebenen ID.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
+        Task ActivateTeacher(string teacherId);
+
+        /// <summary>
+        /// Fügt die gegebenen Fächer zu einem Lehrer hinzu.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <param name="subjectIds"></param>
+        /// <returns></returns>
+        Task AddSubjects(string teacherId, string[] subjectIds);
     }
 }

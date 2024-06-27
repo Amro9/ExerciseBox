@@ -30,6 +30,17 @@ namespace exerciseBox.Infrastructur.Repositories
             return teacher.Entity;
         }
 
+
+        public async Task DeactivateTeacher(string teacherId)
+        {
+            await _context.Teachers.Where(t => t.Email == teacherId).ForEachAsync(t => t.IsActive = false);
+        }
+
+        public async Task ActivateTeacher(string teacherId)
+        {
+            await _context.Teachers.Where(t => t.Email == teacherId).ForEachAsync(t => t.IsActive = true);
+        }
+
         /// <summary>
         /// Löscht einen Lehrer (nicht implementiert).
         /// </summary>
@@ -84,6 +95,22 @@ namespace exerciseBox.Infrastructur.Repositories
         public Task<Teachers> UpdateAsync(Teachers entity)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Fügt einem Lehrer die angegebenen Fächer hinzu.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <param name="subjectIds"></param>
+        /// <returns></returns>
+        public async Task AddSubjects(string teacherId, string[] subjectIds)
+        {
+            await _context.TeachersSubjectsJunction.AddRangeAsync(subjectIds.Select(s => new TeachersSubjectsJunction
+            {
+                Id = Guid.NewGuid().ToString(),
+                Teacher = teacherId,
+                Subject = s
+            }));
         }
     }
 }

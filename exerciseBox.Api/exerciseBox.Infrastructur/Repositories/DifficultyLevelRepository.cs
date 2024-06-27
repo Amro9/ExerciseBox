@@ -50,6 +50,11 @@ namespace exerciseBox.Infrastructure.Repositories
             return await _context.QuestionDifficultyLevels.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public Task<QuestionDifficultyLevels> ReadByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Aktualisiert ein Schwierigkeitslevel in der Datenbank (nicht implementiert).
         /// </summary>

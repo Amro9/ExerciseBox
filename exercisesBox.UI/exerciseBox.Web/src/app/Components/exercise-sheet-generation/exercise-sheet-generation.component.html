@@ -27,16 +27,19 @@
                     <option *ngFor="let folder of Folders" [ngValue]="folder">{{ folder.name }}</option>
                 </select>
             </div>
+            <div *ngIf="selectedSubject.name !== ''" class="row d-flex" style="justify-content: right;">
+                <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onRandomPick()">Zuffälig auswählen</button>
+            </div>
             <div class="row">
                 <div *ngIf="true">
-                    <div *ngFor="let question of selectedFolder.Questions">
+                    <div *ngFor="let question of selectedFolder.QuestionPickModels">
                         <div class="row" style="margin-top: 2%;">
                             <div class="col-11">
-                                <app-question [Question]="question" style="width: 100%;"></app-question>
+                                <app-question [Question]="question.Question" style="width: 100%;"></app-question>
                             </div>
                             <div class="col-1 d-flex align-items-center justify-content-center">
                                 <label class="switch" style="margin-left: 0;">
-                                    <input type="checkbox" (change)="onQesionSwitchChange($event.target, question)">
+                                    <input type="checkbox" [(ngModel)]="question.IsSelected" (change)="onQesionSwitchChange($event.target, question.Question)">
                                     <span class="slider round"></span>
                                 </label>
                             </div>

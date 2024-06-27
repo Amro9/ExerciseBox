@@ -152,6 +152,12 @@ namespace exercisebox.rest.controllers
             }
         }
 
+        /// <summary>
+        /// Erstellt die Cookies für den angemeldeten Benutzer.
+        /// </summary>
+        /// <param name="Role"></param>
+        /// <param name="Name"></param>
+        /// <returns></returns>
         private async Task CreateCookiesAsync(string Role, string Name)
         {
             var claims = new List<Claim>

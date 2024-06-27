@@ -12,15 +12,16 @@
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let teacher of Teachers">
                             <td>{{ teacher.surname }} {{teacher.givenname}}</td>
                             <td>{{ teacher.email }}</td>
+                            <td>{{ getState(teacher) }}</td>
                             <td>
                                 <button class="btn btn-primary" (click)="onEditTeacher(teacher, teacherDetails)">Bearbeiten</button>
-                                
                             </td>
                         </tr>
                     </tbody>
@@ -64,7 +65,8 @@
         </div>
         <div class="row">
             <div class="col-6">
-                <button class="btn btn-danger" style="width: 100%;" (click)="onDeleteTeacher()">Löschen</button>
+                <button *ngIf="!selectedTeacher.isActive" class="btn btn-success" style="width: 100%;" (click)="onActivateTeacher()">Aktivieren</button>
+                <button *ngIf="selectedTeacher.isActive" class="btn btn-danger" style="width: 100%;" (click)="onDeactivateTeacher()">Deaktivieren</button>
             </div>
             <div class="col-6">
                 <button class="btn btn-primary" style="width: 100%; background-color: #4D869C;" (click)="onSaveTeacher()">Speichern</button>
