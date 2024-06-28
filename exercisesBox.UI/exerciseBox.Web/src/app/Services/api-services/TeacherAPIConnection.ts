@@ -87,6 +87,9 @@ export class TeacherAPIConnection {
 
     async addTeacher(teacher : Teacher) : Promise<void> {
       let url_ = this.baseUrl + "Teacher/Add";
+
+      teacher.password = "";
+      teacher.isActive = true;
   
       try{
         await this.http.post(url_,teacher,{headers : this.headers, withCredentials:true}).toPromise();

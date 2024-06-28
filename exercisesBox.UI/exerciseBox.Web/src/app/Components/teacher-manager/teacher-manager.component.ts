@@ -20,12 +20,11 @@ export class TeacherManagerComponent implements OnInit{
 
 
 
+
 onChangePassword() {
 throw new Error('Method not implemented.');
 }
-onAddTeacher() {
-throw new Error('Method not implemented.');
-}
+
 
 
   userMail : string = ""; 
@@ -35,8 +34,10 @@ throw new Error('Method not implemented.');
   subjectsOfTeacher : Subject[] = [];
 
   subjectOfSchool : Subject[] = [];
-  selectedSubject : Subject = new Subject("","","");
+  selectedSubject : Subject = new Subject("","Schulfach auswählen","");
   displayedSchoolSubjects : Subject[] = [];
+
+  newTeacher : Teacher = new Teacher("","","","");
 
   constructor (
     private cookieService : CookieService,
@@ -95,20 +96,48 @@ throw new Error('Method not implemented.');
     this.subjectsOfTeacher = await this.subjectService.getSubjectById(this.selectedTeacher.email);
   }
 
+  async refreshSchoolSubjects() {
+    this.subjectOfSchool = await this.subjectService.getSubjectBySchool(this.userMail);
+    this.displayedSchoolSubjects = this.subjectOfSchool.filter(schoolSubject => 
+      !this.subjectsOfTeacher.some(teacherSubject => teacherSubject.id === schoolSubject.id));
+    this.displayedSchoolSubjects.push(new Subject("0", "Schulfach auswählen", "This is a dummy subject."));
+    this.selectedSubject = this.displayedSchoolSubjects[this.displayedSchoolSubjects.length - 1];
+  }
+
   async onSubjectsEdit(_t17: Teacher, content: any) {
     this.subjectsOfTeacher = await this.subjectService.getSubjectById(_t17.email);
     this.selectedTeacher = _t17;
-    this.displayedSchoolSubjects = this.subjectOfSchool.filter(x => !this.subjectsOfTeacher);
+    this.displayedSchoolSubjects = this.subjectOfSchool.filter(schoolSubject => 
+      !this.subjectsOfTeacher.some(teacherSubject => teacherSubject.id === schoolSubject.id));
+    this.displayedSchoolSubjects.push(new Subject("0", "Schulfach auswählen", "This is a dummy subject."));
+    this.selectedSubject = this.displayedSchoolSubjects[this.displayedSchoolSubjects.length - 1];
     this.modal.open(content, {centered: true, size: 'lg'});
   }
 
   async onRemoveSubject(_t80: Subject) {
     await this.teacherService.removeSubjectFromTeacher(this.selectedTeacher.email, _t80.id);
-    this.refreshSubjects();
+    await this.refreshSubjects();
+    this.refreshSchoolSubjects();
   }
 
   async onAddSubject() {
-    await this.teacherService.addSubjectToTeacher(this.selectedTeacher.email, this.selectedSubject.id);
-    this.refreshSubjects();
+    if (this.selectedSubject && this.selectedSubject.id && this.selectedSubject.id !== "0") {
+        await this.teacherService.addSubjectToTeacher(this.selectedTeacher.email, this.selectedSubject.id);
+        this.refreshSubjects();
+        this.refreshSchoolSubjects();
+    } else {
+        
+    }
+}
+
+  onAddTeacher(content: any) {
+    this.modal.open(content, {centered: true, size: 'lg'});
+  }
+
+  async onSubmitNewTeacher() {
+    this.newTeacher.schoolId = this.userMail;
+    await this.teacherService.addTeacher(this.newTeacher);
+    this.modal.dismissAll();
+    this.refresh();
   }
 }

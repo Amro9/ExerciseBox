@@ -100,6 +100,7 @@ namespace exerciseBox.Infrastructur.Repositories
             teacher.Surname = entity.Surname;
             teacher.FamilyName = entity.FamilyName;
             teacher.IsActive = entity.IsActive;
+            teacher.Email = entity.Email;
             var updatedTeacher = await _context.SaveChangesAsync();
             return teacher;
         }
@@ -132,6 +133,11 @@ namespace exerciseBox.Infrastructur.Repositories
             var subject = await _context.TeachersSubjectsJunction.FirstOrDefaultAsync(ts => ts.Teacher == teacherId && ts.Subject == subjectId);
             _context.TeachersSubjectsJunction.Remove(subject);
             await _context.SaveChangesAsync();
+        }
+
+        public Task AddSubjects(string teacherId, string[] subjectIds)
+        {
+            throw new NotImplementedException();
         }
     }
 }

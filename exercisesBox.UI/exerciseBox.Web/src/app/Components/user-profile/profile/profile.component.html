@@ -1,13 +1,13 @@
 <div class="container">
     <div class="row">
-        <h2>Persönliche Daten</h2>
+        <h2>Pers�nliche Daten</h2>
         
         
 
     </div>
     <hr>
     <div class="row">
-        <h4>Meine Fächer</h4>
+        <h4>Meine F�cher</h4>
         <select class="form-select form-select-sm" [(ngModel)]="selectedSubject" (ngModelChange)="onSubjectChange()">
             <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
         </select>

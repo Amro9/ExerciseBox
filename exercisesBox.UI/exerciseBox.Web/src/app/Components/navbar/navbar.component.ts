@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthentificationService } from '../../Services/AuthentificationService';
 import { Roles } from '../../Infrastucture/enums';
+import { RoundOffsets } from '@popperjs/core/lib/modifiers/computeStyles';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,11 +15,12 @@ export class NavbarComponent {
 onProfileBtnClick() {
 throw new Error('Method not implemented.');
 }
-onLogout() {
-throw new Error('Method not implemented.');
-}
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/home']);
+  }
 
-  constructor(public authService: AuthentificationService) { }
+  constructor(public authService: AuthentificationService, private router: Router) { }
 
   userIsLoggedIn() {
     return this.authService.isLoggedIn();
