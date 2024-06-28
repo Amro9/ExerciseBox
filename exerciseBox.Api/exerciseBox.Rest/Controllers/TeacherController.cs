@@ -7,6 +7,7 @@ using exerciseBox.Application.UseCases.Folder.QueryHandlers;
 using exerciseBox.Application.UseCases.Subject.Queries;
 using exerciseBox.Application.UseCases.Teacher.Commands;
 using exerciseBox.Application.UseCases.Teacher.Queries;
+using exerciseBox.Application.UseCases.Teachers.Commands;
 using exerciseBox.Application.UseCases.Teachers.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
@@ -262,6 +263,38 @@ namespace exerciseBox.Rest.Controllers
             try
             {
                 await _mediator.Send(new ResetPassword { Email = id });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        //[HttpPost("ChangePassword")]
+        //public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        //{
+        //    try
+        //    {
+        //        await _mediator.Send(new ChangePassword { Email = request.Email, Password = request.Password });
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+        //    }
+        //}
+
+
+
+        [HttpPost("Add")]
+        public async Task<IActionResult> AddTeacher([FromBody] TeacherUpdateRequest teacher)
+        {
+            try
+            {
+                teacher.Password = teacher.Surname + "." + teacher.Givenname;
+
+                await _mediator.Send(new CreateTeacher { Teacher = teacher });
                 return Ok();
             }
             catch (Exception ex)

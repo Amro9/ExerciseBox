@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container" style="margin-top: 3%;">
     <div class="box">
         <div class="row">
             <div class="col-12">
-                <h1>Lehrpersonen Übersicht</h1>
+                <h1><b>Lehrpersonen Übersicht</b></h1>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 3%;">
             <div class="col-12">
                 <table class="table table-striped">
                     <thead>
@@ -13,6 +13,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Actions</th> <!-- Added this line -->
                         </tr>
                     </thead>
                     <tbody>
@@ -22,7 +23,7 @@
                             <td>{{ getState(teacher) }}</td>
                             <td>
                                 <button class="btn btn-primary" style="background-color: #4D869C; border-color: #4D869C;" (click)="onEditTeacher(teacher, teacherDetails)">Bearbeiten</button>
-                                <button class="btn btn-primary" style="background-color: #4D869C; margin-left: 1%; border-color: #4D869C;" (click)="onSubjectsEdit(teacher, subjectEdit)">Fächer</button>
+                                <button class="btn btn-primary" style="background-color: #4D869C; margin-left: 1%; border-color: #4D869C;" (click)="onSubjectsEdit(teacher, subjectEdit)">Fächer zuweisen</button>
                             </td>
                         </tr>
                     </tbody>
@@ -31,7 +32,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <button class="btn btn-primary" (click)="onAddTeacher()">Lehrperson hinzufügen</button>
+                <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onAddTeacher(addTeacher)">Lehrperson hinzufügen</button>
             </div>
         </div>
     </div>
@@ -53,7 +54,7 @@
         </div>
         <div class="row" style="margin-bottom: 3%;">
             <div class="col-12">
-                <input type="email" class="form-control" placeholder="Email" [(ngModel)]="selectedTeacher.email">
+                <input type="email" class="form-control" placeholder="Email" [(ngModel)]="selectedTeacher.email" disabled="true">
             </div>
         </div>
         <div class="row" style="margin-bottom: 3%;">
@@ -84,28 +85,56 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="box-custom">
-                    <div *ngFor="let subject of subjectsOfTeacher; let i = index" [ngClass]="{'grey-background': i % 2 === 0, 'white-background': i % 2 === 1}">
-                        <div class="row">
-                            <div class="col-10 d-flex" style="align-items: center;">
-                                <p>{{ subject.name }}</p>
-                            </div>
-                            <div class="col-2 d-flex" style="align-items: center;">
-                                <button class="btn btn-danger" (click)="onRemoveSubject(subject)">Entfernen</button>
-                            </div>
+                <div *ngFor="let subject of subjectsOfTeacher; let i = index" [ngClass]="{'grey-background': i % 2 === 0, 'white-background': i % 2 === 1}">
+                    <div class="row">
+                        <div class="col-10 d-flex" style="align-items: center;">
+                            <label style="width: 100%;">{{subject.name}}</label>
                         </div>
-                    </div>
+                        <div class="col-2 d-flex" style="align-items: center; justify-content: right;">
+                            <button class="btn btn-danger" (click)="onRemoveSubject(subject)"><b>-</b></button>
+                        </div>
+                    </div>      
                 </div>
-                <div class="row">
+                <div class="row" style="margin-top: 2%;">
                     <div class="col-10">
                         <select class="form-control" [(ngModel)]="selectedSubject">
                             <option *ngFor="let subject of displayedSchoolSubjects" [ngValue]="subject">{{ subject.name }}</option>
                         </select>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onAddSubject()">Hinzufügen</button>
+                        <button class="btn btn-success" (click)="onAddSubject()">Hinzufügen</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #addTeacher let-modal>
+    <div class="container" style="padding: 5%; background-color: #EEF7FF; border-radius: 10px;">
+        <div class="row" style="margin-bottom: 3%;">
+            <h3><b>Lehrperson hinzufügen</b></h3>
+            <hr>
+        </div>
+        <div class="row" style="margin-bottom: 3%;">
+            <div class="col-6">
+                <input type="text" class="form-control" placeholder="Vorname" [(ngModel)]="newTeacher.surname">
+            </div>
+            <div class="col-6">
+                <input type="text" class="form-control" placeholder="Nachname" [(ngModel)]="newTeacher.givenname">
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 3%;">
+            <div class="col-12">
+                <input type="email" class="form-control" placeholder="Email" [(ngModel)]="newTeacher.email">
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 3%;">
+            <div class="col-6">
+                
+            </div>
+            <div class="col-6">
+                <button class="btn btn-success" style="width: 100%;" (click)="onSubmitNewTeacher()">Hinzufügen</button>
             </div>
         </div>
     </div>
