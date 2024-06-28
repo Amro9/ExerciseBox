@@ -7,11 +7,13 @@ namespace exerciseBox.Domain.Entities;
 
 public partial class FoldersQuestionsJunction
 {
-    public string Id { get; set; }
-
     public string Folder { get; set; }
 
     public string Question { get; set; }
+
+    public DateTime? DateCreated { get; set; }
+
+    public virtual Folders FolderNavigation { get; set; }
 
     public virtual Questions QuestionNavigation { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using exerciseBox.Domain.Entities;
+﻿using Azure.Core;
+using exerciseBox.Domain.Entities;
 
 namespace exerciseBox.Application.Abtraction.Repositories;
 
@@ -10,4 +11,5 @@ public interface IQuestionRepository: IRepository<Questions, Guid>
     Task<int> SaveQuestionToFolder(string junctionId, string folderId, string questionId);
     Task<bool> HideQuestion(string id, string teacherId, string questionId);
     Task<IEnumerable<Questions>> GetHiddenQuestionsByTeacher(string teacherId);
+    Task<int> RemoveQuestionFromFolder(string folderId, string questionId);
 }

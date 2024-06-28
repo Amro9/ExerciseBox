@@ -31,9 +31,9 @@ export class QuestionsPoolComponent {
     private questionService: QuestionService,
     private folderService: FolderService,
     private elementRef: ElementRef,
-    private cookieService: CookieService ,
+    private cookieService: CookieService,
     private notificationService: NotificationService
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.userEmail = this.cookieService.get("userEmail");
@@ -83,20 +83,20 @@ export class QuestionsPoolComponent {
   showFoldersList(event: { questionId: string, event: MouseEvent }) {
     event.event.stopPropagation();
     const popupWidth = 300; // Beispielbreite des Popups
-  const popupHeight = 200; // Beispielhöhe des Popups
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
+    const popupHeight = 200; // Beispielhöhe des Popups
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
 
-  let left = event.event.clientX;
-  let top = event.event.clientY;
-  if (left + popupWidth > screenWidth) {
-    left = screenWidth - popupWidth;
-  }
+    let left = event.event.clientX;
+    let top = event.event.clientY;
+    if (left + popupWidth > screenWidth) {
+      left = screenWidth - popupWidth;
+    }
 
-  // Überprüfen, ob das Popup außerhalb des sichtbaren Bereichs unten liegt
-  if (top + popupHeight > screenHeight) {
-    top = screenHeight - popupHeight;
-  }
+    // Überprüfen, ob das Popup außerhalb des sichtbaren Bereichs unten liegt
+    if (top + popupHeight > screenHeight) {
+      top = screenHeight - popupHeight;
+    }
     this.showFolderList = true;
     this.popupTop = `${event.event.clientY}px`;
     this.popupLeft = `${event.event.clientX}px`;
@@ -120,23 +120,23 @@ export class QuestionsPoolComponent {
   showHideQuestionPopUp(event: { questionId: string, event: MouseEvent }) {
     event.event.stopPropagation();
 
-  const popupWidth = 300; // Beispielbreite des Popups
-  const popupHeight = 200; // Beispielhöhe des Popups
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
+    const popupWidth = 300; // Beispielbreite des Popups
+    const popupHeight = 200; // Beispielhöhe des Popups
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
 
-  let left = event.event.clientX;
-  let top = event.event.clientY;
+    let left = event.event.clientX;
+    let top = event.event.clientY;
 
-  // Überprüfen, ob das Popup außerhalb des sichtbaren Bereichs rechts liegt
-  if (left + popupWidth > screenWidth) {
-    left = screenWidth - popupWidth;
-  }
+    // Überprüfen, ob das Popup außerhalb des sichtbaren Bereichs rechts liegt
+    if (left + popupWidth > screenWidth) {
+      left = screenWidth - popupWidth;
+    }
 
-  // Überprüfen, ob das Popup außerhalb des sichtbaren Bereichs unten liegt
-  if (top + popupHeight > screenHeight) {
-    top = screenHeight - popupHeight;
-  }
+    // Überprüfen, ob das Popup außerhalb des sichtbaren Bereichs unten liegt
+    if (top + popupHeight > screenHeight) {
+      top = screenHeight - popupHeight;
+    }
 
     this.popupTop = `${event.event.clientY}px`;
     this.popupLeft = `${event.event.clientX}px`;
@@ -147,7 +147,7 @@ export class QuestionsPoolComponent {
   hideQuestion() {
     console.log('Frage wird ausgeblendet.');
 
-    this.questionService.hideQuestionByTeacher(this.selectedQuestionId, this.userEmail).subscribe({ 
+    this.questionService.hideQuestionByTeacher(this.selectedQuestionId, this.userEmail).subscribe({
       next: (data) => {
         console.log('Question hidden:', data);
         this.notificationService.showSuccess('Frage ausgeblendet');

@@ -5,12 +5,12 @@ namespace exerciseBox.Rest.Controllers.RequestModels
     /// <summary>
     /// Modell für die Anfrage zum Speichern einer Frage in einem Ordner.
     /// </summary>
-    public class SaveQuestionToFolderRequest
+    public class QuestionFolderRequest
     {
         /// <summary>
         /// Die ID der Verbindung.
         /// </summary>
-        public Guid JunctionId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Die ID des Ordners.
@@ -23,12 +23,12 @@ namespace exerciseBox.Rest.Controllers.RequestModels
         public string QuestionId { get; set; }
 
         /// <summary>
-        /// Initialisiert eine neue Instanz der <see cref="SaveQuestionToFolderRequest"/> Klasse.
-        /// Setzt die <see cref="JunctionId"/> auf eine neue Guid.
+        /// Initialisiert eine neue Instanz der <see cref="QuestionFolderRequest"/> Klasse.
+        /// Setzt die <see cref="Id"/> auf eine neue Guid.
         /// </summary>
-        public SaveQuestionToFolderRequest()
+        public QuestionFolderRequest()
         {
-            JunctionId = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
     }
 }

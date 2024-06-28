@@ -2,10 +2,9 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace exerciseBox.Infrastructur;
+namespace exerciseBox.Domain.Entities;
 
 public partial class ExercisesBoxContext : DbContext
 {
@@ -188,12 +187,8 @@ public partial class ExercisesBoxContext : DbContext
 
         modelBuilder.Entity<FoldersQuestionsJunction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__FoldersQ__3213E83FA24EFB5C");
+            entity.HasKey(e => new { e.Folder, e.Question }).HasName("PK_FolderQuestionsJunction");
 
-            entity.Property(e => e.Id)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("id");
             entity.Property(e => e.Folder)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -202,9 +197,18 @@ public partial class ExercisesBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("question");
+            entity.Property(e => e.DateCreated)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.FolderNavigation).WithMany(p => p.FoldersQuestionsJunction)
+                .HasForeignKey(d => d.Folder)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_FoldersQuestionsJunction_Folders");
 
             entity.HasOne(d => d.QuestionNavigation).WithMany(p => p.FoldersQuestionsJunction)
                 .HasForeignKey(d => d.Question)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__FoldersQu__quest__6CA31EA0");
         });
 

@@ -15,17 +15,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit{
+  @ViewChild(FoldersPopupComponent) foldersPopupComponent!: FoldersPopupComponent;
   errorMessage: string | null = null;
   userMail : string = "";
 
   showFolderList: boolean = false;
-  showDeletConfirm: boolean = false;
+  showRemoveConfirm: boolean = false;
   popupTop!: string;
   popupLeft!: string;
   selectedQuestionId: string = '';
-
-  @ViewChild(FoldersPopupComponent) foldersPopupComponent!: FoldersPopupComponent;
-
 
   selectedFolder?: Folder;
   Folders : Folder[] = [];
@@ -43,9 +41,7 @@ export class ProfileComponent implements OnInit{
     private subjectService: SubjectService,
     private modalService: NgbModal
   )
-  {
-  
-  }
+  {}
 
   async ngOnInit(): Promise<void> {
     this.userMail = this.cookieService.get("userEmail");
@@ -78,8 +74,8 @@ export class ProfileComponent implements OnInit{
     }
 
     // Schließe das Popup-Fenster für das Ausblenden der Frage, wenn gescrollt wird
-    if (this.showDeletConfirm) {
-      this.showDeletConfirm = false;
+    if (this.showRemoveConfirm) {
+      this.showRemoveConfirm = false;
     }
   }
 
@@ -91,8 +87,8 @@ export class ProfileComponent implements OnInit{
     }
 
     // Schließe das Popup-Fenster für das Ausblenden der Frage, wenn außerhalb geklickt wird
-    if (this.showDeletConfirm && !this.elementRef.nativeElement.querySelector('.popup-hide-question').contains(event.target)) {
-      this.showDeletConfirm = false;
+    if (this.showRemoveConfirm && !this.elementRef.nativeElement.querySelector('.popup-remove-question').contains(event.target)) {
+      this.showRemoveConfirm = false;
     }
   }
   openNewFolderModal(content: any) {
@@ -127,9 +123,25 @@ export class ProfileComponent implements OnInit{
     this.selectedQuestionId = event.questionId;
     this.foldersPopupComponent.checkQuestionsInFolders(); // Update the popup component whenever the folder list is shown
   }
+  showRemoveQuestionConfirm(event: { questionId: string, event: MouseEvent }) {
+    event.event.stopPropagation();
+    this.showRemoveConfirm = true;
+    this.popupTop = `${event.event.clientY}px`;
+    this.popupLeft = `${event.event.clientX}px`;
+    this.selectedQuestionId = event.questionId;
+  }
 
   removeSavedQuestionFromFolder() {
     console.log('Frage wird gelöscht.');
+    this.showRemoveConfirm = false;
+
+    this.questionService.removeQuestionFromFolder(this.selectedQuestionId, this.selectedFolder!.id).subscribe({
+      next: (data) => {
+        this.foldersPopupComponent.checkQuestionsInFolders(); // Re-check questions in folders after removing
+        this.selectedFolder!.Questions = this.selectedFolder!.Questions.filter(q => q.id !== this.selectedQuestionId);
+      },
+      error: (error: string) => console.error('Error removing question:', error)
+    });
   }
 
   

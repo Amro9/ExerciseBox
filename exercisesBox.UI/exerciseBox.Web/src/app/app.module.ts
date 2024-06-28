@@ -26,6 +26,7 @@ import { QuestionListComponent } from "./Components/questions-pool-components/qu
 import { HideQuestionPopupComponent } from "./Components/questions-pool-components/hide-question-popup/hide-question-popup.component";
 import { AuthGuard } from "./Services/AuthGuard";
 import { ProfileQuestionListComponent } from "./Components/user-profile/profile-question-list/profile-question-list.component";
+import { RemoveQuestionPopupComponent } from "./Components/user-profile/remove-question-popup/remove-question-popup.component";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
@@ -38,6 +39,7 @@ import { ProfileQuestionListComponent } from "./Components/user-profile/profile-
         HideQuestionPopupComponent,
         QuestionListComponent,
         ProfileQuestionListComponent,
+        RemoveQuestionPopupComponent,
         routingComponents
     ],
     imports: [

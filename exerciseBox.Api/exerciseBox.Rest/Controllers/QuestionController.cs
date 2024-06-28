@@ -35,14 +35,31 @@ namespace exerciseBox.Rest.Controllers
         /// <param name="request">Die Anfrage zum Speichern der Frage.</param>
         /// <returns>Eine <see cref="IActionResult"/> Rückgabe.</returns>
         [HttpPost("saveQuestionToFolder")]
-        public async Task<IActionResult> SaveQuestionToFolder([FromBody] SaveQuestionToFolderRequest request)
+        public async Task<IActionResult> SaveQuestionToFolder([FromBody] QuestionFolderRequest request)
         {
             try
             {
                 await _mediator.Send(
                     new SaveQuestionToFolder(
-                        request.JunctionId.ToString(), request.FolderId, request.QuestionId
+                        request.Id.ToString(), request.FolderId, request.QuestionId
                         ));
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
+            }
+        }
+
+        [HttpPut("removeQuestionFromFolder")]
+        public async Task<IActionResult> RemoveQuestionFromFolder([FromBody] QuestionFolderRequest request)
+        {
+            try
+            {
+                await _mediator.Send(
+                    new RemoveQuestionFromFolder(
+                        request.FolderId, request.QuestionId)
+                        );
                 return Ok();
             }
             catch (Exception ex)

@@ -28,8 +28,10 @@ export class FoldersPopupComponent implements OnChanges {
   }
 
   checkQuestionsInFolders() {
+    console.log('Checking questions in folders:', this.folders);
     this.folders.forEach(folder => {
       this.questionService.getQuestionsByFolder(folder.id).subscribe(questions => {
+        console.log('Questions in folder:', questions);
         this.folderQuestionMap[folder.id] = questions.some(question => question.id === this.questionId);
       });
     });

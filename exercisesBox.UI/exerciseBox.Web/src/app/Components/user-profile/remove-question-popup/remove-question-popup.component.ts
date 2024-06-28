@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-remove-question-popup',
-  standalone: true,
-  imports: [],
   templateUrl: './remove-question-popup.component.html',
-  styleUrl: './remove-question-popup.component.css'
+  styleUrls: ['./remove-question-popup.component.css']
 })
 export class RemoveQuestionPopupComponent {
+  @Input() popupTop: string = '';
+  @Input() popupLeft: string = '';
+  @Input() showRemoveConfirm: boolean = false;
+  @Output() remove: EventEmitter<void> = new EventEmitter<void>();
 
+  removeQuestion() {
+    this.remove.emit();
+  }
 }

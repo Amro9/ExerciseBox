@@ -1,4 +1,5 @@
-﻿using exerciseBox.Application.Abtraction.Repositories;
+﻿using Azure.Core;
+using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
 using exerciseBox.Infrastructur;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ namespace exerciseBox.Infrastructure.Repositories
         {
             try
             {
-                _context.Add(new FoldersQuestionsJunction { Id = junctionId, Folder = folderId, Question = questionId });
+                _context.Add(new FoldersQuestionsJunction { Folder = folderId, Question = questionId });
                 await _context.SaveChangesAsync();
                 return 1;
             }
@@ -43,6 +44,18 @@ namespace exerciseBox.Infrastructure.Repositories
                 Console.WriteLine($"Fehler beim Speichern der Frage im Ordner: {ex.Message}");
                 return 0;
             }
+        }
+        public async Task<int> RemoveQuestionFromFolder(string folderId, string questionId)
+        {
+            var folderQuestion = await _context.FoldersQuestionsJunction
+                    .FirstOrDefaultAsync(fq => fq.Folder == folderId && fq.Question == questionId);
+
+            if (folderQuestion != null)
+            {
+                _context.FoldersQuestionsJunction.Remove(folderQuestion);
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
         }
 
         /// <summary>

@@ -1,0 +1,22 @@
+
+.popup-content {
+    padding: 10px;
+  }
+  
+  .popup-header {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .popup-remove-question{
+    position: fixed;
+    z-index: 1000;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+  
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

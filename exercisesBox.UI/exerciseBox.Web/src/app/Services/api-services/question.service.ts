@@ -63,7 +63,19 @@ saveQuestionToFolder(questionId: string, folderId: string): Observable<any> {
         return throwError(error);
       }));
   }
-
+removeQuestionFromFolder(questionId: string, folderId: string): Observable<any> {
+    let url_ = this.baseUrl + "question/removeQuestionFromFolder";
+    const body = {
+      questionId: questionId,
+      folderId: folderId,
+    };
+    return this.http.put(url_, body, { withCredentials: true }).pipe(
+      tap(data => console.log('Question removed from folder:', data)),
+      catchError(error => {
+        console.error('Error removing question from folder:', error);
+        return throwError(error);
+      }));
+  }
   getQuestionsByFolder(folderId: string): Observable<Question[]> {
     let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
 

@@ -1,6 +1,13 @@
 <div class="container">
-    <div class="row"></div>
     <div class="row">
+        <h2>Persönliche Daten</h2>
+        
+        
+
+    </div>
+    <hr>
+    <div class="row">
+        <h4>Meine Fächer</h4>
         <select class="form-select form-select-sm" [(ngModel)]="selectedSubject" (ngModelChange)="onSubjectChange()">
             <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
         </select>
@@ -15,17 +22,15 @@
             <button class="btn btn-primary" (click)="openNewFolderModal(newFolder)">Neuer Ordner</button>
         </div>
     </div>
-   
     <div class="row" *ngIf="selectedFolder">
         <app-profile-question-list *ngIf="selectedFolder.Questions !== undefined"
                                    [questions]="selectedFolder.Questions"
                                    (showFolders)="showFoldersList($event)"
-                                   (showRemoveQuestionConfirm)=""
+                                      (showRemoveQuestionConfirm)="showRemoveQuestionConfirm($event)"
                                    [selectedFolderName]="selectedFolder.name"
                                    >
         </app-profile-question-list>
     </div>
-
     <app-folders-popup
         [folders]="Folders"
         [popupTop]="popupTop"
@@ -35,8 +40,12 @@
         (save)="saveQuestion($event)"
         (close)="showFolderList = false">
     </app-folders-popup>
+    <app-remove-question-popup [popupTop]="popupTop"
+    [popupLeft]="popupLeft"
+    [showRemoveConfirm]="showRemoveConfirm"
+    (remove)="removeSavedQuestionFromFolder()"
+  ></app-remove-question-popup>
 </div>
-
 <ng-template #newFolder let-modal>
     <div class="container" style="padding: 5%; background-color: #EEF7FF; border-radius: 10px;">
         <div class="row" style="margin-bottom: 3%;">

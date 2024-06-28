@@ -30,7 +30,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;    backgrou
   font-size: 20px; /* Beispiel: Größe des Icons im Kreis */
 }
 
-.popup-folder-list, .popup-hide-question {
+.popup-folder-list, .popup-hide-question{
   position: fixed;
   z-index: 1000;
   background-color: white;

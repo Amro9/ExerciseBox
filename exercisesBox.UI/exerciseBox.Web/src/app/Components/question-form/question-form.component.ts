@@ -21,7 +21,7 @@ export class QuestionCreationFormComponent implements OnInit {
   subjectsTopics: Topic[] = [];
   difficultyLevels: DifficultyLevel[] = [];
 
-  userEmail! : string;
+  userMail! : string;
 
   onChange(newHtml: string) {
   }
@@ -52,7 +52,7 @@ export class QuestionCreationFormComponent implements OnInit {
     return null;
   }
   ngOnInit(): void {
-    this.userEmail = this.cookieService.get("userEmail");
+    this.userMail = this.cookieService.get("userEmail");
     this.fetchSubjects();
     this.fetchSchoolLevels();
     this.fetchDifficultyLevels()
@@ -90,7 +90,7 @@ export class QuestionCreationFormComponent implements OnInit {
     else{
 
       const formData = this.questionCreationForm.value;
-      formData.Author = this.userEmail;
+      formData.Author = this.userMail;
       
       this.questionFromService.submitQuestionForm(formData).subscribe({
         next: () => {
@@ -105,11 +105,8 @@ export class QuestionCreationFormComponent implements OnInit {
       });
     }
 }
-fetchSubjects(): void {
-  this.subjectService.getAllSubjects().subscribe({
-    next: (data) => this.subjects = data,
-    error: (error) => console.error('Error fetching subjects:', error)
-  });
+  async fetchSubjects(): Promise<void> {
+  this.subjects = await this.subjectService.getSubjectById(this.userMail);
 }
 
 fetchSchoolLevels(): void {
