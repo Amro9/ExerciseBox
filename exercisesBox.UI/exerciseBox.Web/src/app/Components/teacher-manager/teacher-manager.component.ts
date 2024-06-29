@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { TeacherAPIConnection } from '../../Services/api-services/TeacherAPIConnection';
+import { TeacherService } from '../../Services/api-services/Teacher';
 import { Teacher } from '../../Entities/Teacher';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from '../../Entities/Subject';
@@ -12,14 +12,6 @@ import { SubjectService } from '../../Services/api-services/Subject.service';
   styleUrl: './teacher-manager.component.css'
 })
 export class TeacherManagerComponent implements OnInit{
-
-
-
-
-
-
-
-
 
 onChangePassword() {
 throw new Error('Method not implemented.');
@@ -41,7 +33,7 @@ throw new Error('Method not implemented.');
 
   constructor (
     private cookieService : CookieService,
-    private teacherService : TeacherAPIConnection,
+    private teacherService : TeacherService,
     private modal : NgbModal,
     private subjectService : SubjectService
   )
@@ -93,7 +85,7 @@ throw new Error('Method not implemented.');
   }
 
   async refreshSubjects() {
-    this.subjectsOfTeacher = await this.subjectService.getSubjectById(this.selectedTeacher.email);
+    this.subjectsOfTeacher = await this.subjectService.getSubjectByTeacherId(this.selectedTeacher.email);
   }
 
   async refreshSchoolSubjects() {
@@ -105,7 +97,7 @@ throw new Error('Method not implemented.');
   }
 
   async onSubjectsEdit(_t17: Teacher, content: any) {
-    this.subjectsOfTeacher = await this.subjectService.getSubjectById(_t17.email);
+    this.subjectsOfTeacher = await this.subjectService.getSubjectByTeacherId(_t17.email);
     this.selectedTeacher = _t17;
     this.displayedSchoolSubjects = this.subjectOfSchool.filter(schoolSubject => 
       !this.subjectsOfTeacher.some(teacherSubject => teacherSubject.id === schoolSubject.id));

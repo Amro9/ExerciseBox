@@ -67,7 +67,7 @@ throw new Error('Method not implemented.');
 
   async ngOnInit(): Promise<void> {
     this.Folders = await this.folderService.getFoldersOfTeacher("2@3.com");
-    this.Subjects = await this.subjectService.getSubjectById("2@3.com");
+    this.Subjects = await this.subjectService.getSubjectByTeacherId("2@3.com");
   }
 
   onSaveExerciseSheet() {

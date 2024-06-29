@@ -8,7 +8,7 @@ import { Session } from "../../Entities/Session";
 @Injectable({
     providedIn: 'root'
 })
-export class TeacherAPIConnection {
+export class TeacherService {
 
     private http: HttpClient;
     private baseUrl: string;

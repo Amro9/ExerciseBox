@@ -29,17 +29,26 @@ getAllSubjects(): Observable<Subject[]>{
     }));
 }
 
-  public async getSubjectById(id: string): Promise<Subject[]>{
+  public async getSubjectByTeacherId(id: string): Promise<Subject[]>{
     let url_ = this.baseUrl + "Teacher/Subjects/" + id;
   
     try {
-      const response : any = await this.http.get(url_, { withCredentials: true}).toPromise();
+      const response: any = await this.http.get(url_, { withCredentials: true }).toPromise();
       return response.value as Subject[];
-    } catch (error : any) {
+    } catch (error: any) {
       return Promise.reject(error.message);
     }
   }
+getSubjectNameById(id: string): Observable<string> {
+  let url_ = this.baseUrl + "QuestionParameters/getSubjectNameById/"+id;
 
+  return this.http.get<any>(url_, {withCredentials: true});
+}
+getSubjectNameByTopic(topicId: string): Observable<string> {
+  let url_ = this.baseUrl + "QuestionParameters/getSubjectNameByTopic/"+topicId;
+
+  return this.http.get<any>(url_, {withCredentials: true});
+}
   public async getSubjectBySchool(schoolId : string): Promise<Subject[]> {
     let url_ = this.baseUrl + "School/Subjects/" + schoolId;
   

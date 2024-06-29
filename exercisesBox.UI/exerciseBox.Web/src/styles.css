@@ -3,7 +3,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;    background-color: #EEF7FF; }
 
-/* Hintergrundfarbe und Textfarbe für Fehlermeldung */
 .error-snackbar {
   background-color: #f44336 !important;
   color: #fff !important;
@@ -30,7 +29,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;    backgrou
   font-size: 20px; /* Beispiel: Größe des Icons im Kreis */
 }
 
-.popup-folder-list, .popup-hide-question{
+.popup-folder-list, .popup-hide-question .popup-remove-question{
   position: fixed;
   z-index: 1000;
   background-color: white;

@@ -6,11 +6,12 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
 })
 export class NotificationService {
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar) { }
 
   showSuccess(message: string) {
     this.snackBar.open(message, 'Schließen', {
       duration: 5000,
+      verticalPosition: 'bottom',
       panelClass: ['success-snackbar']
     });
   }
@@ -18,17 +19,17 @@ export class NotificationService {
     const snackBarRef: MatSnackBarRef<SimpleSnackBar> = this.snackBar.open(message, undefined, {
       duration: 0,
       panelClass: ['error-snackbar'],
+      verticalPosition: 'top',
+         politeness: 'assertive'
     });
 
-    // Optional: Handle manual closing logic
-    snackBarRef.onAction().subscribe(() => {
-      snackBarRef.dismiss();
-    });
   }
   showError(message: string) {
     this.snackBar.open(message, 'Schließen', {
       duration: 5000,
-      panelClass: ['error-snackbar']
+      verticalPosition: 'top',
+      panelClass: ['error-snackbar'],
+
     });
   }
 }

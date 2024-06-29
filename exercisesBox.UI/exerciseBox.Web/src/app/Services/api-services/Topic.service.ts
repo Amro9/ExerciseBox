@@ -20,18 +20,12 @@ getTopicsBySubject(subjectId: string): Observable<any> {
 
   return this.http.get<any>(url_, {withCredentials: true});
 }
-// getAllTopics(): Observable<Topic[]>{
-//   // let url_ = this.baseUrl + "QuestionParamaters/Subjects";
-//   let url_ = "http://localhost:7292/api/QuestionParamaters/Topics";
-//   return this.http.get<Topic[]>(url_).pipe(
-//     tap(data => console.log('Received Topics:', data)),
-//     catchError(error => {
-//       console.error('Error fetching Topics:', error);
-//       return throwError(error);
-//     }));
-// }
-}
+getTopicById(id: string): Observable<string> {
+  let url_ = this.baseUrl + "QuestionParameters/getTopicNameById/"+id;
 
+  return this.http.get<any>(url_, {withCredentials: true});
+}
+}
 export class Topic {
 id: string;
 description: string;

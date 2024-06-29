@@ -36,7 +36,25 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetAllSubjects());
         }
-
+        [HttpGet("getSubjectNameById/{id}")]
+        public async Task<string> getSubjectNameById(string id)
+        {
+            var subject =  await _mediator.Send(new GetSubjectById(id));
+               return subject.Name;
+        }
+        [HttpGet("getSubjectNameByTopic/{id}")]
+        public async Task<string> GetSubjectNameByTopic(string id)
+        {
+            try
+                {
+                SubjectDto subject = await _mediator.Send(new GetSubjectByTopic(id));
+                    return subject.Name;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+        }
         /// <summary>
         /// Holt alle Themen.
         /// </summary>
@@ -46,7 +64,19 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetAllTopics());
         }
-
+        [HttpGet("getTopicNameById/{id}")]
+        public async Task<string> GetTopicNameById(string id)
+        {
+            try
+             {
+                TopicDto topic =  await _mediator.Send(new GetTopicById(id));
+                return topic.Description;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// Holt Themen anhand des Fachs.
         /// </summary>

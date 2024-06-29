@@ -116,7 +116,7 @@ namespace exerciseBox.Infrastructure.Repositories
                     qt => qt.Topic.Subject,
                     s => s.Id,
                     (qt, s) => new { qt.Question, qt.Topic, Subject = s })
-                .Where(qts => qts.Subject.Id == subjectId)
+                .Where(qts => qts.Subject.Id == subjectId && qts.Question.QuestionIsPrivate == false)
                 .Select(qts => qts.Question)
                 .ToListAsync();
 

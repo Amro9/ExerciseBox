@@ -1,10 +1,14 @@
 <div class="outer-border">
     <div class="row" style="display: flex; justify-content: right;">
-        <div class="col">
+        <div class="col-md-9">
             <h5>{{ Question.questionText }}</h5>
             <p>{{ Question.answer }}</p>
-            <p>{{Question.id}}</p>
         </div>
-        
+        <div class="col-md-3 vertical-line">
+            <p><strong>Schwierigkeitsgrad:</strong> {{ Question.difficultyLevelDto.description }}</p>
+            <p><strong>Schulstufe:</strong> {{ Question.schoolLevel }}</p>
+            <p><strong>Fach:</strong> {{ questionSubject}}</p>
+            <p><strong>Thema:</strong> {{questionTopic }}</p>
+        </div>
     </div>
 </div>

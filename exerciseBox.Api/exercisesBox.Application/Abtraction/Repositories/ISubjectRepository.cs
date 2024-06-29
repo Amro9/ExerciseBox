@@ -21,5 +21,7 @@ namespace exerciseBox.Application.Abtraction.Repositories
         /// <param name="id"></param>
         /// <returns></returns>
         Task<IEnumerable<Subjects>> GetSubjectsBySchoolId(string id);
+
+        Task<Subjects> ReadByTopic(string id);
     }
 }

@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit{
   await this.folderService.getFoldersOfTeacher(this.userMail).then(folders => {
       this.Folders = folders;
     });
-    this.Subjects = await this.subjectService.getSubjectById(this.userMail);
+    this.Subjects = await this.subjectService.getSubjectByTeacherId(this.userMail);
  }
 
   onFolderSubmit() {

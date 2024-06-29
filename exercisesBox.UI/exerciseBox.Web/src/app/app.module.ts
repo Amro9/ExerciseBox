@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from "./Components/navbar/navbar.component";
-import { TeacherAPIConnection } from "./Services/api-services/TeacherAPIConnection";
+import { TeacherService } from "./Services/api-services/Teacher";
 import { environment } from "../environments/enviroment.develop";
 import { API_BASE_URL } from "./Infrastucture/configurations";
 import { AuthentificationService } from "./Services/AuthentificationService";
@@ -27,6 +27,7 @@ import { HideQuestionPopupComponent } from "./Components/questions-pool-componen
 import { AuthGuard } from "./Services/AuthGuard";
 import { ProfileQuestionListComponent } from "./Components/user-profile/profile-question-list/profile-question-list.component";
 import { RemoveQuestionPopupComponent } from "./Components/user-profile/remove-question-popup/remove-question-popup.component";
+import { PersonalDataComponent } from "./Components/user-profile/personal-data/personal-data.component";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
@@ -40,6 +41,7 @@ import { RemoveQuestionPopupComponent } from "./Components/user-profile/remove-q
         QuestionListComponent,
         ProfileQuestionListComponent,
         RemoveQuestionPopupComponent,
+        PersonalDataComponent,
         routingComponents
     ],
     imports: [
@@ -60,7 +62,7 @@ import { RemoveQuestionPopupComponent } from "./Components/user-profile/remove-q
             provide: API_BASE_URL,
             useValue: environment.baseUrl,
         },
-        TeacherAPIConnection,
+        TeacherService,
         AuthentificationService,
         ExerciseSheetService,
         FolderService,

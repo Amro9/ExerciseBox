@@ -2,6 +2,7 @@
 using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,13 +44,26 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             return await _context.Subjects.ToListAsync();
         }
+        public async Task<Subjects> ReadByTopic(string id)
+        {
+            
+           
+            var topic = await _context.Topics
+                .Where(t => t.Id == id)
+                .Include(t => t.SubjectNavigation) // Inkludiert die Navigationseigenschaft zu dem zugehörigen Fach
+                .FirstOrDefaultAsync();
+            Console.WriteLine(topic);
+               var subject = await _context.Subjects.Where(s => s.Id == topic.Subject)
+                .FirstOrDefaultAsync();
+            return subject;
+        }
 
         /// <summary>
         /// Liest ein Schulfach anhand seiner ID aus der Datenbank (nicht implementiert).
         /// </summary>
-        public Task<Subjects> ReadByIdAsync(Guid id)
+        public async Task<Subjects> ReadByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.Subjects.FindAsync(id);
         }
 
         /// <summary>

@@ -106,7 +106,7 @@ export class QuestionCreationFormComponent implements OnInit {
     }
 }
   async fetchSubjects(): Promise<void> {
-  this.subjects = await this.subjectService.getSubjectById(this.userMail);
+  this.subjects = await this.subjectService.getSubjectByTeacherId(this.userMail);
 }
 
 fetchSchoolLevels(): void {

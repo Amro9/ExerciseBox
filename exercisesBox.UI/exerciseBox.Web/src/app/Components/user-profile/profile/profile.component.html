@@ -1,36 +1,40 @@
-<div class="container">
-    <div class="row">
-        <h2>Pers�nliche Daten</h2>
-        
-        
-
+<div class="container mt-5">
+    <div class=" mt-5">
+        <app-personal-data></app-personal-data>
     </div>
     <hr>
-    <div class="row">
-        <h4>Meine F�cher</h4>
-        <select class="form-select form-select-sm" [(ngModel)]="selectedSubject" (ngModelChange)="onSubjectChange()">
-            <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
-        </select>
-    </div>
-    <div class="row" style="margin-top: 2%;">
-        <div class="col-10">
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
-                <option *ngFor="let folder of DisplayedFolders" [ngValue]="folder">{{ folder.name }}</option>
-            </select>
+    <div class="box mb-5">
+        <div class="row text-center">
+            <h3>Meine gespeicherten Fragen</h3>
         </div>
-        <div class="col-2">
-            <button class="btn btn-primary" (click)="openNewFolderModal(newFolder)">Neuer Ordner</button>
+        <div class="row">
+            <div class="col-md-6">
+                <select class="form-select form-select-sm" [(ngModel)]="selectedSubject" (ngModelChange)="onSubjectChange()">
+                    <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
+                    <option *ngFor="let folder of DisplayedFolders" [ngValue]="folder">{{ folder.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12 d-flex justify-content-end">
+                <button class="btn btn-primary" (click)="openNewFolderModal(newFolder)">Neuer Ordner</button>
+            </div>
+        </div>
+        <div class="row mt-3" *ngIf="selectedFolder">
+            <app-profile-question-list *ngIf="selectedFolder.Questions !== undefined"
+                                       [questions]="selectedFolder.Questions"
+                                       (showFolders)="showFoldersList($event)"
+                                       (showRemoveQuestionConfirm)="showRemoveQuestionConfirm($event)"
+                                       [selectedFolderName]="selectedFolder.name">
+            </app-profile-question-list>
         </div>
     </div>
-    <div class="row" *ngIf="selectedFolder">
-        <app-profile-question-list *ngIf="selectedFolder.Questions !== undefined"
-                                   [questions]="selectedFolder.Questions"
-                                   (showFolders)="showFoldersList($event)"
-                                      (showRemoveQuestionConfirm)="showRemoveQuestionConfirm($event)"
-                                   [selectedFolderName]="selectedFolder.name"
-                                   >
-        </app-profile-question-list>
-    </div>
+
+
     <app-folders-popup
         [folders]="Folders"
         [popupTop]="popupTop"
@@ -40,14 +44,19 @@
         (save)="saveQuestion($event)"
         (close)="showFolderList = false">
     </app-folders-popup>
+
     <app-remove-question-popup [popupTop]="popupTop"
-    [popupLeft]="popupLeft"
-    [showRemoveConfirm]="showRemoveConfirm"
-    (remove)="removeSavedQuestionFromFolder()"
-  ></app-remove-question-popup>
+                               [popupLeft]="popupLeft"
+                               [showRemoveConfirm]="showRemoveConfirm"
+                               (remove)="removeSavedQuestionFromFolder()">
+    </app-remove-question-popup>
 </div>
+
 <ng-template #newFolder let-modal>
     <div class="container" style="padding: 5%; background-color: #EEF7FF; border-radius: 10px;">
+        <div class="row">
+            <h4>Neuen Ordner für Fach anlegen</h4>
+        </div>
         <div class="row" style="margin-bottom: 3%;">
             <input type="text" class="form-control" placeholder="Ordnername" [(ngModel)]="folderName">
         </div>
@@ -56,8 +65,8 @@
                 <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
             </select>
         </div>
-        <div class="row d-flex justify-content-right">
-            <button class="btn btn-primary" style="float: right; background-color: #4D869C;" (click)="onFolderSubmit()">Speichern</button>
+        <div class="row d-flex justify-content-end">
+            <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onFolderSubmit()">Speichern</button>
         </div>
         <div *ngIf="errorMessage" class="alert alert-danger mt-2" style="margin-top: 3%;">{{ errorMessage }}</div>
     </div>

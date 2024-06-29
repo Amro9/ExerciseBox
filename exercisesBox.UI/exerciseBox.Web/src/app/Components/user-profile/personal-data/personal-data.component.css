@@ -1,0 +1,22 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .card {
+    margin-top: 20px;
+  }
+  
+  .card-header {
+    background-color: #4D869C;
+    color: white;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .list-group-item {
+    background-color: #EEF7FF;
+    border: none;
+  }

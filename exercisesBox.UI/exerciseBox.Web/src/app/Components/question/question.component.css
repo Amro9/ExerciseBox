@@ -4,3 +4,7 @@
     padding: 15px; /* Innenabstand für den Inhalt */
     background-color: white;
 }
+.vertical-line {
+    border-left: 1px solid #ccc;
+    height: 100%;
+}
