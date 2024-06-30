@@ -77,7 +77,7 @@ throw new Error('Method not implemented.');
   }
 
   onPasswordReset() {
-    
+    this.teacherService.resetPassword(this.selectedTeacher.email);
   }
 
   async refresh() {

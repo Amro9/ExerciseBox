@@ -103,7 +103,7 @@ export class TeacherService {
       let url_ = this.baseUrl + "Teacher/ResetPassword/" + teacherId;
   
       try{
-        await this.http.post(url_,{headers : this.headers, withCredentials:true}).toPromise();
+        await this.http.post(url_,{},{headers : this.headers, withCredentials:true}).toPromise();
       }
       catch(error : any){
         throw error;

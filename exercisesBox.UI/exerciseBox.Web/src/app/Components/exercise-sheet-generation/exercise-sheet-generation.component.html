@@ -1,35 +1,65 @@
 <div class="container" style="margin-top: 5%;">
-    <div class="box">
+    <div class="container" style="background-color: white; padding: 2%; border: 0.1px solid; border-radius: 10px; border-color: lightgray;">
         <div class="row">
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Arbeitsblatt Header</label>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedWorkSheetOption" (ngModelChange)="onWorkSheetOptionChange()">
-                        <option *ngFor="let option of WorkSheetHeaderOptions" [ngValue]="option.Value">{{option.Text}}</option>
-                    </select>
+            <div class="col-md-6">
+                <label>Arbeitsblatt Header</label>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedWorkSheetOption" (ngModelChange)="onWorkSheetOptionChange()">
+                    <option *ngFor="let option of WorkSheetHeaderOptions" [ngValue]="option.Value">{{option.Text}}</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Arbeitsblatt Titel</label>
+                <input type="text" class="form-control" [(ngModel)]="ExerciseSheet.title" placeholder="Gramatik, Multiplikation..."/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <select class="form-select form-select-sm" [(ngModel)]="selectedSubject" (ngModelChange)="onSubjectChange()">
+                    <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="selectedSubject.name !== ''" class="row">
+            <div class="col-12">
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder.folder" (ngModelChange)="onFolderChange()">
+                    <option *ngFor="let folder of DisplayedFolders" [ngValue]="folder">{{ folder.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="selectedFolder.folder.name !== ''" class="row" style="margin-top: 1%;">
+            <div class="col-12 d-flex">
+                <!-- <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onRandomPick(randomPick)">Zuffälig auswählen</button> -->
+                <input class="form-check-input" type="checkbox" [(ngModel)]="IsRandomPick">
+                <label class="form-check-label" for="flexCheckChecked" style="margin-left: 1%;">Zuffälig auswählen</label>
+            </div>
+            <div *ngIf="IsRandomPick" class="container">
+                <div class="row">
+                    <label>Schwierigkeitsgrad</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Einfach</label>
+                            <input type="number" min="0" class="form-control" (change)="onEasyQuestionCountChange()" [(ngModel)]="EasyQuestionCount" placeholder="Einfach"/>
+                        </div>    
+                        <div class="col-4">
+                            <label>Mittel</label>
+                            <input type="number" min="0" class="form-control" (change)="onMediumQuestionCountChange()"  [(ngModel)]="MediumQuestionCount" placeholder="Mittel"/>
+                        </div> 
+                        <div class="col-4">
+                            <label>Schwer</label>
+                            <input type="number" min="0" class="form-control" (change)="onHardQuestionCountChange()" [(ngModel)]="HardQuestionCount" placeholder="Schwer"/>
+                        </div> 
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label>Arbeitsblatt Titel</label>
-                    <input type="text" class="form-control" [(ngModel)]="ExerciseSheet.title" placeholder="Gramatik, Multiplikation..."/>
+                <div class="row d-flex justify-content-right" style="justify-content: right;">
+                    <div class="col-3 d-flex" style="justify-content: right;">
+                        <button class="btn btn-primary" style="background-color: #007a99;" (click)="onRandomPickSubmit()">Auswählen</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="box">
         <div class="grid">
-            <div class="row">
-                <select class="form-select form-select-sm" [(ngModel)]="selectedSubject" (ngModelChange)="onSubjectChange()">
-                    <option *ngFor="let subject of Subjects" [ngValue]="subject">{{ subject.name }}</option>
-                </select>
-            </div>
-            <div *ngIf="selectedSubject.name !== ''" class="row">
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedFolder" (ngModelChange)="onFolderChange()">
-                    <option *ngFor="let folder of Folders" [ngValue]="folder">{{ folder.name }}</option>
-                </select>
-            </div>
-            <div *ngIf="selectedSubject.name !== ''" class="row d-flex" style="justify-content: right;">
-                <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onRandomPick()">Zuffälig auswählen</button>
-            </div>
             <div class="row">
                 <div *ngIf="true">
                     <div *ngFor="let question of selectedFolder.QuestionPickModels">
@@ -89,5 +119,42 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Schließen</button>
         <button type="button" class="btn btn-primary" (click)="downloadPdf()">Herunterladen</button>
+    </div>
+</ng-template>
+
+<ng-template #randomPick let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Zuffälig auswählen Einstellungen</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body" style="justify-content: center; align-items: center; display: flex;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <label>Maximale Anzahl an Fragen</label>
+                    <input type="number" class="form-control" [(ngModel)]="MaxQuestionCount" (change)="onMaxQuestionCountChange()" placeholder="Maximale Anzahl an Fragen"/>
+                </div>
+            </div>
+            <div class="row">
+                <label>Schwierigkeitsgrad</label>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Einfach</label>
+                        <input type="number" class="form-control" (change)="onEasyQuestionCountChange()" [(ngModel)]="EasyQuestionCount" placeholder="Einfach"/>
+                    </div>    
+                    <div class="col-4">
+                        <label>Mittel</label>
+                        <input type="number" class="form-control" (change)="onMediumQuestionCountChange()" [(ngModel)]="MediumQuestionCount" placeholder="Mittel"/>
+                    </div> 
+                    <div class="col-4">
+                        <label>Schwer</label>
+                        <input type="number" class="form-control" (change)="onHardQuestionCountChange()" [(ngModel)]="HardQuestionCount" placeholder="Schwer"/>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Schließen</button>
     </div>
 </ng-template>
