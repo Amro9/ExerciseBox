@@ -126,11 +126,11 @@ export class AuthentificationService {
         }
         }
 
-      public async changePassword(email: string, oldPassword: string, newPassword: string): Promise<boolean> {
+      public async changePassword(email: string, oldPassword: string, newPassword: string, FromSchool : boolean): Promise<boolean> {
         let url_ = this.baseUrl + "Authentification/ChangePassword";
     
         try {
-          await this.http.post(url_, { email, oldPassword, newPassword }, { headers: this.headers, withCredentials: true }).toPromise();
+          await this.http.post(url_, { email, oldPassword, newPassword, FromSchool }, { headers: this.headers, withCredentials: true }).toPromise();
           return true;
         } catch (error) {
           throw error;

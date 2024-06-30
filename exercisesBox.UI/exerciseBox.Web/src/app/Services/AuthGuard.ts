@@ -19,8 +19,16 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
     }
-    let userEmail = this.cookieService.get('userEmail');
-    let isPasswordDefault = await this.authService.isPasswordDefault(userEmail);
+    
+    let isPasswordDefault : boolean = false;
+
+    if(this.authService.hasRole(Roles.School)){
+      isPasswordDefault = false;
+    }
+    else{
+      let userEmail = this.cookieService.get('userEmail');
+      isPasswordDefault = await this.authService.isPasswordDefault(userEmail);
+    }
 
     if (this.authService.isLoggedIn() && this.authService.hasRole(expectedRole) && !isPasswordDefault) {
       return true;

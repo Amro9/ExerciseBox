@@ -52,3 +52,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;    backgrou
 .modal-body {
   background-color: #f0fafa; /* Very light teal for modal body */
 }
+
+button:hover {
+  background-color: #005f73; /* Darker shade on hover */
+}

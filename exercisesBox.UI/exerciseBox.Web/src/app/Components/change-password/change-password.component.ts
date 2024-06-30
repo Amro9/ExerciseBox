@@ -27,7 +27,7 @@ export class ChangePasswordComponent {
 
   async onChangePassword() {
     try{
-      if(await this.authService.changePassword(this.userEmail, this.oldPassword, this.newPassword)){
+      if(await this.authService.changePassword(this.userEmail, this.oldPassword, this.newPassword, false)){
         this.notificationService.showSuccess("Passwort erfolgreich geändert");
         this.router.navigate(['/home']);
       }

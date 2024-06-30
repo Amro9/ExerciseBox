@@ -12,8 +12,9 @@ export class PasswordGuard implements CanActivate {
   constructor(private authService: AuthentificationService, private router: Router, private cookieService : CookieService) { }
   
   async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
+    const expectedRole = route.data['expectedRole'] as Roles; 
 
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn() && this.authService.hasRole(expectedRole)){
         let userEmail = this.cookieService.get('userEmail');
         let isPasswordDefault = await this.authService.isPasswordDefault(userEmail);
         if(isPasswordDefault){

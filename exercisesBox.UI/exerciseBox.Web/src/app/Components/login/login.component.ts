@@ -14,7 +14,7 @@ export class LoginComponent {
   teacher! : Teacher;
   
   constructor(private authService: AuthentificationService, private router: Router) {
-    this.teacher = new Teacher("","","","");
+    this.teacher = new Teacher("","","","","");
   }
 
   errorMessage: string | null = null;

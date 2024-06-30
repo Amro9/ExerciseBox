@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: "schoolView", component: SchoolViewComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.School }},
   { path: "ExerciseSheet", component: ExerciseSheetGenerationComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
   { path: "profile", component: ProfileComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
-  { path: 'home', component: HomeComponent, canActivate: [PasswordGuard]},
+  { path: 'home', component: HomeComponent, canActivate: [PasswordGuard], data: { expectedRole: Roles.Teacher }},
   { path: 'teacherManager', component: TeacherManagerComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.School }},
   { path: 'changePassword', component: ChangePasswordComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },

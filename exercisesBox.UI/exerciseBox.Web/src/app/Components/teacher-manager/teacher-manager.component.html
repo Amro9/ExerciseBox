@@ -59,10 +59,27 @@
         </div>
         <div class="row" style="margin-bottom: 3%;">
             <div class="col-6">
-                <button class="btn btn-primary" style="width: 100%; background-color: #4D869C;" (click)="onChangePassword()">Passwort ändern</button>
+                <button class="btn btn-primary" (click)="onPasswordChangePress()" style="width: 100%; background-color: #4D869C;">Passwort ändern</button>
             </div>
             <div class="col-6">
                 <button class="btn btn-primary" style="width: 100%; background-color: #4D869C;" (click)="onPasswordReset()">Passwort zurücksetzen</button>
+            </div>
+        </div>
+        <div *ngIf="PasswordChangeBool" class="container">
+            <div class="card card-body">
+                <div class="row d-flex">
+                    <div class="col-6">
+                        <input type="password" class="form-control" placeholder="Neues Passwort" [(ngModel)]="newPassword">
+                    </div>
+                    <div class="col-6">
+                        <input type="password" class="form-control" placeholder="Passwort wiederholen" [(ngModel)]="newPasswordRepeat">
+                    </div>
+                </div>
+                <div class="row d-flex" style="justify-content: right; margin-top: 2%;">
+                    <div class="col-6">
+                        <button class="btn btn-primary" style="width: 100%; background-color: #4D869C;" (click)="onChangePassword()">Speichern</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
