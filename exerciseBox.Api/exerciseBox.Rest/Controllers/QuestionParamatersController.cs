@@ -108,7 +108,8 @@ namespace exerciseBox.Rest.Controllers
         [HttpGet("GetSchoolLevelsByTeacherId")]
         public async Task<IEnumerable<int>> GetSchoolLevelsByTeacherId([FromQuery] string teacherId)
         {
-            return await _mediator.Send(new GetSchoolLevelsByTeacherId(teacherId));
+            var teacherLevels =  await _mediator.Send(new GetSchoolLevelsByTeacherId(teacherId));
+            return teacherLevels.OrderBy(level => level);
         }
 
         /// <summary>

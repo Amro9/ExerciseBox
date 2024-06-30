@@ -59,7 +59,7 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             try
             {
-                return await _context.TeachersSchoolLevelsJunction.Select(l => l.SchoolLevel).ToListAsync();
+                return await _context.TeachersSchoolLevelsJunction.Where(s => s.Teacher == teacherId).Select(l => l.SchoolLevel).ToListAsync();
             }
             catch (Exception ex)
             {

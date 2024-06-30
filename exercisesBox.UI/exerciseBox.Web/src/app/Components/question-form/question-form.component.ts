@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, HostListener, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { QuestionFromService } from '../../Services/api-services/question-form.service';
 import { Subject} from '../../Entities/Subject';
@@ -20,11 +20,12 @@ export class QuestionCreationFormComponent implements OnInit {
   questionCreationForm: FormGroup;
   subjectsTopics: Topic[] = [];
   difficultyLevels: DifficultyLevel[] = [];
-
+  @ViewChild('questionText') questionTextInput!: ElementRef;
   userMail! : string;
 
   onChange(newHtml: string) {
   }
+
 
   constructor(
     private fb: FormBuilder,
@@ -56,24 +57,14 @@ export class QuestionCreationFormComponent implements OnInit {
     this.fetchSubjects();
     this.fetchSchoolLevels();
     this.fetchDifficultyLevels()
-  //   this.subjectService.getAllSubjects().subscribe({
-  //     next: (data) => this.subjects = data,
-  //     error: (error) => console.error('Error fetching subjects:', error)
-  //   });
-
-  //   this.schoolLevel.getSchoolLevelByTeacherId("1@2.com").subscribe({
-  // next:(data) => this.schoolLevels = data,
-  // error: (error) => console.error('Error fetching Classes:', error)
-  //   });
-
-  //   this.difficultyLevelsService.getDifficultyLevels().subscribe({
-  //     next:(data) => this.difficultyLevels = data,
-  //     error: (error: string) => console.error('Error fetching Classes:', error)
-  //       });
   }
-  // onLevelClick(level: string) {
-  //   this.questionCreationForm.patchValue({ SchoolLevel: level });
-  // }
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'Enter') {
+      this.submitQuestionCreationForm();
+    }
+  }
+
   onSubjectChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedSubjectId = selectElement.value;
@@ -88,22 +79,22 @@ export class QuestionCreationFormComponent implements OnInit {
       this.questionCreationForm.markAllAsTouched();
     }
     else{
-
       const formData = this.questionCreationForm.value;
       formData.Author = this.userMail;
-      
       this.questionFromService.submitQuestionForm(formData).subscribe({
         next: () => {
           this.questionCreationForm.patchValue({
             questionText: '',
             answer: '',
           });
-          
           this.questionCreationForm.markAsUntouched();
-          
+          this.focusOnQuestionText();
         },
       });
     }
+}
+private focusOnQuestionText() {
+  this.questionTextInput.nativeElement.focus();
 }
   async fetchSubjects(): Promise<void> {
   this.subjects = await this.subjectService.getSubjectByTeacherId(this.userMail);

@@ -53,7 +53,7 @@
             <option value="0">Wähle den Schwierigkeitsgrad</option>
             <option *ngFor="let difficulty of difficultyLevels" [ngValue]="difficulty">{{ difficulty.description }}</option>
           </select>
-          <div *ngIf="questionCreationForm.get('difficultyLevel')?.errors?.['invalidDropdown'] && questionCreationForm.get('difficultyLevel')?.touched" class="text-danger">
+          <div *ngIf="questionCreationForm.get('difficultyLevelDto')?.errors?.['invalidDropdown'] && questionCreationForm.get('difficultyLevelDto')?.touched" class="text-danger">
             Bitte wählen Sie den Schwierigkeitsgrad aus.
           </div>
         </div>

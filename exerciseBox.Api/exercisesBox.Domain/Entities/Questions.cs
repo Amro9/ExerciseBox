@@ -23,8 +23,6 @@ public partial class Questions
 
     public bool QuestionIsPrivate { get; set; }
 
-    public string InnerHtml { get; set; }
-
     public int SchoolType { get; set; }
 
     public string SchoolBranch { get; set; }
