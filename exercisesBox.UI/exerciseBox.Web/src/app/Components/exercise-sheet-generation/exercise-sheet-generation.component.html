@@ -31,6 +31,8 @@
                 <!-- <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onRandomPick(randomPick)">Zuffälig auswählen</button> -->
                 <input class="form-check-input" type="checkbox" [(ngModel)]="IsRandomPick">
                 <label class="form-check-label" for="flexCheckChecked" style="margin-left: 1%;">Zuffälig auswählen</label>
+                <input class="form-check-input" type="checkbox" [(ngModel)]="WithAnswers" style="margin-left: 5%;">
+                <label class="form-check-label" for="flexCheckChecked" style="margin-left: 1%;">Antworten anzeigen</label>
             </div>
             <div *ngIf="IsRandomPick" class="container">
                 <div class="row">

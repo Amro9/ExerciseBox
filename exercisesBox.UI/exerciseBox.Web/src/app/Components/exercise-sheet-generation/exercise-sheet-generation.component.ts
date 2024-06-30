@@ -40,6 +40,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   HardQuestionCount: number = 0;
 
   IsRandomPick: boolean = false;
+  WithAnswers : boolean = false;
 
   WorkSheetHeaderOptions : Array<{Text: string, Value: number}> = 
   [ 
@@ -123,7 +124,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
   async onGenerateExerciseSheet(content: any) {
     try {
-      this.pdfBlob = await this.exerciseSheetService.getNewExerciseSheet(this.SelectedQuestions.map(q => q.id), this.ExerciseSheet);
+      this.pdfBlob = await this.exerciseSheetService.getNewExerciseSheet(this.SelectedQuestions.map(q => q.id), this.ExerciseSheet, this.WithAnswers);
       this.pdfSrc = URL.createObjectURL(this.pdfBlob);
       this.modalService.open(content, { size: 'lg' });
     } catch (error) {

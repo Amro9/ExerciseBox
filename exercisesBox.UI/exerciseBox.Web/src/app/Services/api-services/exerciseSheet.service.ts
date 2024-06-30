@@ -16,10 +16,10 @@ export class ExerciseSheetService {
     {
     }
 
-    public async getNewExerciseSheet(questionIds: string[], exerciseSheet : ExerciseSheet): Promise<Blob> {
+    public async getNewExerciseSheet(questionIds: string[], exerciseSheet : ExerciseSheet, WithAnswers : boolean): Promise<Blob> {
         let url_ = this.baseUrl + "ExerciseSheet/GetNewExerciseSheet";
         try {
-            const response: any = await this.http.post(url_, { questionIds: questionIds, exerciseSheet}, { headers: this.headers, responseType: 'blob' as 'json', withCredentials: true }).toPromise();
+            const response: any = await this.http.post(url_, { questionIds: questionIds, exerciseSheet, WithAnswers}, { headers: this.headers, responseType: 'blob' as 'json', withCredentials: true }).toPromise();
             return response;
         } catch (error) {
             console.error('Error generating exercise sheet:', error);
