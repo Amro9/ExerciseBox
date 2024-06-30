@@ -185,12 +185,15 @@ namespace exercisebox.rest.controllers
                 if (teacher == null)
                     return StatusCode(500, "Der Lehrer wurde nicht gefunden.");
 
-                if (teacher.Password != changePasswordRequest.OldPassword.HashPassword())
-                    return StatusCode(500, "Das alte Passwort ist falsch.");
+                if (!changePasswordRequest.FromSchool)
+                {
+                    if (teacher.Password != changePasswordRequest.OldPassword.HashPassword())
+                        return StatusCode(500, "Das alte Passwort ist falsch.");
+                }
 
                 teacher.Password = changePasswordRequest.NewPassword.HashPassword();
 
-                await _mediator.Send(new UpdatePassword { Email = teacher.Email, Password = changePasswordRequest.NewPassword });
+                await _mediator.Send(new UpdatePassword { Email = teacher.Email, Password = teacher.Password });
 
                 return Ok(new { value = true });
             }

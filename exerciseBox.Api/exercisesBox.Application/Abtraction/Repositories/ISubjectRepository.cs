@@ -22,6 +22,18 @@ namespace exerciseBox.Application.Abtraction.Repositories
         /// <returns></returns>
         Task<IEnumerable<Subjects>> GetSubjectsBySchoolId(string id);
 
+        /// <summary>
+        /// Holt alle Fächer eines Schultyps.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task<Subjects> ReadByTopic(string id);
+
+        /// <summary>
+        /// Holt alle Fächer eines Schulzweigs.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Subjects>> GetSubjectsBySchoolBranchId(string id);
     }
 }

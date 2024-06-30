@@ -43,6 +43,11 @@ public class TeacherDto
     public bool IsActive { get; set; }
 
     /// <summary>
+    /// Ruft den Zweig der Schule ab oder legt diesen fest.
+    /// </summary>
+    public string Branch { get; set; }
+
+    /// <summary>
     /// Konvertiert ein Teachers-Objekt implizit in ein TeacherDto-Objekt.
     /// </summary>
     public static implicit operator TeacherDto(Teachers teacher)
@@ -54,7 +59,8 @@ public class TeacherDto
             Email = teacher.Email,
             School = teacher.SchoolNavigation is null ? null : teacher.SchoolNavigation,
             IsActive = teacher.IsActive, 
-            Password = teacher.Password
+            Password = teacher.Password,
+            Branch = teacher.Branch
         };
     }
 

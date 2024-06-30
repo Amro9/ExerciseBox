@@ -103,5 +103,13 @@ namespace exerciseBox.Infrastructur.Repositories
                 .Where(x => subjectIds.Contains(x.Id))
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Subjects>> GetSubjectsBySchoolBranchId(string id)
+        {
+            return await _context.BranchesSubjectsJunction
+                .Where(x => x.Branch == id)
+                .Select(x => x.SubjectNavigation)
+                .ToListAsync();
+        }
     }
 }
