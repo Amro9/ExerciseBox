@@ -9,7 +9,7 @@ namespace exerciseBox.Application.UseCases.Teacher.QueryHandlers
     /// <summary>
     /// Handler für die Abfrage, um die Schule eines Lehrers zu erhalten.
     /// </summary>
-    public class GetBrancheOfTeacherHandler : IRequestHandler<GetBranchOfTeacher, SchoolBrancheDto>
+    public class GetBrancheOfTeacherHandler : IRequestHandler<GetBrancheOfTeacher, SchoolBrancheDto>
     {
         private readonly ITeacherRepository _teacherRepository;
 
@@ -28,7 +28,7 @@ namespace exerciseBox.Application.UseCases.Teacher.QueryHandlers
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<SchoolBrancheDto> Handle(GetBranchOfTeacher request, CancellationToken cancellationToken)
+        public async Task<SchoolBrancheDto> Handle(GetBrancheOfTeacher request, CancellationToken cancellationToken)
         {
             return await _teacherRepository.GetTeachersSchoolBranch(request.TeacherId);
         }

@@ -49,6 +49,11 @@ namespace exerciseBox.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<SchoolBranches>> ReadBySchoolId(string schoolId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<string> ReadIdByTeacher(string teacherId)
         {
             var school = await _context.Teachers.Where(t => t.Email == teacherId).Select(t => t.School).FirstOrDefaultAsync();

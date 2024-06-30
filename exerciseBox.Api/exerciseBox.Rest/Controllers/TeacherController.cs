@@ -312,13 +312,13 @@ namespace exerciseBox.Rest.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("Branches/{id}")]
-        public async Task<IActionResult> GetBranchesOfTeacher(string id)
+        [HttpGet("Branche/{id}")]
+        public async Task<IActionResult> GetBrancheOfTeacher(string id)
         {
             try
             {
-                var branches = await _mediator.Send(new GetBranchOfTeacher { TeacherId = id });
-                return Ok(new { value = branches });
+                var branche = await _mediator.Send(new GetBrancheOfTeacher { TeacherId = id });
+                return Ok(new { value = branche });
             }
             catch (Exception ex)
             {
