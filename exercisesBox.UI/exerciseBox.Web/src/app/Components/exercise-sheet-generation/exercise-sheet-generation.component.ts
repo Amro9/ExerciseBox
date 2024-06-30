@@ -58,7 +58,7 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
   sessionKey : string = "";
 
-  userEmail : stirng = "";
+  userEmail : string = "";
 
   constructor(private folderService: FolderService,
      private questionService: QuestionService,
