@@ -89,4 +89,16 @@ removeQuestionFromFolder(questionId: string, folderId: string): Observable<any> 
         return throwError(error);
       }));
   }
+
+  async getQuestionsByFolderPromise(folderId: string): Promise<Question[]> {
+    let url_ = this.baseUrl + "question/folderQuestions/" + folderId;
+
+    try {
+      const response : any = await this.http.get(url_, { withCredentials: true }).toPromise();
+      return response.value.map((question: any) => Question.fromJSON(question));
+    }
+    catch (error) {
+      throw error;
+    } 
+  }
 }

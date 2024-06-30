@@ -59,4 +59,15 @@ getSubjectNameByTopic(topicId: string): Observable<string> {
       throw error;
     }
   }
+
+  public async getSubjectByBranch(brancheId : string): Promise<Subject[]> {
+    let url_ = this.baseUrl + "SchoolBranch/Subjects/" + brancheId;
+  
+    try {
+      const response : any = await this.http.get(url_, { withCredentials: true}).toPromise();
+      return response.value as Subject[];
+    } catch (error : any) {
+      throw error;
+    }
+  }
 }

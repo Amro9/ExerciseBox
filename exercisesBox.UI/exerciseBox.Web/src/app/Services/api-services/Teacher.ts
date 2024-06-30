@@ -4,6 +4,7 @@ import { API_BASE_URL } from "../../Infrastucture/configurations";
 import { catchError, map, Observable, throwError } from "rxjs";
 import { Teacher } from "../../Entities/Teacher";
 import { Session } from "../../Entities/Session";
+import { SchoolBranch } from "../../Entities/SchoolBranch";
 
 @Injectable({
     providedIn: 'root'
@@ -126,6 +127,18 @@ export class TeacherService {
   
       try{
         await this.http.post(url_,{teacherId, subjectId},{headers : this.headers, withCredentials:true}).toPromise();
+      }
+      catch(error : any){
+        throw error;
+      }
+    }
+
+    async getBrancheOfTeacher(teacherId : string) : Promise<SchoolBranch> { 
+      let url_ = this.baseUrl + "Teacher/Branch/" + teacherId;
+  
+      try{
+        const response : any = await this.http.get(url_,{headers : this.headers, withCredentials:true}).toPromise();
+        return response.value as SchoolBranch;
       }
       catch(error : any){
         throw error;

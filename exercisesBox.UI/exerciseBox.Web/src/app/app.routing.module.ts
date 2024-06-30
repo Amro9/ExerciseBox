@@ -13,6 +13,8 @@ import { Roles } from "./Infrastucture/enums";
 import { HomeComponent } from "./Components/home/home.component";
 import { ProfileComponent } from "./Components/user-profile/profile/profile.component";
 import { TeacherManagerComponent } from "./Components/teacher-manager/teacher-manager.component";
+import { ChangePasswordComponent } from "./Components/change-password/change-password.component";
+import { PasswordGuard } from "./Services/PasswordGuard";
 
 const routes: Routes = [
   { path: "adminView", component: AdminViewComponent },
@@ -22,8 +24,9 @@ const routes: Routes = [
   { path: "schoolView", component: SchoolViewComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.School }},
   { path: "ExerciseSheet", component: ExerciseSheetGenerationComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
   { path: "profile", component: ProfileComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [PasswordGuard], data: { expectedRole: Roles.Teacher }},
   { path: 'teacherManager', component: TeacherManagerComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.School }},
+  { path: 'changePassword', component: ChangePasswordComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   ];
 
@@ -44,6 +47,6 @@ const routes: Routes = [
     HomeComponent,
     TeacherManagerComponent,
     ProfileComponent,
-    
+    ChangePasswordComponent
   ]
   

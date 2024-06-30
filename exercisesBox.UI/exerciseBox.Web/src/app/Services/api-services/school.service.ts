@@ -32,4 +32,16 @@ export class SchoolService {
             }));
     }
 
+    async getBranchesOfSchool(schoolId: string): Promise<SchoolBranch[]>{
+      let url_ = this.baseUrl + "school/branches/" + schoolId;
+
+      try{
+        const response : any = await this.http.get<SchoolBranch[]>(url_, {withCredentials: true}).toPromise();
+        return response.value as SchoolBranch[];
+      }
+      catch (error : any){
+        throw error;
+      }
+    }
+
   }

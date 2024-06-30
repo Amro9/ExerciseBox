@@ -138,13 +138,22 @@ export class ExerciseSheetGenerationComponent implements OnInit{
     link.click();
   }
 
-  onFolderChange() {
-    if(this.selectedFolder.QuestionPickModels !== undefined){
-      if(this.selectedFolder.QuestionPickModels.length > 0){
+  async getQuestion(){
+    
+  }
+
+  async onFolderChange() {
+    this.selectedFolder.QuestionPickModels = [];
+    if(this.selectedFolder.folder.Questions !== undefined){
+      if(this.selectedFolder.folder.Questions.length > 0){
+        this.selectedFolder.QuestionPickModels = this.selectedFolder.folder.Questions.map(q => new QuestionPickModel(q, false));
         return;
       }
     }
-    this.questionService.getQuestionsByFolder(this.selectedFolder.folder.id).subscribe(questions => questions.map(q => this.selectedFolder.QuestionPickModels.push(new QuestionPickModel(q, false))));
+    this.selectedFolder.folder.Questions = await this.questionService.getQuestionsByFolderPromise(this.selectedFolder.folder.id);
+    if(this.selectedFolder.folder.Questions !== undefined && this.selectedFolder.folder.Questions.length > 0){
+      this.selectedFolder.QuestionPickModels = this.selectedFolder.folder.Questions.map(q => new QuestionPickModel(q, false));
+    }
     if(this.selectedFolder.QuestionPickModels === undefined)
     {
       this.selectedFolder.QuestionPickModels = [];
