@@ -111,11 +111,11 @@
 </ng-template>
 
 <ng-template #addTeacher let-modal>
-    <div class="container" style="padding: 5%; background-color: #EEF7FF; border-radius: 10px;">
-        <div class="row" style="margin-bottom: 3%;">
-            <h3><b>Lehrperson hinzufügen</b></h3>
-            <hr>
-        </div>
+    <div class="modal-header">
+        <h3><b>Lehrperson hinzufügen</b></h3>
+        <hr>
+    </div>
+    <div class="modal-body">
         <div class="row" style="margin-bottom: 3%;">
             <div class="col-6">
                 <input type="text" class="form-control" placeholder="Vorname" [(ngModel)]="newTeacher.surname">
@@ -129,13 +129,21 @@
                 <input type="email" class="form-control" placeholder="Email" [(ngModel)]="newTeacher.email">
             </div>
         </div>
-        <div class="row" style="margin-bottom: 3%;">
+        <div class="row d-flex" style="margin-bottom: 3%; justify-content: right;">
             <div class="col-6">
-                
-            </div>
-            <div class="col-6">
-                <button class="btn btn-success" style="width: 100%;" (click)="onSubmitNewTeacher()">Hinzufügen</button>
+                <select class="form-control" [(ngModel)]="selectedBranche">
+                    <option *ngFor="let subject of schoolBranches" [ngValue]="subject">{{ subject.name }}</option>
+                </select>     
             </div>
         </div>
+        <div class="row d-flex" style="justify-content: center;">
+            <div class="col-6">
+                <div *ngIf="newTeacherFildNotFilled" class="alert alert-danger mt-2">Nicht alle Felder sind befüllt</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Schließen</button>
+        <button class="btn btn-success" (click)="onSubmitNewTeacher()">Hinzufügen</button>
     </div>
 </ng-template>

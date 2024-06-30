@@ -5,6 +5,8 @@ import { Teacher } from '../../Entities/Teacher';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from '../../Entities/Subject';
 import { SubjectService } from '../../Services/api-services/Subject.service';
+import { SchoolBranch } from '../../Entities/SchoolBranch';
+import { SchoolService } from '../../Services/api-services/school.service';
 
 @Component({
   selector: 'app-teacher-manager',
@@ -17,7 +19,8 @@ onChangePassword() {
 throw new Error('Method not implemented.');
 }
 
-
+  schoolBranches : SchoolBranch[] = [];
+  selectedBranche : SchoolBranch = new SchoolBranch("","");
 
   userMail : string = ""; 
   Teachers! : Teacher[];
@@ -31,11 +34,14 @@ throw new Error('Method not implemented.');
 
   newTeacher : Teacher = new Teacher("","","","");
 
+  newTeacherFildNotFilled : boolean = false;
+
   constructor (
     private cookieService : CookieService,
     private teacherService : TeacherService,
     private modal : NgbModal,
-    private subjectService : SubjectService
+    private subjectService : SubjectService,
+    private schoolService : SchoolService
   )
   {
     
@@ -43,6 +49,9 @@ throw new Error('Method not implemented.');
   }
   
   async ngOnInit(): Promise<void> {
+    this.schoolBranches = await this.schoolService.getBranchesOfSchool(this.userMail);
+    this.schoolBranches.push(new SchoolBranch("", "Schulzweig auswählen"));
+    this.selectedBranche = this.schoolBranches[this.schoolBranches.length - 1];
     this.Teachers = await this.teacherService.getTeachersOfSchool(this.userMail);
     this.subjectOfSchool = await this.subjectService.getSubjectBySchool(this.userMail);
   }
@@ -127,9 +136,15 @@ throw new Error('Method not implemented.');
   }
 
   async onSubmitNewTeacher() {
-    this.newTeacher.schoolId = this.userMail;
-    await this.teacherService.addTeacher(this.newTeacher);
-    this.modal.dismissAll();
-    this.refresh();
+    this.newTeacherFildNotFilled = false;
+    if(this.newTeacher.email !== "" || this.newTeacher.surname !== "" || this.newTeacher.givenname !== "" || this.selectedBranche.id !== "") {
+      this.newTeacher.schoolId = this.userMail;
+      await this.teacherService.addTeacher(this.newTeacher);
+      this.modal.dismissAll();
+      this.refresh();
+    }
+    else{
+      this.newTeacherFildNotFilled = true;
+    }
   }
 }

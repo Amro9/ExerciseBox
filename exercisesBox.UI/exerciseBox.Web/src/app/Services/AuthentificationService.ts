@@ -114,4 +114,26 @@ export class AuthentificationService {
         this.cookieService.delete('userEmail', '/', '', true, 'Strict');
         this.userRole = null; 
       }
+
+      public async isPasswordDefault(id: string): Promise<boolean> {
+        let url_ = this.baseUrl + "Authentification/IsPasswordDefault/" + id;
+    
+        try {
+            const response : any = await this.http.get(url_, { headers: this.headers, withCredentials: true }).toPromise();
+            return response.isDefault;
+        } catch (error) {
+            throw error;
+        }
+        }
+
+      public async changePassword(email: string, oldPassword: string, newPassword: string): Promise<boolean> {
+        let url_ = this.baseUrl + "Authentification/ChangePassword";
+    
+        try {
+          await this.http.post(url_, { email, oldPassword, newPassword }, { headers: this.headers, withCredentials: true }).toPromise();
+          return true;
+        } catch (error) {
+          throw error;
+        }
+      }
 }

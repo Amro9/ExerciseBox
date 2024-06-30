@@ -40,3 +40,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;    backgrou
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.btn-primary:hover {
+  background-color: #005f73; /* Darker shade on hover */
+}
+
+.modal-header, .modal-footer {
+  background-color: #c0e0e0; /* Light teal for modal header and footer */
+}
+
+.modal-body {
+  background-color: #f0fafa; /* Very light teal for modal body */
+}

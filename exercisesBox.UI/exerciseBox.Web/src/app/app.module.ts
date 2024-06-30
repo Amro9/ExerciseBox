@@ -28,6 +28,7 @@ import { AuthGuard } from "./Services/AuthGuard";
 import { ProfileQuestionListComponent } from "./Components/user-profile/profile-question-list/profile-question-list.component";
 import { RemoveQuestionPopupComponent } from "./Components/user-profile/remove-question-popup/remove-question-popup.component";
 import { PersonalDataComponent } from "./Components/user-profile/personal-data/personal-data.component";
+import { PasswordGuard } from "./Services/PasswordGuard";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
@@ -68,6 +69,7 @@ import { PersonalDataComponent } from "./Components/user-profile/personal-data/p
         FolderService,
         SessionStorageProvider,
         AuthGuard,
+        PasswordGuard,
         provideAnimationsAsync()
     ],
     bootstrap: [AppComponent]
