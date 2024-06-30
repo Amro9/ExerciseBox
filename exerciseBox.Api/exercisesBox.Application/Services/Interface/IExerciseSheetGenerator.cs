@@ -13,6 +13,6 @@ namespace exerciseBox.Application.Services.Interface
         /// <param name="exerciseSheet">Das Übungsblatt, das generiert werden soll.</param>
         /// <param name="questions">Die Sammlung von Fragen, die in das Übungsblatt aufgenommen werden sollen.</param>
         /// <returns>Ein Byte-Array, das das generierte Übungsblatt repräsentiert.</returns>
-        byte[] Generate(ExerciseSheets exerciseSheet, IEnumerable<Questions> questions);
+        byte[] Generate(ExerciseSheets exerciseSheet, IEnumerable<Questions> questions, bool WithAnswers);
     }
 }
