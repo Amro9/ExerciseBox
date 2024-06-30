@@ -1,5 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using exerciseBox.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

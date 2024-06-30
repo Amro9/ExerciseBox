@@ -19,6 +19,10 @@ public partial class Teachers
 
     public bool IsActive { get; set; }
 
+    public string Branch { get; set; }
+
+    public virtual SchoolBranches BranchNavigation { get; set; }
+
     public virtual ICollection<ExerciseSheets> ExerciseSheets { get; set; } = new List<ExerciseSheets>();
 
     public virtual ICollection<Folders> Folders { get; set; } = new List<Folders>();

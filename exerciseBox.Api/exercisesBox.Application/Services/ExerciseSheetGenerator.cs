@@ -54,7 +54,7 @@ namespace exerciseBox.Application.Services
                         {
                             var questionIndex = questions.ToList().IndexOf(question) + 1;
                             column.Item().Text($"{questionIndex}) {question.QuestionText}", TextStyle.Default.Size(12));
-                            column.Item().PaddingBottom(40);
+                            column.Item().PaddingBottom(80);
                         }
                     });
 

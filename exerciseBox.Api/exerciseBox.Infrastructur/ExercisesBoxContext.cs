@@ -2,9 +2,10 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using exerciseBox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace exerciseBox.Domain.Entities;
+namespace exerciseBox.Infrastructure;
 
 public partial class ExercisesBoxContext : DbContext
 {
@@ -469,6 +470,10 @@ public partial class ExercisesBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("email");
+            entity.Property(e => e.Branch)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("branch");
             entity.Property(e => e.FamilyName)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -490,6 +495,10 @@ public partial class ExercisesBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("surname");
+
+            entity.HasOne(d => d.BranchNavigation).WithMany(p => p.Teachers)
+                .HasForeignKey(d => d.Branch)
+                .HasConstraintName("FK_Teachers_SchoolBranches");
 
             entity.HasOne(d => d.SchoolNavigation).WithMany(p => p.Teachers)
                 .HasForeignKey(d => d.School)
