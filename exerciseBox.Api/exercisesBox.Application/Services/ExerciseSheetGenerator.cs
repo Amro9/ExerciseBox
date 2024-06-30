@@ -8,7 +8,7 @@ namespace exerciseBox.Application.Services
 {
     public class ExerciseSheetGenerator : IExerciseSheetGenerator
     {
-        public byte[] Generate(ExerciseSheets exerciseSheet, IEnumerable<Questions> questions)
+        public byte[] Generate(ExerciseSheets exerciseSheet, IEnumerable<Questions> questions, bool WithAnswers)
         {
             if (questions.Count() <= 0)
                 throw new Exception("No questions found");
@@ -52,9 +52,20 @@ namespace exerciseBox.Application.Services
 
                         foreach (var question in questions)
                         {
-                            var questionIndex = questions.ToList().IndexOf(question) + 1;
-                            column.Item().Text($"{questionIndex}) {question.QuestionText}", TextStyle.Default.Size(12));
-                            column.Item().PaddingBottom(80);
+                            if (WithAnswers)
+                            {
+                                var questionIndex = questions.ToList().IndexOf(question) + 1;
+                                column.Item().Text($"{questionIndex}) {question.QuestionText}", TextStyle.Default.Size(12));
+                                column.Item().PaddingBottom(20);
+                                column.Item().Text($"{question.Answer}", TextStyle.Default.Size(12));
+                                column.Item().PaddingBottom(50);
+                            }
+                            else
+                            {
+                                var questionIndex = questions.ToList().IndexOf(question) + 1;
+                                column.Item().Text($"{questionIndex}) {question.QuestionText}", TextStyle.Default.Size(12));
+                                column.Item().PaddingBottom(80);
+                            }
                         }
                     });
 

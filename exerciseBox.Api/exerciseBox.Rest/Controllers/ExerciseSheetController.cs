@@ -29,7 +29,8 @@ namespace exerciseBox.Rest.Controllers
             var result = await _mediator.Send(new GenerateNewExerciseSheet
             {
                 ExerciseSheet = newExerciseSheet.ExerciseSheet,
-                QuestionIds = newExerciseSheet.QuestionIds
+                QuestionIds = newExerciseSheet.QuestionIds,
+                WithSolutions = newExerciseSheet.WithAnswers
             });
             return File(result, "application/pdf", "example.pdf");
         }

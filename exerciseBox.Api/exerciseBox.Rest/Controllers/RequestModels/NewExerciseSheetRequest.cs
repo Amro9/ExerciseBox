@@ -16,5 +16,10 @@ namespace exerciseBox.Rest.Controllers.RequestModels
         /// Die IDs der Fragen, die dem Übungsblatt hinzugefügt werden sollen.
         /// </summary>
         public string[] QuestionIds { get; set; }
+
+        /// <summary>
+        /// Gibt an, ob die Antworten auf die Fragen mitgeliefert werden sollen.
+        /// </summary>
+        public bool WithAnswers { get; set; }   
     }
 }
