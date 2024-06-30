@@ -18,7 +18,18 @@ export class FolderService{
     constructor(private http: HttpClient, @Inject(API_BASE_URL) private baseUrl: string) 
     {
     }
+public async getFoldersOfSubject(subjectId : string, teacherId:string): Promise<Folder[]> {
+    let url_ = this.baseUrl + "Subject/Folders/" + subjectId + "/" + teacherId;
+    try {
+        let body = new HttpParams().set('id', subjectId).set('teacherId', teacherId);
 
+        const response: any = await this.http.get(url_, { headers: this.headers, params: body, withCredentials: true}).toPromise();
+        return response.value as Folder[];
+    } catch (error) {
+        console.error('Error in getFolders:', error);
+        return [] as Folder[];
+    }
+}
     public async getFoldersOfTeacher(id : string): Promise<Folder[]> {
         let url_ = this.baseUrl + "Teacher/Folders/" + id;
         try {

@@ -49,6 +49,11 @@ getSubjectNameByTopic(topicId: string): Observable<string> {
 
   return this.http.get<any>(url_, {withCredentials: true});
 }
+getSubjectByTopic(topicId: string): Observable<Subject> {
+  let url_ = this.baseUrl + "QuestionParameters/getSubjectByTopic/"+topicId;
+
+  return this.http.get<Subject>(url_, {withCredentials: true});
+}
   public async getSubjectBySchool(schoolId : string): Promise<Subject[]> {
     let url_ = this.baseUrl + "School/Subjects/" + schoolId;
   

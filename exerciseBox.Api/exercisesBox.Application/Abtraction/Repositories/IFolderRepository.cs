@@ -6,5 +6,6 @@ namespace exerciseBox.Application.Abtraction.Repositories
     {
         Task<IEnumerable<Folders>> GetFoldersByTeacherId(string id);
         Task<Folders> GetCreationFolder(string subjectId, string teacherId);
+        Task<IEnumerable<Folders>> GetSubjectFolders(string subjectId, string teacherId);
     }
 }

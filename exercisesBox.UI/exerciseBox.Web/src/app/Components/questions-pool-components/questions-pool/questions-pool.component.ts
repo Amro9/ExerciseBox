@@ -7,6 +7,7 @@ import { QuestionService } from '../../../Services/api-services/question.service
 import { CookieService } from 'ngx-cookie-service';
 import { FoldersPopupComponent } from '../folders-popup/folders-popup.component';
 import { NotificationService } from '../../../Services/general-services/notification.service';
+import { SubjectService } from '../../../Services/api-services/Subject.service';
 
 @Component({
   selector: 'app-questions-pool',
@@ -32,13 +33,15 @@ export class QuestionsPoolComponent {
     private folderService: FolderService,
     private elementRef: ElementRef,
     private cookieService: CookieService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private subjectService: SubjectService
   ) { }
 
   async ngOnInit(): Promise<void> {
     this.userEmail = this.cookieService.get("userEmail");
     console.log('User email:', this.userEmail);
-    this.Folders = await this.folderService.getFoldersOfTeacher(this.userEmail);
+    // this.Folders = await this.folderService.getFoldersOfTeacher(this.userEmail);
+
   }
 
   submitSearch(searchParams: any) {
@@ -80,7 +83,7 @@ export class QuestionsPoolComponent {
     }
   }
 
-  showFoldersList(event: { questionId: string, event: MouseEvent }) {
+  async showFoldersList(event: { questionId: string, event: MouseEvent }) {
     event.event.stopPropagation();
     const popupWidth = 300; // Beispielbreite des Popups
     const popupHeight = 200; // Beispielhöhe des Popups
@@ -97,12 +100,37 @@ export class QuestionsPoolComponent {
     if (top + popupHeight > screenHeight) {
       top = screenHeight - popupHeight;
     }
+    const subjectId = await this.getSubjectIdByQuestionId(event.questionId);
+console.log('Subject ID:', subjectId);
+    this.Folders = await this.folderService.getFoldersOfSubject(subjectId, this.userEmail);
+    console.log('Folders:', this.Folders);
     this.showFolderList = true;
     this.popupTop = `${event.event.clientY}px`;
     this.popupLeft = `${event.event.clientX}px`;
     this.selectedQuestionId = event.questionId;
     this.foldersPopupComponent.checkQuestionsInFolders(); // Update the popup component whenever the folder list is shown
   }
+  public getSubjectIdByQuestionId(questionId: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        // Find the question with the given ID in the list of public questions.
+        const question = this.publicQuestions.find(q => q.id === questionId);
+        if (!question) {
+            reject('Question not found');
+            return;
+        }
+        // Fetch the subject using the subject service and resolve or reject the promise based on the result.
+        this.subjectService.getSubjectByTopic(question.topic).subscribe({
+            next: (data) => {
+                console.log('Subject fetched:', data);
+                resolve(data.id);
+            },
+            error: (error: string) => {
+                console.error('Error fetching subject:', error);
+                reject(error);
+            }
+        });
+    });
+}
 
   saveQuestion(folderId: string) {
     console.log(`Frage wird in ${folderId} gespeichert.`);

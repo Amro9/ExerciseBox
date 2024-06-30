@@ -62,7 +62,16 @@ namespace exerciseBox.Infrastructure.Repositories
                 .Select(sb => sb.BranchNavigation)
                 .ToListAsync();
         }
-
+        ///// <summary>
+        ///// Liest alle Schulen einer bestimmten Schule aus der Datenbank.
+        ///// </summary>
+        ///// <param name="schoolId"></param>
+        ///// <returns></returns>
+        //public async Task<IEnumerable<SchoolBranches>> ReadBySchoolId(string schoolId)
+        //{
+        //    var branches = _context.SchoolsBranchesJunction.Where(s => s.School == schoolId).Select(s => s.Branch).ToListAsync();
+        //    return await _context.SchoolBranches.Where(s => branches.Result.Contains(s.Id)).ToListAsync();
+        //}
         public async Task<string> ReadIdByTeacher(string teacherId)
         {
             var school = await _context.Teachers.Where(t => t.Email == teacherId).Select(t => t.School).FirstOrDefaultAsync();

@@ -55,6 +55,19 @@ namespace exerciseBox.Rest.Controllers
                     return null;
                 }
         }
+        [HttpGet("getSubjectByTopic/{id}")]
+        public async Task<SubjectDto> GetSubjectByTopic(string id)
+        {
+            try
+            {
+                SubjectDto subject = await _mediator.Send(new GetSubjectByTopic(id));
+                return subject;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// Holt alle Themen.
         /// </summary>

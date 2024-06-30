@@ -17,6 +17,14 @@ namespace exerciseBox.Infrastructure.Repositories
             _context = exercisesBoxContext;
         }
 
+        public async Task<IEnumerable<Folders>> GetSubjectFolders(string subjectId, string teacherId)
+        {
+            return await _context.Folders
+                .Where(f => f.Subject == subjectId && f.Teacher == teacherId)
+                .Include(f => f.SubjectNavigation)
+                .ToListAsync();
+        }
+
         /// <summary>
         /// Erstellt einen neuen Ordner in der Datenbank (nicht implementiert).
         /// </summary>
