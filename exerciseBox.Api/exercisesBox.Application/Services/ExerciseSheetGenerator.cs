@@ -22,12 +22,21 @@ namespace exerciseBox.Application.Services
                     page.PageColor(Colors.White);
 
                     // Header Section
-                    page.Header().Column(column =>
+                    page.Header().Row(row =>
                     {
-                        if (exerciseSheet.NamePlaceHolder)
+                        row.RelativeItem().Column(column =>
                         {
-                            column.Item().Text($"Name:", TextStyle.Default.Size(12));
-                        }
+                            if (exerciseSheet.NamePlaceHolder)
+                            {
+                                column.Item().AlignLeft().Row(innerRow =>
+                                {
+                                    innerRow.AutoItem().Text("Name:", TextStyle.Default.Size(15));
+                                    innerRow.ConstantItem(100).PaddingTop(16).LineHorizontal(1);
+                                });
+                            }
+                        });
+
+                        row.RelativeItem().AlignRight().Text(DateTime.Now.ToString("dd:MM:yyyy"), TextStyle.Default.Size(15));
                     });
 
                     // Content Section
@@ -36,7 +45,7 @@ namespace exerciseBox.Application.Services
                         column.Spacing(10);
 
                         column.Item().Text(exerciseSheet.Tilte)
-                            .Style(TextStyle.Default.Size(24).Bold())
+                            .Style(TextStyle.Default.Size(30).Bold())
                             .AlignCenter();
                         column.Item().PaddingBottom(20);
 
@@ -44,17 +53,26 @@ namespace exerciseBox.Application.Services
                         {
                             var questionIndex = questions.ToList().IndexOf(question) + 1;
                             column.Item().Text($"{questionIndex}) {question.QuestionText}", TextStyle.Default.Size(12));
-                            column.Item().PaddingBottom(20);
+                            column.Item().PaddingBottom(40);
                         }
                     });
 
                     // Footer Section
-                    page.Footer().AlignLeft().Text(text =>
+                    page.Footer().Row(row =>
                     {
-                        text.Span("Page ");
-                        text.CurrentPageNumber();
-                        text.Span(" of ");
-                        text.TotalPages();
+                        row.RelativeItem().AlignRight().Text(text =>
+                        {
+                            text.CurrentPageNumber();
+                            text.Span(" of ");
+                            text.TotalPages();
+                            text.DefaultTextStyle(TextStyle.Default.Size(15));
+                        });
+
+                        row.RelativeItem().AlignRight().Row(innerRow =>
+                        {
+                            innerRow.AutoItem().Text("Note:", TextStyle.Default.Size(15));
+                            innerRow.ConstantItem(40).PaddingTop(16).LineHorizontal(1);
+                        });
                     });
                 });
             });
