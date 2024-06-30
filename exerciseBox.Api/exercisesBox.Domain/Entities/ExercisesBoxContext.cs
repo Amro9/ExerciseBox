@@ -249,9 +249,6 @@ public partial class ExercisesBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("difficultyLevel");
-            entity.Property(e => e.InnerHtml)
-                .IsUnicode(false)
-                .HasColumnName("innerHtml");
             entity.Property(e => e.QuestionIsPrivate).HasColumnName("questionIsPrivate");
             entity.Property(e => e.QuestionText)
                 .IsRequired()
@@ -365,7 +362,8 @@ public partial class ExercisesBoxContext : DbContext
 
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("email");
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(250)
@@ -374,7 +372,8 @@ public partial class ExercisesBoxContext : DbContext
             entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(255)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("password");
             entity.Property(e => e.SchoolType).HasColumnName("schoolType");
 
             entity.HasOne(d => d.SchoolTypeNavigation).WithMany(p => p.Schools)
@@ -537,11 +536,6 @@ public partial class ExercisesBoxContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.SchoolLevel).HasColumnName("schoolLevel");
-            entity.Property(e => e.Subject)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("subject");
             entity.Property(e => e.Teacher)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -552,11 +546,6 @@ public partial class ExercisesBoxContext : DbContext
                 .HasForeignKey(d => d.SchoolLevel)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TeachersSchoolLevelsJunction_SchoolLevels");
-
-            entity.HasOne(d => d.SubjectNavigation).WithMany(p => p.TeachersSchoolLevelsJunction)
-                .HasForeignKey(d => d.Subject)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TeachersSchoolLevelsJunction_Subjects");
 
             entity.HasOne(d => d.TeacherNavigation).WithMany(p => p.TeachersSchoolLevelsJunction)
                 .HasForeignKey(d => d.Teacher)
