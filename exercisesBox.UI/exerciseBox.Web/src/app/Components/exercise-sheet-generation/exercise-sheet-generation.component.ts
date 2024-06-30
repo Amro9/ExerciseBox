@@ -13,6 +13,7 @@ import { Topic } from '../../Entities/Topic';
 import { FolderPickModel } from '../../Entities/FolderPickModel';
 import { QuestionPickModel } from '../../Entities/QuestionPickModel';
 import { NotificationService } from '../../Services/general-services/notification.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -57,12 +58,15 @@ export class ExerciseSheetGenerationComponent implements OnInit{
 
   sessionKey : string = "";
 
+  userEmail : string = "";
+
   constructor(private folderService: FolderService,
      private questionService: QuestionService,
       private modalService: NgbModal, 
       private exerciseSheetService: ExerciseSheetService,
       private subjectService: SubjectService,
-      private notificationService: NotificationService
+      private notificationService: NotificationService,
+      private cookieService: CookieService
     ) 
   {
     this.selectedFolder.QuestionPickModels = [];
@@ -71,8 +75,9 @@ export class ExerciseSheetGenerationComponent implements OnInit{
   }
 
   async ngOnInit(): Promise<void> {
-    this.Folders = await this.folderService.getFoldersOfTeacher("2@3.com");
-    this.Subjects = await this.subjectService.getSubjectByTeacherId("2@3.com");
+    this.userEmail = this.cookieService.get("userEmail");
+    this.Folders = await this.folderService.getFoldersOfTeacher(this.userEmail);
+    this.Subjects = await this.subjectService.getSubjectByTeacherId(this.userEmail);
   }
 
   onSaveExerciseSheet() {
