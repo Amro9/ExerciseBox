@@ -101,6 +101,7 @@ namespace exerciseBox.Infrastructur.Repositories
             teacher.FamilyName = entity.FamilyName;
             teacher.IsActive = entity.IsActive;
             teacher.Email = entity.Email;
+            teacher.Password = entity.Password;
             var updatedTeacher = await _context.SaveChangesAsync();
             return teacher;
         }
