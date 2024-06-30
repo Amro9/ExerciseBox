@@ -1,4 +1,5 @@
-﻿using exerciseBox.Application.Abtraction.Repositories;
+﻿using exerciseBox.Application.Abtraction.Extensions;
+using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Application.UseCases.Teacher.Commands;
 using MediatR;
 
@@ -29,14 +30,14 @@ namespace exerciseBox.Application.UseCases.Teacher.CommandHandlers
         /// <exception cref="Exception"></exception>
         public async Task Handle(ResetPassword request, CancellationToken cancellationToken)
         {
-            var teacher = await _teacherRepository.ReadByIdAsync(request.Email);
+            var teacher = await _teacherRepository.ReadByEmailAsync(request.Email);
 
             if (teacher == null)
             {
                 throw new Exception("Der Lehrer wurde nicht gefunden.");
             }
 
-            teacher.Password = $"{teacher.Surname}.{teacher.FamilyName}";
+            teacher.Password = $"{teacher.Surname}.{teacher.FamilyName}".HashPassword();
 
             await _teacherRepository.UpdateAsync(teacher);
         }
