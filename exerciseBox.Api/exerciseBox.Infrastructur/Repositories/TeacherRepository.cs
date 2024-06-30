@@ -1,10 +1,7 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using exerciseBox.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace exerciseBox.Infrastructur.Repositories
 {
@@ -136,9 +133,14 @@ namespace exerciseBox.Infrastructur.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task AddSubjects(string teacherId, string[] subjectIds)
+        /// <summary>
+        /// Liest alle Fächer eines Lehrers aus der Datenbank.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
+        public async Task<SchoolBranches> GetTeachersSchoolBranch(string teacherId)
         {
-            throw new NotImplementedException();
+            return await _context.Teachers.Where(t => t.Email == teacherId).Include(t => t.BranchNavigation).Select(t => t.BranchNavigation).FirstOrDefaultAsync();
         }
     }
 }

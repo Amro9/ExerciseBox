@@ -16,4 +16,6 @@ public partial class SchoolBranches
     public virtual ICollection<Questions> Questions { get; set; } = new List<Questions>();
 
     public virtual ICollection<SchoolsBranchesJunction> SchoolsBranchesJunction { get; set; } = new List<SchoolsBranchesJunction>();
+
+    public virtual ICollection<Teachers> Teachers { get; set; } = new List<Teachers>();
 }

@@ -8,23 +8,24 @@ namespace exerciseBox.Application.UseCases.Questions.CommandHandlers;
 public class CreateQuestionHandler : IRequestHandler<CreateQuestion, QuestionDto>
 {
     private readonly IQuestionRepository _questionRepository;
-    private readonly ISchoolBranchesRepository _schoolBranchesRepository;
+    private readonly ITeacherRepository _teacherRepository;
     private readonly ISchoolTypeRepository _schoolTypeRepository;
 
     public CreateQuestionHandler(
         IQuestionRepository questionTypesRepository,
-        ISchoolBranchesRepository schoolBranchesRepository,
-        ISchoolTypeRepository schoolTypeRepository
+        ISchoolTypeRepository schoolTypeRepository,
+        ITeacherRepository teacherRepository
     )
     {
         _questionRepository = questionTypesRepository;
-        _schoolBranchesRepository = schoolBranchesRepository;
         _schoolTypeRepository = schoolTypeRepository;
+        _teacherRepository = teacherRepository;
     }
 
     public async Task<QuestionDto> Handle(CreateQuestion request, CancellationToken cancellationToken)
     {
-        request.Question.SchoolBranch = await _schoolBranchesRepository.ReadIdByTeacher(request.Question.Author);
+        var branche = await _teacherRepository.GetTeachersSchoolBranch(request.Question.Author);  
+        request.Question.SchoolBranch = branche.Id;
         request.Question.SchoolType = await _schoolTypeRepository.ReadIdByTeacher(request.Question.Author);
 
         var question = await _questionRepository.CreateAsync(request.Question);

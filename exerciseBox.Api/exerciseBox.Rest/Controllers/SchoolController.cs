@@ -155,5 +155,24 @@ namespace exerciseBox.Rest.Controllers
                 return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
             }
         }
+
+        /// <summary>
+        /// Holt alle Schulzweige einer Schule.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("Branches/{id}")] 
+        public async Task<IActionResult> GetBranchesOfSchool(string id)
+        {
+            try
+            {
+                var branches = await _mediator.Send(new GetBranchesOfSchool { SchoolId = id });
+                return Ok(new { value = branches });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
     }
 }

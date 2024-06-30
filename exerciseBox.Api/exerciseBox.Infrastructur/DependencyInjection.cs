@@ -1,6 +1,7 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
 using exerciseBox.Infrastructur.Repositories;
+using exerciseBox.Infrastructure;
 using exerciseBox.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

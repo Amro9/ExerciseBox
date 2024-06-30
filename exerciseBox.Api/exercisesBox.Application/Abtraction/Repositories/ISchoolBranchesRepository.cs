@@ -9,5 +9,6 @@ namespace exerciseBox.Application.Abtraction.Repositories
     public interface ISchoolBranchesRepository : IRepository<SchoolBranches, int>
     {
         Task<string> ReadIdByTeacher(string teacherId);
+        Task<IEnumerable<SchoolBranches>> ReadBySchoolId(string schoolId);
     }
 }

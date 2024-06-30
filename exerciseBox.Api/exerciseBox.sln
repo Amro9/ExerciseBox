@@ -12,9 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{7D3D423F-97AD-4A8C-8CBC-613335FB7DE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{BBB221ED-9054-46EF-AD5A-68BA95935E9D}"
-	ProjectSection(SolutionItems) = preProject
-		exercisesBox.Domain\Entities\ExercisesBoxContext.cs = exercisesBox.Domain\Entities\ExercisesBoxContext.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exerciseBox.Domain", "exercisesBox.Domain\exerciseBox.Domain.csproj", "{A7C7FB37-B27C-4213-A780-F24C2A0398BA}"
 EndProject

@@ -51,5 +51,12 @@ namespace exerciseBox.Application.Abtraction.Repositories
         /// <param name="subjectId"></param>
         /// <returns></returns>
         Task RemoveSubject(string teacherId, string subjectId);
+
+        /// <summary>
+        /// Liest die Schule, zu der der Lehrer gehört.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
+        Task<SchoolBranches> GetTeachersSchoolBranch(string teacherId);
     }
 }

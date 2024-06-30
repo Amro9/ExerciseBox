@@ -1,11 +1,7 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
+using exerciseBox.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace exerciseBox.Infrastructur.Repositories
 {
@@ -46,15 +42,15 @@ namespace exerciseBox.Infrastructur.Repositories
         }
         public async Task<Subjects> ReadByTopic(string id)
         {
-            
-           
+
+
             var topic = await _context.Topics
                 .Where(t => t.Id == id)
                 .Include(t => t.SubjectNavigation) // Inkludiert die Navigationseigenschaft zu dem zugehörigen Fach
                 .FirstOrDefaultAsync();
             Console.WriteLine(topic);
-               var subject = await _context.Subjects.Where(s => s.Id == topic.Subject)
-                .FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(s => s.Id == topic.Subject)
+             .FirstOrDefaultAsync();
             return subject;
         }
 

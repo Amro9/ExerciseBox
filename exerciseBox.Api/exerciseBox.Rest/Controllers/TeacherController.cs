@@ -286,7 +286,11 @@ namespace exerciseBox.Rest.Controllers
         //}
 
 
-
+        /// <summary>
+        /// Fügt einen neuen Lehrer hinzu.
+        /// </summary>
+        /// <param name="teacher"></param>
+        /// <returns></returns>
         [HttpPost("Add")]
         public async Task<IActionResult> AddTeacher([FromBody] TeacherUpdateRequest teacher)
         {
@@ -303,5 +307,23 @@ namespace exerciseBox.Rest.Controllers
             }
         }
 
+        /// <summary>
+        /// Holt alle Schulzweige eines Lehrers.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("Branche/{id}")]
+        public async Task<IActionResult> GetBrancheOfTeacher(string id)
+        {
+            try
+            {
+                var branche = await _mediator.Send(new GetBrancheOfTeacher { TeacherId = id });
+                return Ok(new { value = branche });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
     }
 }
