@@ -36,7 +36,8 @@ namespace exerciseBox.Application.Services
                             }
                         });
 
-                        row.RelativeItem().AlignRight().Text(DateTime.Now.ToString("dd:MM:yyyy"), TextStyle.Default.Size(15));
+                        if(exerciseSheet.DatePlaceHolder)
+                            row.RelativeItem().AlignRight().Text(DateTime.Now.ToString("dd:MM:yyyy"), TextStyle.Default.Size(15));
                     });
 
                     // Content Section
@@ -68,11 +69,12 @@ namespace exerciseBox.Application.Services
                             text.DefaultTextStyle(TextStyle.Default.Size(15));
                         });
 
-                        row.RelativeItem().AlignRight().Row(innerRow =>
-                        {
-                            innerRow.AutoItem().Text("Note:", TextStyle.Default.Size(15));
-                            innerRow.ConstantItem(40).PaddingTop(16).LineHorizontal(1);
-                        });
+                        if(exerciseSheet.MarkPlaceHolder)
+                            row.RelativeItem().AlignRight().Row(innerRow =>
+                            {
+                                innerRow.AutoItem().Text("Note:", TextStyle.Default.Size(15));
+                                innerRow.ConstantItem(40).PaddingTop(16).LineHorizontal(1);
+                            });
                     });
                 });
             });

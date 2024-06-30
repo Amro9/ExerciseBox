@@ -1,5 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Application.UseCases.Teacher.Commands;
+using exerciseBox.Domain.Entities;
 using MediatR;
 
 namespace exerciseBox.Application.UseCases.Teacher.CommandHandlers
@@ -10,14 +11,16 @@ namespace exerciseBox.Application.UseCases.Teacher.CommandHandlers
     public class AddSubjectsHandler : IRequestHandler<AddSubject>
     {
         private readonly ITeacherRepository _teacherRepository;
+        private readonly IFolderRepository _folderRepository;
 
         /// <summary>
         /// Konstruktor für den AddSubjectsHandler.
         /// </summary>
         /// <param name="teacherRepository"></param>
-        public AddSubjectsHandler(ITeacherRepository teacherRepository)
+        public AddSubjectsHandler(ITeacherRepository teacherRepository, IFolderRepository folderRepository)
         {
             _teacherRepository = teacherRepository;
+            _folderRepository = folderRepository;
         }
 
         /// <summary>
@@ -30,6 +33,21 @@ namespace exerciseBox.Application.UseCases.Teacher.CommandHandlers
         public async Task Handle(AddSubject request, CancellationToken cancellationToken)
         {
             await _teacherRepository.AddSubject(request.TeacherId, request.SubjectId);
+            
+            var folder = await _folderRepository.GetCreationFolder(request.SubjectId, request.TeacherId);
+
+            if(folder == null)
+            {
+                await _folderRepository.CreateAsync(new Folders
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Erstellte Fragen",
+                    Subject = request.SubjectId,
+                    Teacher = request.TeacherId,
+                    IsCreationFolder = true
+                });
+            }
+
         }
     }
 }
