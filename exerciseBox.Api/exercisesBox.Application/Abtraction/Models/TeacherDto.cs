@@ -53,7 +53,8 @@ public class TeacherDto
             Givenname = teacher.FamilyName,
             Email = teacher.Email,
             School = teacher.SchoolNavigation is null ? null : teacher.SchoolNavigation,
-            IsActive = teacher.IsActive,
+            IsActive = teacher.IsActive, 
+            Password = teacher.Password
         };
     }
 

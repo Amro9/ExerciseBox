@@ -1,5 +1,7 @@
-﻿using exerciseBox.Application.Abtraction.Models;
+﻿using exerciseBox.Application.Abtraction.Extensions;
+using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Application.UseCases.Schools.Queries;
+using exerciseBox.Application.UseCases.Teacher.Commands;
 using exerciseBox.Application.UseCases.Teacher.Queries;
 using exerciseBox.Application.UseCases.Teachers.Commands;
 using exerciseBox.Rest.Controllers;
@@ -152,6 +154,52 @@ namespace exercisebox.rest.controllers
             }
         }
 
+        [HttpGet("IsPasswordDefault/{id}")]
+        public async Task<IActionResult> IsPasswordDefault(string id)
+        {
+            try
+            {
+                var teacher = await _mediator.Send(new GetTeacherByEmail { Email = id });
+
+                if (teacher == null)
+                    return StatusCode(500, "Der Lehrer wurde nicht gefunden.");
+
+                if (teacher.Password == $"{teacher.Surname}.{teacher.Givenname}".HashPassword())
+                    return Ok(new { IsDefault = true });
+
+                return Ok(new { IsDefault = false });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Während der Überprüfung des Passworts ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest changePasswordRequest)
+        {
+            try
+            {
+                var teacher = await _mediator.Send(new GetTeacherByEmail { Email = changePasswordRequest.Email });
+
+                if (teacher == null)
+                    return StatusCode(500, "Der Lehrer wurde nicht gefunden.");
+
+                if (teacher.Password != changePasswordRequest.OldPassword.HashPassword())
+                    return StatusCode(500, "Das alte Passwort ist falsch.");
+
+                teacher.Password = changePasswordRequest.NewPassword.HashPassword();
+
+                await _mediator.Send(new UpdatePassword { Email = teacher.Email, Password = changePasswordRequest.NewPassword });
+
+                return Ok(new { value = true });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Während der Passwortänderung ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.");
+            }
+        }
+
         /// <summary>
         /// Erstellt die Cookies für den angemeldeten Benutzer.
         /// </summary>
@@ -179,5 +227,7 @@ namespace exercisebox.rest.controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
         }
+
+        
     }
 }

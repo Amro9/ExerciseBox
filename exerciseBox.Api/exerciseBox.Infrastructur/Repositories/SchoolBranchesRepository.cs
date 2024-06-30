@@ -49,9 +49,18 @@ namespace exerciseBox.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SchoolBranches>> ReadBySchoolId(string schoolId)
+        /// <summary>
+        /// Liest alle Schulzweige einer Schule aus der Datenbank.
+        /// </summary>
+        /// <param name="schoolId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<SchoolBranches>> ReadBySchoolId(string schoolId)
         {
-            throw new NotImplementedException();
+            return await _context.SchoolsBranchesJunction
+                .Where(sb => sb.School == schoolId)
+                .Include(sb => sb.BranchNavigation)
+                .Select(sb => sb.BranchNavigation)
+                .ToListAsync();
         }
 
         public async Task<string> ReadIdByTeacher(string teacherId)
