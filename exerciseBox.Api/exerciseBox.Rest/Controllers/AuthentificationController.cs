@@ -63,7 +63,7 @@ namespace exercisebox.rest.controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized("Falsches Passwort");
+                return Unauthorized(ex.Message);
             }
             catch (Exception ex)
             {

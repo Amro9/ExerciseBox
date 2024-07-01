@@ -12,7 +12,8 @@ import { AuthentificationService } from '../../Services/AuthentificationService'
 })
 export class LoginComponent {
   teacher! : Teacher;
-  
+  isSubmitting = false; 
+
   constructor(private authService: AuthentificationService, private router: Router) {
     this.teacher = new Teacher("","","","","");
   }
@@ -20,13 +21,21 @@ export class LoginComponent {
   errorMessage: string | null = null;
 
   async onSubmit(): Promise<void> {
-
+    this.isSubmitting = true; 
+    this.errorMessage = null;
     try {
       if(await this.authService.login(this.teacher.email, this.teacher.password)) {
         this.router.navigate(['/home']);
       }
     } catch (error : any) {
-      this.errorMessage = error.error.toString();
+      if(error.statusText == "Unknown Error"){
+        this.errorMessage = "Während des Logins ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";        
+      }
+      else{
+        this.errorMessage = error.error.toString();
+      }
+    } finally {
+      this.isSubmitting = false; // Re-enable the button
     }
     
   }

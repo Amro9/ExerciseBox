@@ -13,6 +13,11 @@ namespace exerciseBox.Application.UseCases.Teacher.QueryHandlers
     {
         private readonly ITeacherRepository _teacherRepository;
 
+        /// <summary>
+        /// Initialisiert eine neue Instanz der <see cref="GetTeacherWithPasswordValidationHandler"/> Klasse.
+        /// </summary>
+        /// <param name="teacherRepository"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public GetTeacherWithPasswordValidationHandler(ITeacherRepository teacherRepository)
         {
             _teacherRepository = teacherRepository ?? throw new ArgumentNullException(nameof(teacherRepository));
@@ -32,9 +37,14 @@ namespace exerciseBox.Application.UseCases.Teacher.QueryHandlers
                 return null;
             }
 
+            if(teacher.IsActive == false)
+            {
+                throw new UnauthorizedAccessException("Der Account ist deaktiviert.");
+            }
+
             if (!request.Password.VerifyPassword(teacher.Password))
             {
-                throw new UnauthorizedAccessException("Ungültiges Passwort");
+                throw new UnauthorizedAccessException("Falsches Passwort");
             }
 
             return teacher;
