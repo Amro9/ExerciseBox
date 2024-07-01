@@ -2,14 +2,14 @@
     <div class="container" style="background-color: white; padding: 2%; border: 0.1px solid; border-radius: 10px; border-color: lightgray;">
         <div class="row">
             <div class="col-md-6">
-                <label>Arbeitsblatt Header</label>
+                <label>Arbeitsblatt Header bzw. Footer</label>
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedWorkSheetOption" (ngModelChange)="onWorkSheetOptionChange()">
                     <option *ngFor="let option of WorkSheetHeaderOptions" [ngValue]="option.Value">{{option.Text}}</option>
                 </select>
             </div>
             <div class="col-md-6">
                 <label>Arbeitsblatt Titel</label>
-                <input type="text" class="form-control" [(ngModel)]="ExerciseSheet.title" placeholder="Gramatik, Multiplikation..."/>
+                <input type="text" class="form-control" [(ngModel)]="ExerciseSheet.title" placeholder="Grammatik, Multiplikation..."/>
             </div>
         </div>
         <div class="row">
@@ -29,10 +29,10 @@
         <div *ngIf="selectedFolder.folder.name !== ''" class="row" style="margin-top: 1%;">
             <div class="col-12 d-flex">
                 <!-- <button class="btn btn-primary" style="background-color: #4D869C;" (click)="onRandomPick(randomPick)">Zuffälig auswählen</button> -->
-                <input class="form-check-input" type="checkbox" [(ngModel)]="IsRandomPick">
-                <label class="form-check-label" for="flexCheckChecked" style="margin-left: 1%;">Zuffälig auswählen</label>
-                <input class="form-check-input" type="checkbox" [(ngModel)]="WithAnswers" style="margin-left: 5%;">
-                <label class="form-check-label" for="flexCheckChecked" style="margin-left: 1%;">Antworten anzeigen</label>
+                <input class="form-check-input" type="checkbox" id="randomPickCheckbox" [(ngModel)]="IsRandomPick">
+                <label class="form-check-label" for="randomPickCheckbox" style="margin-left: 1%;">Zuffälig auswählen</label>
+                <input class="form-check-input" type="checkbox" id="withAnswersCheckbox" [(ngModel)]="WithAnswers" style="margin-left: 5%;">
+                <label class="form-check-label" for="withAnswersCheckbox" style="margin-left: 1%;">Antworten in einer separaten Seite dazu fügen</label>
             </div>
             <div *ngIf="IsRandomPick" class="container">
                 <div class="row">

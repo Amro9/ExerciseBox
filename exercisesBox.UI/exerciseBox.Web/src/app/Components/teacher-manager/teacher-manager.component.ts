@@ -64,6 +64,7 @@ export class TeacherManagerComponent implements OnInit{
 
   onEditTeacher(teacher : Teacher, content: any) {
     this.selectedTeacher = teacher;
+    this.PasswordChangeBool = false;
     this.modal.open(content , {ariaLabelledBy: 'modal-basic-title', centered: true});
   }
 
@@ -169,7 +170,9 @@ export class TeacherManagerComponent implements OnInit{
 
   onAddTeacher(content: any) {
     this.newTeacherFildNotFilled = false;
+
     this.modal.open(content, {centered: true, size: 'lg'});
+    
   }
 
   async onSubmitNewTeacher() {
