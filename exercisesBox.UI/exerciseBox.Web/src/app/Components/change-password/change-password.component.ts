@@ -27,6 +27,10 @@ export class ChangePasswordComponent {
 
   async onChangePassword() {
     try{
+      if(this.newPassword != this.newPasswordRepeat){
+        this.notificationService.showError("Die Passwörter stimmen nicht überein");
+        return;
+      }
       if(await this.authService.changePassword(this.userEmail, this.oldPassword, this.newPassword, false)){
         this.notificationService.showSuccess("Passwort erfolgreich geändert");
         this.router.navigate(['/home']);
@@ -36,7 +40,7 @@ export class ChangePasswordComponent {
       }
     }
     catch(error : any){
-      this.notificationService.showError(error);
+      this.notificationService.showError(error.error);
     }
   }
 }

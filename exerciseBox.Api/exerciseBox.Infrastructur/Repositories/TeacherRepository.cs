@@ -12,6 +12,10 @@ namespace exerciseBox.Infrastructur.Repositories
     {
         private readonly ExercisesBoxContext _context;
 
+        /// <summary>
+        /// Konstruktor der Klasse TeacherRepository.
+        /// </summary>
+        /// <param name="context"></param>
         public TeacherRepository(ExercisesBoxContext context)
         {
             _context = context;
@@ -20,6 +24,8 @@ namespace exerciseBox.Infrastructur.Repositories
         /// <summary>
         /// Erstellt einen neuen Lehrer in der Datenbank.
         /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<Teachers> CreateAsync(Teachers entity)
         {
             var teacher = await _context.Teachers.AddAsync(entity);
@@ -27,13 +33,22 @@ namespace exerciseBox.Infrastructur.Repositories
             return teacher.Entity;
         }
 
-
+        /// <summary>
+        /// Deaktiviert einen Lehrer.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
         public async Task DeactivateTeacher(string teacherId)
         {
             await _context.Teachers.Where(t => t.Email == teacherId).ForEachAsync(t => t.IsActive = false);
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Aktiviert einen Lehrer.
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
         public async Task ActivateTeacher(string teacherId)
         {
             await _context.Teachers.Where(t => t.Email == teacherId).ForEachAsync(t => t.IsActive = true);

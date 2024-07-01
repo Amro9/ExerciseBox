@@ -92,7 +92,12 @@ export class TeacherManagerComponent implements OnInit{
   }
 
   onPasswordReset() {
-    this.teacherService.resetPassword(this.selectedTeacher.email);
+    try {
+      this.teacherService.resetPassword(this.selectedTeacher.email);
+      this.notificationService.showSuccess("Passwort erfolgreich zurückgesetzt");
+    } catch (error : any) {
+      this.notificationService.showError(error.error);
+    }
   }
 
   onPasswordChangePress() {
@@ -163,6 +168,7 @@ export class TeacherManagerComponent implements OnInit{
 }
 
   onAddTeacher(content: any) {
+    this.newTeacherFildNotFilled = false;
     this.modal.open(content, {centered: true, size: 'lg'});
   }
 
