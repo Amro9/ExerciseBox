@@ -13,7 +13,12 @@ namespace exerciseBox.Rest.Controllers
         }
 
 
-
+        /// <summary>
+        /// Hollt alle Fächer eines Lehrers anhand der SubjectId
+        /// </summary>
+        /// <param name="subjectId"></param>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
         [HttpGet("Folders/{subjectId}/{teacherId}")]
         public async Task<IActionResult> GetFoldersOfSubject(string subjectId, string teacherId)
         {

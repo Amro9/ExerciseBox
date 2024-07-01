@@ -30,6 +30,7 @@ import { RemoveQuestionPopupComponent } from "./Components/user-profile/remove-q
 import { PersonalDataComponent } from "./Components/user-profile/personal-data/personal-data.component";
 import { PasswordGuard } from "./Services/PasswordGuard";
 import { AutoFocus } from "./Services/AutoFocus";
+import { FaqComponent } from "./Components/faq/faq.component";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
@@ -45,6 +46,7 @@ import { AutoFocus } from "./Services/AutoFocus";
         RemoveQuestionPopupComponent,
         PersonalDataComponent,
         AutoFocus,
+        FaqComponent,
         routingComponents
     ],
     imports: [

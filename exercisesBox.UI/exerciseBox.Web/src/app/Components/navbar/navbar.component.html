@@ -5,7 +5,6 @@
   </a>
   <div class="collapse navbar-collapse" id="navbarNav" style="height: 100%;">
     <div class="d-flex justify-content-between w-100" style="height: 100%;">
-      <!-- Conditional rendering of the navigation links -->
       <div *ngIf="userIsLoggedIn(); else loginLink" style="height: 100%;">
         <div *ngIf=" userIsTeacher()" style="height: 100%;">
           <ul class="navbar-nav">
@@ -18,7 +17,11 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/ExerciseSheet" routerLinkActive="active">Arbeitsblatt generieren</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/faq" routerLinkActive="active">FAQ</a>
+            </li>
           </ul>
+          
         </div>
         <div *ngIf="userIsSchool()" style="height: 100%;">
             <ul class="navbar-nav">
@@ -28,7 +31,7 @@
             </ul>
         </div>
       </div>
-      
+
       <!-- Placeholder for the login link when the user is not logged in -->
       <ng-template #loginLink>
         <div class="d-flex align-items-center justify-content-end" style="width: 100%; margin-right: 2%;  font-weight: bold;">
@@ -46,7 +49,7 @@
             </span>
           </button>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
 </nav>
