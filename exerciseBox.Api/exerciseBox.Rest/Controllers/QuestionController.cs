@@ -42,7 +42,7 @@ namespace exerciseBox.Rest.Controllers
                 await _mediator.Send(
                     new SaveQuestionToFolder(
                         request.Id.ToString(), request.FolderId, request.QuestionId
-                        ));
+                    ));
                 return Ok();
             }
             catch (Exception ex)
@@ -51,6 +51,11 @@ namespace exerciseBox.Rest.Controllers
             }
         }
 
+        /// <summary>
+        /// Entfernt eine Frage aus einem Ordner.
+        /// </summary>
+        /// <param name="request">Die Anfrage zum Entfernen der Frage aus dem Ordner.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe.</returns>
         [HttpPut("removeQuestionFromFolder")]
         public async Task<IActionResult> RemoveQuestionFromFolder([FromBody] QuestionFolderRequest request)
         {
@@ -58,8 +63,8 @@ namespace exerciseBox.Rest.Controllers
             {
                 await _mediator.Send(
                     new RemoveQuestionFromFolder(
-                        request.FolderId, request.QuestionId)
-                        );
+                        request.FolderId, request.QuestionId
+                    ));
                 return Ok();
             }
             catch (Exception ex)
@@ -83,6 +88,7 @@ namespace exerciseBox.Rest.Controllers
 
                 var newQuestion = await _mediator.Send(new CreateQuestion { Question = question });
                 await _mediator.Send(new AddQuestionToCreationFolder { Question = newQuestion });
+
                 return Ok();
             }
             catch (ValidationException ex)
@@ -129,20 +135,25 @@ namespace exerciseBox.Rest.Controllers
                 return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Blendet eine Frage aus, so dass sie für Lehrer nicht mehr sichtbar ist.
+        /// </summary>
+        /// <param name="request">Die Anfrage zum Ausblenden der Frage.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe.</returns>
         [HttpPut("hideQuestionByTeacher")]
         public async Task<IActionResult> HideQuestionByTeacher([FromBody] HideQuestionRequest request)
         {
-
-            // Beispiel: this.questionService.HideQuestion(questionId, request.Days);
-            try { 
-            bool isHidden = await _mediator.Send(new HideQuestionByTeacher (request.QuestionId , request.TeacherId));
-            return Ok(new { message = "Frage erfolgreich ausgeblendet." });
-            }catch
+            try
             {
-                return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+                bool isHidden = await _mediator.Send(new HideQuestionByTeacher(request.QuestionId, request.TeacherId));
+                return Ok(new { message = "Frage erfolgreich ausgeblendet." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ein Problem ist aufgetreten: {ex.Message}");
             }
         }
-
 
         /// <summary>
         /// Holt Fragen eines bestimmten Ordners.

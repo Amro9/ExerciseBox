@@ -134,7 +134,7 @@ public partial class ExercisesBoxContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("teacher");
-            entity.Property(e => e.Tilte)
+            entity.Property(e => e.Titel)
                 .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false)

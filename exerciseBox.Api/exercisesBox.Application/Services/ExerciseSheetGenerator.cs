@@ -3,15 +3,28 @@ using exerciseBox.Domain.Entities;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace exerciseBox.Application.Services
 {
+    /// <summary>
+    /// Implementiert die Logik zur Erzeugung von Übungsblättern als PDF-Dokument.
+    /// </summary>
     public class ExerciseSheetGenerator : IExerciseSheetGenerator
     {
+        /// <summary>
+        /// Generiert ein PDF-Dokument für ein Übungsblatt.
+        /// </summary>
+        /// <param name="exerciseSheet">Das Übungsblatt, das generiert werden soll.</param>
+        /// <param name="questions">Die Fragen, die auf dem Übungsblatt angezeigt werden sollen.</param>
+        /// <param name="WithAnswers">Gibt an, ob die Antworten ebenfalls auf dem Übungsblatt angezeigt werden sollen.</param>
+        /// <returns>Ein Byte-Array, das das generierte PDF-Dokument darstellt.</returns>
         public byte[] Generate(ExerciseSheets exerciseSheet, IEnumerable<Questions> questions, bool WithAnswers)
         {
             if (questions.Count() <= 0)
-                throw new Exception("No questions found");
+                throw new Exception("Keine Fragen gefunden");
 
             var pdfDocument = Document.Create(container =>
             {
@@ -21,7 +34,7 @@ namespace exerciseBox.Application.Services
                     page.Margin(20);
                     page.PageColor(Colors.White);
 
-                    // Header Section
+                    // Header Bereich
                     page.Header().Row(row =>
                     {
                         row.RelativeItem().Column(column =>
@@ -40,12 +53,12 @@ namespace exerciseBox.Application.Services
                             row.RelativeItem().AlignRight().Text(DateTime.Now.ToString("dd.MM.yyyy"), TextStyle.Default.Size(15));
                     });
 
-                    // Content Section
+                    // Inhaltsbereich
                     page.Content().Padding(5).PaddingVertical(40).Column(column =>
                     {
                         column.Spacing(10);
 
-                        column.Item().Text(exerciseSheet.Tilte)
+                        column.Item().Text(exerciseSheet.Titel)
                             .Style(TextStyle.Default.Size(30).Bold())
                             .AlignCenter();
                         column.Item().PaddingBottom(20);
@@ -58,13 +71,13 @@ namespace exerciseBox.Application.Services
                         }
                     });
 
-                    // Footer Section
+                    // Fußzeilenbereich
                     page.Footer().Row(row =>
                     {
                         row.RelativeItem().AlignRight().Text(text =>
                         {
                             text.CurrentPageNumber();
-                            text.Span(" of ");
+                            text.Span(" von ");
                             text.TotalPages();
                             text.DefaultTextStyle(TextStyle.Default.Size(15));
                         });
@@ -78,7 +91,7 @@ namespace exerciseBox.Application.Services
                     });
                 });
 
-                // Second page for answers if WithAnswers is true
+                // Zweite Seite für Antworten, falls WithAnswers true ist
                 if (WithAnswers)
                 {
                     container.Page(page =>
@@ -87,7 +100,7 @@ namespace exerciseBox.Application.Services
                         page.Margin(20);
                         page.PageColor(Colors.White);
 
-                        // Header Section
+                        // Header Bereich
                         page.Header().Row(row =>
                         {
                             row.RelativeItem().Column(column =>
@@ -106,12 +119,12 @@ namespace exerciseBox.Application.Services
                                 row.RelativeItem().AlignRight().Text(DateTime.Now.ToString("dd.MM.yyyy"), TextStyle.Default.Size(15));
                         });
 
-                        // Content Section
+                        // Inhaltsbereich
                         page.Content().Padding(5).PaddingVertical(40).Column(column =>
                         {
                             column.Spacing(10);
 
-                            column.Item().Text($"{exerciseSheet.Tilte} Answers")
+                            column.Item().Text($"{exerciseSheet.Titel} Antworten")
                                 .Style(TextStyle.Default.Size(30).Bold())
                                 .AlignCenter();
                             column.Item().PaddingBottom(20);
@@ -126,13 +139,13 @@ namespace exerciseBox.Application.Services
                             }
                         });
 
-                        // Footer Section
+                        // Fußzeilenbereich
                         page.Footer().Row(row =>
                         {
                             row.RelativeItem().AlignRight().Text(text =>
                             {
                                 text.CurrentPageNumber();
-                                text.Span(" of ");
+                                text.Span(" von ");
                                 text.TotalPages();
                                 text.DefaultTextStyle(TextStyle.Default.Size(15));
                             });

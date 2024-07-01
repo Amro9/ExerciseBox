@@ -3,6 +3,9 @@ using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Domain.Entities;
 using exerciseBox.Infrastructur;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace exerciseBox.Infrastructure.Repositories
 {
@@ -13,14 +16,20 @@ namespace exerciseBox.Infrastructure.Repositories
     {
         private readonly ExercisesBoxContext _context;
 
+        /// <summary>
+        /// Initialisiert eine neue Instanz der <see cref="QuestionRepository"/> Klasse.
+        /// </summary>
+        /// <param name="context">Der Datenbankkontext für Übungskasten.</param>
         public QuestionRepository(ExercisesBoxContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         /// <summary>
         /// Erstellt eine neue Frage in der Datenbank.
         /// </summary>
+        /// <param name="entity">Die Frage, die erstellt werden soll.</param>
+        /// <returns>Die erstellte Frage als <see cref="Questions"/>.</returns>
         public async Task<Questions> CreateAsync(Questions entity)
         {
             await _context.Questions.AddAsync(entity);
@@ -31,6 +40,10 @@ namespace exerciseBox.Infrastructure.Repositories
         /// <summary>
         /// Speichert eine Frage in einem Ordner.
         /// </summary>
+        /// <param name="junctionId">Die ID der Verbindung.</param>
+        /// <param name="folderId">Die ID des Ordners.</param>
+        /// <param name="questionId">Die ID der Frage.</param>
+        /// <returns>Ein Task, der die abgeschlossene Operation anzeigt.</returns>
         public async Task<int> SaveQuestionToFolder(string junctionId, string folderId, string questionId)
         {
             try
@@ -45,6 +58,13 @@ namespace exerciseBox.Infrastructure.Repositories
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Entfernt eine Frage aus einem Ordner.
+        /// </summary>
+        /// <param name="folderId">Die ID des Ordners.</param>
+        /// <param name="questionId">Die ID der Frage.</param>
+        /// <returns>Ein Task, der die abgeschlossene Operation anzeigt.</returns>
         public async Task<int> RemoveQuestionFromFolder(string folderId, string questionId)
         {
             var folderQuestion = await _context.FoldersQuestionsJunction
@@ -59,16 +79,10 @@ namespace exerciseBox.Infrastructure.Repositories
         }
 
         /// <summary>
-        /// Löscht eine Frage aus der Datenbank (nicht implementiert).
-        /// </summary>
-        public Task<Questions> DeleteAsync(Questions entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Ruft alle Fragen anhand einer Liste von Frage-IDs aus der Datenbank ab.
         /// </summary>
+        /// <param name="questionIds">Die Liste der Frage-IDs.</param>
+        /// <returns>Eine Liste von Fragen als <see cref="IEnumerable{Questions}"/>.</returns>
         public async Task<IEnumerable<Questions>> GetAllQuestionsByRangeOfIdsAsync(string[] questionIds)
         {
             return await _context.Questions.Where(q => questionIds.Contains(q.Id.ToString())).ToListAsync();
@@ -77,6 +91,8 @@ namespace exerciseBox.Infrastructure.Repositories
         /// <summary>
         /// Ruft alle Fragen eines Ordners aus der Datenbank ab.
         /// </summary>
+        /// <param name="folderId">Die ID des Ordners.</param>
+        /// <returns>Eine Liste von Fragen als <see cref="IEnumerable{Questions}"/>.</returns>
         public async Task<IEnumerable<Questions>> GetFolderQuestions(string folderId)
         {
             var questionIds = await _context.FoldersQuestionsJunction
@@ -94,6 +110,7 @@ namespace exerciseBox.Infrastructure.Repositories
         /// <summary>
         /// Liest alle öffentlichen Fragen aus der Datenbank.
         /// </summary>
+        /// <returns>Eine Liste von Fragen als <see cref="IEnumerable{Questions}"/>.</returns>
         public async Task<IEnumerable<Questions>> ReadAsync()
         {
             return await _context.Questions.Where(q => q.QuestionIsPrivate == false).Include(q => q.DifficultyLevelNavigation).ToListAsync();
@@ -102,6 +119,8 @@ namespace exerciseBox.Infrastructure.Repositories
         /// <summary>
         /// Ruft alle Fragen eines bestimmten Themas aus der Datenbank ab.
         /// </summary>
+        /// <param name="subjectId">Die ID des Themas.</param>
+        /// <returns>Eine Liste von Fragen als <see cref="IEnumerable{Questions}"/>.</returns>
         public async Task<IEnumerable<Questions>> GetQuestionsBySubject(string subjectId)
         {
             var questions = await _context.Questions
@@ -123,25 +142,39 @@ namespace exerciseBox.Infrastructure.Repositories
             return questions;
         }
 
-        public async Task<bool> HideQuestion(string id,string teacherId, string questionId)
+        /// <summary>
+        /// Versteckt eine Frage für einen Lehrer in der Datenbank.
+        /// </summary>
+        /// <param name="id">Die ID des zu versteckenden Datensatzes.</param>
+        /// <param name="teacherId">Die ID des Lehrers.</param>
+        /// <param name="questionId">Die ID der Frage.</param>
+        /// <returns>Ein Task, der angibt, ob die Operation erfolgreich war.</returns>
+        public async Task<bool> HideQuestion(string id, string teacherId, string questionId)
         {
-            try { 
-            var questionToHide = new TeachersHiddenQuestions
+            try
             {
-                Id = id,
-                TeacherId = teacherId,
-                QuestionId = questionId,
-            };
-            _context.TeachersHiddenQuestions.Add(questionToHide);
-            _context.SaveChanges();
+                var questionToHide = new TeachersHiddenQuestions
+                {
+                    Id = id,
+                    TeacherId = teacherId,
+                    QuestionId = questionId,
+                };
+                _context.TeachersHiddenQuestions.Add(questionToHide);
+                await _context.SaveChangesAsync();
                 return true;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;
             }
         }
 
+        /// <summary>
+        /// Ruft alle versteckten Fragen eines Lehrers aus der Datenbank ab.
+        /// </summary>
+        /// <param name="teacherId">Die ID des Lehrers.</param>
+        /// <returns>Eine Liste von Fragen als <see cref="IEnumerable{Questions}"/>.</returns>
         public async Task<IEnumerable<Questions>> GetHiddenQuestionsByTeacher(string teacherId)
         {
             var hiddenQuestions = await _context.TeachersHiddenQuestions
@@ -154,9 +187,13 @@ namespace exerciseBox.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        // Die folgenden Methoden sind nicht implementiert und werfen eine NotImplementedException.
+
         /// <summary>
         /// Liest eine Frage anhand ihrer ID aus der Datenbank (nicht implementiert).
         /// </summary>
+        /// <param name="id">Die ID der Frage.</param>
+        /// <returns>Ein Task, der die abgeschlossene Operation anzeigt.</returns>
         public Task<Questions> ReadByIdAsync(Guid id)
         {
             throw new NotImplementedException();
@@ -165,10 +202,21 @@ namespace exerciseBox.Infrastructure.Repositories
         /// <summary>
         /// Aktualisiert eine Frage in der Datenbank (nicht implementiert).
         /// </summary>
+        /// <param name="entity">Die Frage, die aktualisiert werden soll.</param>
+        /// <returns>Ein Task, der die abgeschlossene Operation anzeigt.</returns>
         public Task<Questions> UpdateAsync(Questions entity)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Löscht eine Frage aus der Datenbank (nicht implementiert).
+        /// </summary>
+        /// <param name="entity">Die Frage, die gelöscht werden soll.</param>
+        /// <returns>Ein Task, der die abgeschlossene Operation anzeigt.</returns>
+        public Task<Questions> DeleteAsync(Questions entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

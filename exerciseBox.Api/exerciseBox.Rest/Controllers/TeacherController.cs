@@ -1,9 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
-using exerciseBox.Application.Services.Interface;
-using exerciseBox.Application.Services.Models;
 using exerciseBox.Application.UseCases.Folder.Commands;
 using exerciseBox.Application.UseCases.Folder.Queries;
-using exerciseBox.Application.UseCases.Folder.QueryHandlers;
 using exerciseBox.Application.UseCases.Subject.Queries;
 using exerciseBox.Application.UseCases.Teacher.Commands;
 using exerciseBox.Application.UseCases.Teacher.Queries;
@@ -12,10 +9,6 @@ using exerciseBox.Application.UseCases.Teachers.Queries;
 using exerciseBox.Rest.Controllers.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace exerciseBox.Rest.Controllers
 {
@@ -270,21 +263,6 @@ namespace exerciseBox.Rest.Controllers
                 return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
             }
         }
-
-        //[HttpPost("ChangePassword")]
-        //public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
-        //{
-        //    try
-        //    {
-        //        await _mediator.Send(new ChangePassword { Email = request.Email, Password = request.Password });
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
-        //    }
-        //}
-
 
         /// <summary>
         /// Fügt einen neuen Lehrer hinzu.

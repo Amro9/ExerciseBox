@@ -1,11 +1,6 @@
 ﻿using exerciseBox.Application.Abtraction.Repositories;
 using exerciseBox.Application.UseCases.Questions.Commands;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace exerciseBox.Application.UseCases.Questions.CommandsHandlers
 {
@@ -19,7 +14,7 @@ namespace exerciseBox.Application.UseCases.Questions.CommandsHandlers
         public Task<bool> Handle(HideQuestionByTeacher request, CancellationToken cancellationToken)
         {
 
-            return  _questionRepository.HideQuestion(Guid.NewGuid().ToString(), request.TeacherId, request.QuestionId);
+            return _questionRepository.HideQuestion(Guid.NewGuid().ToString(), request.TeacherId, request.QuestionId);
         }
     }
 }

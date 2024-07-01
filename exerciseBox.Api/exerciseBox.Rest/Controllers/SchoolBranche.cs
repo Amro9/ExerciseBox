@@ -1,6 +1,8 @@
 ﻿using exerciseBox.Application.UseCases.Subject.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace exerciseBox.Rest.Controllers
 {
@@ -12,7 +14,7 @@ namespace exerciseBox.Rest.Controllers
         /// <summary>
         /// Initialisiert eine neue Instanz der <see cref="SchoolBranch"/> Klasse.
         /// </summary>
-        /// <param name="mediator"></param>
+        /// <param name="mediator">Der MediatR-Mediator.</param>
         public SchoolBranch(IMediator mediator) : base(mediator)
         {
 
@@ -21,16 +23,16 @@ namespace exerciseBox.Rest.Controllers
         /// <summary>
         /// Holt alle Fächer eines Schulzweigs. 
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Die ID des Schulzweigs.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe mit den Fächern des Schulzweigs.</returns>
         [HttpGet("Subjects/{id}")]
         public async Task<IActionResult> GetSubjectOfBranch(string id)
         {
             try
             {
-                var subject = await _mediator.Send(new GetBranchSubjects { BranchId = id});
+                var subjects = await _mediator.Send(new GetBranchSubjects { BranchId = id });
 
-                return Ok(new { value = subject });
+                return Ok(new { value = subjects });
             }
             catch (Exception ex)
             {

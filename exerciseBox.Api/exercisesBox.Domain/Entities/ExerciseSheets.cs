@@ -9,7 +9,7 @@ public partial class ExerciseSheets
 {
     public string Id { get; set; }
 
-    public string Tilte { get; set; }
+    public string Titel { get; set; }
 
     public string Teacher { get; set; }
 

@@ -11,22 +11,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddApplictaionConfiguration();
-builder.Services.AddInfrastructureConfiguration();
+builder.Services.AddApplictaionConfiguration(); 
+builder.Services.AddInfrastructureConfiguration(); 
 
 // Add a distributed memory cache
 builder.Services.AddDistributedMemoryCache();
 
+// Set QuestPDF license type
 QuestPDF.Settings.License = LicenseType.Community;
 
-// Configure session state
-//builder.Services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromMinutes(1);
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.IsEssential = true; // make the session cookie essential
-//});
-
+// Configure cookie-based authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -40,7 +34,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.Cookie.SameSite = SameSiteMode.None;
     });
 
-
 // Configure CORS
 builder.Services.AddCors(options =>
 {
@@ -51,7 +44,6 @@ builder.Services.AddCors(options =>
                    .AllowCredentials() // Allow credentials to be sent
                    .AllowAnyHeader()
                    .AllowAnyMethod();
-                   //.AllowAnyOrigin()
         });
 });
 
@@ -67,13 +59,9 @@ if (app.Environment.IsDevelopment())
 // Use CORS before other middlewares that handle HTTP requests
 app.UseCors("AllowAllOrigins");
 
-//app.UseSession();
-
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-//app.UseMiddleware<CustomMiddleWare>();
-
 app.MapControllers();
 
 app.Run();

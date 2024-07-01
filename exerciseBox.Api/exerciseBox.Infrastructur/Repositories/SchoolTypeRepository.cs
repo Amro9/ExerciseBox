@@ -17,7 +17,7 @@ namespace exerciseBox.Infrastructur.Repositories
 
         public SchoolTypeRepository(ExercisesBoxContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         /// <summary>
@@ -52,10 +52,22 @@ namespace exerciseBox.Infrastructur.Repositories
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Liest die ID des Schultyps anhand der Lehrer-ID aus der Datenbank.
+        /// </summary>
+        /// <param name="teacherId">Die ID des Lehrers.</param>
+        /// <returns>Die ID des Schultyps als Ganzzahl.</returns>
         public async Task<int> ReadIdByTeacher(string teacherId)
         {
-            var school = await _context.Teachers.Where(t => t.Email == teacherId).Select(s => s.School).FirstOrDefaultAsync();
-            return await _context.Schools.Where(s => s.Email == school).Select(s => s.SchoolType).FirstOrDefaultAsync();
+            var school = await _context.Teachers
+                .Where(t => t.Email == teacherId)
+                .Select(s => s.School)
+                .FirstOrDefaultAsync();
+
+            return await _context.Schools
+                .Where(s => s.Email == school)
+                .Select(s => s.SchoolType)
+                .FirstOrDefaultAsync();
         }
 
         /// <summary>

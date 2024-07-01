@@ -36,25 +36,43 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetAllSubjects());
         }
+
+        /// <summary>
+        /// Holt den Namen eines Faches anhand seiner ID.
+        /// </summary>
+        /// <param name="id">Die ID des Fachs.</param>
+        /// <returns>Der Name des Fachs als Zeichenkette.</returns>
         [HttpGet("getSubjectNameById/{id}")]
-        public async Task<string> getSubjectNameById(string id)
+        public async Task<string> GetSubjectNameById(string id)
         {
-            var subject =  await _mediator.Send(new GetSubjectById(id));
-               return subject.Name;
+            var subject = await _mediator.Send(new GetSubjectById(id));
+            return subject.Name;
         }
+
+        /// <summary>
+        /// Holt den Namen eines Faches anhand der Themen-ID.
+        /// </summary>
+        /// <param name="id">Die ID des Themas.</param>
+        /// <returns>Der Name des Fachs als Zeichenkette.</returns>
         [HttpGet("getSubjectNameByTopic/{id}")]
         public async Task<string> GetSubjectNameByTopic(string id)
         {
             try
-                {
+            {
                 SubjectDto subject = await _mediator.Send(new GetSubjectByTopic(id));
-                    return subject.Name;
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
+                return subject.Name;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
+
+        /// <summary>
+        /// Holt ein Fach anhand der Themen-ID.
+        /// </summary>
+        /// <param name="id">Die ID des Themas.</param>
+        /// <returns>Das Fach als <see cref="SubjectDto"/> Objekt.</returns>
         [HttpGet("getSubjectByTopic/{id}")]
         public async Task<SubjectDto> GetSubjectByTopic(string id)
         {
@@ -68,6 +86,7 @@ namespace exerciseBox.Rest.Controllers
                 return null;
             }
         }
+
         /// <summary>
         /// Holt alle Themen.
         /// </summary>
@@ -77,12 +96,18 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetAllTopics());
         }
+
+        /// <summary>
+        /// Holt den Namen eines Themas anhand seiner ID.
+        /// </summary>
+        /// <param name="id">Die ID des Themas.</param>
+        /// <returns>Der Name des Themas als Zeichenkette.</returns>
         [HttpGet("getTopicNameById/{id}")]
         public async Task<string> GetTopicNameById(string id)
         {
             try
-             {
-                TopicDto topic =  await _mediator.Send(new GetTopicById(id));
+            {
+                TopicDto topic = await _mediator.Send(new GetTopicById(id));
                 return topic.Description;
             }
             catch (Exception ex)
@@ -90,6 +115,7 @@ namespace exerciseBox.Rest.Controllers
                 return null;
             }
         }
+
         /// <summary>
         /// Holt Themen anhand des Fachs.
         /// </summary>
@@ -121,7 +147,7 @@ namespace exerciseBox.Rest.Controllers
         [HttpGet("GetSchoolLevelsByTeacherId")]
         public async Task<IEnumerable<int>> GetSchoolLevelsByTeacherId([FromQuery] string teacherId)
         {
-            var teacherLevels =  await _mediator.Send(new GetSchoolLevelsByTeacherId(teacherId));
+            var teacherLevels = await _mediator.Send(new GetSchoolLevelsByTeacherId(teacherId));
             return teacherLevels.OrderBy(level => level);
         }
 
@@ -134,6 +160,12 @@ namespace exerciseBox.Rest.Controllers
         {
             return await _mediator.Send(new GetAllDifficultyLevels());
         }
+
+        /// <summary>
+        /// Holt eine Schwierigkeitsstufe anhand ihrer ID.
+        /// </summary>
+        /// <param name="id">Die ID der Schwierigkeitsstufe.</param>
+        /// <returns>Die Schwierigkeitsstufe als <see cref="DifficultyLevelDto"/> Objekt.</returns>
         [HttpGet("GetDifficultyLevelById")]
         public async Task<DifficultyLevelDto> GetDifficultyLevelById([FromQuery] string id)
         {

@@ -12,7 +12,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace exercisebox.rest.controllers
 {
@@ -154,6 +157,11 @@ namespace exercisebox.rest.controllers
             }
         }
 
+        /// <summary>
+        /// Überprüft, ob das Passwort des Benutzers das Standardpasswort ist.
+        /// </summary>
+        /// <param name="id">Die Benutzer-ID.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe, ob das Passwort standardmäßig ist.</returns>
         [HttpGet("IsPasswordDefault/{id}")]
         public async Task<IActionResult> IsPasswordDefault(string id)
         {
@@ -175,6 +183,11 @@ namespace exercisebox.rest.controllers
             }
         }
 
+        /// <summary>
+        /// Ändert das Passwort eines Benutzers.
+        /// </summary>
+        /// <param name="changePasswordRequest">Die Anfrage zum Ändern des Passworts.</param>
+        /// <returns>Eine <see cref="IActionResult"/> Rückgabe.</returns>
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest changePasswordRequest)
         {
@@ -206,9 +219,9 @@ namespace exercisebox.rest.controllers
         /// <summary>
         /// Erstellt die Cookies für den angemeldeten Benutzer.
         /// </summary>
-        /// <param name="Role"></param>
-        /// <param name="Name"></param>
-        /// <returns></returns>
+        /// <param name="Role">Die Rolle des Benutzers.</param>
+        /// <param name="Name">Der Name des Benutzers (E-Mail).</param>
+        /// <returns>Eine <see cref="Task"/>, die die Erstellung der Cookies asynchron abschließt.</returns>
         private async Task CreateCookiesAsync(string Role, string Name)
         {
             var claims = new List<Claim>
@@ -230,7 +243,5 @@ namespace exercisebox.rest.controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
         }
-
-        
     }
 }

@@ -17,6 +17,7 @@ export class QuestionListComponent {
   }
 
   showHideQuestionPopUp(event: MouseEvent, questionId: string) {
+    console.log('Show/hide question popup:', questionId);
     this.hideQuestionEvent.emit({ questionId, event });
   }
 }

@@ -23,7 +23,7 @@ export class QuestionsPoolComponent {
   popupLeft!: string;
   selectedQuestionId: string = '';
 
-  userEmail!: string;
+  userMail!: string;
 
   @ViewChild(FoldersPopupComponent) foldersPopupComponent!: FoldersPopupComponent;
 
@@ -38,14 +38,14 @@ export class QuestionsPoolComponent {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.userEmail = this.cookieService.get("userEmail");
-    console.log('User email:', this.userEmail);
+    this.userMail = this.cookieService.get("userEmail");
+    console.log('User email:', this.userMail);
     // this.Folders = await this.folderService.getFoldersOfTeacher(this.userEmail);
 
   }
 
   submitSearch(searchParams: any) {
-    searchParams.teacherEmail = this.userEmail;
+    searchParams.teacherEmail = this.userMail;
     console.log('Search parameters:', searchParams);
     this.questionService.getQuestions(searchParams).subscribe({
       next: (data) => {
@@ -82,7 +82,7 @@ export class QuestionsPoolComponent {
       this.showHideConfirm = false;
     }
   }
-
+// achtung!! diese methode wurde 1 zu 1 kopiert aus dem question pool component. es gehört zusammengefügt
   async showFoldersList(event: { questionId: string, event: MouseEvent }) {
     event.event.stopPropagation();
     const popupWidth = 300; // Beispielbreite des Popups
@@ -102,7 +102,7 @@ export class QuestionsPoolComponent {
     }
     const subjectId = await this.getSubjectIdByQuestionId(event.questionId);
 console.log('Subject ID:', subjectId);
-    this.Folders = await this.folderService.getFoldersOfSubject(subjectId, this.userEmail);
+    this.Folders = await this.folderService.getFoldersOfSubject(subjectId, this.userMail);
     console.log('Folders:', this.Folders);
     this.showFolderList = true;
     this.popupTop = `${event.event.clientY}px`;
@@ -146,36 +146,41 @@ console.log('Subject ID:', subjectId);
   }
 
   showHideQuestionPopUp(event: { questionId: string, event: MouseEvent }) {
+    console.log('Show/hide question popup:', event.questionId); // Debugging
+  
     event.event.stopPropagation();
-
+  
     const popupWidth = 300; // Beispielbreite des Popups
     const popupHeight = 200; // Beispielhöhe des Popups
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-
+  
     let left = event.event.clientX;
     let top = event.event.clientY;
-
+  
     // Überprüfen, ob das Popup außerhalb des sichtbaren Bereichs rechts liegt
     if (left + popupWidth > screenWidth) {
       left = screenWidth - popupWidth;
     }
-
+  
     // Überprüfen, ob das Popup außerhalb des sichtbaren Bereichs unten liegt
     if (top + popupHeight > screenHeight) {
       top = screenHeight - popupHeight;
     }
-
-    this.popupTop = `${event.event.clientY}px`;
-    this.popupLeft = `${event.event.clientX}px`;
+  
+    this.popupTop = `${top}px`;
+    this.popupLeft = `${left}px`;
     this.showHideConfirm = true;
     this.selectedQuestionId = event.questionId;
+  
+    console.log('Popup position:', this.popupTop, this.popupLeft); // Debugging
+    console.log('showHideConfirm:', this.showHideConfirm); // Debugging
   }
 
   hideQuestion() {
     console.log('Frage wird ausgeblendet.');
 
-    this.questionService.hideQuestionByTeacher(this.selectedQuestionId, this.userEmail).subscribe({
+    this.questionService.hideQuestionByTeacher(this.selectedQuestionId, this.userMail).subscribe({
       next: (data) => {
         console.log('Question hidden:', data);
         this.notificationService.showSuccess('Frage ausgeblendet');

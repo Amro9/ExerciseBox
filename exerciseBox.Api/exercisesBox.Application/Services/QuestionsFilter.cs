@@ -8,12 +8,28 @@ using System.Threading.Tasks;
 
 namespace exerciseBox.Application.Services
 {
+    /// <summary>
+    /// Stellt Methoden zum Filtern von Fragen bereit.
+    /// </summary>
     public static class QuestionsFilter
     {
-        public static IEnumerable<QuestionDto> FilterHiddenQuestions(IEnumerable<QuestionDto> questions,IEnumerable<QuestionDto> hiddenQuestions)
+        /// <summary>
+        /// Filtert ausgeblendete Fragen aus einer Liste von Fragen.
+        /// </summary>
+        /// <param name="questions">Die Liste von Fragen, die gefiltert werden soll.</param>
+        /// <param name="hiddenQuestions">Die Liste von ausgeblendeten Fragen.</param>
+        /// <returns>Eine Liste von Fragen ohne die ausgeblendeten Fragen.</returns>
+        public static IEnumerable<QuestionDto> FilterHiddenQuestions(IEnumerable<QuestionDto> questions, IEnumerable<QuestionDto> hiddenQuestions)
         {
             return questions.Where(q => !hiddenQuestions.Any(hq => hq.Id == q.Id));
         }
+
+        /// <summary>
+        /// Filtert eine Liste von Fragen basierend auf den angegebenen Suchparametern.
+        /// </summary>
+        /// <param name="questions">Die Liste von Fragen, die gefiltert werden soll.</param>
+        /// <param name="searchParams">Die Suchparameter zur Filterung der Fragen.</param>
+        /// <returns>Eine gefilterte Liste von Fragen basierend auf den Suchparametern.</returns>
         public static IEnumerable<QuestionDto> Filter(IEnumerable<QuestionDto> questions, QuestionSearchParams searchParams)
         {
             if (searchParams.SchoolType != 0)
@@ -36,11 +52,6 @@ namespace exerciseBox.Application.Services
             {
                 questions = questions.Where(q => q.DifficultyLevelDto.Id == searchParams.DifficultyLevel);
             }
-            if (!string.IsNullOrEmpty(searchParams.Subject))
-            {
-                // hier dachte i
-            }
-
             return questions;
         }
     }

@@ -121,6 +121,7 @@ export class ProfileComponent implements OnInit{
     this.popupTop = `${event.event.clientY}px`;
     this.popupLeft = `${event.event.clientX}px`;
     this.selectedQuestionId = event.questionId;
+    
     this.foldersPopupComponent.checkQuestionsInFolders(); // Update the popup component whenever the folder list is shown
   }
   showRemoveQuestionConfirm(event: { questionId: string, event: MouseEvent }) {

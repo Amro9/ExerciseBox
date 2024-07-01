@@ -1,7 +1,5 @@
 ﻿using exerciseBox.Application.Abtraction.Models;
 using exerciseBox.Domain.Entities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace exerciseBox.Application.Abtraction.Extensions
 {

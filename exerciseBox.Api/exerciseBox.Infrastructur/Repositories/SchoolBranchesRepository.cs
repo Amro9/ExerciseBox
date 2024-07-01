@@ -2,6 +2,10 @@
 using exerciseBox.Domain.Entities;
 using exerciseBox.Infrastructur;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace exerciseBox.Infrastructure.Repositories
 {
@@ -14,7 +18,7 @@ namespace exerciseBox.Infrastructure.Repositories
 
         public SchoolBranchesRepository(ExercisesBoxContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         /// <summary>
@@ -52,8 +56,8 @@ namespace exerciseBox.Infrastructure.Repositories
         /// <summary>
         /// Liest alle Schulzweige einer Schule aus der Datenbank.
         /// </summary>
-        /// <param name="schoolId"></param>
-        /// <returns></returns>
+        /// <param name="schoolId">Die ID der Schule.</param>
+        /// <returns>Eine Liste von Schulzweigen als <see cref="IEnumerable{SchoolBranches}"/>.</returns>
         public async Task<IEnumerable<SchoolBranches>> ReadBySchoolId(string schoolId)
         {
             return await _context.SchoolsBranchesJunction
@@ -62,20 +66,23 @@ namespace exerciseBox.Infrastructure.Repositories
                 .Select(sb => sb.BranchNavigation)
                 .ToListAsync();
         }
-        ///// <summary>
-        ///// Liest alle Schulen einer bestimmten Schule aus der Datenbank.
-        ///// </summary>
-        ///// <param name="schoolId"></param>
-        ///// <returns></returns>
-        //public async Task<IEnumerable<SchoolBranches>> ReadBySchoolId(string schoolId)
-        //{
-        //    var branches = _context.SchoolsBranchesJunction.Where(s => s.School == schoolId).Select(s => s.Branch).ToListAsync();
-        //    return await _context.SchoolBranches.Where(s => branches.Result.Contains(s.Id)).ToListAsync();
-        //}
+
+        /// <summary>
+        /// Liest die ID des Schulzweigs anhand der Lehrer-ID aus der Datenbank.
+        /// </summary>
+        /// <param name="teacherId">Die ID des Lehrers.</param>
+        /// <returns>Die ID des Schulzweigs als Zeichenfolge.</returns>
         public async Task<string> ReadIdByTeacher(string teacherId)
         {
-            var school = await _context.Teachers.Where(t => t.Email == teacherId).Select(t => t.School).FirstOrDefaultAsync();
-            return await _context.SchoolsBranchesJunction.Where(sb => sb.School == school).Select(sb => sb.Branch).FirstOrDefaultAsync();
+            var school = await _context.Teachers
+                .Where(t => t.Email == teacherId)
+                .Select(t => t.School)
+                .FirstOrDefaultAsync();
+
+            return await _context.SchoolsBranchesJunction
+                .Where(sb => sb.School == school)
+                .Select(sb => sb.Branch)
+                .FirstOrDefaultAsync();
         }
 
         /// <summary>

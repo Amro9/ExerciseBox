@@ -2,6 +2,9 @@
 using exerciseBox.Domain.Entities;
 using exerciseBox.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace exerciseBox.Infrastructur.Repositories
 {
@@ -14,7 +17,7 @@ namespace exerciseBox.Infrastructur.Repositories
 
         public SubjectRepository(ExercisesBoxContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         /// <summary>
@@ -40,26 +43,29 @@ namespace exerciseBox.Infrastructur.Repositories
         {
             return await _context.Subjects.ToListAsync();
         }
-        public async Task<Subjects> ReadByTopic(string id)
-        {
-
-
-            var topic = await _context.Topics
-                .Where(t => t.Id == id)
-                .Include(t => t.SubjectNavigation) // Inkludiert die Navigationseigenschaft zu dem zugehörigen Fach
-                .FirstOrDefaultAsync();
-            Console.WriteLine(topic);
-            var subject = await _context.Subjects.Where(s => s.Id == topic.Subject)
-             .FirstOrDefaultAsync();
-            return subject;
-        }
 
         /// <summary>
-        /// Liest ein Schulfach anhand seiner ID aus der Datenbank (nicht implementiert).
+        /// Liest ein Schulfach anhand seiner ID aus der Datenbank.
         /// </summary>
         public async Task<Subjects> ReadByIdAsync(Guid id)
         {
             return await _context.Subjects.FindAsync(id);
+        }
+
+        /// <summary>
+        /// Liest ein Schulfach anhand eines Themas aus der Datenbank.
+        /// </summary>
+        public async Task<Subjects> ReadByTopic(string id)
+        {
+            var topic = await _context.Topics
+                .Where(t => t.Id == id)
+                .Include(t => t.SubjectNavigation) // Inkludiert die Navigationseigenschaft zum zugehörigen Fach
+                .FirstOrDefaultAsync();
+
+            if (topic == null || topic.SubjectNavigation == null)
+                return null;
+
+            return topic.SubjectNavigation;
         }
 
         /// <summary>
@@ -75,13 +81,11 @@ namespace exerciseBox.Infrastructur.Repositories
         /// </summary>
         public async Task<IEnumerable<Subjects>> GetSubjectsByTeacherId(string id)
         {
-            // Zuerst werden die IDs der Schulfächer abgerufen, die dem gegebenen Lehrer zugeordnet sind
             var subjectIds = await _context.TeachersSubjectsJunction
                 .Where(x => x.Teacher == id)
                 .Select(x => x.Subject)
                 .ToListAsync();
 
-            // Anschließend werden die Schulfächer aus der Datenbank abgerufen, deren IDs in der Liste subjectIds enthalten sind
             return await _context.Subjects
                 .Where(x => subjectIds.Contains(x.Id))
                 .ToListAsync();
@@ -90,8 +94,6 @@ namespace exerciseBox.Infrastructur.Repositories
         /// <summary>
         /// Liest alle Schulfächer, die einer bestimmten Schule zugeordnet sind, aus der Datenbank.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public async Task<IEnumerable<Subjects>> GetSubjectsBySchoolId(string id)
         {
             var subjectIds = await _context.SchoolsSubjectsJunction
@@ -104,6 +106,9 @@ namespace exerciseBox.Infrastructur.Repositories
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Liest alle Schulfächer, die einem bestimmten Schulzweig zugeordnet sind, aus der Datenbank.
+        /// </summary>
         public async Task<IEnumerable<Subjects>> GetSubjectsBySchoolBranchId(string id)
         {
             return await _context.BranchesSubjectsJunction
