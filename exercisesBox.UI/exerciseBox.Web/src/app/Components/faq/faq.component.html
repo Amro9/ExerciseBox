@@ -1,0 +1,16 @@
+<div class="faq-container">
+  <h2>Frequently Asked Questions</h2>
+  <div *ngFor="let section of sections; let sectionIndex = index">
+      <h3>{{ section.title }}</h3>
+      <p>{{ section.description }}</p>
+      <div *ngFor="let faq of section.faqs; let faqIndex = index">
+        <div class="faq-question" (click)="toggleAnswer(sectionIndex, faqIndex)">
+          {{ faq.question }}
+      </div>
+      <div class="faq-answer" [ngClass]="{'visible': faq.isVisible}">
+        {{ faq.answer }}
+    </div>
+      </div>
+      <hr *ngIf="sectionIndex < sections.length - 1">
+  </div>
+</div>

@@ -5,7 +5,6 @@
   </a>
   <div class="collapse navbar-collapse" id="navbarNav" style="height: 100%;">
     <div class="d-flex justify-content-between w-100" style="height: 100%;">
-      <!-- Conditional rendering of the navigation links -->
       <div *ngIf="userIsLoggedIn(); else loginLink" style="height: 100%;">
         <div *ngIf=" userIsTeacher()" style="height: 100%;">
           <ul class="navbar-nav">
@@ -18,35 +17,42 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/ExerciseSheet" routerLinkActive="active">Arbeitsblatt generieren</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/faq" routerLinkActive="active">FAQ</a>
+            </li>
           </ul>
+          
         </div>
         <div *ngIf="userIsSchool()" style="height: 100%;">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" routerLink="/teacherManager" routerLinkActive="active">Lehrperosonen Übersicht</a>
-              </li>
-            </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/teacherManager" routerLinkActive="active">Lehrperosonen Übersicht</a>
+            </li>
+          </ul>
+          
         </div>
       </div>
-      
+
       <!-- Placeholder for the login link when the user is not logged in -->
       <ng-template id="auth" #loginLink>
-        <div class="d-flex align-items-center justify-content-end" style="width: 100%; margin-right: 2%;  font-weight: bold;">
+        <div class="d-flex align-items-center justify-content-end"
+          style="width: 100%; margin-right: 2%;  font-weight: bold;">
           <a class="nav-link" routerLink="/login" routerLinkActive="active">Anmelden</a>
         </div>
       </ng-template>
       <div id="auth" class="d-flex" *ngIf="userIsLoggedIn()" style="margin-right: 2%;">
-        <div  class="d-flex align-items-center justify-content-end " style="width: auto;">
-          <a class="nav-link" (click)="onLogout()"  style="cursor: pointer;  font-weight: bold;">Abmelden</a>
+        <div class="d-flex align-items-center justify-content-end " style="width: auto;">
+          <a class="nav-link" (click)="onLogout()" style="cursor: pointer;  font-weight: bold;">Abmelden</a>
         </div>
         <div *ngIf="userIsTeacher()" class="d-flex align-items-center justify-content-end" style="width: auto;">
-          <button class="btn btn-link p-0" data-toggle="tooltip" title="Frage ausblenden" routerLink="/profile" routerLinkActive="active">
+          <button class="btn btn-link p-0" data-toggle="tooltip" title="Frage ausblenden" routerLink="/profile"
+            routerLinkActive="active">
             <span class="circle-btn">
               <i class="fas fa-user"></i>
             </span>
           </button>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
 </nav>

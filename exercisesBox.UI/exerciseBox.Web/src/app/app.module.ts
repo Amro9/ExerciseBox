@@ -29,6 +29,7 @@ import { ProfileQuestionListComponent } from "./Components/user-profile/profile-
 import { RemoveQuestionPopupComponent } from "./Components/user-profile/remove-question-popup/remove-question-popup.component";
 import { PersonalDataComponent } from "./Components/user-profile/personal-data/personal-data.component";
 import { PasswordGuard } from "./Services/PasswordGuard";
+import { FaqComponent } from "./Components/faq/faq.component";
 // import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @NgModule({
@@ -43,6 +44,7 @@ import { PasswordGuard } from "./Services/PasswordGuard";
         ProfileQuestionListComponent,
         RemoveQuestionPopupComponent,
         PersonalDataComponent,
+        FaqComponent,
         routingComponents
     ],
     imports: [

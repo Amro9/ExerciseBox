@@ -15,12 +15,14 @@ import { ProfileComponent } from "./Components/user-profile/profile/profile.comp
 import { TeacherManagerComponent } from "./Components/teacher-manager/teacher-manager.component";
 import { ChangePasswordComponent } from "./Components/change-password/change-password.component";
 import { PasswordGuard } from "./Services/PasswordGuard";
+import { FaqComponent } from "./Components/faq/faq.component";
 
 const routes: Routes = [
   { path: "adminView", component: AdminViewComponent },
   { path: 'questionForm', component: QuestionCreationFormComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
   { path: 'questionsPool', component: QuestionsPoolComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
   { path: "login", component: LoginComponent},
+  { path: "faq", component: FaqComponent},
   { path: "schoolView", component: SchoolViewComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.School }},
   { path: "ExerciseSheet", component: ExerciseSheetGenerationComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
   { path: "profile", component: ProfileComponent, canActivate: [AuthGuard], data: { expectedRole: Roles.Teacher }},
