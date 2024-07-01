@@ -28,12 +28,23 @@ export class FaqComponent {
       ]
     },
     {
-      title: "Weitere Sektion",
-      description: "Beschreibung der weiteren Sektion.",
+      title: "Fragenpool",
+      description: "Der Fragenpool ermöglicht es Lehrern, Fragen zu durchsuchen, zu speichern oder auszublenden. Sinnvolle Fragen finden und speichern ist die Grundlage der Arbeitsblätter Generierung.",
       faqs: [
         {
-          question: "Beispiel Frage 1",
-          answer: "Beispiel Antwort 1",
+          question: "Navigation",
+          answer: "Wählen Sie im Hauptmenü den Punkt „Fragenpool“ aus",
+          isVisible: false
+        },
+        {
+          question: "Die Suchfilter",
+          answer: "Schulart\n"
+          +"Hier geht es bei der Filterung um die Schulart, den Schulzweig und die Schulstufe. Wählen Sie die Schulart und falls sie einen bestimmten Zweig hat, können Sie diesen Ebenfalls auswählen. Jeder Schulart hat vordefinierte Schulstufen",
+          isVisible: false
+        },
+        {
+          question: "Filter-Beispiel",
+          answer: "Der Filter ist dafür gedacht, die Suche nach Fragen einzugrenzen. So können Sie alle Fragen sehen, wenn Sie gar keine Filter setzen. Suchen Sie in Schulart „Berufsschule“, Fach „Informatik“, Thema „Pointers“, so sehen Sie alle Fragen dieses spezifischen Themas sehen, die an einer Berufsschule für Informatiker gedacht sind. Wählen Sie beispielweise zusätzlich eine bestimmte Schulstufe aus, so sehen die Fragen des gewählten Themas, die genau für diese Schulstufe gedacht sind",
           isVisible: false
         }
       ]
