@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Directive, ElementRef, HostListener, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { QuestionFromService } from '../../Services/api-services/question-form.service';
 import { Subject} from '../../Entities/Subject';
@@ -89,6 +89,7 @@ export class QuestionCreationFormComponent implements OnInit {
           });
           this.questionCreationForm.markAsUntouched();
           this.focusOnQuestionText();
+        
         },
       });
     }

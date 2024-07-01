@@ -31,7 +31,7 @@
       </div>
       <div class="mb-3 row">
         <div>
-          <textarea class="form-control" id="questionText" formControlName="questionText" rows="3" placeholder="Fragestellung.." data-bs-toggle="tooltip" title="Geben Sie die Fragestellung ein"></textarea>
+          <textarea class="form-control" #questionText formControlName="questionText" rows="3" placeholder="Fragestellung.." data-bs-toggle="tooltip" title="Geben Sie die Fragestellung ein"></textarea>
           <small class="form-text text-muted">Beschreiben Sie die Frage klar und präzise</small>
           <div *ngIf="questionCreationForm.get('questionText')?.errors?.['required'] && questionCreationForm.get('questionText')?.touched" class="text-danger">
             Bitte geben Sie die Fragestellung ein.
