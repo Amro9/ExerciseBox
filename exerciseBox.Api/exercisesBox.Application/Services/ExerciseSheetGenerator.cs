@@ -136,6 +136,7 @@ namespace exerciseBox.Application.Services
                                 column.Item().PaddingBottom(20);
                                 column.Item().Text($"{question.Answer}", TextStyle.Default.Size(12));
                                 column.Item().PaddingBottom(50);
+
                             }
                         });
 
