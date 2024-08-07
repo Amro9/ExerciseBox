@@ -8,22 +8,23 @@ folgende Dokumentationen folgen demnächst:
 > **Note**
 update: 06.08
 
-Einleitung
+#Einleitung
 Hallo, wir sind Thomas und Amro. Bei diesem Projekt handelt es sich um ExercisesBox, ein Tool, das Lehrern ermöglicht, Prüfungsfragen manuell zu erstellen, zu verwalten und daraus automatisiert Arbeitsblätter zu generieren. Nachdem unser Informatiklehrer in der Berufsschule Interesse als Nutzer gezeigt hat, wird das Projekt zukünftig von potenziellen Schülern im nächsten Schuljahr übernommen und an seine Anforderungen angepasst. Für dieses Projekt haben wir die Note 1,0 erhalten.
 
-Worum geht es hier?
+#Worum geht es hier?
 Das Ziel von ExercisesBox ist es, Lehrkräften die Arbeit zu erleichtern, indem sie Fragen und Übungen in einem zentralen System speichern und organisieren können. Mithilfe von Funktionen wie dem Fragenpool, der zufälligen Auswahl von Fragen und der Erstellung von Arbeitsblättern soll der Unterricht effizienter gestaltet werden.
 
-Prerequisites
-Systemanforderungen
-Backend
+#Prerequisites
+##Systemanforderungen
+###Backend
 Das Backend ist in C# ASP.NET 8 implementiert.
 
 Datenbank: Die Datenbank wurde exportiert und kann in SQL Server Management Studio (SSMS) samt Testdaten importiert werden. Dazu einfach auf "Databases" rechts klicken und "Import Data-Tier Application" auswählen, um den Import zu starten.
-Frontend
+###Frontend
 Node.js (Version 16.x oder höher)
 Angular CLI (Version 14.x oder höher)
-Wie starte ich das Programm?
+
+#Wie starte ich das Programm?
 Datenbank importieren: Importiere die Datenbank wie oben beschrieben.
 Backend starten: Navigiere in das Verzeichnis exerciseBox.Rest und starte den Server.
 Frontend starten:
@@ -37,7 +38,7 @@ ExercisesBox folgt einer klassischen Client-Server-Architektur. Das Projekt ist 
 
 Frontend (Angular): Das Frontend ist in Angular implementiert und sorgt für die Benutzeroberfläche und die Interaktion mit dem Backend.
 Backend (ASP.NET 8): Das Backend stellt die REST-API-Endpunkte zur Verfügung, verwaltet die Datenbankoperationen und enthält Services wie die Sessionserstellung und den ExerciseSheetGenerator.
-Welche Kenntnisse muss ich mitbringen, um am Code zu arbeiten?
+#Welche Kenntnisse muss ich mitbringen, um am Code zu arbeiten?
 Backend:
 Clean Architecture: Die Kernidee ist, dass die Business-Logik unabhängig von externen Abhängigkeiten ist. Der Kern der Anwendung (Business-Logik und Core) ist nicht direkt von der Datenbank oder externen APIs abhängig. Stattdessen definieren wir Interfaces im Kern der Anwendung, die dann in den entsprechenden Datenbankprojekten implementiert werden.
 
