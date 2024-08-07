@@ -1,16 +1,16 @@
-**Note 07.08.24**
+>**Note 07.08.24:**
 in diesem Projekt wurden folgende Techniken und Best Practices verwendet:
 Clean Architecture, DI, Repository Pattern, CQRS, MediatR
 Die Dokumentationen sind aktuell in Bearbeitung
 Unit Tests werden zum Üben geschrieben
 
 
-> **Note 03.07.24**
+> **Note 03.07.24:**
 folgende Dokumentationen folgen demnächst:
 "Wie kann ich mich in den Code einarbeiten? Codestruktur einfach verstehen"
 "Allgemeine Dokumentation - die relevanten Informationen aus dem Projekthandbuch"
 
-> **Note 06.08.24**
+> **Note 06.08.24:**
 update: 
 
 #Einleitung
