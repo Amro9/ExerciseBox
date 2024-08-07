@@ -1,12 +1,17 @@
+**Note 07.08.24**
+in diesem Projekt wurden folgende Techniken und Best Practices verwendet:
+Clean Architecture, DI, Repository Pattern, CQRS, MediatR
+Die Dokumentationen sind aktuell in Bearbeitung
+Unit Tests werden zum Üben geschrieben
 
-> **Note**
-> datum: 03.07.2024
+
+> **Note 03.07.24**
 folgende Dokumentationen folgen demnächst:
 "Wie kann ich mich in den Code einarbeiten? Codestruktur einfach verstehen"
 "Allgemeine Dokumentation - die relevanten Informationen aus dem Projekthandbuch"
 
-> **Note**
-update: 06.08
+> **Note 06.08.24**
+update: 
 
 #Einleitung
 Hallo, wir sind Thomas und Amro. Bei diesem Projekt handelt es sich um ExercisesBox, ein Tool, das Lehrern ermöglicht, Prüfungsfragen manuell zu erstellen, zu verwalten und daraus automatisiert Arbeitsblätter zu generieren. Nachdem unser Informatiklehrer in der Berufsschule Interesse als Nutzer gezeigt hat, wird das Projekt zukünftig von potenziellen Schülern im nächsten Schuljahr übernommen und an seine Anforderungen angepasst. Für dieses Projekt haben wir die Note 1,0 erhalten.
