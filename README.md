@@ -49,6 +49,9 @@ CQRS (Command Query Responsibility Segregation): CQRS trennt die Lese- und Schre
 MediatR: MediatR fungiert als Schnittstelle zwischen den Schichten der Anwendung. Anstatt dass der Controller direkt die Repositories der Datenbank aufruft, übergibt er die Aufgabe an den MediatR. Dieser weiß, welche Aufrufe erforderlich sind, um die benötigten Daten zu beschaffen und vereinfacht so die Logik im Controller.
 
 Use Cases: Die Anwendung ist in verschiedene Use Cases unterteilt, die jeweils spezifische Anwendungsfälle abbilden. Ein Use Case könnte beispielsweise das Erstellen einer neuen Frage oder das Abrufen aller Fragen sein. Innerhalb jedes Use Cases wird die CQRS-Trennung eingehalten und der MediatR verwendet.
+
+> [!TIP]
+> Bevor du im Internet nach den Begriffen suchst, liest die Technische Dokumentation im exerciseBox.documentations. Diese bietet allgemeine Einführung in das Technische-Know-How
 ----
 ## Wie kann ich mich in den Code einarbeiten? Codestruktur einfach verstehen
 
@@ -117,4 +120,7 @@ Nach diesem Schema funktionieren die Datenbankabrufe, wenn dies verstanden hast,
 
 ----
 Was ist verbesserungsbedürftig in unserem Code?
--Manche Usecases sind falsch definiert. Z.b. :
+> [!WARNING]
+> Am Anfang konnten wir uns nicht einigen ob das Projekt "ExercisesBox" oder "ExerciseBox" heißen soll. Man kann es bei der Benennung immer wieder sehen. Dies gehört verbessert.
+
+
