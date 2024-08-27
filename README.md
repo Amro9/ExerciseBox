@@ -5,11 +5,6 @@ Die Dokumentationen sind aktuell in Bearbeitung
 Unit Tests werden zum Üben geschrieben
 
 
-> **Note 03.07.24:**
-folgende Dokumentationen folgen demnächst:
-"Wie kann ich mich in den Code einarbeiten? Codestruktur einfach verstehen"
-"Allgemeine Dokumentation - die relevanten Informationen aus dem Projekthandbuch"
-
 # Einleitung
 Hallo, wir sind Thomas und Amro. Bei diesem Projekt handelt es sich um ExercisesBox, ein Tool, das Lehrern ermöglicht, Prüfungsfragen zu posten, zu speichern und daraus PDF-Arbeitsblätter zu generieren.
 Das Projekt richtet sich an Schulen und soll den Lehrkräften eine einfache Möglichkeit bieten, personalisierte Übungsblätter für ihre Schüler zu erstellen. Diese README-Datei bietet eine Übersicht über das Projekt und liefert die wichtigsten Informationen für die Weiterentwicklung.
@@ -31,7 +26,7 @@ Navigiere in Visual Studio Code in das Verzeichnis exerciseBox.Web.
 Installiere die Abhängigkeiten mit dem Befehl npm install.
 Starte den Angular-Entwicklungsserver mit ng serve.
 Website aufrufen: Die Anwendung ist nun unter http://localhost:4200 erreichbar und kann mit dem Server kommunizieren.
-Testanmeldedaten: Verwende die Testanmeldedaten te@st.com, um dich anzumelden.
+Testanmeldedaten: Verwende die Testanmeldedaten te@st.com mit dem Passwort 123, um dich anzumelden. Wenn dies Fehlschlägt, kannst du in der DB einen User erstellen und ein verschlüsseltes Passwort speichern.
 Software Architektur
 ExercisesBox folgt einer klassischen Client-Server-Architektur. Das Projekt ist in zwei Hauptkomponenten unterteilt:
 
