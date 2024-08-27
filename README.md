@@ -1,8 +1,7 @@
 >**Note 07.08.24:**
 in diesem Projekt wurden folgende Techniken und Best Practices verwendet:
-Clean Architecture, DI, Repository Pattern, CQRS, MediatR
-Die Dokumentationen sind aktuell in Bearbeitung
-Unit Tests werden zum Üben geschrieben
+Clean Architecture, DI, Repository Pattern, CQRS, MediatR.
+>Das Projekt wurde ausführlich dokumentiert.
 
 
 # Einleitung
