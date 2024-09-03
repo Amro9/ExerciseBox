@@ -18,15 +18,17 @@ Node.js (Version 16.x oder höher)
 Angular CLI (Version 14.x oder höher)
 
 # Wie starte ich das Programm?
-Datenbank importieren: Importiere die Datenbank wie oben beschrieben.
-Backend starten: Navigiere in das Verzeichnis exerciseBox.Rest und starte den Server.
-Frontend starten:
+### Datenbank importieren:
+Importiere die Datenbank wie oben beschrieben.
+### Backend starten:
+Navigiere in das Verzeichnis exerciseBox.Rest und starte den Server.
+### Frontend starten:
 Navigiere in Visual Studio Code in das Verzeichnis exerciseBox.Web.
 Installiere die Abhängigkeiten mit dem Befehl npm install.
 Starte den Angular-Entwicklungsserver mit ng serve.
 Website aufrufen: Die Anwendung ist nun unter http://localhost:4200 erreichbar und kann mit dem Server kommunizieren.
-Testanmeldedaten: Verwende die Testanmeldedaten te@st.com mit dem Passwort 123, um dich anzumelden. Wenn dies Fehlschlägt, kannst du in der DB einen User erstellen und ein verschlüsseltes Passwort speichern.
-Software Architektur
+Testanmeldedaten: Verwende die Testanmeldedaten te@st.com mit dem Passwort 123, um dich anzumelden. Wenn dies Fehlschlägt, kannst du in der DB einen User erstellen und ein RSA verschlüsseltes Passwort speichern.
+### Software Architektur
 ExercisesBox folgt einer klassischen Client-Server-Architektur. Das Projekt ist in zwei Hauptkomponenten unterteilt:
 
 Frontend (Angular): Das Frontend ist in Angular implementiert und sorgt für die Benutzeroberfläche und die Interaktion mit dem Backend.
