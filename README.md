@@ -12,7 +12,7 @@ Nachdem unser Informatiklehrer in der Berufsschule Interesse als Anwender gezeig
 # Prerequisites
 ### Backend
 Das Backend ist in C# ASP.NET 8 implementiert.
-Datenbank: Die Datenbank wurde exportiert und kann in SQL Server Management Studio (SSMS) samt Testdaten importiert werden. Dazu einfach auf "Databases" rechts klicken und "Import Data-Tier Application" auswählen, um den Import zu starten.
+Datenbank: Die Datenbank wurde exportiert und kann in SQL Server Management Studio (SSMS) samt Testdaten importiert werden. Dazu im SSMS links auf "Databases" rechts klicken und "Import Data-Tier Application" auswählen, um den Import zu starten. Die Datei ist im Ordner .Database
 ### Frontend
 Node.js (Version 16.x oder höher)
 Angular CLI (Version 14.x oder höher)
