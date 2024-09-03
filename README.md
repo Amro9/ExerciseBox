@@ -6,7 +6,7 @@ Clean Architecture, DI, Repository Pattern, CQRS, MediatR.
 
 # Einleitung
 Hallo, wir sind Thomas und Amro. Bei diesem Projekt handelt es sich um ExercisesBox, ein Tool, das Lehrern ermöglicht, Prüfungsfragen zu posten, zu speichern und daraus PDF-Arbeitsblätter zu generieren.
-Das Projekt richtet sich an Schulen und soll den Lehrkräften eine einfache Möglichkeit bieten, personalisierte Übungsblätter für ihre Schüler zu erstellen. Diese README-Datei bietet eine Übersicht über das Projekt und liefert die wichtigsten Informationen für die Weiterentwicklung.
+Das Projekt richtet sich an Schulen und soll den Lehrkräften eine einfache Möglichkeit bieten, angepasste Übungsblätter für ihre Schüler zu erstellen. Diese README-Datei bietet eine Übersicht über das Projekt und liefert die wichtigsten Informationen für die Weiterentwicklung.
 Nachdem unser Informatiklehrer in der Berufsschule Interesse als Anwender gezeigt hat, wird das Projekt zukünftig von potenziellen Schülern im nächsten Schuljahr übernommen und an seine Anforderungen angepasst. Für dieses Projekt haben wir die Note 1,0 erhalten.
 
 # Prerequisites
